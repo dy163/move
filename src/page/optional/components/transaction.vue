@@ -1,0 +1,477 @@
+<template>
+    <div class="optional-stock"
+    :value="value"
+    @input="$emit('input', $event)">
+        <div class="optional-stock-header" @click="$router.push('/optional')">
+                <van-icon name="arrow-left" size="16"/>
+                <!-- <van-icon name="arrow-right" size="16"/> -->
+            <div>
+                <p> <span>HK</span> 恒生指数(HSI)</p>
+                <p>交易中07-25 10:36:20</p>
+            </div>
+        </div>
+        <div class="optional-stock-number">
+            <div>
+                <p class="optional-stock-number-mark">28,597.99</p>
+                <div>
+                    <p class="optional-stock-number-gain">+73.950</p>
+                    <p class="optional-stock-number-gain">+0.88</p>
+                </div>
+            </div>
+            <div >
+                <p class="optional-stock-color">Lo</p>
+            </div>
+        </div>
+        <!-- 指数动态信息 -->
+        <div class="optional-list">
+            <table>
+                <tr>
+                    <td>今&nbsp;&nbsp;&nbsp;开</td>
+                    <td>0.950</td>
+                    <td>最&nbsp;&nbsp;&nbsp;高</td>
+                    <td>0.980</td>
+                    <td>成交量</td>
+                    <td>0</td>
+                </tr>
+                <tr>
+                    <td>昨&nbsp;&nbsp;&nbsp;收</td>
+                    <td>0.970</td>
+                    <td>最&nbsp;&nbsp;&nbsp;低</td>
+                    <td>0.950</td>
+                    <td>成交额</td>
+                    <td>- -</td>
+                </tr>
+                <tr>
+                    <td>总股本</td>
+                    <td>1.84亿</td>
+                    <td>流通值</td>
+                    <td>4462.00万</td>
+                    <td>52周最低</td>
+                    <td>0.840</td>
+                </tr>
+                <tr>
+                    <td>总市值</td>
+                    <td>1.78亿</td>
+                    <td>流通股</td>
+                    <td>4600.00万</td>
+                    <td>52周最高</td>
+                    <td>2.840</td>
+                </tr>
+                <tr>
+                    <td>市盈率(动）</td>
+                    <td>- -</td>
+                    <td>换手率</td>
+                    <td>0.00%</td>
+                    <td>每股收益</td>
+                    <td>0.07</td>
+                </tr>
+                <tr>
+                    <td>市盈率(静)</td>
+                    <td>14.06</td>
+                    <td>振&nbsp;&nbsp;&nbsp;幅</td>
+                    <td>0.00%</td>
+                    <td>股息率</td>
+                    <td>0.00%</td>
+                </tr>
+                <tr>
+                    <td>每&nbsp;&nbsp;&nbsp;手</td>
+                    <td>2000</td>
+                    <td>Beta值</td>
+                    <td>- -</td>
+                    <td>股&nbsp;&nbsp;&nbsp;息</td>
+                    <td>- -</td>
+                </tr>
+            </table>
+        </div>
+        <!-- 时间展示 -->
+        <div class="optional-date">
+            <p>财政年结日 <span>2018-06-30</span></p>
+            <p>
+                <van-icon name="arrow-up" color="#7F819B" size="16"/>
+            </p>
+        </div>
+        <!-- 图表分析展示 -->
+        <div class="optional-crap">
+            <div class="optional-crap-trend">
+                <van-tabs v-model="timer" background='#20212A' line-height='0' title-active-color='#2F98FF'>
+                    <van-tab title="分时">分时</van-tab>
+                    <van-tab title="日K">日K</van-tab>
+                    <van-tab title="周K">周K</van-tab>
+                    <van-tab title="月K">月K</van-tab>
+                </van-tabs>
+            </div>
+            <div class="optional-news">
+                <van-tabs v-model="tidings" background='#20212A' line-height='0' title-active-color='#2F98FF'>
+                    <van-tab title="新闻">
+                        <div slot="default">
+                            <p>07月25日主力资金抢筹最积极的前10股（附名单）</p>
+                            <p><span>今天 15:10</span></p>
+                        </div>
+                        <div slot="default">
+                            <p>07月25日主力资金抢筹最积极的前10股（附名单）</p>
+                            <p><span>今天 15:10</span></p>
+                        </div>
+                        <div slot="default">
+                            <p>食品饮料行业Q2基金持仓分析：食品饮料持仓创历史新高处上升期</p>
+                            <p><span>今天 15:10</span></p>
+                        </div>
+                    </van-tab>
+                    <van-tab title="公告">
+                        <div slot="default">
+                            <p>贵州茅台关于会计政策变更的公告</p>
+                            <p>2019-07-17</p>
+                        </div>
+                        <div slot="default">
+                            <p>贵州茅台第二届监事会2019年度第三次会议决议的…</p>
+                            <p>2019-07-17</p>
+                        </div>
+                        <div slot="default">
+                            <p>贵州茅台关于会计政策变更的公告</p>
+                            <p>2019-07-17</p>
+                        </div>
+                    </van-tab>
+                    <van-tab title="分析">
+                        <div slot="default">
+                            <p class="optional-img">
+                                <img src="@/assets/img/hollow.png">
+                            </p>
+                            <span class="optional-test">暂无分析动态</span>
+                        </div>
+                    </van-tab>
+                </van-tabs>
+            </div>
+        </div>
+        <!-- 买入卖出底部展示 -->
+        <div class="optional-buy" v-show="side">
+            <div  @click="isPurchase = true">
+                <img src="@/assets/img/purchase.png" alt="">
+                <p>买入</p>
+            </div>
+            <div @click="isShow = true">
+                <img src="@/assets/img/selling-price.png" alt="">
+                <p>卖出</p>
+            </div>
+            <div class="optional-buy-follow">
+                <img src="@/assets/img/cancel.png" @click="$router.push('/order-list')">
+                <p>撤单</p>
+            </div>
+            <div class="optional-buy-follow">
+                <img src="@/assets/img/concern.png" @click="$router.push('/optional')">
+                <p>自选</p>
+            </div>
+        </div>
+        <!-- 卖出子组件 -->
+        <home-sell v-model="isShow"/>
+        <!-- 买入子组件 -->
+        <home-purchase v-model="isPurchase"/>
+</div>
+</template>
+
+<script>
+import HomeSell from './sell'
+import HomePurchase from './purchase'
+export default {
+  name: 'Transaction',
+  components: {
+    HomeSell,
+    HomePurchase
+  },
+  props: {
+    value: {
+      type: Boolean,
+      default: false
+    }
+  },
+  data () {
+    return {
+      timer: 0,
+      tidings: 0,
+      radio: '',
+      isShow: false,
+      isPurchase: false,
+      side: true
+    }
+  },
+  methods: {
+
+  }
+
+}
+</script>
+
+<style lang="less" scoped>
+.optional-stock-header {
+    height: 44px;
+    line-height: 44px;
+    padding: 0 15px;
+    display: flex;
+    align-items: center;
+    .van-icon {
+        color: #fff;
+    }
+    div:nth-child(2) {
+        p:nth-child(1) {
+            height:22px;
+            font-size:16px;
+            font-family:PingFangSC-Medium,PingFangSC;
+            font-weight:500;
+            color:rgba(255,255,255,1);
+            line-height:22px;
+            padding-left: 92px;
+            span {
+                display: inline-block;
+                background:rgba(141,77,233,1);
+                border-radius:1px;
+                width:16px;
+                height:11px;
+                font-size:16px;
+                -webkit-transform: scale(0.5);
+                font-family:PingFangSC-Regular,PingFangSC;
+                font-weight:400;
+                color:rgba(255,255,255,1);
+                line-height:11px;
+                padding: 5px;
+                text-align: left;
+            }
+        }
+        p:nth-child(2) {
+            height:17px;
+            font-size:12px;
+            font-family:PingFangSC-Regular,PingFangSC;
+            font-weight:400;
+            color:rgba(127,129,155,1);
+            line-height:17px;
+            padding-left: 102px;
+            padding-top: 2px;
+        }
+    }
+}
+.optional-stock-number {
+    height: 74px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid #14151C;
+    padding: 0 15px;
+    div:nth-child(1) {
+
+        color:rgba(53,192,137,1);
+        display: flex;
+        justify-content: center;
+        height: 74px;
+        line-height: 74px;
+        .optional-stock-number-mark {
+            width:191px;
+            font-size:40px;
+            font-family:DINAlternate-Bold,DINAlternate;
+            font-weight:bold;
+            padding-left: 50px;
+        }
+        div {
+            padding-top: 22px;
+        }
+        .optional-stock-number-gain {
+            padding-left: 10px;
+            width:46px;
+            font-size:14px;
+            font-family:DINAlternate-Bold,DINAlternate;
+            font-weight:bold;
+            color:rgba(53,192,137,1);
+        }
+    }
+    div:nth-child(2) {
+        width:16px;
+        height:16px;
+        border-radius:2px;
+        p {
+            width:12px;
+            height:16px;
+            font-size:11px;
+            font-family:PingFangSC;
+            font-weight:200;
+            color:rgba(255,255,255,1);
+            line-height:16px;
+
+        }
+    }
+    .optional-stock-color {
+        background-color: #FF7946;
+        padding-right: 3px;
+    }
+}
+.optional-list {
+    padding: 0 15px;
+    table {
+        width: 100%;
+        padding-top: 10px;
+    }
+    tr {
+        height:17px;
+        font-size:12px;
+        font-family:PingFangSC;
+        font-weight:400;
+        color:rgba(127,129,155,1);
+        line-height:17px;
+        padding: 5px 0;
+        td:nth-child(even) {
+            color:#fff;
+            text-align: right;
+            padding-right: 5px;
+        }
+    }
+    tr:nth-child(1) {
+        td:nth-child(2) {
+            color: #35C089;
+        }
+        td:nth-child(4) {
+            color: #FD5957;
+        }
+    }
+    tr:nth-child(2) {
+        td:nth-child(4) {
+            color: #35C089;
+        }
+    }
+}
+.optional-date {
+    padding: 0 15px;
+    border-top: 1px solid #14151C;
+    border-bottom: 2px solid #14151C;
+    p:nth-child(1) {
+        padding-top: 15px;
+        height:17px;
+        font-size:12px;
+        font-family:PingFangSC;
+        font-weight:400;
+        color:rgba(127,129,155,1);
+        line-height:17px;
+
+        span {
+            color: #fff;
+        }
+    }
+    p:nth-child(2) {
+        text-align: center;
+    }
+}
+.van-ellipsis {
+    width:24px;
+    height:20px;
+    font-size:14px;
+    font-family:PingFangSC;
+    font-weight:500;
+    color:rgba(127,129,155,1);
+    line-height:20px;
+}
+.optional-crap-trend {
+    .van-tab__pane {
+        height: 220px;
+        padding: 0 15px;
+    }
+}
+.optional-news {
+    border-top: 2px solid #14151C;
+    .van-tab__pane {
+        padding: 0 15px;
+        padding-bottom: 60px;
+        div {
+            border-bottom: 1px solid #14151C;
+            padding: 10px 0;
+            p:nth-child(1) {
+                font-size:14px;
+                font-family:PingFangSC;
+                font-weight:500;
+                color:rgba(255,255,255,1);
+
+            }
+            p:nth-child(2) {
+                height:16px;
+                font-size:11px;
+                font-family:PingFangSC;
+                font-weight:400;
+                color:rgba(109,112,135,1);
+                line-height:16px;
+                padding-top: 8px;
+            }
+            .optional-img {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                padding-top: 50px;
+            }
+            .optional-test {
+                display: flex;
+                justify-content: center;
+                    height:17px;
+                    font-size:12px;
+                    font-family:PingFangSC;
+                    font-weight:400;
+                    color:rgba(83,84,92,1);
+                    line-height:17px;
+                    text-align: center;
+                    padding-bottom: 50px;
+            }
+        }
+    }
+}
+.optional-buy {
+    display: flex;
+    align-items: center;
+    position: fixed;
+    bottom: 0;
+    height:49px;
+    background:rgba(32,33,42,1);
+    div:nth-child(1) {
+        width:117px;
+        background:rgba(245,69,69,1);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 49px;
+        img {
+            width:20px;
+            height:19px;
+            padding-right: 5px;
+        }
+        p {
+            font-size:16px;
+            font-family:PingFangSC-Medium,PingFangSC;
+            font-weight:500;
+            color:rgba(255,255,255,1);
+        }
+
+    }
+    div:nth-child(2) {
+        width:117px;
+        background:rgba(51,192,137,1);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 49px;
+        img {
+            width:20px;
+            height:19px;
+            padding-right: 5px;
+        }
+        p {
+            font-size:16px;
+            font-family:PingFangSC-Medium,PingFangSC;
+            font-weight:500;
+            color:rgba(255,255,255,1);
+        }
+    }
+    .optional-buy-follow {
+        // padding: 0 22px;
+        width: 71px;
+        text-align: center;
+        padding-bottom: 5px;
+        box-sizing: border-box;
+        p {
+            font-size:12px;
+            font-family:PingFangSC-Regular,PingFangSC;
+            font-weight:400;
+            color:rgba(255,255,255,1);
+        }
+    }
+}
+</style>

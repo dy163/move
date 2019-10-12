@@ -1,0 +1,40 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+body {
+  background-color: #20212A;
+}
+.van-hairline--top-bottom::after,
+.van-hairline-unset--top-bottom::after {
+  border-width: 0;
+}
+.van-field__control {
+  color: #fff;
+}
+.van-nav-bar__title {
+  font-size: 17px;
+  font-family: PingFangSC;
+  font-weight: 500;
+  color: #ffffff;
+}
+.van-toast--text {
+  color: #fff;
+  height: 50px;
+  background-color: #000;
+}
+.van-nav-bar {
+  background-color: #20212A;
+}
+.van-nav-bar .van-icon {
+  color: #fff;
+}
+.van-hairline--bottom::after {
+  border-bottom: 2px solid #14151C;
+}
+.van-nav-bar__title {
+  font-size: 17px;
+  font-family: PingFangSC;
+  font-weight: 500;
+  color: #ffffff;
+}

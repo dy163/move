@@ -1,0 +1,79 @@
+<template>
+    <div class="install">
+        <van-nav-bar
+        title="设置"
+        left-arrow
+        @click-left="$router.back()"
+        />
+        <div class="install-jump">
+            <div>
+                <p>
+                    <router-link to="/account-management">账号管理</router-link>
+                </p>
+                <p><van-icon name="arrow" color="#7F819B"/></p>
+            </div>
+            <div>
+                <p>
+                    <router-link to="/about-us">关于</router-link>
+                </p>
+                <p><van-icon name="arrow" color="#7F819B"/></p>
+            </div>
+        </div>
+        <div class="install-foot">
+            <router-link to="">退出登录</router-link>
+        </div>
+    </div>
+</template>
+
+<script>
+export default {
+  name: 'Install',
+  data () {
+    return {
+
+    }
+  },
+  methods: {
+
+  }
+}
+</script>
+
+<style lang="less" scoped>
+.install-jump {
+    padding: 0 16px;
+    div {
+        height: 50px;
+        line-height: 50px;
+        font-size:15px;
+        font-family:PingFangSC;
+        font-weight:500;
+        color:rgba(255,255,255,1);
+        display: flex;
+        p {
+            flex: 1;
+            .van-icon-arrow {
+                padding-left: 160px;
+            }
+            a {
+                color: #fff;
+            }
+        }
+    }
+    div:nth-child(1) {
+        border-bottom: 1px solid #14151C;
+    }
+}
+.install-foot {
+    text-align: center;
+    padding-top: 80px;
+}
+.router-link-exact-active {
+    height:22px;
+    font-size:16px;
+    font-family:PingFangSC;
+    font-weight:500;
+    line-height:22px;
+    color: #5794F0;
+}
+</style>
