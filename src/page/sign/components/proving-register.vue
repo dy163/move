@@ -61,11 +61,14 @@ export default {
   },
   methods: {
     handleClick () {
-      let sms = this.sms
-      if (sms !== '') {
+      const sms = this.verification
+      const reg = /^\d{6}$/
+      if (!sms) {
+        this.$toast('请获取发送验证码')
+      } else if (!reg.test(sms)) {
+        this.$toast('验证码输入错误')
+      } else {
         this.$router.push({ name: 'sign', params: { type: 'register' } })
-      } else if (sms === '') {
-        this.$toast('请点击发送验证码')
       }
     },
 

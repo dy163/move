@@ -31,8 +31,8 @@
           <van-button
             class="login-btn"
             hairline
-            @click="handleClick"
-            @click.prevent="handleClick"
+            @click="handleClickPhone"
+            @click.prevent="handleClickPhone"
           >登录</van-button>
         </div>
         <div class="register-password" >
@@ -62,7 +62,8 @@ export default {
   },
 
   methods: {
-    handleClick () {
+    // 登录验证手机
+    handleClickPhone () {
       const phone = this.code
       const reg = /^1[3|4|5|8][0-9]\d{4,8}$/
       if (!phone) {
@@ -73,6 +74,7 @@ export default {
         this.$router.push('/personal-information')
       }
     },
+    // 验证登录密码得显示和隐藏
     typeClickPassword () {
       const password = document.getElementById('password')
       if (password.type === 'password') {
