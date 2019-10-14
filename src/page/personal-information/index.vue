@@ -29,7 +29,7 @@
                 <router-link to="/order-list">成交查询</router-link>
             </div>
             <!-- 委托查询 -->
-            <div>>
+            <div>
                 <img src="@/assets/img/entrust.png" alt="">
                 <router-link to="/order-list">委托查询</router-link>
             </div>

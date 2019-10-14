@@ -41,7 +41,7 @@
                 hairline
                 @click="handleClick"
                 @click.prevent="handleClick"
-                >下一步</van-button>
+                >完成注册</van-button>
             </div>
         </form>
     </div>
@@ -68,7 +68,7 @@ export default {
       } else if (!reg.test(sms)) {
         this.$toast('验证码输入错误')
       } else {
-        this.$router.push({ name: 'sign', params: { type: 'register' } })
+        this.$router.push({ name: 'sign', params: { type: 'login' } })
       }
     },
 

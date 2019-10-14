@@ -41,7 +41,8 @@ export default {
     // 下一步操作
     handleClickNextStep () {
       const phone = this.code
-      const reg = /^1[3|4|5|8][0-9]\d{4,8}$/
+      const reg = /^[1][3,4,5,7,8][0-9]{9}$/
+      // const reg = /^1\d{10}$/
       if (!phone) {
         this.$toast('请输入手机号')
       } else if (!reg.test(phone)) {

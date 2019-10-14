@@ -58,7 +58,7 @@ export default {
     // 输入手机正则验证
     handleClick () {
       const phone = this.code
-      const reg = /^1[3|4|5|8][0-9]\d{4,8}$/
+      const reg = /^[1][3,4,5,7,8][0-9]{9}$/
       const yzreg = /^\d{6}$/
       if (!phone) {
         this.$toast('请输入手机号')

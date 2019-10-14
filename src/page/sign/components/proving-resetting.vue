@@ -29,8 +29,7 @@
                   hairline
                   :disabled="!!codeTimer"
                   :loading="codeLoading"
-                  @click="handleClickTimer"
-                  @click.prevent="handleClickTimer">
+                  @click="handleClickTimer">
                   {{ codeTimer ? `${codeTimeSeconds}s` : '获取验证码' }}
                   </van-button>
                 </div>
@@ -63,11 +62,14 @@ export default {
   methods: {
     // 下一步操作
     handleClickNextStep () {
-      const verification = this.verification
-      if (verification !== '') {
+      const sms = this.verification
+      const reg = /^\d{6}$/
+      if (!sms) {
+        this.$toast('请获取发送验证码')
+      } else if (!reg.test(sms)) {
+        this.$toast('验证码输入错误')
+      } else {
         this.$router.push({ name: 'sign', params: { type: 'reset-password' } })
-      } else if (verification === '') {
-        this.$toast('请点击发送验证码')
       }
     },
     // 定时器函数
@@ -90,34 +92,31 @@ export default {
 
 <style lang="less" scoped>
 .resetting {
-    color: #fff;
-}
-.resetting-name {
-    width:100%;
+  color: #fff;
+  font-family:PingFangSC;
+  .resetting-name {
     height:29px;
     font-size:21px;
-    font-family:PingFangSC;
     font-weight:500;
     line-height:29px;
     padding-left: 15px;
     padding-top: 20px;
-}
-.resetting-te {
+  }
+  .resetting-te {
     width:300px;
     height:20px;
     font-size:14px;
-    font-family:PingFangSC;
     font-weight:400;
     color:rgba(255,255,255,1);
     line-height:20px;
     padding-top: 5px;
     padding-left: 15px;
     padding-bottom: 15px;
+  }
 }
 form {
-    padding: 0 15px;
-}
-.resetting-box {
+  padding: 0 15px;
+  .resetting-box {
     display: flex;
     align-items: center;
     flex: 1;
@@ -131,21 +130,23 @@ form {
         margin: 0 -20px;
       }
     }
-}
-.van-cell {
-  color: #fff;
-  background-color:#353641;
-}
-.resetting-time {
+  }
+  .van-cell {
+    color: #fff;
+    background-color:#353641;
+  }
+  .resetting-time {
     margin-left: 10px;;
     width: 75px;
+  }
+  .login-btn-box {
+    padding-top: 30px;
+  }
+  .login-btn {
+    width: 100%;
+    background-color: #2F98FF;
+    color: #fff;
+  }
 }
-.login-btn-box {
-  padding-top: 30px;
-}
-.login-btn {
-  width: 100%;
-  background-color: #2F98FF;
-  color: #fff;
-}
+
 </style>

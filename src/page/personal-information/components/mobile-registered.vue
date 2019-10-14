@@ -29,8 +29,7 @@
                     hairline
                     :disabled="!!codeTimer"
                     :loading="codeLoading"
-                    @click="handleClickTimer"
-                    >
+                    @click="handleClickTimer">
                     {{ codeTimer ? `${codeTimeSeconds}s` : '获取验证码' }}
                     </van-button>
                 </div>
@@ -61,8 +60,12 @@ export default {
   },
   methods: {
     handleRegistered () {
-      if (this.verification === '') {
-        this.$toast('手机号已被注册')
+      const phone = this.verification
+      const reg = /^\d{6}$/
+      if (!phone) {
+        this.$toast('请点击按钮获取验证码')
+      } else if (!reg.test(phone)) {
+        this.$toast('请正确输入6位验证码')
       } else {
         this.$router.push({ name: 'sign', params: { type: 'reset-password' } })
       }

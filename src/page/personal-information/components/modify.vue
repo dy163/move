@@ -11,7 +11,7 @@
             </div>
             <div class="modify-enter">
                 <van-cell-group>
-                    <van-field v-model="value" type="password"/>
+                    <van-field v-model="pass" type="password"/>
                 </van-cell-group>
             </div>
             <div>
@@ -35,13 +35,17 @@ export default {
   name: 'Modify',
   data () {
     return {
-      value: ''
+      pass: ''
     }
   },
   methods: {
     handleClickNext () {
-      if (this.value === '') {
+      const pass = this.pass
+      const reg = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,30}$/
+      if (!pass) {
         this.$toast('请输入登录密码')
+      } else if (!reg.test(pass)) {
+        this.$toast('密码不正确')
       } else {
         this.$router.push('/selective-verification')
       }

@@ -1,10 +1,11 @@
 <template>
     <div class="capital">
+        <!-- 头部 -->
         <van-nav-bar
         title="资产"
         left-arrow
-        @click-left="$router.back()"
-        />
+        @click-left="$router.back()"/>
+        <!-- 资产总得展示 -->
         <div class="capital-reveal">
             <div class="capital-reveal-top">
                 <p>账户总资产(RMB)</p>
@@ -124,7 +125,7 @@
             </table>
         </div>
         <!-- 底部导航 -->
-        <app-tabbar></app-tabbar>
+        <app-tabbar/>
     </div>
 </template>
 
@@ -152,11 +153,16 @@ export default {
 </script>
 
 <style lang="less" scoped>
+.capital {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background:rgba(23,24,34,1);
+}
 .capital-reveal {
     height:170px;
     background:linear-gradient(90deg,rgba(59,113,255,1) 0%,rgba(68,162,255,1) 100%);
     color: #fff;
-    // margin-bottom: 10px;
 }
 .capital-reveal-top {
     text-align: center;
@@ -205,12 +211,10 @@ export default {
             }
         }
     }
-    // .capital-reveal-border {
-    //     border-top: 1px solid #000;
-    // }
 }
 .capital-details {
-    margin-bottom: 8px;
+    margin: 9px 0;
+    background:rgba(32,33,43,1)
 }
 .capital-details-header {
     display: flex;
@@ -218,10 +222,6 @@ export default {
     height:61px;
     line-height: 61px;
     border-bottom: #14151C 1px solid;
-    // box-sizing: border-box;
-    // overflow:hidden;
-    margin-top: 5px;
-    // padding-top: 5px;
     div {
         flex: 1;
         padding: 11px 0;
@@ -300,9 +300,12 @@ export default {
     display: flex;
     align-items: center;
     text-align: center;
+    div:nth-child(1) {
+        border-right: 1px solid #171822;
+    }
     div {
         flex: 1;
-        border: 1px solid #000;
+        border-top: 1px solid #171822;
         height: 50px;
         line-height: 50px;
         align-items: center;
@@ -324,9 +327,8 @@ export default {
     }
 }
 .capital-list {
-    margin-top: 10px;
-    height: 100px;
-    padding-bottom: 50px;
+    height: 115px;
+    background:rgba(32,33,43,1);
     tr {
         text-align: center;
         td {
@@ -386,7 +388,6 @@ export default {
         color:rgba(255,255,255,1);
         line-height:20px;
     }
-
 }
 .van-hairline--top-bottom {
     background-color: #20212A;

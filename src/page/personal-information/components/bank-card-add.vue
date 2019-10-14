@@ -5,7 +5,11 @@
             <van-icon name="plus" slot="right" />
         </van-nav-bar>
         <div class="bank-card-content">
-            <div class="bank-card-content-card" @click="handleDelete">
+            <div class="bank-card-content-card"
+            @click="handleDelete"
+            @touchstart="gotouchstart"
+            @touchmove="gotouchmove"
+            @touchend="gotouchend">
                 <div>
                     <img src="@/assets/img/debit.png" alt="">
                 </div>
@@ -46,6 +50,7 @@
 </template>
 
 <script>
+let timeOutEvent = null// 定时器
 export default {
   name: 'BankCardAdd',
   data () {
@@ -69,6 +74,26 @@ export default {
       window.setTimeout(() => {
         this.$toast('已删除')
       }, 1000)
+    },
+
+    gotouchstart () {
+      clearTimeout(timeOutEvent)// 清除定时器
+      timeOutEvent = 0
+      timeOutEvent = setTimeout(function () {
+        // 执行长按要执行的内容，
+      }, 600)// 这里设置定时
+    },
+    // 手释放，如果在500毫秒内就释放，则取消长按事件，此时可以执行onclick应该执行的事件
+    gotouchend () {
+      clearTimeout(timeOutEvent)
+      if (timeOutEvent !== 0) {
+        // 这里写要执行的内容（尤如onclick事件）
+      }
+    },
+    // 如果手指有移动，则取消所有事件，此时说明用户只是要移动而不是长按
+    gotouchmove () {
+      clearTimeout(timeOutEvent)// 清除定时器
+      timeOutEvent = 0
     }
   }
 }
