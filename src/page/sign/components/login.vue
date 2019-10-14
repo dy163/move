@@ -8,12 +8,12 @@
         <p class="login-header">登录</p>
         <!-- 输入登录手机号 -->
         <van-cell-group class="login-code">
-          <van-field
-          v-model="code"
-          label="+86"
-          right-icon="close"
-          @click-right-icon="code = ''"
-          placeholder="请输入手机号或者编号" />
+          <van-field  v-model="code" placeholder="请输入您的新手机号号码">
+            <div slot="label">
+              <span>+86</span>
+              <span class="triangle"></span>
+            </div>
+          </van-field>
         </van-cell-group>
         <!-- 输入密码 -->
         <van-cell-group>
@@ -101,14 +101,20 @@ export default {
   display: flex;
   align-items: center;
   background-color:#353641;
+  .triangle {
+      border-top: 4px solid #fff;
+      border-left: 4px solid transparent;
+      border-right: 4px solid transparent;
+      display: inline-block;
+      text-align: center;
+      margin-left: 10px;
+    }
 }
 
 form {
   padding: 0 15px;
 }
 .van-cell {
-  /* padding: 5px 0; */
-
   color: #fff;
   background-color:#353641;
 }
@@ -118,7 +124,6 @@ form {
 .login-btn {
   width: 100%;
   background-color: #2F98FF;
-  /* color: #fff; */
   .van-button__text {
     width:32px;
     height:22px;
@@ -129,7 +134,6 @@ form {
     line-height:22px;
   }
 }
-
 .register-password {
   height:20px;
   font-size:14px;
@@ -154,9 +158,8 @@ form {
   display: flex;
   justify-content: center;
   align-items: center;
+  .color-sapphire {
+    color: #2F98FF;
+  }
 }
-.color-sapphire {
-  color: #2F98FF;
-}
-
 </style>

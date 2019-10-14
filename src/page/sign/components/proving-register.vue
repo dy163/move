@@ -29,7 +29,7 @@
                   :disabled="!!codeTimer"
                   :loading="codeLoading"
                   @click="handleClickTimer"
-                  @click.prevent="handleClickTimer">
+                  >
                   {{ codeTimer ? `${codeTimeSeconds}s` : '获取验证码' }}
                   </van-button>
                 </div>

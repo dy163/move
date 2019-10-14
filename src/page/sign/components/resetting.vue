@@ -9,8 +9,13 @@
         <form>
           <!-- 输入手机号 -->
           <van-cell-group>
-              <van-field  label="+86" v-model="code" placeholder="请输入您的手机号码" />
-          </van-cell-group>
+                <van-field  v-model="code" placeholder="请输入您的手机号码">
+                  <div slot="label">
+                    <span>+86</span>
+                    <span class="triangle"></span>
+                  </div>
+                </van-field>
+            </van-cell-group>
           <!-- 下一步操作 -->
           <div class="login-btn-box">
             <van-button
@@ -64,6 +69,14 @@ p {
 }
 form {
     padding: 0 15px;
+    .triangle {
+      border-top: 4px solid #fff;
+      border-left: 4px solid transparent;
+      border-right: 4px solid transparent;
+      display: inline-block;
+      text-align: center;
+      margin-left: 10px;
+    }
 }
 .van-cell {
     color: #fff;

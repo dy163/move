@@ -30,7 +30,7 @@
                     :disabled="!!codeTimer"
                     :loading="codeLoading"
                     @click="handleClickTimer"
-                    @click.prevent="handleClickTimer">
+                    >
                     {{ codeTimer ? `${codeTimeSeconds}s` : '获取验证码' }}
                     </van-button>
                 </div>
@@ -109,12 +109,15 @@ export default {
     }
 }
 form {
-    padding: 0 15px;
-}
-.resetting-box {
+  padding: 0 15px;
+  .resetting-box {
     display: flex;
     align-items: center;
     flex: 1;
+    .van-cell-group {
+      width: 100%;
+      border-radius:3px;
+    }
     .van-button {
       background-color:#353641;
       width: 85px;
@@ -126,21 +129,26 @@ form {
         font-size: 14px
       }
     }
-}
-.van-cell-group {
-  width: 100%;
-  border-radius:3px;
-}
-.van-cell {
-  color: #EEEEEE;
-  background-color:#353641;
-}
-.van-field__label {
-    color: #EEEEEE;
+    .van-cell {
+      color: #EEEEEE;
+      background-color:#353641;
+    }
+    .van-field__label {
+        color: #EEEEEE;
+    }
+  }
 }
 .resetting-model {
-    width: 100%;
-    border-radius:3px;
+  width: 100%;
+  border-radius:3px;
+    .van-button__text {
+    height:22px;
+    font-size:16px;
+    font-family:PingFangSC;
+    font-weight:500;
+    color: #7E829C;
+    line-height:22px;
+  }
 }
 .resetting-time {
     margin-left: 10px;;
@@ -149,18 +157,16 @@ form {
 }
 .login-btn-box {
   padding-top: 30px;
-}
-.login-btn {
-  width: 100%;
-  background-color: #2F98FF;
-  color: #fff;
-}
-.van-button__text {
-    height:22px;
+  .login-btn {
+    width: 100%;
+    background-color: #2F98FF;
+    color: #fff;
     font-size:16px;
-    font-family:PingFangSC;
+    font-family:PingFangSC-Medium,PingFangSC;
     font-weight:500;
-    color:rgba(255,255,255,1);
     line-height:22px;
+  }
+
 }
+
 </style>

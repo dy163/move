@@ -8,17 +8,25 @@
         <p>手机验证开户</p>
         <form>
             <van-cell-group>
-                <van-field  label="+86" v-model="code" placeholder="请输入您的手机号号码" />
+                <van-field  v-model="code" placeholder="请输入您的手机号号码">
+                  <div slot="label">
+                    <span>+86</span>
+                    <span class="triangle"></span>
+                  </div>
+                </van-field>
             </van-cell-group>
             <div class="resetting-box">
                 <van-cell-group class="resetting-model">
                     <van-field  label="验证码" v-model="pass" placeholder="请输入验证码" />
                 </van-cell-group>
                 <van-button
-                hairline
-                @click="handleClickVerify"
-                @click.prevent="handleClickVerify"
-                >{{ message }}</van-button>
+                  hairline
+                  :disabled="!!codeTimer"
+                  :loading="codeLoading"
+                  @click="handleClickTimer"
+                  >
+                  {{ codeTimer ? `${codeTimeSeconds}s` : '获取验证码' }}
+                  </van-button>
             </div>
             <div class="login-btn-box">
                 <van-button
@@ -33,6 +41,7 @@
 </template>
 
 <script>
+const initCodeTimeSeconds = 60
 export default {
   name: 'CellphoneOpen',
   props: {},
@@ -40,24 +49,38 @@ export default {
     return {
       code: '',
       pass: '',
-      content: '',
-      totalTime: 60,
-      message: '获取验证码'
+      codeLoading: false,
+      codeTimer: null, // 倒计时定时器
+      codeTimeSeconds: initCodeTimeSeconds // 定时器事件
     }
   },
   methods: {
+    // 输入手机正则验证
     handleClick () {
-      if (this.code || this.pass !== '') {
-        this.$router.push({ name: 'sign', params: { type: 'detailed-people' } })
+      const phone = this.code
+      const reg = /^1[3|4|5|8][0-9]\d{4,8}$/
+      const yzreg = /^\d{6}$/
+      if (!phone) {
+        this.$toast('请输入手机号')
+      } else if (!reg.test(phone)) {
+        this.$toast('手机号格式错误')
+      } else if (!yzreg.test(this.pass)) {
+        this.$toast('请输入6位数字验证码')
       } else {
-        this.$toast('请输入手机号和验证码')
+        this.$router.push({ name: 'sign', params: { type: 'detailed-people' } })
       }
     },
-    handleClickVerify () {
-      window.setInterval(() => {
-        this.totalTime--
-        this.content = this.totalTime + 's'
-        this.message = this.totalTime
+    // 定时器函数
+    handleClickTimer () {
+      this.codeTimer = window.setInterval(() => {
+        this.codeTimeSeconds--
+        if (this.codeTimeSeconds <= 0) {
+          window.clearInterval(this.codeTimer)
+          // 定时器回到初始状态
+          this.codeTimeSeconds = initCodeTimeSeconds
+          // 回到初始重新为空
+          this.codeTimer = null
+        }
       }, 1000)
     }
   }
@@ -65,21 +88,6 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.van-nav-bar {
-    background-color: #20212A;
-    font-family:PingFangSC;
-}
-.van-nav-bar .van-icon {
-    color: #fff;
-    height:24px;
-    font-size:17px;
-    font-weight:500;
-    line-height:24px;
-}
-.van-hairline--bottom::after {
-    height:2px;
-    background-color: #14151C;
-}
 p {
   padding-left: 16px;
   height:29px;
@@ -91,8 +99,16 @@ p {
   margin-top: 20px;
 }
 form {
-    padding: 0 15px;
-    padding-top: 40px;
+  padding: 0 15px;
+  padding-top: 40px;
+  .triangle {
+    border-top: 4px solid #fff;
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    display: inline-block;
+    text-align: center;
+    margin-left: 10px;
+  }
 }
 .resetting-box {
     margin-top: 10px;

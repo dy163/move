@@ -2,7 +2,7 @@
     <div>
       <!-- 登录页 -->
       <Login v-if="this.$route.params.type === 'login'"/>
-      <!-- <Login v-bind:is="Login"/> -->
+      <!-- <Login :is="Login"/> -->
       <!-- 注册账号验证码 -->
       <ProvingRegister v-if="this.$route.params.type === 'proving-register'"/>
       <!-- 重置密码 发送验证码 -->

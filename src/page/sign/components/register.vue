@@ -9,10 +9,14 @@
             <van-cell-group>
                 <van-field
                 v-model="code"
-                label="+86"
+                placeholder="手机号码"
                 right-icon="close"
-                @click-right-icon="code = ''"
-                placeholder="手机号码" />
+                @click-right-icon="code = ''">
+                  <div slot="label">
+                    <span>+86</span>
+                    <span class="triangle"></span>
+                  </div>
+                </van-field>
             </van-cell-group>
             <!-- 密码输入 -->
             <van-cell-group>
@@ -63,6 +67,7 @@ export default {
     }
   },
   methods: {
+    // 验证手机号
     handleClick () {
       const phone = this.code
       const pass = this.pass
@@ -78,6 +83,7 @@ export default {
         this.$router.push({ name: 'sign', params: { type: 'login' } })
       }
     },
+    // 控制密码得隐藏与显示
     typeClickPassword () {
       const password = document.getElementById('password')
       if (password.type === 'password') {
@@ -105,7 +111,15 @@ export default {
 
 }
 form {
-    padding: 0 15px;
+  padding: 0 15px;
+  .triangle {
+      border-top: 4px solid #fff;
+      border-left: 4px solid transparent;
+      border-right: 4px solid transparent;
+      display: inline-block;
+      text-align: center;
+      margin-left: 10px;
+    }
 }
 .van-cell-group {
   width: 100%;
