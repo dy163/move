@@ -12,17 +12,26 @@
             </div>
             <form>
                 <van-cell-group>
-                    <van-field label="银行" v-model="bank" placeholder="请输入银行" right-icon="arrow-down"/>
+                    <van-field label="银行" v-model="user.bank" placeholder="请输入银行名称" right-icon="arrow-down"/>
                 </van-cell-group>
                 <van-cell-group>
-                    <van-field label="银行卡号" v-model="card" placeholder="请输入银行卡号" />
+                    <van-field label="银行卡号" v-model="user.card" placeholder="请输入银行卡号" />
                 </van-cell-group>
                 <van-cell-group>
-                    <van-field label="预留手机号" v-model="phone" placeholder="请填写银行预留手机号" />
+                    <van-field label="预留手机号" v-model="user.phone" placeholder="请填写银行预留手机号" />
                 </van-cell-group>
                 <van-cell-group>
-                    <van-field label="开户行" v-model="user" placeholder="请输入开户行名称" />
+                    <van-field label="开户行" v-model="user.name" placeholder="请输入开户行名称" />
                 </van-cell-group>
+                <!-- 测试代码 -->
+                <!-- <div class="relative">
+                    <p>账户</p>
+                    <van-dropdown-menu>
+                        <van-dropdown-item v-model="value1" :options="option1" />
+
+                    </van-dropdown-menu>
+                    <van-icon name="arrow-down" class="relative-icon" size="16"/>
+                </div> -->
             </form>
             <div class="bank-card-content-tips">
                 <h3>温馨提示：</h3>
@@ -32,7 +41,7 @@
             </div>
         </div>
         <div >
-            <van-button color="#2F98FF" @click="showes = true" class="bank-card-btn">确认</van-button>
+            <van-button color="#2F98FF" @click="handeleClickQuestion" class="bank-card-btn">确认</van-button>
         </div>
         <!-- 提示弹窗 -->
         <van-dialog
@@ -63,16 +72,49 @@ export default {
   name: 'BankCardInformation',
   data () {
     return {
-      bank: '',
-      card: '',
-      phone: '',
-      user: '',
+      value1: 0,
+      option1: [
+        { text: '中国农业银行', value: 0 },
+        { text: '中国建设银行', value: 1 },
+        { text: '中国工商银行', value: 2 }
+      ],
+      user: {
+        bank: '',
+        card: '',
+        phone: '',
+        name: ''
+      },
       showes: false,
       radio: '',
       leave: false
     }
   },
   methods: {
+    // 确认按钮
+    handeleClickQuestion () {
+      const bank = this.user.bank
+      const card = this.user.card
+      const phone = this.user.phone
+      const name = this.user.name
+      const phoneReg = /^[1][3,4,5,7,8][0-9]{9}$/
+      const cardReg = /^([1-9]{1})(\d{14}|\d{18})$/
+      if (!bank) {
+        this.$toast('请填写银行名称')
+      } else if (!card) {
+        this.$toast('请正确填写银行卡号')
+      } else if (!cardReg.test(card)) {
+        this.$toast('卡号错误')
+      } else if (!phone) {
+        this.$toast('请填写手机号')
+      } else if (!phoneReg.test(phone)) {
+        this.$toast('手机号错误，请输入正确得手机号')
+      } else if (!name) {
+        this.$toast('请填写开户行名称')
+      } else {
+        this.showes = true
+      }
+    },
+    // 弹框展示按钮
     handeleClickConfirm () {
       this.$router.push('/bank-card-add')
     }
@@ -215,6 +257,46 @@ export default {
                 color:rgba(255,255,255,1);
             }
         }
+    }
+}
+.relative {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background:rgba(54,55,64,1);
+    border-radius: 5px;
+    p {
+        font-size:16px;
+        font-family:PingFangSC-Regular,PingFangSC;
+        font-weight:400;
+        color:rgba(163,163,167,1);
+        padding-left: 15px;
+    }
+}
+/deep/.van-dropdown-menu__item {
+    background:rgba(54,55,64,1);
+    position: relative;
+    left: -30px;
+    .van-ellipsis {
+        color:rgba(113,114,120,1);
+    }
+    .van-dropdown-menu__title::after {
+        border: 0;
+    }
+
+}
+/deep/.van-dropdown-menu {
+    background-color:rgba(54,55,64,1);
+}
+.relative-icon {
+    color:rgba(114,115,121,1);
+    margin-right: 15px;
+}
+/deep/.van-dropdown-item__option {
+    background-color: #14151C;
+
+    .van-cell {
+        background-color:rgba(54,55,64,1);
     }
 }
 </style>

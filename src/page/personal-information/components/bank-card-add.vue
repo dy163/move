@@ -6,27 +6,17 @@
         </van-nav-bar>
         <div class="bank-card-content">
             <div class="bank-card-content-card"
-            @click="handleDelete"
-            @touchstart="gotouchstart"
-            @touchmove="gotouchmove"
-            @touchend="gotouchend">
+            v-for="item in labellist"
+            :key="item.id"
+            @touchstart="showDeleteButton()"
+            @touchend="emptyTime">
                 <div>
                     <img src="@/assets/img/debit.png" alt="">
                 </div>
                 <div>
-                    <p>中国建设银行</p>
-                    <p>储蓄卡</p>
-                    <p>**** **** **** 7100</p>
-                </div>
-            </div>
-            <div class="bank-card-content-card" @click="handleDelete">
-                <div>
-                    <img src="@/assets/img/debit.png" alt="">
-                </div>
-                <div>
-                    <p>中国招商银行</p>
-                    <p>储蓄卡</p>
-                    <p>**** **** **** 7100</p>
+                    <p>{{ item.bank }}</p>
+                    <p>{{ item.nature }}</p>
+                    <p>{{ item.card }}</p>
                 </div>
             </div>
             <span class="long-press">长按即可删除银行卡</span>
@@ -43,57 +33,63 @@
                 <span></span>
                 <van-button color="#363740" class="cancel" @click="show = false">取消</van-button>
                 <span class="crevice"></span>
-                <van-button color="#2F98FF" class="cancel" @click="handeleClickConfirm">确认</van-button>
+                <van-button color="#2F98FF" class="cancel" @click="handeleClickConfirm()">确认</van-button>
             </div>
         </van-dialog>
     </div>
 </template>
 
 <script>
-let timeOutEvent = null// 定时器
 export default {
   name: 'BankCardAdd',
   data () {
     return {
-      show: false
+      loop: null,
+      show: false,
+      labellist: [
+        {
+          id: '1',
+          bank: '中国建设银行',
+          nature: '储蓄卡',
+          card: '**** **** **** 7100'
+        },
+        {
+          id: '2',
+          bank: '中国农业银行',
+          nature: '储蓄卡',
+          card: '**** **** **** 7100'
+        },
+        {
+          id: '3',
+          bank: '中国招商银行',
+          nature: '储蓄卡',
+          card: '**** **** **** 7100'
+        }
+      ]
     }
   },
   methods: {
     onClickRight () {
       this.$router.push('/bank-card-information')
     },
-    // 展示删除提示框
-    handleDelete () {
-      window.setTimeout(() => {
-        this.show = true
-      }, 2000)
-    },
     // 确认按钮
-    handeleClickConfirm () {
+    handeleClickConfirm (e) {
       this.show = false
-      window.setTimeout(() => {
-        this.$toast('已删除')
+      this.labellist.splice(e, 1)
+      //   window.setTimeout(() => {
+      this.$toast('已删除')
+    //   }, 500)
+    },
+    // 长按按钮展示弹框
+    showDeleteButton: function () {
+      clearTimeout(this.loop) // 再次清空定时器，防止重复注册定时器
+      this.loop = setTimeout(() => {
+        this.show = true
       }, 1000)
     },
-
-    gotouchstart () {
-      clearTimeout(timeOutEvent)// 清除定时器
-      timeOutEvent = 0
-      timeOutEvent = setTimeout(function () {
-        // 执行长按要执行的内容，
-      }, 600)// 这里设置定时
-    },
-    // 手释放，如果在500毫秒内就释放，则取消长按事件，此时可以执行onclick应该执行的事件
-    gotouchend () {
-      clearTimeout(timeOutEvent)
-      if (timeOutEvent !== 0) {
-        // 这里写要执行的内容（尤如onclick事件）
-      }
-    },
-    // 如果手指有移动，则取消所有事件，此时说明用户只是要移动而不是长按
-    gotouchmove () {
-      clearTimeout(timeOutEvent)// 清除定时器
-      timeOutEvent = 0
+    // 清空
+    emptyTime: function () {
+      clearTimeout(this.loop) // 清空定时器，防止重复注册定时器
     }
   }
 }

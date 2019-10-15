@@ -23,6 +23,8 @@
                 <p>学历</p>
                 <select name="" id="">
                     <option>本科</option>
+                    <option>博士</option>
+                    <option>研究生</option>
                 </select>
                 <van-icon name="arrow-down" class="icon"/>
             </div>
@@ -33,7 +35,6 @@
                 </select>
                 <van-icon name="arrow-down" class="icon"/>
             </div>
-
             <div class="login-btn-box">
                 <van-button
                 class="login-btn"
@@ -104,8 +105,11 @@ export default {
         appearance:none;
         -moz-appearance:none;
         -webkit-appearance:none;
+        a {
+            background-color: red;
+            border: 0;
+        }
     }
-
 }
 p {
     color: #fff;

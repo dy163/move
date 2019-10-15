@@ -9,6 +9,11 @@
 
 export default {
   name: 'Start',
+  data () {
+    return {
+
+    }
+  },
   methods: {
 
   }

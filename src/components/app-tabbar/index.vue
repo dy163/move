@@ -1,11 +1,6 @@
 <template>
     <!-- 底部导航 -->
     <van-tabbar v-model="active" class="active_tab" active-color="#5794F0" inactive-color="#fff">
-      <!-- <van-tabbar-item
-        v-for="(item,index) in tabbars"
-        :key="index"
-        @click="tab(index,item.name)"
-      > -->
       <van-tabbar-item
         v-for="(item,index) in tabbars"
         :key="index"
