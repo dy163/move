@@ -19,21 +19,20 @@
             <van-cell-group>
                 <van-field label="确认密码" v-model="user.entry" type="password"/>
             </van-cell-group>
-            <div class="select">
+            <!-- 下拉选择框 -->
+            <div class="relative">
                 <p>学历</p>
-                <select name="" id="">
-                    <option>本科</option>
-                    <option>博士</option>
-                    <option>研究生</option>
-                </select>
-                <van-icon name="arrow-down" class="icon"/>
+                <van-dropdown-menu>
+                    <van-dropdown-item v-model="record" :options="option1" />
+                </van-dropdown-menu>
+                <van-icon name="arrow-down" class="relative-icon" size="16"/>
             </div>
-            <div class="select">
-                <p>职业</p>
-                <select>
-                    <option>运维工程师</option>
-                </select>
-                <van-icon name="arrow-down" class="icon"/>
+            <div class="relative">
+                <p class="relative-name">职业</p>
+                <van-dropdown-menu>
+                    <van-dropdown-item v-model="profession" :options="option2" />
+                </van-dropdown-menu>
+                <van-icon name="arrow-down" class="relative-icon" size="16"/>
             </div>
             <div class="login-btn-box">
                 <van-button
@@ -58,8 +57,17 @@ export default {
         pass: '******',
         entry: '******'
       },
-      record: '本科',
-      profession: '运维工程师'
+      record: 0,
+      profession: 0,
+      option1: [
+        { text: '本科', value: 0 },
+        { text: '硕士', value: 1 },
+        { text: '研究生', value: 2 }
+      ],
+      option2: [
+        { text: '运维工程师', value: 0 },
+        { text: '前端工程师', value: 1 }
+      ]
     }
   },
   methods: {
@@ -75,42 +83,6 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.select {
-    display: flex;
-    align-items: center;
-    height: 44px;
-    font-size:16px;
-    font-family:PingFangSC-Regular,PingFangSC;
-    font-weight:400;
-    background-color: #363740;
-    margin-bottom: 8px;
-    .icon {
-        margin-right: 16px;
-        color: #A3A3A7;
-    }
-    p {
-        width: 100px;
-        color:rgba(163,163,167,1);
-    }
-    select {
-        outline: none;
-        background-color:#20212A;
-        border: 0;
-        color: #fff;
-        width: 100%;
-        font-size:16px;
-        font-family:PingFangSC-Regular,PingFangSC;
-        background-color: #363740;
-        padding-left: 11px;
-        appearance:none;
-        -moz-appearance:none;
-        -webkit-appearance:none;
-        a {
-            background-color: red;
-            border: 0;
-        }
-    }
-}
 p {
     color: #fff;
     padding: 15px;
@@ -139,7 +111,6 @@ form {
     background:rgba(54,55,64,1);
     border-radius:6px;
 }
-
 .van-cell-group {
     height:50px;
     border-radius:3px;
@@ -149,5 +120,58 @@ form {
     color: #A3A3A7;
     background-color:#353641;
     font-size: 16px;
+}
+.relative {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background:rgba(54,55,64,1);
+    border-radius: 3px;
+    margin-bottom: 8px;
+    p {
+        font-size:14px;
+        font-family:PingFangSC-Regular,PingFangSC;
+        font-weight:400;
+        color:rgba(163,163,167,1);
+        padding-left: 15px;
+    }
+}
+/deep/.van-dropdown-menu__item {
+    background:rgba(54,55,64,1);
+    width: 250px;
+    .van-ellipsis {
+        color: #fff;
+        margin-left: -82px;
+    }
+    .van-dropdown-menu__title::after {
+        border: 0;
+    }
+}
+/deep/.van-dropdown-menu {
+    background-color:rgba(54,55,64,1);
+}
+.relative-icon {
+    color:rgba(114,115,121,1);
+    margin-right: 15px;
+}
+/deep/.van-dropdown-item__option {
+    background-color: #14151C;
+    position: relative;
+    right: 30px;
+}
+/deep/.van-popup {
+        background: #14151C;
+    }
+/deep/.van-cell--clickable {
+    background-color:rgba(54,55,64,1);
+    color: #fff;
+    padding-left: 135px;
+    border-bottom: 0;
+}
+/deep/.van-cell:not(:last-child)::after {
+    border-bottom: 1px solid #000;
+}
+/deep/.van-popup--top {
+    left: 15px;
 }
 </style>
