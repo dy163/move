@@ -4,8 +4,7 @@
       <van-tabbar-item
         v-for="(item,index) in tabbars"
         :key="index"
-        :to="(item.name)"
-      >
+        :to="(item.name)">
         <span>{{item.title}}</span>
         <template slot="icon" slot-scope="props">
           <img :src="props.active ? item.active : item.normal">
@@ -22,7 +21,7 @@ export default {
       active: 0,
       tabbars: [
         {
-          name: 'optional-home',
+          name: 'quotation',
           title: '行情',
           normal: require('./img/quotation.png'),
           active: require('./img/quotation-ac.png')
@@ -34,7 +33,7 @@ export default {
           active: require('./img/information-ac.png')
         },
         {
-          name: 'optional',
+          name: 'oneself',
           title: '自选',
           normal: require('./img/optional.png'),
           active: require('./img/optional-ac.png')
@@ -46,7 +45,7 @@ export default {
           active: require('./img/assets-ac.png')
         },
         {
-          name: 'personal-information',
+          name: 'personal',
           title: '我的',
           normal: require('./img/mine.png'),
           active: require('./img/mine-ac.png')
@@ -55,15 +54,15 @@ export default {
     }
   },
   created () {
-    if (this.$route.name === 'optional-home') {
+    if (this.$route.name === 'quotation') {
       this.active = 0
     } else if (this.$route.name === 'information') {
       this.active = 1
-    } else if (this.$route.name === 'optional') {
+    } else if (this.$route.name === 'oneself') {
       this.active = 2
     } else if (this.$route.name === '/') {
       this.active = 3
-    } else if (this.$route.name === 'personal-information') {
+    } else if (this.$route.name === 'personal') {
       this.active = 4
     }
   }
