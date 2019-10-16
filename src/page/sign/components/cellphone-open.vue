@@ -122,6 +122,7 @@ form {
       background-color: #353641;
       color: #7E829C;
       width: 85px;
+      border: 0;
       .van-button__text {
         margin: 0 -20px;
         font-size:14px;

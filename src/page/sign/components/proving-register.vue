@@ -23,7 +23,7 @@
                   </van-cell-group>
                 </div>
                 <!-- 倒计时获取验证码 -->
-                <div>
+
                   <van-button
                   hairline
                   :disabled="!!codeTimer"
@@ -32,13 +32,12 @@
                   >
                   {{ codeTimer ? `${codeTimeSeconds}s` : '获取验证码' }}
                   </van-button>
-                </div>
+
             </div>
             <!-- 提示下一步 -->
             <div class="login-btn-box">
                 <van-button
                 class="login-btn"
-                hairline
                 @click="handleClick"
                 @click.prevent="handleClick"
                 >完成注册</van-button>
@@ -119,13 +118,12 @@ form {
     .resetting-box {
       display: flex;
       align-items: center;
-      flex: 1;
       .van-button {
         background-color:#353641;
         width: 85px;
         margin-left: 8px;
         color: #7E829C;
-        box-sizing: border-box;
+        border: 0;
         .van-button__text {
           margin: 0 -20px;
         }
@@ -150,5 +148,6 @@ form {
   width: 100%;
   background-color: #2F98FF;
   color: #fff;
+  border: 0;
 }
 </style>

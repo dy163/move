@@ -39,7 +39,6 @@
                 class="login-btn"
                 @click="handleClick"
                 @click.prevent="handleClick"
-                hairline
                 >下一步</van-button>
             </div>
         </form>
@@ -105,6 +104,7 @@ form {
     font-family:PingFangSC;
     font-weight:500;
     color:rgba(255,255,255,1);
+    border: 0;
 }
 .van-hairline--top-bottom {
     height:50px;

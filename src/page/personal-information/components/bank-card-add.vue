@@ -171,6 +171,7 @@ export default {
             line-height: 38px;
             border-radius:3px;
             margin-left: 30px;
+            border: 0;
             .van-button__text {
                 font-size:14px;
                 font-family:PingFangSC-Regular,PingFangSC;

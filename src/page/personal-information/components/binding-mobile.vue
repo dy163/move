@@ -18,7 +18,6 @@
             <div class="login-btn-box">
                 <van-button
                 class="login-btn"
-                hairline
                 @click="handleClick"
                 @click.prevent="handleClick"
                 >获取验证码</van-button>
@@ -80,7 +79,6 @@ form {
     }
   }
 }
-
 .van-cell {
     color: #fff;
     background-color:#353641;
@@ -91,6 +89,7 @@ form {
 .login-btn {
   width: 100%;
   background-color: #2F98FF;
+  border: 0;
   .van-button__text {
     height:22px;
     font-size:16px;

@@ -64,7 +64,7 @@ export default {
   },
   methods: {
     handleClickSelf () {
-      if (this.show || this.side === true) {
+      if (this.show && this.side === true) {
         this.$router.push({ name: 'sign', params: { type: 'treaty' } })
       } else {
         this.$toast('请先上传身份证正面和背面')

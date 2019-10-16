@@ -19,7 +19,6 @@
             class="login-btn"
             @click="handleClickNextStep"
             @click.prevent="handleClickNextStep"
-            hairline
             >下一步</van-button>
           </div>
         </form>
@@ -57,28 +56,29 @@ export default {
 
 <style lang="less" scoped>
 .reset-password {
-    color: #fff;
+  color: #fff;
 }
 form {
-    padding: 0 15px;
-    padding-top: 24px;
+  padding: 0 15px;
+  padding-top: 24px;
 }
 .van-cell-group {
-    margin-bottom: 20px;
+  margin-bottom: 20px;
 }
 .van-cell {
-    color: #fff;
-    background-color:#353641;
+  color: #fff;
+  background-color:#353641;
 }
 .login-btn {
-    margin-top: 30px;
-    width: 100%;
-    height:44px;
-    background:rgba(47,152,255,1);
-    border-radius:3px;
-    font-size:16px;
-    font-family:PingFangSC;
-    font-weight:500;
-    color:rgba(255,255,255,1);
+  border: 0;
+  margin-top: 30px;
+  width: 100%;
+  height:44px;
+  background:rgba(47,152,255,1);
+  border-radius:3px;
+  font-size:16px;
+  font-family:PingFangSC;
+  font-weight:500;
+  color:rgba(255,255,255,1);
 }
 </style>

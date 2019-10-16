@@ -14,7 +14,6 @@
         <div class="login-btn-box">
             <van-button
             class="login-btn"
-            hairline
             to="/sign/open-examine"
             >完成</van-button>
         </div>
@@ -85,6 +84,7 @@ p {
     height:44px;
     background: #2F98FF;
     border-radius:3px;
+    border: 0;
     .van-button__text {
         width:32px;
         height:22px;

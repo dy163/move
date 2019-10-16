@@ -112,6 +112,7 @@ export default {
         width: 100%;
         height:50px;
         margin-bottom: 20px;
+        border: 0;
     }
 }
 .deposit-amount-note {

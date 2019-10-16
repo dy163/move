@@ -39,7 +39,7 @@
             </van-cell-group>
             <!-- 注册 -->
             <div class="login-btn-box">
-              <van-button hairline
+              <van-button
               class="login-btn"
               @click="handleClick"
               @click.prevent="handleClick"
@@ -136,6 +136,7 @@ form {
   width: 100%;
   background-color: #2F98FF;
   color: #fff;
+  border: 0;
 }
 .annotation {
   height:17px;

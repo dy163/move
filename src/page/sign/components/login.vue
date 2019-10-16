@@ -30,7 +30,6 @@
         <div class="login-btn-box">
           <van-button
             class="login-btn"
-            hairline
             @click="handleClickPhone"
             @click.prevent="handleClickPhone"
           >登录</van-button>
@@ -125,6 +124,7 @@ form {
 }
 .login-btn {
   width: 100%;
+  border: 0;
   background-color: #2F98FF;
   .van-button__text {
     width:32px;

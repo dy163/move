@@ -64,8 +64,7 @@
                 <div class="transaction-number-popup-space"></div>
                 <div class="transaction-number-popup-define">
                     <p>实际金额 <span>¥0.00</span></p>
-                    <van-button hairline @click="handleClickOrder"  @click.prevent="handleClickOrder">确认卖出</van-button>
-                    <!-- <van-button hairline>确认卖出</van-button> -->
+                    <van-button @click="handleClickOrder"  @click.prevent="handleClickOrder">确认卖出</van-button>
                 </div>
                 </van-popup>
             </form>
@@ -75,7 +74,7 @@
             <van-popup v-model="shows" :close-on-click-overlay="leave">
                 <div>
                     <p>由于订单金额过小，无法支付手续费，请修改卖出股数重新提交订单</p>
-                    <van-button hairline round @click="handleClickConfiom">确 定</van-button>
+                    <van-button round @click="handleClickConfiom">确 定</van-button>
                 </div>
             </van-popup>
         </div>
@@ -368,7 +367,9 @@ export default {
                 font-family:PingFangSC-Medium,PingFangSC;
             }
         }
-
     }
+}
+.van-button {
+    border: 0;
 }
 </style>

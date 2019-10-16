@@ -20,7 +20,6 @@
             <div class="login-btn-box">
                 <van-button
                 class="login-btn"
-                hairline
                 @click="handleClickNext"
                 @click.prevent="handleClickNext"
                 >下一步</van-button>
@@ -75,6 +74,7 @@ export default {
     width: 100%;
     background-color: #2F98FF;
     color: #fff;
+    border: 0;
 }
 .modify-content {
     padding: 0 15px;

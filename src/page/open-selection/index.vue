@@ -35,7 +35,6 @@
             <van-button
             class="login-btn"
             to="/sign/cellphone-open"
-            hairline
             round
             >立即开户</van-button>
         </div>
@@ -105,6 +104,7 @@ export default {
         font-size:16px;
         font-family:PingFangSC;
         font-weight:500;
+        border: 0;
     }
 }
 </style>
