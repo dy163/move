@@ -11,9 +11,16 @@
                 <p>为保资金准确到账，请务必认真填写。(仅支持储蓄卡)</p>
             </div>
             <form>
-                <van-cell-group>
+                <div class="relative">
+                    <p>账户</p>
+                    <van-dropdown-menu>
+                        <van-dropdown-item v-model="value1" :options="option1" />
+                    </van-dropdown-menu>
+                    <van-icon name="arrow-down" class="relative-icon" size="16"/>
+                </div>
+                <!-- <van-cell-group>
                     <van-field label="银行" v-model="user.bank" placeholder="请输入银行名称" right-icon="arrow-down"/>
-                </van-cell-group>
+                </van-cell-group> -->
                 <van-cell-group>
                     <van-field label="银行卡号" v-model="user.card" placeholder="请输入银行卡号" />
                 </van-cell-group>
@@ -23,16 +30,9 @@
                 <van-cell-group>
                     <van-field label="开户行" v-model="user.name" placeholder="请输入开户行名称" />
                 </van-cell-group>
-                <!-- 测试代码 -->
-                <!-- <div class="relative">
-                    <p>账户</p>
-                    <van-dropdown-menu>
-                        <van-dropdown-item v-model="value1" :options="option1" />
 
-                    </van-dropdown-menu>
-                    <van-icon name="arrow-down" class="relative-icon" size="16"/>
-                </div> -->
             </form>
+            <!-- 温馨提示 -->
             <div class="bank-card-content-tips">
                 <h3>温馨提示：</h3>
                 <p>1. 绑定银行账户开户人必须与注册的证券账号同名，不支持绑定他人的银行账户</p>
@@ -45,18 +45,16 @@
         </div>
         <!-- 提示弹窗 -->
         <van-dialog
-            use-slot
-            title="请确认信息无误！"
-            v-model="showes"
-            :showConfirmButton="false"
-            class="bank-card-dialog"
-            >
+        use-slot
+        title="请确认信息无误！"
+        v-model="showes"
+        :showConfirmButton="false"
+        class="bank-card-dialog">
             <p>由于账号信息错误导致出金金额无法到账及其产生的手续费扣款将由用户自行承担。</p>
             <van-radio-group v-model="radio">
                 <van-radio name="1"> <span>同意</span> <router-link to="/payment-agreement">《服务协议》</router-link></van-radio>
             </van-radio-group>
-            <div class="card-line">
-            </div>
+            <div class="card-line"></div>
             <div class="bank-btn">
                 <span></span>
                 <van-button color="#363740" class="cancel" @click="showes = false">取消</van-button>
@@ -265,12 +263,14 @@ export default {
     justify-content: space-between;
     background:rgba(54,55,64,1);
     border-radius: 5px;
+    margin-bottom: 8px;
     p {
-        font-size:16px;
+        font-size:14px;
         font-family:PingFangSC-Regular,PingFangSC;
         font-weight:400;
         color:rgba(163,163,167,1);
         padding-left: 15px;
+
     }
 }
 /deep/.van-dropdown-menu__item {
@@ -294,9 +294,22 @@ export default {
 }
 /deep/.van-dropdown-item__option {
     background-color: #14151C;
-
-    .van-cell {
-        background-color:rgba(54,55,64,1);
+    position: relative;
+    right: 30px;
+}
+/deep/.van-popup {
+        background: #000;
     }
+/deep/.van-cell--clickable {
+    background-color:rgba(54,55,64,1);
+    color: #fff;
+    padding-left: 135px;
+    border-bottom: 0;
+}
+/deep/.van-cell:not(:last-child)::after {
+    border-bottom: 1px solid #000;
+}
+/deep/.van-popup--top {
+    left: 15px;
 }
 </style>

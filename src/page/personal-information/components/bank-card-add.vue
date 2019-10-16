@@ -6,8 +6,8 @@
         </van-nav-bar>
         <div class="bank-card-content">
             <div class="bank-card-content-card"
-            v-for="item in labellist"
-            :key="item.id"
+            v-for="(item, index) in labellist"
+            :key="index"
             @touchstart="showDeleteButton()"
             @touchend="emptyTime">
                 <div>
@@ -73,12 +73,10 @@ export default {
       this.$router.push('/bank-card-information')
     },
     // 确认按钮
-    handeleClickConfirm (e) {
+    handeleClickConfirm (item) {
       this.show = false
-      this.labellist.splice(e, 1)
-      //   window.setTimeout(() => {
+      JSON.stringify(this.labellist.splice(item, 1))
       this.$toast('已删除')
-    //   }, 500)
     },
     // 长按按钮展示弹框
     showDeleteButton: function () {
