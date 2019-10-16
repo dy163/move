@@ -20,7 +20,6 @@
                     <van-field  label="验证码" v-model="pass" placeholder="请输入验证码" />
                 </van-cell-group>
                 <van-button
-                  hairline
                   :disabled="!!codeTimer"
                   :loading="codeLoading"
                   @click="handleClickTimer"
@@ -31,7 +30,6 @@
             <div class="login-btn-box">
                 <van-button
                 class="login-btn"
-                hairline
                 @click="handleClick"
                 @click.prevent="handleClick"
                 >下一步</van-button>
@@ -142,5 +140,6 @@ form {
   width: 100%;
   background-color: #2F98FF;
   color: #fff;
+  border: 0;
 }
 </style>

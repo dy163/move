@@ -6,9 +6,9 @@
         </van-nav-bar>
         <div class="bank-card-content">
             <div class="bank-card-content-card"
-            v-for="(item, index) in labellist"
+            v-for="(item,index) in labellist"
             :key="index"
-            @touchstart="showDeleteButton()"
+            @touchstart="showDeleteButton(index)"
             @touchend="emptyTime">
                 <div>
                     <img src="@/assets/img/debit.png" alt="">
@@ -44,23 +44,21 @@ export default {
   name: 'BankCardAdd',
   data () {
     return {
+      willDeleteIndex: -1,
       loop: null,
       show: false,
       labellist: [
         {
-          id: '1',
           bank: '中国建设银行',
           nature: '储蓄卡',
           card: '**** **** **** 7100'
         },
         {
-          id: '2',
           bank: '中国农业银行',
           nature: '储蓄卡',
           card: '**** **** **** 7100'
         },
         {
-          id: '3',
           bank: '中国招商银行',
           nature: '储蓄卡',
           card: '**** **** **** 7100'
@@ -68,20 +66,22 @@ export default {
       ]
     }
   },
+
   methods: {
     onClickRight () {
       this.$router.push('/bank-card-information')
     },
     // 确认按钮
-    handeleClickConfirm (item) {
+    handeleClickConfirm () {
       this.show = false
-      JSON.stringify(this.labellist.splice(item, 1))
+      JSON.stringify(this.labellist.splice(this.willDeleteIndex, 1))
       this.$toast('已删除')
     },
     // 长按按钮展示弹框
-    showDeleteButton: function () {
+    showDeleteButton: function (index) {
       clearTimeout(this.loop) // 再次清空定时器，防止重复注册定时器
       this.loop = setTimeout(() => {
+        this.willDeleteIndex = index
         this.show = true
       }, 1000)
     },
