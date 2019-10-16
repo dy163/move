@@ -1,5 +1,5 @@
 <template>
-    <div class="open-selection">
+    <div class="account">
         <van-nav-bar
         title="开 户"
         left-arrow
@@ -7,7 +7,7 @@
         />
         <div class="blank-space"></div>
         <!-- 手机验证开户 -->
-        <div class="open-selection-rapidly">
+        <div class="account-rapidly">
             <img src="@/assets/img/gsou.png">
             <div @click="gsouClick = true">
                 <router-link to="/sign/cellphone-open">极速开户</router-link>
@@ -16,7 +16,7 @@
             </div>
         </div>
         <!-- 隐私保护 -->
-        <div class="open-selection-rapidly">
+        <div class="account-rapidly">
             <img src="@/assets/img/privacy.png">
             <div>
                 <router-link to="/sign/treaty-particulars">隐私保护</router-link>
@@ -24,7 +24,7 @@
             </div>
         </div>
         <!-- 投资保障 -->
-        <div class="open-selection-rapidly">
+        <div class="account-rapidly">
             <img src="@/assets/img/invest.png">
             <div>
                 <router-link to="/sign/treaty-particulars">投资保障</router-link>
@@ -43,7 +43,7 @@
 
 <script>
 export default {
-  name: 'OpenSelectionIndex',
+  name: 'AccountIndex',
   data () {
     return {
       show: false
@@ -61,7 +61,7 @@ export default {
     height:100px;
     background:rgba(54,55,64,1);
 }
-.open-selection-rapidly {
+.account-rapidly {
     padding: 0 35px;
     display: flex;
     justify-content: left;

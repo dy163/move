@@ -1,13 +1,13 @@
 <template>
-    <div class="optional">
-        <van-nav-bar title="股票" left-text="持仓">
+    <div class="quotation">
+        <van-nav-bar title="股票">
             <div slot="right">
                 <img src="@/assets/img/search.png" alt="" style="vertical-align:middle" class="nav-img">
                 <img src="@/assets/img/refresh.png" alt="" style="vertical-align:middle">
             </div>
         </van-nav-bar>
-        <div class="optional-content">
-            <div class="optional-content-title">
+        <div class="quotation-content">
+            <div class="quotation-content-title">
                 <p>
                     全部
                     <img src="@/assets/img/triangle.png" alt="">
@@ -21,7 +21,7 @@
                     <img src="@/assets/img/sort.png" alt="">
                 </p>
             </div>
-            <div class="optional-content-top" @click="handleClickBuy">
+            <div class="quotation-content-top" @click="$router.push('/quotation-num')">
                 <div>
                     <p>贵州茅台</p>
                     <p>
@@ -36,7 +36,37 @@
                     <p>0.88%</p>
                 </div>
             </div>
-            <div class="optional-content-top">
+            <div class="quotation-content-top" @click="$router.push('/quotation-num')">
+                <div>
+                    <p>纳斯达克</p>
+                    <p>
+                        <span>SH</span>
+                        102931
+                    </p>
+                </div>
+                <div>
+                    <p>955.87</p>
+                </div>
+                <div>
+                    <p>0.88%</p>
+                </div>
+            </div>
+            <div class="quotation-content-top" @click="$router.push('/quotation-num')">
+                <div>
+                    <p>Yext inc.</p>
+                    <p>
+                        <span>SH</span>
+                        102931
+                    </p>
+                </div>
+                <div>
+                    <p>955.87</p>
+                </div>
+                <div>
+                    <p>0.88%</p>
+                </div>
+            </div>
+            <div class="quotation-content-top" @click="$router.push('/quotation-num')">
                 <div>
                     <p>贵州茅台</p>
                     <p>
@@ -51,37 +81,7 @@
                     <p>0.88%</p>
                 </div>
             </div>
-            <div class="optional-content-top">
-                <div>
-                    <p>贵州茅台</p>
-                    <p>
-                        <span>SH</span>
-                        102931
-                    </p>
-                </div>
-                <div>
-                    <p>955.87</p>
-                </div>
-                <div>
-                    <p>0.88%</p>
-                </div>
-            </div>
-            <div class="optional-content-top">
-                <div>
-                    <p>贵州茅台</p>
-                    <p>
-                        <span>SH</span>
-                        102931
-                    </p>
-                </div>
-                <div>
-                    <p>955.87</p>
-                </div>
-                <div>
-                    <p>0.88%</p>
-                </div>
-            </div>
-            <div class="optional-content-top">
+            <div class="quotation-content-top" @click="$router.push('/quotation-num')">
                 <div>
                     <p>贵州茅台</p>
                     <p>
@@ -97,33 +97,26 @@
                 </div>
             </div>
         </div>
-        <div class="optional-content-foot">
+        <div class="quotation-content-foot" @click="handleClickIncrease">
             <img src="@/assets/img/plus-small.png" alt="">
             <span>添加自选股</span>
         </div>
         <!-- 底部导航 -->
         <app-tabbar/>
-        <!-- 子组件出口 -->
-        <Transaction v-show="show" />
     </div>
 </template>
 
 <script>
-import Transaction from './components/transaction'
 export default {
-  name: 'OptionalIndex',
-  components: {
-    Transaction
-  },
+  name: 'QuotationIndex',
   data () {
     return {
-      marker: '',
-      show: false
+
     }
   },
   methods: {
-    handleClickBuy () {
-      this.$router.push('/transaction')
+    handleClickIncrease () {
+      console.log('添加了')
     }
   }
 }
@@ -131,20 +124,14 @@ export default {
 
 <style lang="less" scoped>
 .van-nav-bar {
+    background-color: #20212A;
     .nav-img {
         margin-right: 22px;
     }
-    .van-nav-bar__text {
-        color: #fff;
-        font-size:14px;
-        font-family:PingFangSC-Medium,PingFangSC;
-        font-weight:500;
-        background-color: #20212A;
-    }
 }
-.optional-content {
+.quotation-content {
     padding: 0 15px;
-    .optional-content-title {
+    .quotation-content-title {
         display: flex;
         justify-content: space-between;
         height:20px;
@@ -158,7 +145,7 @@ export default {
             margin-left: 18px;
         }
     }
-    .optional-content-top {
+    .quotation-content-top {
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -217,7 +204,7 @@ export default {
         }
     }
 }
-.optional-content-foot {
+.quotation-content-foot {
     display: flex;
     align-items: center;
     justify-content: center;

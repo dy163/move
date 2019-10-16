@@ -1,6 +1,5 @@
 <template>
     <div>
-
         <div class="transaction-if">
             <form action="">
                 <van-popup

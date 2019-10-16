@@ -1,7 +1,7 @@
 <template>
-    <div class="optional-stock">
+    <div class="quotation-stock">
         <!-- 头部名称 -->
-        <div class="optional-stock-header" @click="$router.back()">
+        <div class="quotation-stock-header" @click="$router.back()">
                 <van-icon name="arrow-left" size="16"/>
             <div>
                 <p> <span>HK</span> 恒生指数(HSI)</p>
@@ -9,20 +9,20 @@
             </div>
         </div>
         <!-- 股票指数展示 -->
-        <div class="optional-stock-number">
+        <div class="quotation-stock-number">
             <div>
-                <p class="optional-stock-number-mark">28,597.99</p>
+                <p class="quotation-stock-number-mark">28,597.99</p>
                 <div>
-                    <p class="optional-stock-number-gain">+73.950</p>
-                    <p class="optional-stock-number-gain">+0.88</p>
+                    <p class="quotation-stock-number-gain">+73.950</p>
+                    <p class="quotation-stock-number-gain">+0.88</p>
                 </div>
             </div>
             <div >
-                <p class="optional-stock-color">Lo</p>
+                <p class="quotation-stock-color">Lo</p>
             </div>
         </div>
         <!-- 具体数据展示 -->
-        <div class="optional-list">
+        <div class="quotation-list">
             <table>
                 <tr>
                     <td>今&nbsp;&nbsp;&nbsp;开</td>
@@ -83,15 +83,15 @@
             </table>
         </div>
         <!-- 交易软件当前时间显示 -->
-        <div class="optional-date">
+        <div class="quotation-date">
             <p>财政年结日 <span>2018-06-30</span></p>
             <p>
                 <van-icon name="arrow-up" color="#7F819B" size="16"/>
             </p>
         </div>
         <!-- 图表分析展示 -->
-        <div class="optional-crap">
-            <div class="optional-crap-trend">
+        <div class="quotation-crap">
+            <div class="quotation-crap-trend">
                 <van-tabs v-model="timer" background='#20212A' line-height='0' title-active-color='#2F98FF'>
                     <van-tab title="分时">分时</van-tab>
                     <van-tab title="日K">日k</van-tab>
@@ -99,7 +99,7 @@
                     <van-tab title="月K">月K</van-tab>
                 </van-tabs>
             </div>
-            <div class="optional-news">
+            <div class="quotation-news">
                 <van-tabs v-model="tidings" background='#20212A' line-height='0' title-active-color='#2F98FF'>
                     <van-tab title="新闻">
                         <div slot="default">
@@ -131,10 +131,10 @@
                     </van-tab>
                     <van-tab title="分析">
                         <div slot="default">
-                            <p class="optional-img">
+                            <p class="quotation-img">
                                 <img src="@/assets/img/hollow.png">
                             </p>
-                            <span class="optional-test">暂无分析动态</span>
+                            <span class="quotation-test">暂无分析动态</span>
                         </div>
                     </van-tab>
                 </van-tabs>
@@ -148,7 +148,7 @@
 <script>
 
 export default {
-  name: 'OptionalNumber',
+  name: 'QuotationNum',
   data () {
     return {
       timer: '0',
@@ -161,7 +161,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.optional-stock-header {
+.quotation-stock-header {
     height: 44px;
     line-height: 44px;
     padding: 0 15px;
@@ -207,7 +207,7 @@ export default {
         }
     }
 }
-.optional-stock-number {
+.quotation-stock-number {
     height: 74px;
     display: flex;
     justify-content: space-between;
@@ -220,7 +220,7 @@ export default {
         justify-content: center;
         height: 74px;
         line-height: 74px;
-        .optional-stock-number-mark {
+        .quotation-stock-number-mark {
             width:191px;
             font-size:40px;
             font-family:DINAlternate-Bold,DINAlternate;
@@ -230,7 +230,7 @@ export default {
         div {
             padding-top: 22px;
         }
-        .optional-stock-number-gain {
+        .quotation-stock-number-gain {
             padding-left: 10px;
             width:46px;
             font-size:14px;
@@ -254,12 +254,12 @@ export default {
 
         }
     }
-    .optional-stock-color {
+    .quotation-stock-color {
         background-color: #FF7946;
         padding-right: 3px;
     }
 }
-.optional-list {
+.quotation-list {
     padding: 0 15px;
     table {
         width: 100%;
@@ -294,7 +294,7 @@ export default {
         }
     }
 }
-.optional-date {
+.quotation-date {
     padding: 0 15px;
     border-top: 1px solid #14151C;
     border-bottom: 2px solid #14151C;
@@ -324,13 +324,13 @@ export default {
     color:rgba(127,129,155,1);
     line-height:20px;
 }
-.optional-crap-trend {
+.quotation-crap-trend {
     .van-tab__pane {
         height: 220px;
         padding: 0 15px;
     }
 }
-.optional-news {
+.quotation-news {
     border-top: 2px solid #14151C;
     .van-tab__pane {
         padding: 0 15px;
@@ -354,13 +354,13 @@ export default {
                 line-height:16px;
                 padding-top: 8px;
             }
-            .optional-img {
+            .quotation-img {
                 display: flex;
                 justify-content: center;
                 align-items: center;
                 padding-top: 50px;
             }
-            .optional-test {
+            .quotation-test {
                 display: flex;
                 justify-content: center;
                     height:17px;
@@ -375,7 +375,7 @@ export default {
         }
     }
 }
-.optional-buy {
+.quotation-buy {
     display: flex;
     align-items: center;
     position: fixed;
@@ -421,7 +421,7 @@ export default {
             color:rgba(255,255,255,1);
         }
     }
-    .optional-buy-follow {
+    .quotation-buy-follow {
         // padding: 0 22px;
         width: 71px;
         text-align: center;

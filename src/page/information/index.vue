@@ -183,17 +183,11 @@
         </div>
         <!-- 底部导航 -->
         <app-tabbar/>
-        <!-- 详情展示 -->
-        <Particulars v-if="particularsShow"/>
     </div>
 </template>
 <script>
-import Particulars from './components/particulars'
 export default {
   name: 'InformationIndex',
-  components: {
-    Particulars
-  },
   data () {
     return {
       active: 'propelling',
@@ -202,8 +196,7 @@ export default {
       porfit: {
         backgroundImage: 'url(' + require('@/assets/img/diagram.png') + ')',
         backgroundRepeat: 'no-repeat'
-      },
-      particularsShow: false
+      }
     }
   },
   methods: {

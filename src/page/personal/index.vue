@@ -46,7 +46,7 @@
 
 <script>
 export default {
-  name: 'PersonalInformationIndex',
+  name: 'PersonalIndex',
   data () {
     return {
 
