@@ -1,8 +1,8 @@
 <template>
-    <div class="optional-stock"
+    <div class="oneself-stock"
     :value="value"
     @input="$emit('input', $event)">
-        <div class="optional-stock-header" @click="$router.push('/optional')">
+        <div class="oneself-stock-header" @click="$router.back()">
                 <van-icon name="arrow-left" size="16"/>
                 <!-- <van-icon name="arrow-right" size="16"/> -->
             <div>
@@ -10,20 +10,28 @@
                 <p>交易中07-25 10:36:20</p>
             </div>
         </div>
-        <div class="optional-stock-number">
+        <div class="oneself-stock-number">
             <div>
-                <p class="optional-stock-number-mark">28,597.99</p>
+                <p class="oneself-stock-number-mark">28,597.99</p>
                 <div>
-                    <p class="optional-stock-number-gain">+73.950</p>
-                    <p class="optional-stock-number-gain">+0.88</p>
+                    <p class="oneself-stock-number-gain">+73.950</p>
+                    <p class="oneself-stock-number-gain">+0.88</p>
                 </div>
             </div>
             <div >
-                <p class="optional-stock-color">Lo</p>
+                <p class="oneself-stock-color">Lo</p>
             </div>
         </div>
         <!-- 指数动态信息 -->
-        <div class="optional-list">
+        <div class="oneself-list">
+            <!-- <div>
+                <p>市盈率(动）</p>
+                <p>0.950</p>
+                <p>最高</p>
+                <p>4600.00万</p>
+                <p>52周最高</p>
+                <p>0</p>
+            </div> -->
             <table>
                 <tr>
                     <td>今&nbsp;&nbsp;&nbsp;开</td>
@@ -84,15 +92,15 @@
             </table>
         </div>
         <!-- 时间展示 -->
-        <div class="optional-date">
+        <div class="oneself-date">
             <p>财政年结日 <span>2018-06-30</span></p>
-            <p>
+            <p class="up-icon">
                 <van-icon name="arrow-up" color="#7F819B" size="16"/>
             </p>
         </div>
         <!-- 图表分析展示 -->
-        <div class="optional-crap">
-            <div class="optional-crap-trend">
+        <div class="oneself-crap">
+            <div class="oneself-crap-trend">
                 <van-tabs v-model="timer" background='#20212A' line-height='0' title-active-color='#2F98FF'>
                     <van-tab title="分时">分时</van-tab>
                     <van-tab title="日K">日K</van-tab>
@@ -100,7 +108,7 @@
                     <van-tab title="月K">月K</van-tab>
                 </van-tabs>
             </div>
-            <div class="optional-news">
+            <div class="oneself-news">
                 <van-tabs v-model="tidings" background='#20212A' line-height='0' title-active-color='#2F98FF'>
                     <van-tab title="新闻">
                         <div slot="default">
@@ -132,17 +140,17 @@
                     </van-tab>
                     <van-tab title="分析">
                         <div slot="default">
-                            <p class="optional-img">
+                            <p class="oneself-img">
                                 <img src="@/assets/img/hollow.png">
                             </p>
-                            <span class="optional-test">暂无分析动态</span>
+                            <span class="oneself-test">暂无分析动态</span>
                         </div>
                     </van-tab>
                 </van-tabs>
             </div>
         </div>
         <!-- 买入卖出底部展示 -->
-        <div class="optional-buy" v-show="side">
+        <div class="oneself-buy" v-show="side">
             <div  @click="isPurchase = true">
                 <img src="@/assets/img/purchase.png" alt="">
                 <p>买入</p>
@@ -151,12 +159,12 @@
                 <img src="@/assets/img/selling-price.png" alt="">
                 <p>卖出</p>
             </div>
-            <div class="optional-buy-follow">
+            <div class="oneself-buy-follow">
                 <img src="@/assets/img/cancel.png" @click="$router.push('/order-list')">
                 <p>撤单</p>
             </div>
-            <div class="optional-buy-follow">
-                <img src="@/assets/img/concern.png" @click="$router.push('/optional')">
+            <div class="oneself-buy-follow">
+                <img src="@/assets/img/concern.png" @click="$router.push('/oneself')">
                 <p>自选</p>
             </div>
         </div>
@@ -200,7 +208,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.optional-stock-header {
+.oneself-stock-header {
     height: 44px;
     line-height: 44px;
     padding: 0 15px;
@@ -246,7 +254,7 @@ export default {
         }
     }
 }
-.optional-stock-number {
+.oneself-stock-number {
     height: 74px;
     display: flex;
     justify-content: space-between;
@@ -260,7 +268,7 @@ export default {
         justify-content: center;
         height: 74px;
         line-height: 74px;
-        .optional-stock-number-mark {
+        .oneself-stock-number-mark {
             width:191px;
             font-size:40px;
             font-family:DINAlternate-Bold,DINAlternate;
@@ -270,7 +278,7 @@ export default {
         div {
             padding-top: 22px;
         }
-        .optional-stock-number-gain {
+        .oneself-stock-number-gain {
             padding-left: 10px;
             width:46px;
             font-size:14px;
@@ -294,25 +302,25 @@ export default {
 
         }
     }
-    .optional-stock-color {
+    .oneself-stock-color {
         background-color: #FF7946;
         padding-right: 3px;
     }
 }
-.optional-list {
+.oneself-list {
     padding: 0 15px;
     table {
         width: 100%;
-        padding-top: 10px;
-    }
-    tr {
-        height:17px;
-        font-size:12px;
+        padding: 10px 0;
+
         font-family:PingFangSC;
         font-weight:400;
         color:rgba(127,129,155,1);
-        line-height:17px;
-        padding: 5px 0;
+    }
+    tr {
+        height:22px;
+        padding: 10px 0;
+        font-size:12px;
         td:nth-child(even) {
             color:#fff;
             text-align: right;
@@ -332,26 +340,33 @@ export default {
             color: #35C089;
         }
     }
+    div {
+        display: flex;
+        justify-content: space-around;
+        font-size: 12px;
+    }
+
 }
-.optional-date {
+.oneself-date {
     padding: 0 15px;
     border-top: 1px solid #14151C;
     border-bottom: 2px solid #14151C;
+    box-sizing: border-box;
+    height: 48px;
     p:nth-child(1) {
-        padding-top: 15px;
-        height:17px;
+        padding-top: 8px;
         font-size:12px;
         font-family:PingFangSC;
         font-weight:400;
         color:rgba(127,129,155,1);
-        line-height:17px;
-
         span {
             color: #fff;
         }
     }
-    p:nth-child(2) {
+    .up-icon {
         text-align: center;
+        height: 0;
+        margin-top: -10px;
     }
 }
 .van-ellipsis {
@@ -363,13 +378,13 @@ export default {
     color:rgba(127,129,155,1);
     line-height:20px;
 }
-.optional-crap-trend {
+.oneself-crap-trend {
     .van-tab__pane {
         height: 220px;
         padding: 0 15px;
     }
 }
-.optional-news {
+.oneself-news {
     border-top: 2px solid #14151C;
     .van-tab__pane {
         padding: 0 15px;
@@ -393,13 +408,13 @@ export default {
                 line-height:16px;
                 padding-top: 8px;
             }
-            .optional-img {
+            .oneself-img {
                 display: flex;
                 justify-content: center;
                 align-items: center;
                 padding-top: 50px;
             }
-            .optional-test {
+            .oneself-test {
                 display: flex;
                 justify-content: center;
                     height:17px;
@@ -414,7 +429,7 @@ export default {
         }
     }
 }
-.optional-buy {
+.oneself-buy {
     display: flex;
     align-items: center;
     position: fixed;
@@ -460,7 +475,7 @@ export default {
             color:rgba(255,255,255,1);
         }
     }
-    .optional-buy-follow {
+    .oneself-buy-follow {
         // padding: 0 22px;
         width: 71px;
         text-align: center;

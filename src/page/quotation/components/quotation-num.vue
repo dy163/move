@@ -85,9 +85,8 @@
         <!-- 交易软件当前时间显示 -->
         <div class="quotation-date">
             <p>财政年结日 <span>2018-06-30</span></p>
-            <p>
-                <van-icon name="arrow-up" color="#7F819B" size="16"/>
-            </p>
+            <p class="up-icon"><van-icon name="arrow-up" color="#7F819B" size="16"/></p>
+
         </div>
         <!-- 图表分析展示 -->
         <div class="quotation-crap">
@@ -251,7 +250,6 @@ export default {
             font-weight:200;
             color:rgba(255,255,255,1);
             line-height:16px;
-
         }
     }
     .quotation-stock-color {
@@ -261,9 +259,10 @@ export default {
 }
 .quotation-list {
     padding: 0 15px;
+    // padding-top: 10px;
     table {
         width: 100%;
-        padding-top: 10px;
+        padding: 10px 0;
     }
     tr {
         height:17px;
@@ -298,21 +297,22 @@ export default {
     padding: 0 15px;
     border-top: 1px solid #14151C;
     border-bottom: 2px solid #14151C;
+    box-sizing: border-box;
+    height: 48px;
     p:nth-child(1) {
-        padding-top: 15px;
-        height:17px;
+        padding-top: 8px;
         font-size:12px;
         font-family:PingFangSC;
         font-weight:400;
         color:rgba(127,129,155,1);
-        line-height:17px;
-
         span {
             color: #fff;
         }
     }
-    p:nth-child(2) {
+    .up-icon {
         text-align: center;
+        height: 0;
+        margin-top: -10px;
     }
 }
 .van-ellipsis {

@@ -11,7 +11,6 @@ export default {
   name: 'Start',
   data () {
     return {
-
     }
   },
   methods: {
@@ -25,7 +24,7 @@ export default {
     position: fixed;
     width: 100%;
     height: 100%;
-    background-color:#D8D8D8;
+    // background-color:#D8D8D8;
     display: flex;
     justify-content: center;
     .van-button {

@@ -1,6 +1,6 @@
 <template>
     <div class="quotation">
-        <van-nav-bar title="股票">
+        <van-nav-bar title="股票" fixed>
             <div slot="right">
                 <img src="@/assets/img/search.png" alt="" style="vertical-align:middle" class="nav-img">
                 <img src="@/assets/img/refresh.png" alt="" style="vertical-align:middle">
@@ -21,81 +21,31 @@
                     <img src="@/assets/img/sort.png" alt="">
                 </p>
             </div>
-            <div class="quotation-content-top" @click="$router.push('/quotation-num')">
-                <div>
-                    <p>贵州茅台</p>
-                    <p>
-                        <span>SH</span>
-                        102931
-                    </p>
+            <div class="nil"></div>
+            <van-list
+                :finished="finished"
+                finished-text="没有更多了">
+                <!-- <van-list
+                v-model="loading"
+                :finished="finished"
+                finished-text="没有更多了"
+                @load="onLoad"> -->
+                <div class="quotation-content-top" v-for="(item, index) in list" :key="index" @click="$router.push('/quotation-num')">
+                    <div>
+                        <p>{{ item.name }}</p>
+                        <p>
+                            <span class="quotation-color">{{ item.marker }}</span>
+                            <span>{{ item.cndm }}</span>
+                        </p>
+                    </div>
+                    <div>
+                        <p>{{ item.price }}</p>
+                    </div>
+                    <div>
+                        <p>{{ item.gain }}</p>
+                    </div>
                 </div>
-                <div>
-                    <p>955.87</p>
-                </div>
-                <div>
-                    <p>0.88%</p>
-                </div>
-            </div>
-            <div class="quotation-content-top" @click="$router.push('/quotation-num')">
-                <div>
-                    <p>纳斯达克</p>
-                    <p>
-                        <span>SH</span>
-                        102931
-                    </p>
-                </div>
-                <div>
-                    <p>955.87</p>
-                </div>
-                <div>
-                    <p>0.88%</p>
-                </div>
-            </div>
-            <div class="quotation-content-top" @click="$router.push('/quotation-num')">
-                <div>
-                    <p>Yext inc.</p>
-                    <p>
-                        <span>SH</span>
-                        102931
-                    </p>
-                </div>
-                <div>
-                    <p>955.87</p>
-                </div>
-                <div>
-                    <p>0.88%</p>
-                </div>
-            </div>
-            <div class="quotation-content-top" @click="$router.push('/quotation-num')">
-                <div>
-                    <p>贵州茅台</p>
-                    <p>
-                        <span>SH</span>
-                        102931
-                    </p>
-                </div>
-                <div>
-                    <p>955.87</p>
-                </div>
-                <div>
-                    <p>0.88%</p>
-                </div>
-            </div>
-            <div class="quotation-content-top" @click="$router.push('/quotation-num')">
-                <div>
-                    <p>贵州茅台</p>
-                    <p>
-                        <span>SH</span>
-                        102931
-                    </p>
-                </div>
-                <div>
-                    <p>955.87</p>
-                </div>
-                <div>
-                    <p>0.88%</p>
-                </div>
-            </div>
+            </van-list>
         </div>
         <div class="quotation-content-foot" @click="handleClickIncrease">
             <img src="@/assets/img/plus-small.png" alt="">
@@ -111,14 +61,47 @@ export default {
   name: 'QuotationIndex',
   data () {
     return {
-
+      loading: false,
+      finished: false,
+      list: [
+        { name: '贵州茅台', marker: 'SH', cndm: '102931', price: '955.87', gain: '0.88%' },
+        { name: '贵州茅台', marker: 'SH', cndm: '102931', price: '955.87', gain: '0.88%' },
+        { name: '贵州茅台', marker: 'SH', cndm: '102931', price: '955.87', gain: '0.88%' },
+        { name: '贵州茅台', marker: 'SH', cndm: '102931', price: '955.87', gain: '0.88%' },
+        { name: '贵州茅台', marker: 'SH', cndm: '102931', price: '955.87', gain: '0.88%' },
+        { name: '贵州茅台', marker: 'SH', cndm: '102931', price: '955.87', gain: '0.88%' },
+        { name: '贵州茅台', marker: 'SH', cndm: '102931', price: '955.87', gain: '0.88%' },
+        { name: '贵州茅台', marker: 'SH', cndm: '102931', price: '955.87', gain: '0.88%' },
+        { name: '贵州茅台', marker: 'SH', cndm: '102931', price: '955.87', gain: '0.88%' },
+        { name: '贵州茅台', marker: 'SH', cndm: '102931', price: '955.87', gain: '0.88%' },
+        { name: '贵州茅台', marker: 'SH', cndm: '102931', price: '955.87', gain: '0.88%' },
+        { name: '贵州茅台', marker: 'SH', cndm: '102931', price: '955.87', gain: '0.88%' },
+        { name: '贵州茅台', marker: 'SH', cndm: '102931', price: '955.87', gain: '0.88%' }
+      ]
     }
   },
   methods: {
     handleClickIncrease () {
       console.log('添加了')
+    },
+
+    onLoad () {
+      // 异步更新数据
+      setTimeout(() => {
+        for (let i = 0; i < 5; i++) {
+          this.list.push(this.list.length + 1)
+        }
+        // 加载状态结束
+        this.loading = false
+
+        // 数据全部加载完成
+        if (this.list.length >= 5) {
+          this.finished = true
+        }
+      }, 500)
     }
   }
+
 }
 </script>
 
@@ -129,10 +112,19 @@ export default {
         margin-right: 22px;
     }
 }
+.nil {
+    height: 92px;
+}
 .quotation-content {
     padding: 0 15px;
     .quotation-content-title {
+        position: fixed;
+        width: 350px;
+        left: 12px;
+        background-color: #20212A;
+        z-index: 1000;
         display: flex;
+        margin-top: 46px;
         justify-content: space-between;
         height:20px;
         font-size:14px;
@@ -141,6 +133,8 @@ export default {
         color:rgba(255,255,255,1);
         line-height:20px;
         padding: 13px 0;
+        line-height:20px;
+        padding-top: 13px;
         p:nth-child(2) {
             margin-left: 18px;
         }
@@ -161,7 +155,6 @@ export default {
                 line-height:22px;
             }
             p:nth-child(2) {
-                // width:39px;
                 height:17px;
                 font-size:12px;
                 font-family:PingFangSC-Medium,PingFangSC;
@@ -171,7 +164,7 @@ export default {
                 display: flex;
                 align-items: center;
                 padding-top: 4px;
-                span {
+                .quotation-color {
                     background:rgba(251,77,79,1);
                     border-radius:2px;
                     font-size:12px;
@@ -179,9 +172,10 @@ export default {
                     font-family:PingFangSC-Regular,PingFangSC;
                     font-weight:400;
                     color:rgba(255,255,255,1);
-                    padding: 1px 4px;
                     margin-left: -7px;
-                    margin-right: -3px;
+                    display: inline-block;
+                    width: 20px;
+                    text-align: center;
                 }
             }
         }
@@ -215,6 +209,7 @@ export default {
     color:rgba(255,255,255,1);
     line-height:22px;
     padding-top: 10px;
+    margin-bottom: 50px;
     img {
         vertical-align: middle;
         padding-right: 3px;

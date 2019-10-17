@@ -1,6 +1,6 @@
 <template>
     <div class="oneself">
-        <van-nav-bar title="股票" left-text="持仓">
+        <van-nav-bar title="股票" left-text="持仓" fixed>
             <div slot="right">
                 <img src="@/assets/img/search.png" alt="" style="vertical-align:middle" class="nav-img">
                 <img src="@/assets/img/refresh.png" alt="" style="vertical-align:middle">
@@ -10,92 +10,42 @@
             <div class="oneself-content-title">
                 <p>
                     全部
-                    <img src="@/assets/img/triangle.png" alt="">
+                    <img src="@/assets/img/triangle.png">
                 </p>
                 <p>
                     价格
-                    <img src="@/assets/img/sort.png" alt="">
+                    <img src="@/assets/img/sort.png">
                 </p>
                 <p>
                     涨跌幅
-                    <img src="@/assets/img/sort.png" alt="">
+                    <img src="@/assets/img/sort.png">
                 </p>
             </div>
-            <div class="oneself-content-top" @click="handleClickBuy">
-                <div>
-                    <p>贵州茅台</p>
-                    <p>
-                        <span>SH</span>
-                        102931
-                    </p>
+            <div class="nil"></div>
+            <van-list
+            :finished="finished"
+            finished-text="没有更多了">
+            <!-- <van-list
+            v-model="loading"
+            :finished="finished"
+            finished-text="没有更多了"
+            @load="onLoad"> -->
+                <div class="oneself-content-top" v-for="(item, index) in list" :key="index" @click="$router.push('/transaction')">
+                    <div>
+                        <p>{{ item.name }}</p>
+                        <p>
+                            <span class="oneself-color">{{ item.marker }}</span>
+                            <span>{{ item.cndm }}</span>
+                        </p>
+                    </div>
+                    <div>
+                        <p>{{ item.price }}</p>
+                    </div>
+                    <div>
+                        <p>{{ item.gain }}</p>
+                    </div>
                 </div>
-                <div>
-                    <p>955.87</p>
-                </div>
-                <div>
-                    <p>0.88%</p>
-                </div>
-            </div>
-            <div class="oneself-content-top">
-                <div>
-                    <p>贵州茅台</p>
-                    <p>
-                        <span>SH</span>
-                        102931
-                    </p>
-                </div>
-                <div>
-                    <p>955.87</p>
-                </div>
-                <div>
-                    <p>0.88%</p>
-                </div>
-            </div>
-            <div class="oneself-content-top">
-                <div>
-                    <p>贵州茅台</p>
-                    <p>
-                        <span>SH</span>
-                        102931
-                    </p>
-                </div>
-                <div>
-                    <p>955.87</p>
-                </div>
-                <div>
-                    <p>0.88%</p>
-                </div>
-            </div>
-            <div class="oneself-content-top">
-                <div>
-                    <p>贵州茅台</p>
-                    <p>
-                        <span>SH</span>
-                        102931
-                    </p>
-                </div>
-                <div>
-                    <p>955.87</p>
-                </div>
-                <div>
-                    <p>0.88%</p>
-                </div>
-            </div>
-            <div class="oneself-content-top">
-                <div>
-                    <p>贵州茅台</p>
-                    <p>
-                        <span>SH</span>
-                        102931
-                    </p>
-                </div>
-                <div>
-                    <p>955.87</p>
-                </div>
-                <div>
-                    <p>0.88%</p>
-                </div>
-            </div>
+            </van-list>
         </div>
         <div class="oneself-content-foot">
             <img src="@/assets/img/plus-small.png" alt="">
@@ -117,8 +67,28 @@ export default {
   },
   data () {
     return {
-      marker: '',
-      show: false
+      loading: false,
+      finished: false,
+      show: false,
+      list: [
+        // { name: '贵州茅台', marker: 'SH', cndm: '102931', price: '955.87', gain: '0.88%' },
+        // { name: '贵州茅台', marker: 'SH', cndm: '102931', price: '955.87', gain: '0.88%' },
+        // { name: '贵州茅台', marker: 'SH', cndm: '102931', price: '955.87', gain: '0.88%' },
+        // { name: '贵州茅台', marker: 'SH', cndm: '102931', price: '955.87', gain: '0.88%' },
+        // { name: '贵州茅台', marker: 'SH', cndm: '102931', price: '955.87', gain: '0.88%' },
+        // { name: '贵州茅台', marker: 'SH', cndm: '102931', price: '955.87', gain: '0.88%' },
+        // { name: '贵州茅台', marker: 'SH', cndm: '102931', price: '955.87', gain: '0.88%' },
+        // { name: '贵州茅台', marker: 'SH', cndm: '102931', price: '955.87', gain: '0.88%' },
+        // { name: '贵州茅台', marker: 'SH', cndm: '102931', price: '955.87', gain: '0.88%' },
+        // { name: '贵州茅台', marker: 'SH', cndm: '102931', price: '955.87', gain: '0.88%' },
+        // { name: '贵州茅台', marker: 'SH', cndm: '102931', price: '955.87', gain: '0.88%' },
+        // { name: '贵州茅台', marker: 'SH', cndm: '102931', price: '955.87', gain: '0.88%' },
+        // { name: '贵州茅台', marker: 'SH', cndm: '102931', price: '955.87', gain: '0.88%' },
+        // { name: '贵州茅台', marker: 'SH', cndm: '102931', price: '955.87', gain: '0.88%' },
+        { name: '贵州茅台', marker: 'SH', cndm: '102931', price: '955.87', gain: '0.88%' },
+        { name: '贵州茅台', marker: 'SH', cndm: '102931', price: '955.87', gain: '0.88%' },
+        { name: '贵州茅台', marker: 'SH', cndm: '102931', price: '955.87', gain: '0.88%' }
+      ]
     }
   },
   methods: {
@@ -142,10 +112,19 @@ export default {
         background-color: #20212A;
     }
 }
+.nil {
+    height: 92px;
+}
 .oneself-content {
     padding: 0 15px;
     .oneself-content-title {
+        position: fixed;
+        width: 350px;
+        left: 12px;
+        background-color: #20212A;
+        z-index: 1000;
         display: flex;
+        margin-top: 46px;
         justify-content: space-between;
         height:20px;
         font-size:14px;
@@ -154,6 +133,8 @@ export default {
         color:rgba(255,255,255,1);
         line-height:20px;
         padding: 13px 0;
+        line-height:20px;
+        padding-top: 13px;
         p:nth-child(2) {
             margin-left: 18px;
         }
@@ -174,7 +155,6 @@ export default {
                 line-height:22px;
             }
             p:nth-child(2) {
-                // width:39px;
                 height:17px;
                 font-size:12px;
                 font-family:PingFangSC-Medium,PingFangSC;
@@ -184,7 +164,7 @@ export default {
                 display: flex;
                 align-items: center;
                 padding-top: 4px;
-                span {
+                .oneself-color {
                     background:rgba(251,77,79,1);
                     border-radius:2px;
                     font-size:12px;
@@ -192,9 +172,10 @@ export default {
                     font-family:PingFangSC-Regular,PingFangSC;
                     font-weight:400;
                     color:rgba(255,255,255,1);
-                    padding: 1px 4px;
                     margin-left: -7px;
-                    margin-right: -3px;
+                    display: inline-block;
+                    width: 20px;
+                    text-align: center;
                 }
             }
         }
@@ -228,6 +209,7 @@ export default {
     color:rgba(255,255,255,1);
     line-height:22px;
     padding-top: 10px;
+    margin-bottom: 50px;
     img {
         vertical-align: middle;
         padding-right: 3px;
