@@ -1,152 +1,145 @@
 <template>
-    <div class="oneself-stock"
+    <div class="oneself"
     :value="value"
     @input="$emit('input', $event)">
-        <div class="oneself-stock-header" @click="$router.back()">
-                <van-icon name="arrow-left" size="16"/>
-                <!-- <van-icon name="arrow-right" size="16"/> -->
-            <div>
-                <p> <span>HK</span> 恒生指数(HSI)</p>
-                <p>交易中07-25 10:36:20</p>
-            </div>
-        </div>
-        <div class="oneself-stock-number">
-            <div>
-                <p class="oneself-stock-number-mark">28,597.99</p>
+        <div class="oneself-contant">
+            <div class="oneself-header" @click="$router.back()">
+                    <van-icon name="arrow-left" size="16"/>
                 <div>
-                    <p class="oneself-stock-number-gain">+73.950</p>
-                    <p class="oneself-stock-number-gain">+0.88</p>
+                    <p> <span>HK</span> 恒生指数(HSI)</p>
+                    <p>交易中07-25 10:36:20</p>
                 </div>
             </div>
-            <div >
-                <p class="oneself-stock-color">Lo</p>
+            <div class="oneself-number">
+                <div class="oneself-number-mark">
+                    <p >28,597.99</p>
+                </div>
+                <div class="oneself-number-gain">
+                    <p>+73.950</p>
+                    <p>+0.88</p>
+                </div>
+                <div class="oneself-img">
+                    <img src="@/assets/img/pointing.png" alt="">
+                </div>
             </div>
-        </div>
-        <!-- 指数动态信息 -->
-        <div class="oneself-list">
-            <!-- <div>
-                <p>市盈率(动）</p>
-                <p>0.950</p>
-                <p>最高</p>
-                <p>4600.00万</p>
-                <p>52周最高</p>
-                <p>0</p>
-            </div> -->
-            <table>
-                <tr>
-                    <td>今&nbsp;&nbsp;&nbsp;开</td>
-                    <td>0.950</td>
-                    <td>最&nbsp;&nbsp;&nbsp;高</td>
-                    <td>0.980</td>
-                    <td>成交量</td>
-                    <td>0</td>
-                </tr>
-                <tr>
-                    <td>昨&nbsp;&nbsp;&nbsp;收</td>
-                    <td>0.970</td>
-                    <td>最&nbsp;&nbsp;&nbsp;低</td>
-                    <td>0.950</td>
-                    <td>成交额</td>
-                    <td>- -</td>
-                </tr>
-                <tr>
-                    <td>总股本</td>
-                    <td>1.84亿</td>
-                    <td>流通值</td>
-                    <td>4462.00万</td>
-                    <td>52周最低</td>
-                    <td>0.840</td>
-                </tr>
-                <tr>
-                    <td>总市值</td>
-                    <td>1.78亿</td>
-                    <td>流通股</td>
-                    <td>4600.00万</td>
-                    <td>52周最高</td>
-                    <td>2.840</td>
-                </tr>
-                <tr>
-                    <td>市盈率(动）</td>
-                    <td>- -</td>
-                    <td>换手率</td>
-                    <td>0.00%</td>
-                    <td>每股收益</td>
-                    <td>0.07</td>
-                </tr>
-                <tr>
-                    <td>市盈率(静)</td>
-                    <td>14.06</td>
-                    <td>振&nbsp;&nbsp;&nbsp;幅</td>
-                    <td>0.00%</td>
-                    <td>股息率</td>
-                    <td>0.00%</td>
-                </tr>
-                <tr>
-                    <td>每&nbsp;&nbsp;&nbsp;手</td>
-                    <td>2000</td>
-                    <td>Beta值</td>
-                    <td>- -</td>
-                    <td>股&nbsp;&nbsp;&nbsp;息</td>
-                    <td>- -</td>
-                </tr>
-            </table>
-        </div>
-        <!-- 时间展示 -->
-        <div class="oneself-date">
-            <p>财政年结日 <span>2018-06-30</span></p>
-            <p class="up-icon">
-                <van-icon name="arrow-up" color="#7F819B" size="16"/>
-            </p>
-        </div>
-        <!-- 图表分析展示 -->
-        <div class="oneself-crap">
-            <div class="oneself-crap-trend">
-                <van-tabs v-model="timer" background='#20212A' line-height='0' title-active-color='#2F98FF'>
-                    <van-tab title="分时">分时</van-tab>
-                    <van-tab title="日K">日K</van-tab>
-                    <van-tab title="周K">周K</van-tab>
-                    <van-tab title="月K">月K</van-tab>
-                </van-tabs>
+            <!-- 指数动态信息 -->
+            <div class="oneself-list">
+                <table>
+                    <tr>
+                        <td>今&nbsp;&nbsp;&nbsp;开</td>
+                        <td>0.950</td>
+                        <td>最&nbsp;&nbsp;&nbsp;高</td>
+                        <td>0.980</td>
+                        <td>成交量</td>
+                        <td>0</td>
+                    </tr>
+                    <tr>
+                        <td>昨&nbsp;&nbsp;&nbsp;收</td>
+                        <td>0.970</td>
+                        <td>最&nbsp;&nbsp;&nbsp;低</td>
+                        <td>0.950</td>
+                        <td>成交额</td>
+                        <td>- -</td>
+                    </tr>
+                    <tr>
+                        <td>总股本</td>
+                        <td>1.84亿</td>
+                        <td>流通值</td>
+                        <td>4462.00万</td>
+                        <td>52周最低</td>
+                        <td>0.840</td>
+                    </tr>
+                    <tr>
+                        <td>总市值</td>
+                        <td>1.78亿</td>
+                        <td>流通股</td>
+                        <td>4600.00万</td>
+                        <td>52周最高</td>
+                        <td>2.840</td>
+                    </tr>
+                    <tr>
+                        <td>市盈率(动）</td>
+                        <td>- -</td>
+                        <td>换手率</td>
+                        <td>0.00%</td>
+                        <td>每股收益</td>
+                        <td>0.07</td>
+                    </tr>
+                    <tr>
+                        <td>市盈率(静)</td>
+                        <td>14.06</td>
+                        <td>振&nbsp;&nbsp;&nbsp;幅</td>
+                        <td>0.00%</td>
+                        <td>股息率</td>
+                        <td>0.00%</td>
+                    </tr>
+                    <tr>
+                        <td>每&nbsp;&nbsp;&nbsp;手</td>
+                        <td>2000</td>
+                        <td>Beta值</td>
+                        <td>- -</td>
+                        <td>股&nbsp;&nbsp;&nbsp;息</td>
+                        <td>- -</td>
+                    </tr>
+                </table>
             </div>
-            <div class="oneself-news">
-                <van-tabs v-model="tidings" background='#20212A' line-height='0' title-active-color='#2F98FF'>
-                    <van-tab title="新闻">
-                        <div slot="default">
-                            <p>07月25日主力资金抢筹最积极的前10股（附名单）</p>
-                            <p><span>今天 15:10</span></p>
-                        </div>
-                        <div slot="default">
-                            <p>07月25日主力资金抢筹最积极的前10股（附名单）</p>
-                            <p><span>今天 15:10</span></p>
-                        </div>
-                        <div slot="default">
-                            <p>食品饮料行业Q2基金持仓分析：食品饮料持仓创历史新高处上升期</p>
-                            <p><span>今天 15:10</span></p>
-                        </div>
-                    </van-tab>
-                    <van-tab title="公告">
-                        <div slot="default">
-                            <p>贵州茅台关于会计政策变更的公告</p>
-                            <p>2019-07-17</p>
-                        </div>
-                        <div slot="default">
-                            <p>贵州茅台第二届监事会2019年度第三次会议决议的…</p>
-                            <p>2019-07-17</p>
-                        </div>
-                        <div slot="default">
-                            <p>贵州茅台关于会计政策变更的公告</p>
-                            <p>2019-07-17</p>
-                        </div>
-                    </van-tab>
-                    <van-tab title="分析">
-                        <div slot="default">
-                            <p class="oneself-img">
-                                <img src="@/assets/img/hollow.png">
-                            </p>
-                            <span class="oneself-test">暂无分析动态</span>
-                        </div>
-                    </van-tab>
-                </van-tabs>
+            <!-- 时间展示 -->
+            <div class="oneself-date">
+                <p>财政年结日 <span>2018-06-30</span></p>
+                <p class="up-icon">
+                    <van-icon name="arrow-up" color="#7F819B" size="16"/>
+                </p>
+            </div>
+            <!-- 图表分析展示 -->
+            <div class="oneself-crap">
+                <div class="oneself-crap-trend">
+                    <van-tabs v-model="timer" background='#20212A' line-height='0' title-active-color='#2F98FF'>
+                        <van-tab title="分时">分时</van-tab>
+                        <van-tab title="日K">日K</van-tab>
+                        <van-tab title="周K">周K</van-tab>
+                        <van-tab title="月K">月K</van-tab>
+                    </van-tabs>
+                </div>
+                <div class="oneself-news">
+                    <van-tabs v-model="tidings" background='#20212A' line-height='0' title-active-color='#2F98FF'>
+                        <van-tab title="新闻">
+                            <div slot="default">
+                                <p>07月25日主力资金抢筹最积极的前10股（附名单）</p>
+                                <p><span>今天 15:10</span></p>
+                            </div>
+                            <div slot="default">
+                                <p>07月25日主力资金抢筹最积极的前10股（附名单）</p>
+                                <p><span>今天 15:10</span></p>
+                            </div>
+                            <div slot="default">
+                                <p>食品饮料行业Q2基金持仓分析：食品饮料持仓创历史新高处上升期</p>
+                                <p><span>今天 15:10</span></p>
+                            </div>
+                        </van-tab>
+                        <van-tab title="公告">
+                            <div slot="default">
+                                <p>贵州茅台关于会计政策变更的公告</p>
+                                <p>2019-07-17</p>
+                            </div>
+                            <div slot="default">
+                                <p>贵州茅台第二届监事会2019年度第三次会议决议的…</p>
+                                <p>2019-07-17</p>
+                            </div>
+                            <div slot="default">
+                                <p>贵州茅台关于会计政策变更的公告</p>
+                                <p>2019-07-17</p>
+                            </div>
+                        </van-tab>
+                        <van-tab title="分析">
+                            <div slot="default">
+                                <p class="oneself-img">
+                                    <img src="@/assets/img/hollow.png">
+                                </p>
+                                <span class="oneself-test">暂无分析动态</span>
+                            </div>
+                        </van-tab>
+                    </van-tabs>
+                </div>
             </div>
         </div>
         <!-- 买入卖出底部展示 -->
@@ -208,10 +201,12 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.oneself-stock-header {
+.oneself-contant {
+    padding: 0 15px;
+}
+.oneself-header {
     height: 44px;
     line-height: 44px;
-    padding: 0 15px;
     display: flex;
     align-items: center;
     .van-icon {
@@ -254,73 +249,46 @@ export default {
         }
     }
 }
-.oneself-stock-number {
-    height: 74px;
+.oneself-number {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
+    color:rgba(53,192,137,1);
     border-bottom: 2px solid #14151C;
-    padding: 0 15px;
-    div:nth-child(1) {
-
-        color:rgba(53,192,137,1);
-        display: flex;
-        justify-content: center;
-        height: 74px;
-        line-height: 74px;
-        .oneself-stock-number-mark {
-            width:191px;
-            font-size:40px;
-            font-family:DINAlternate-Bold,DINAlternate;
-            font-weight:bold;
-            padding-left: 50px;
-        }
-        div {
-            padding-top: 22px;
-        }
-        .oneself-stock-number-gain {
-            padding-left: 10px;
-            width:46px;
-            font-size:14px;
-            font-family:DINAlternate-Bold,DINAlternate;
-            font-weight:bold;
-            color:rgba(53,192,137,1);
-        }
+    padding-bottom: 8px;
+    .oneself-number-mark {
+        font-size:40px;
+        font-family:DINAlternate-Bold,DINAlternate;
+        font-weight:bold;
+        padding-left: 25px;
+        margin-right: -30px;
     }
-    div:nth-child(2) {
-        width:16px;
-        height:16px;
-        border-radius:2px;
-        p {
-            width:12px;
-            height:16px;
-            font-size:11px;
-            font-family:PingFangSC;
-            font-weight:200;
-            color:rgba(255,255,255,1);
-            line-height:16px;
-
-        }
+    .oneself-number-gain {
+        width:46px;
+        font-size:14px;
+        font-family:DINAlternate-Bold,DINAlternate;
+        font-weight:bold;
     }
-    .oneself-stock-color {
-        background-color: #FF7946;
-        padding-right: 3px;
+    .oneself-img {
+        margin-top: -20px;
+        margin-right: -18px;
     }
 }
 .oneself-list {
-    padding: 0 15px;
     table {
         width: 100%;
         padding: 10px 0;
-
+        font-size:12px;
         font-family:PingFangSC;
         font-weight:400;
         color:rgba(127,129,155,1);
+        td {
+            white-space: nowrap;
+        }
     }
     tr {
         height:22px;
         padding: 10px 0;
-        font-size:12px;
         td:nth-child(even) {
             color:#fff;
             text-align: right;
@@ -340,15 +308,8 @@ export default {
             color: #35C089;
         }
     }
-    div {
-        display: flex;
-        justify-content: space-around;
-        font-size: 12px;
-    }
-
 }
 .oneself-date {
-    padding: 0 15px;
     border-top: 1px solid #14151C;
     border-bottom: 2px solid #14151C;
     box-sizing: border-box;
@@ -381,13 +342,11 @@ export default {
 .oneself-crap-trend {
     .van-tab__pane {
         height: 220px;
-        padding: 0 15px;
     }
 }
 .oneself-news {
     border-top: 2px solid #14151C;
     .van-tab__pane {
-        padding: 0 15px;
         padding-bottom: 60px;
         div {
             border-bottom: 1px solid #14151C;

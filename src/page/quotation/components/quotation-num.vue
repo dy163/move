@@ -1,7 +1,7 @@
 <template>
-    <div class="quotation-stock">
+    <div class="quotation">
         <!-- 头部名称 -->
-        <div class="quotation-stock-header" @click="$router.back()">
+        <div class="quotation-header" @click="$router.back()">
                 <van-icon name="arrow-left" size="16"/>
             <div>
                 <p> <span>HK</span> 恒生指数(HSI)</p>
@@ -9,20 +9,20 @@
             </div>
         </div>
         <!-- 股票指数展示 -->
-        <div class="quotation-stock-number">
-            <div>
-                <p class="quotation-stock-number-mark">28,597.99</p>
-                <div>
-                    <p class="quotation-stock-number-gain">+73.950</p>
-                    <p class="quotation-stock-number-gain">+0.88</p>
-                </div>
+        <div class="quotation-number">
+            <div class="quotation-number-mark">
+                <p >28,597.99</p>
             </div>
-            <div >
-                <p class="quotation-stock-color">Lo</p>
+            <div class="quotation-number-gain">
+                <p>+73.950</p>
+                <p>+0.88</p>
+            </div>
+            <div class="quotation-img">
+                <img src="@/assets/img/pointing.png" alt="">
             </div>
         </div>
         <!-- 具体数据展示 -->
-        <div class="quotation-list">
+        <div class="quotation-list" style="overflow-x:auto">
             <table>
                 <tr>
                     <td>今&nbsp;&nbsp;&nbsp;开</td>
@@ -160,10 +160,12 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.quotation-stock-header {
+.quotation {
+    padding: 0 15px;
+}
+.quotation-header {
     height: 44px;
     line-height: 44px;
-    padding: 0 15px;
     display: flex;
     align-items: center;
     .van-icon {
@@ -206,73 +208,48 @@ export default {
         }
     }
 }
-.quotation-stock-number {
-    height: 74px;
+.quotation-number {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
+    color:rgba(53,192,137,1);
     border-bottom: 2px solid #14151C;
-    padding: 0 15px;
-    div:nth-child(1) {
-        color:rgba(53,192,137,1);
-        display: flex;
-        justify-content: center;
-        height: 74px;
-        line-height: 74px;
-        .quotation-stock-number-mark {
-            width:191px;
-            font-size:40px;
-            font-family:DINAlternate-Bold,DINAlternate;
-            font-weight:bold;
-            padding-left: 50px;
-        }
-        div {
-            padding-top: 22px;
-        }
-        .quotation-stock-number-gain {
-            padding-left: 10px;
-            width:46px;
-            font-size:14px;
-            font-family:DINAlternate-Bold,DINAlternate;
-            font-weight:bold;
-            color:rgba(53,192,137,1);
-        }
+    padding-bottom: 8px;
+    .quotation-number-mark {
+        font-size:40px;
+        font-family:DINAlternate-Bold,DINAlternate;
+        font-weight:bold;
+        padding-left: 25px;
+        margin-right: -30px;
     }
-    div:nth-child(2) {
-        width:16px;
-        height:16px;
-        border-radius:2px;
-        p {
-            width:12px;
-            height:16px;
-            font-size:11px;
-            font-family:PingFangSC;
-            font-weight:200;
-            color:rgba(255,255,255,1);
-            line-height:16px;
-        }
+    .quotation-number-gain {
+        width:46px;
+        font-size:14px;
+        font-family:DINAlternate-Bold,DINAlternate;
+        font-weight:bold;
     }
-    .quotation-stock-color {
-        background-color: #FF7946;
-        padding-right: 3px;
+    .quotation-img {
+        margin-top: -20px;
+        margin-right: -18px;
     }
 }
+
 .quotation-list {
-    padding: 0 15px;
-    // padding-top: 10px;
+    // padding: 0 15px;
     table {
         width: 100%;
         padding: 10px 0;
-    }
-    tr {
-        height:17px;
         font-size:12px;
-        // -webkit-transform: scale(0.5);
         font-family:PingFangSC;
         font-weight:400;
         color:rgba(127,129,155,1);
-        line-height:17px;
-        padding: 5px 0;
+        td {
+            white-space: nowrap;
+        }
+    }
+    tr {
+        height:22px;
+        padding: 10px 0;
         td:nth-child(even) {
             color:#fff;
             text-align: right;
@@ -294,7 +271,7 @@ export default {
     }
 }
 .quotation-date {
-    padding: 0 15px;
+    // padding: 0 15px;
     border-top: 1px solid #14151C;
     border-bottom: 2px solid #14151C;
     box-sizing: border-box;
@@ -327,13 +304,13 @@ export default {
 .quotation-crap-trend {
     .van-tab__pane {
         height: 220px;
-        padding: 0 15px;
+        // padding: 0 15px;
     }
 }
 .quotation-news {
     border-top: 2px solid #14151C;
     .van-tab__pane {
-        padding: 0 15px;
+        // padding: 0 15px;
         padding-bottom: 60px;
         div {
             border-bottom: 1px solid #14151C;

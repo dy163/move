@@ -71,11 +71,6 @@ export default {
         { name: '贵州茅台', marker: 'SH', cndm: '102931', price: '955.87', gain: '0.88%' },
         { name: '贵州茅台', marker: 'SH', cndm: '102931', price: '955.87', gain: '0.88%' },
         { name: '贵州茅台', marker: 'SH', cndm: '102931', price: '955.87', gain: '0.88%' },
-        { name: '贵州茅台', marker: 'SH', cndm: '102931', price: '955.87', gain: '0.88%' },
-        { name: '贵州茅台', marker: 'SH', cndm: '102931', price: '955.87', gain: '0.88%' },
-        { name: '贵州茅台', marker: 'SH', cndm: '102931', price: '955.87', gain: '0.88%' },
-        { name: '贵州茅台', marker: 'SH', cndm: '102931', price: '955.87', gain: '0.88%' },
-        { name: '贵州茅台', marker: 'SH', cndm: '102931', price: '955.87', gain: '0.88%' },
         { name: '贵州茅台', marker: 'SH', cndm: '102931', price: '955.87', gain: '0.88%' }
       ]
     }
