@@ -147,7 +147,6 @@ export default {
 <style lang='less' scoped>
 .transaction-if {
     background:rgba(0,0,0,0.6);
-    // opacity:0.6;
     .transaction-number-popup {
 
         height:325px;
@@ -244,7 +243,6 @@ export default {
             align-items: center;
             padding: 0 15px;
             p:nth-child(1) {
-                // width:38px;
                 font-size:12px;
                 font-family:PingFangSC-Regular,PingFangSC;
                 font-weight:400;
