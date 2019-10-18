@@ -86,7 +86,7 @@
         <div class="quotation-date">
             <p>财政年结日 <span>2018-06-30</span></p>
             <p class="up-icon"><van-icon name="arrow-up" color="#7F819B" size="16"/></p>
-
+            <!-- <van-icon name="arrow-up" color="#7F819B" size="16"/> -->
         </div>
         <!-- 图表分析展示 -->
         <div class="quotation-crap">
@@ -160,9 +160,6 @@ export default {
 </script>
 
 <style lang="less" scoped>
-// .quotation {
-//     padding: 0 15px;
-// }
 .quotation-header {
     height: 44px;
     line-height: 44px;
@@ -287,9 +284,8 @@ export default {
         }
     }
     .up-icon {
-        text-align: center;
-        height: 0;
-        margin-top: -10px;
+        display: flex;
+        justify-content: center;
     }
 }
 .quotation-crap {

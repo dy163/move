@@ -70,7 +70,7 @@ export default {
       } else if (!reg.test(phone)) {
         this.$toast('手机号格式错误')
       } else {
-        this.$router.push('/personal-information')
+        this.$router.push('/personal')
       }
     },
     // 验证登录密码得显示和隐藏

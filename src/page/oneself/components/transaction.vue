@@ -312,11 +312,11 @@ export default {
     }
 }
 .oneself-date {
+    padding: 0 10px;
     border-top: 1px solid #14151C;
     border-bottom: 2px solid #14151C;
     box-sizing: border-box;
     height: 48px;
-    padding: 0 10px;
     p:nth-child(1) {
         padding-top: 8px;
         font-size:12px;
@@ -328,9 +328,8 @@ export default {
         }
     }
     .up-icon {
-        text-align: center;
-        height: 0;
-        margin-top: -10px;
+        display: flex;
+        justify-content: center;
     }
 }
 .van-ellipsis {
