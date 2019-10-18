@@ -18,7 +18,7 @@ export default {
   name: 'AppTabbar',
   data () {
     return {
-      active: 0,
+      active: '',
       tabbars: [
         {
           name: 'quotation',

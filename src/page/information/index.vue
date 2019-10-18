@@ -38,48 +38,14 @@
                     <!-- 轮播热点信息 -->
                     <div class="information-hot-news">
                         <van-swipe :autoplay="3000" indicator-color="white">
-                            <!-- <van-list>
-                                <van-swipe-item
-                                v-for="(item,index) in hot"
-                                :key="index">
-                                    <div class="information-hot-news-all">
-                                        <div class="information-hot-news-img"></div>
-                                        <div class="information-hot-news-title">
-                                            <p>{{ item.title }}</p>
-                                            <p>{{ item.content }}</p>
-                                        </div>
-                                    </div>
-                                </van-swipe-item>
-                            </van-list> -->
-
-                            <van-swipe-item>
-                                <van-list>
-                                    <div class="information-hot-news-all"
-                                    v-for="(item,index) in hot"
-                                    :key="index">
-                                        <div class="information-hot-news-img"></div>
-                                        <div class="information-hot-news-title">
-                                            <p>{{ item.title }}</p>
-                                            <p>{{ item.content }}</p>
-                                        </div>
-                                    </div>
-                                </van-list>
-                            </van-swipe-item>
-                            <van-swipe-item>
+                            <van-swipe-item
+                            v-for="(item,index) in hot"
+                            :key="index">
                                 <div class="information-hot-news-all">
                                     <div class="information-hot-news-img"></div>
                                     <div class="information-hot-news-title">
-                                        <p>科创板来了！</p>
-                                        <p>科创板开板！中国资本市场迎来历史性时刻。</p>
-                                    </div>
-                                </div>
-                            </van-swipe-item>
-                            <van-swipe-item>
-                                <div class="information-hot-news-all">
-                                    <div class="information-hot-news-img"></div>
-                                    <div class="information-hot-news-title">
-                                        <p>科创板来了！</p>
-                                        <p>科创板开板！中国资本市场迎来历史性时刻。</p>
+                                        <p>{{ item.title }}</p>
+                                        <p>{{ item.content }}</p>
                                     </div>
                                 </div>
                             </van-swipe-item>
@@ -98,13 +64,6 @@
                             </div>
                         </div>
                     </van-list>
-                    <!-- <div class="information-front-page-foot">
-                        <div>
-                            <p class="information-title">长江证券：美股大幅反弹，与美国经济“背离”？</p>
-                            <p class="information-front-page-foot-name"> <span>置顶</span> 长江证券研究 今天 <span>12:35</span></p>
-                        </div>
-                        <div class="img"></div>
-                    </div> -->
                 </van-tab>
                 <!-- 公告 -->
                 <van-tab title="公告" class="information-Optional">
@@ -192,6 +151,8 @@ export default {
       loading: false,
       finished: false,
       hot: [
+        { title: '科创板来了！', content: '科创板开板！中国资本市场迎来历史性时刻。' },
+        { title: '科创板来了！', content: '科创板开板！中国资本市场迎来历史性时刻。' },
         { title: '科创板来了！', content: '科创板开板！中国资本市场迎来历史性时刻。' }
       ],
       newsList: [
