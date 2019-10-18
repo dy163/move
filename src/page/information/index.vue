@@ -17,34 +17,19 @@
                             <p>【科创板成交额突破200亿元】财联社7月23日讯，科创板25家公司今日成交额突破20…</p>
                         </div>
                     </div>
-                    <div class="information-front-page-foot">
-                        <div>
-                            <p class="information-title">长江证券：美股大幅反弹，与美国经济“背离”？</p>
-                            <p class="information-front-page-foot-name"> <span>置顶</span> 长江证券研究 今天 <span>12:35</span></p>
+                    <van-list>
+                        <div class="information-front-page-foot"
+                        v-for="(item,index) in focus"
+                        :key="index">
+                            <div>
+                                <p class="information-title">{{ item.title }}</p>
+                                <p class="information-front-page-foot-name"><span>{{ item.roof }}</span>&nbsp;&nbsp;<span>{{ item.trusts }}</span>&nbsp;&nbsp;<span>{{ item.timer }}</span></p>
+                            </div>
+                            <div class="img">
+                                <img src="@/assets/Rectangle.png" alt="">
+                            </div>
                         </div>
-                        <div class="img"></div>
-                    </div>
-                    <div class="information-front-page-foot">
-                        <div>
-                            <p class="information-title">长江证券：美股大幅反弹，与美国经济“背离”？</p>
-                            <p class="information-front-page-foot-name"> <span>置顶</span> 长江证券研究 今天 <span>12:35</span></p>
-                        </div>
-                        <div class="img"></div>
-                    </div>
-                    <div class="information-front-page-foot">
-                        <div>
-                            <p class="information-title">长江证券：美股大幅反弹，与美国经济“背离”？</p>
-                            <p class="information-front-page-foot-name"> <span>置顶</span> 长江证券研究 今天 <span>12:35</span></p>
-                        </div>
-                        <div class="img"></div>
-                    </div>
-                    <div class="information-front-page-foot">
-                        <div>
-                            <p class="information-title">长江证券：美股大幅反弹，与美国经济“背离”？</p>
-                            <p class="information-front-page-foot-name"> <span>置顶</span> 长江证券研究 今天 <span>12:35</span></p>
-                        </div>
-                        <div class="img"></div>
-                    </div>
+                    </van-list>
                     <!-- hot事件 -->
                     <div class="information-hot">
                         <p>热点事件</p>
@@ -53,14 +38,32 @@
                     <!-- 轮播热点信息 -->
                     <div class="information-hot-news">
                         <van-swipe :autoplay="3000" indicator-color="white">
-                            <van-swipe-item>
-                                <div class="information-hot-news-all">
-                                    <div class="information-hot-news-img"></div>
-                                    <div class="information-hot-news-title">
-                                        <p>科创板来了！</p>
-                                        <p>科创板开板！中国资本市场迎来历史性时刻。</p>
+                            <!-- <van-list>
+                                <van-swipe-item
+                                v-for="(item,index) in hot"
+                                :key="index">
+                                    <div class="information-hot-news-all">
+                                        <div class="information-hot-news-img"></div>
+                                        <div class="information-hot-news-title">
+                                            <p>{{ item.title }}</p>
+                                            <p>{{ item.content }}</p>
+                                        </div>
                                     </div>
-                                </div>
+                                </van-swipe-item>
+                            </van-list> -->
+
+                            <van-swipe-item>
+                                <van-list>
+                                    <div class="information-hot-news-all"
+                                    v-for="(item,index) in hot"
+                                    :key="index">
+                                        <div class="information-hot-news-img"></div>
+                                        <div class="information-hot-news-title">
+                                            <p>{{ item.title }}</p>
+                                            <p>{{ item.content }}</p>
+                                        </div>
+                                    </div>
+                                </van-list>
                             </van-swipe-item>
                             <van-swipe-item>
                                 <div class="information-hot-news-all">
@@ -82,31 +85,39 @@
                             </van-swipe-item>
                         </van-swipe>
                     </div>
-                    <div class="information-front-page-foot">
+                    <van-list>
+                        <div class="information-front-page-foot"
+                        v-for="(item,index) in focus"
+                        :key="index">
+                            <div>
+                                <p class="information-title">{{ item.title }}</p>
+                                <p class="information-front-page-foot-name"><span>{{ item.roof }}</span>&nbsp;&nbsp;<span>{{ item.trusts }}</span>&nbsp;&nbsp;<span>{{ item.timer }}</span></p>
+                            </div>
+                            <div class="img">
+                                <img src="@/assets/Rectangle.png" alt="">
+                            </div>
+                        </div>
+                    </van-list>
+                    <!-- <div class="information-front-page-foot">
                         <div>
                             <p class="information-title">长江证券：美股大幅反弹，与美国经济“背离”？</p>
                             <p class="information-front-page-foot-name"> <span>置顶</span> 长江证券研究 今天 <span>12:35</span></p>
                         </div>
                         <div class="img"></div>
-                    </div>
-                    <div class="information-front-page-foot">
-                        <div>
-                            <p class="information-title">长江证券：美股大幅反弹，与美国经济“背离”？</p>
-                            <p class="information-front-page-foot-name"> <span>置顶</span> 长江证券研究 今天 <span>12:35</span></p>
-                        </div>
-                        <div class="img"></div>
-                    </div>
-                    <div class="information-front-page-foot">
-                        <div>
-                            <p class="information-title">长江证券：美股大幅反弹，与美国经济“背离”？</p>
-                            <p class="information-front-page-foot-name"> <span>置顶</span> 长江证券研究 今天 <span>12:35</span></p>
-                        </div>
-                        <div class="img"></div>
-                    </div>
+                    </div> -->
                 </van-tab>
                 <!-- 公告 -->
                 <van-tab title="公告" class="information-Optional">
-                    <div>
+                    <van-list>
+                        <div
+                        v-for="(item, index) in Optional"
+                        :key="index">
+                            <p>{{ item.name }}&nbsp;&nbsp;<span>{{ item.range }}</span></p>
+                            <p>{{ item.brief }}</p>
+                            <p>{{ item.time }}</p>
+                        </div>
+                    </van-list>
+                    <!-- <div>
                         <p>贵州茅台（600519）<span>-0.80%</span></p>
                         <p>茅台机场上半年运输指标位列贵州省支线机赞阿萨的吧就卡不</p>
                         <p>2019-07-24 13:13 </p>
@@ -123,39 +134,30 @@
                         <p>贵州茅台（600519）<span>-0.80%</span></p>
                         <p>茅台机场上半年运输指标位列贵州省支线机</p>
                         <p>2019-07-24 13:13 </p>
-                    </div>
+                    </div> -->
                 </van-tab>
                 <!-- 自选 -->
                 <van-tab title="自选" class="information-Optional">
-                    <h3>今日</h3>
-                    <div>
-                        <p>贵州茅台（600519）<span>-0.80%</span></p>
-                        <p>茅台机场上半年运输指标位列贵州省支线机赞阿萨的吧就卡不</p>
-                        <p>2019-07-24 13:13 </p>
-                    </div>
-                    <div>
-                        <p>贵州茅台（600519）<span>-0.80%</span></p>
-                        <p>茅台机场上半年运输指标位列贵州省支线机</p>
-                        <p>2019-07-24 13:13 </p>
-                    </div>
-                    <div>
-                        <p>贵州茅台（600519）<span>-0.80%</span></p>
-                        <p>茅台机场上半年运输指标位列贵州省支线机</p>
-                        <p>2019-07-24 13:13 </p>
-                    </div><div>
-                        <p>贵州茅台（600519）<span>-0.80%</span></p>
-                        <p>茅台机场上半年运输指标位列贵州省支线机</p>
-                        <p>2019-07-24 13:13 </p>
-                    </div>
-                </van-tab>
-                <!-- 推送 -->
-                <van-tab title="推送" name="propelling" class="information-push">
+
                     <!-- <van-list
                     v-model="loading"
                     :finished="finished"
                     finished-text="没有更多了"
                     @load="onLoad"
                     > -->
+                    <van-list>
+                        <h3>今日</h3>
+                        <div
+                        v-for="(item, index) in Optional"
+                        :key="index">
+                            <p>{{ item.name }}&nbsp;&nbsp;<span>{{ item.range }}</span></p>
+                            <p>{{ item.brief }}</p>
+                            <p>{{ item.time }}</p>
+                        </div>
+                    </van-list>
+                </van-tab>
+                <!-- 推送 -->
+                <van-tab title="推送" name="propelling" class="information-push">
                     <van-list>
                     <div class="information-content"
                     v-for="(item, index) in newsList"
@@ -189,6 +191,9 @@ export default {
       },
       loading: false,
       finished: false,
+      hot: [
+        { title: '科创板来了！', content: '科创板开板！中国资本市场迎来历史性时刻。' }
+      ],
       newsList: [
         { title: '港股独角兽周年记：折翼的小米集团能在成资本宠儿么', source: '腾讯深网 今天', date: '11:26' },
         { title: '港股独角兽周年记：折翼的小米集团能在成资本宠儿么', source: '腾讯深网 今天', date: '11:26' },
@@ -198,8 +203,26 @@ export default {
         { title: '港股独角兽周年记：折翼的小米集团能在成资本宠儿么', source: '腾讯深网 今天', date: '11:26' },
         { title: '港股独角兽周年记：折翼的小米集团能在成资本宠儿么', source: '腾讯深网 今天', date: '11:26' },
         { title: '港股独角兽周年记：折翼的小米集团能在成资本宠儿么', source: '腾讯深网 今天', date: '11:26' }
+      ],
+      Optional: [
+        { name: '贵州茅台（600519)', range: '-0.80%', brief: '茅台机场上半年运输指标位列贵州省支线机', time: '2019-07-24 13:13' },
+        { name: '贵州茅台（600519)', range: '-0.80%', brief: '茅台机场上半年运输指标位列贵州省支线机', time: '2019-07-24 13:13' },
+        { name: '贵州茅台（600519)', range: '-0.80%', brief: '茅台机场上半年运输指标位列贵州省支线机', time: '2019-07-24 13:13' },
+        { name: '贵州茅台（600519)', range: '-0.80%', brief: '茅台机场上半年运输指标位列贵州省支线机', time: '2019-07-24 13:13' },
+        { name: '贵州茅台（600519)', range: '-0.80%', brief: '茅台机场上半年运输指标位列贵州省支线机', time: '2019-07-24 13:13' },
+        { name: '贵州茅台（600519)', range: '-0.80%', brief: '茅台机场上半年运输指标位列贵州省支线机', time: '2019-07-24 13:13' },
+        { name: '贵州茅台（600519)', range: '-0.80%', brief: '茅台机场上半年运输指标位列贵州省支线机', time: '2019-07-24 13:13' },
+        { name: '贵州茅台（600519)', range: '-0.80%', brief: '茅台机场上半年运输指标位列贵州省支线机', time: '2019-07-24 13:13' },
+        { name: '贵州茅台（600519)', range: '-0.80%', brief: '茅台机场上半年运输指标位列贵州省支线机', time: '2019-07-24 13:13' }
+      ],
+      focus: [
+        { title: '长江证券：美股大幅反弹，与美国经济“背离”？', roof: '置顶', trusts: '长江证券研究', timer: '今天 12:35' },
+        { title: '长江证券：美股大幅反弹，与美国经济“背离”？', roof: '置顶', trusts: '长江证券研究', timer: '今天 12:35' },
+        { title: '长江证券：美股大幅反弹，与美国经济“背离”？', roof: '置顶', trusts: '长江证券研究', timer: '今天 12:35' },
+        { title: '长江证券：美股大幅反弹，与美国经济“背离”？', roof: '置顶', trusts: '长江证券研究', timer: '今天 12:35' },
+        { title: '长江证券：美股大幅反弹，与美国经济“背离”？', roof: '置顶', trusts: '长江证券研究', timer: '今天 12:35' },
+        { title: '长江证券：美股大幅反弹，与美国经济“背离”？', roof: '置顶', trusts: '长江证券研究', timer: '今天 12:35' }
       ]
-
     }
   },
   methods: {
@@ -350,7 +373,7 @@ export default {
 .information-front-page-top {
     height: 180px;
     position: relative;
-    margin-bottom: 80px;
+    margin-bottom: 60px;
     img {
         width: 100%;
     }
@@ -381,13 +404,10 @@ export default {
 .information-front-page-foot {
     border-bottom: 1px solid #000;
     display: flex;
-    padding: 0px 15px 20px 15px;
+    // padding: 0px 15px 20px 15px;
+    padding: 20px 15px;
     .img {
         flex: 1;
-        width: 111px;
-        height:75px;
-        background:rgba(216,216,216,1);
-        border-radius:6px;
         margin-left: 13px;
     }
     .information-front-page-foot-name {
@@ -440,7 +460,7 @@ export default {
 }
 .information-hot-news {
     padding: 0 15px;
-    padding-bottom: 60px;
+    padding-bottom: 10px;
     .information-hot-news-all {
         width:298px;
         height:90px;
