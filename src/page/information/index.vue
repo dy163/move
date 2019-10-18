@@ -1,13 +1,13 @@
 <template>
     <div class="information">
-        <van-nav-bar title="资 讯">
+        <van-nav-bar title="资 讯" fixed>
             <div slot="right">
                 <img src="@/assets/img/search.png" alt="" style="vertical-align:middle" class="nav-img">
                 <img src="@/assets/img/refresh.png" alt="" style="vertical-align:middle">
             </div>
         </van-nav-bar>
         <div>
-            <van-tabs v-model="active" background="#20212A" title-inactive-color="#fff" title-active-color="#5794F0" line-height="0">
+            <van-tabs class="information-tabs" v-model="active" background="#20212A" title-inactive-color="#fff" title-active-color="#5794F0" line-height="0">
                 <!-- 要闻 -->
                 <van-tab title="要闻" class="information-front-page">
                     <div class="information-front-page-top" :style="porfit">
@@ -150,34 +150,26 @@
                 </van-tab>
                 <!-- 推送 -->
                 <van-tab title="推送" name="propelling" class="information-push">
-                    <div class="information-content" @click="clickPush">
+                    <!-- <van-list
+                    v-model="loading"
+                    :finished="finished"
+                    finished-text="没有更多了"
+                    @load="onLoad"
+                    > -->
+                    <van-list>
+                    <div class="information-content"
+                    v-for="(item, index) in newsList"
+                    :key="index"
+                    @click="clickPush">
                         <div>
-                            <p class="information-title">港股独角兽周年记：折翼的小米集团能在成资本宠儿么</p>
-                            <p class="information-name">腾讯深网 今天<span>11:26</span></p>
+                            <p class="information-title">{{ item.title }}</p>
+                            <p class="information-name">{{ item.source }}<span>{{ item.date }}</span></p>
                         </div>
-                        <div class="img"></div>
-                    </div>
-                    <div class="information-content">
-                        <div>
-                            <p class="information-title">港股独角兽周年记：折翼的小米集团能在成资本宠儿么</p>
-                            <p class="information-name">腾讯深网 今天<span>11:26</span></p>
+                        <div class="img">
+                            <img src="@/assets/Rectangle.png" alt="">
                         </div>
-                        <div class="img"></div>
                     </div>
-                    <div class="information-content">
-                        <div>
-                            <p class="information-title">港股独角兽周年记：折翼的小米集团能在成资本宠儿么</p>
-                            <p class="information-name">腾讯深网 今天<span>11:26</span></p>
-                        </div>
-                        <div class="img"></div>
-                    </div>
-                    <div class="information-content">
-                        <div>
-                            <p class="information-title">港股独角兽周年记：折翼的小米集团能在成资本宠儿么</p>
-                            <p class="information-name">腾讯深网 今天<span>11:26</span></p>
-                        </div>
-                        <div class="img"></div>
-                    </div>
+                    </van-list>
                 </van-tab>
             </van-tabs>
         </div>
@@ -191,17 +183,44 @@ export default {
   data () {
     return {
       active: 'propelling',
-      message: [],
-      marker: '',
       porfit: {
         backgroundImage: 'url(' + require('@/assets/img/diagram.png') + ')',
         backgroundRepeat: 'no-repeat'
-      }
+      },
+      loading: false,
+      finished: false,
+      newsList: [
+        { title: '港股独角兽周年记：折翼的小米集团能在成资本宠儿么', source: '腾讯深网 今天', date: '11:26' },
+        { title: '港股独角兽周年记：折翼的小米集团能在成资本宠儿么', source: '腾讯深网 今天', date: '11:26' },
+        { title: '港股独角兽周年记：折翼的小米集团能在成资本宠儿么', source: '腾讯深网 今天', date: '11:26' },
+        { title: '港股独角兽周年记：折翼的小米集团能在成资本宠儿么', source: '腾讯深网 今天', date: '11:26' },
+        { title: '港股独角兽周年记：折翼的小米集团能在成资本宠儿么', source: '腾讯深网 今天', date: '11:26' },
+        { title: '港股独角兽周年记：折翼的小米集团能在成资本宠儿么', source: '腾讯深网 今天', date: '11:26' },
+        { title: '港股独角兽周年记：折翼的小米集团能在成资本宠儿么', source: '腾讯深网 今天', date: '11:26' },
+        { title: '港股独角兽周年记：折翼的小米集团能在成资本宠儿么', source: '腾讯深网 今天', date: '11:26' }
+      ]
+
     }
   },
   methods: {
     clickPush () {
       this.$router.push('/particulars')
+    },
+    // 加载数据
+    onLoad () {
+      // 异步更新数据
+      setTimeout(() => {
+        for (let i = 0; i < 10; i++) {
+          this.list.push(this.list.length + 1)
+        }
+        // 加载状态结束
+        this.loading = false
+
+        // 数据全部加载完成
+        if (this.list.length >= 40) {
+          this.finished = true
+        }
+      }, 500)
     }
   }
 }
@@ -220,8 +239,25 @@ export default {
 .van-hairline--top-bottom {
     background-color: #20212A;
 }
-/deep/.van-tabs__nav {
-    margin-right: 130px;
+.information-tabs {
+    padding-bottom: 50px;
+    /deep/.van-ellipsis {
+        font-size:15px;
+        font-family:PingFangSC-Medium,PingFangSC;
+        font-weight:500;
+    }
+    /deep/ .van-tabs__wrap {
+        position: fixed;
+        top: 46px;
+        width: 100%;
+        background-color: #20212A;
+    }
+    /deep/ .van-tabs__content {
+        margin-top: 90px;
+    }
+    /deep/.van-tabs__nav {
+        margin-right: 130px;
+    }
 }
 .van-tabbar-item__text {
     height:14px;
@@ -234,20 +270,12 @@ export default {
     width:18px;
     height:18px;
 }
-.information {
-    padding-bottom: 60px;
-}
 .information-content {
+    padding-top: 10px;
     padding-bottom: 20px;
     border-bottom: 1px solid #000;
     display: flex;
-    padding-top: 30px;
     .img {
-        flex: 1;
-        width: 111px;
-        height:76px;
-        background:rgba(216,216,216,1);
-        border-radius:6px;
         margin-left: 13px;
     }
 }
