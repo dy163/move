@@ -160,14 +160,15 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.quotation {
-    padding: 0 15px;
-}
+// .quotation {
+//     padding: 0 15px;
+// }
 .quotation-header {
     height: 44px;
     line-height: 44px;
     display: flex;
     align-items: center;
+    padding: 3px 15px;
     .van-icon {
         color: #fff;
     }
@@ -214,6 +215,7 @@ export default {
     align-items: center;
     color:rgba(53,192,137,1);
     border-bottom: 2px solid #14151C;
+    padding: 0 15px;
     padding-bottom: 8px;
     .quotation-number-mark {
         font-size:40px;
@@ -233,12 +235,10 @@ export default {
         margin-right: -18px;
     }
 }
-
 .quotation-list {
-    // padding: 0 15px;
+    padding: 10px 8px;
     table {
         width: 100%;
-        padding: 10px 0;
         font-size:12px;
         font-family:PingFangSC;
         font-weight:400;
@@ -271,7 +271,7 @@ export default {
     }
 }
 .quotation-date {
-    // padding: 0 15px;
+    padding: 0 10px;
     border-top: 1px solid #14151C;
     border-bottom: 2px solid #14151C;
     box-sizing: border-box;
@@ -292,54 +292,47 @@ export default {
         margin-top: -10px;
     }
 }
-.van-ellipsis {
-    width:24px;
-    height:20px;
-    font-size:14px;
-    font-family:PingFangSC;
-    font-weight:500;
-    color:rgba(127,129,155,1);
-    line-height:20px;
-}
-.quotation-crap-trend {
+.quotation-crap {
+    padding: 0 15px;
+    padding-bottom: 50px;
+    box-sizing: border-box;
     .van-tab__pane {
         height: 220px;
-        // padding: 0 15px;
     }
-}
-.quotation-news {
-    border-top: 2px solid #14151C;
-    .van-tab__pane {
-        // padding: 0 15px;
-        padding-bottom: 60px;
-        div {
-            border-bottom: 1px solid #14151C;
-            padding: 10px 0;
-            p:nth-child(1) {
-                font-size:14px;
-                font-family:PingFangSC;
-                font-weight:500;
-                color:rgba(255,255,255,1);
-
-            }
-            p:nth-child(2) {
-                height:16px;
-                font-size:11px;
-                font-family:PingFangSC;
-                font-weight:400;
-                color:rgba(109,112,135,1);
-                line-height:16px;
-                padding-top: 8px;
-            }
-            .quotation-img {
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                padding-top: 50px;
-            }
-            .quotation-test {
-                display: flex;
-                justify-content: center;
+    .quotation-news {
+        border-top: 2px solid #14151C;
+        /deep/.van-ellipsis {
+            font-size: 16px
+        }
+        .van-tab__pane {
+            padding-bottom: 60px;
+            div {
+                border-bottom: 1px solid #14151C;
+                padding: 10px 0;
+                p:nth-child(1) {
+                    font-size:14px;
+                    font-family:PingFangSC;
+                    font-weight:500;
+                    color:rgba(255,255,255,1);
+                }
+                p:nth-child(2) {
+                    height:16px;
+                    font-size:11px;
+                    font-family:PingFangSC;
+                    font-weight:400;
+                    color:rgba(109,112,135,1);
+                    line-height:16px;
+                    padding-top: 8px;
+                }
+                .quotation-img {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    padding-top: 50px;
+                }
+                .quotation-test {
+                    display: flex;
+                    justify-content: center;
                     height:17px;
                     font-size:12px;
                     font-family:PingFangSC;
@@ -347,68 +340,8 @@ export default {
                     color:rgba(83,84,92,1);
                     line-height:17px;
                     text-align: center;
-                    padding-bottom: 50px;
+                }
             }
-        }
-    }
-}
-.quotation-buy {
-    display: flex;
-    align-items: center;
-    position: fixed;
-    bottom: 0;
-    height:49px;
-    background:rgba(32,33,42,1);
-    div:nth-child(1) {
-        width:117px;
-        background:rgba(245,69,69,1);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        height: 49px;
-        img {
-            width:20px;
-            height:19px;
-            padding-right: 5px;
-        }
-        p {
-            font-size:16px;
-            font-family:PingFangSC-Medium,PingFangSC;
-            font-weight:500;
-            color:rgba(255,255,255,1);
-        }
-
-    }
-    div:nth-child(2) {
-        width:117px;
-        background:rgba(51,192,137,1);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        height: 49px;
-        img {
-            width:20px;
-            height:19px;
-            padding-right: 5px;
-        }
-        p {
-            font-size:16px;
-            font-family:PingFangSC-Medium,PingFangSC;
-            font-weight:500;
-            color:rgba(255,255,255,1);
-        }
-    }
-    .quotation-buy-follow {
-        // padding: 0 22px;
-        width: 71px;
-        text-align: center;
-        padding-bottom: 5px;
-        box-sizing: border-box;
-        p {
-            font-size:12px;
-            font-family:PingFangSC-Regular,PingFangSC;
-            font-weight:400;
-            color:rgba(255,255,255,1);
         }
     }
 }

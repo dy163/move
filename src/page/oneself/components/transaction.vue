@@ -1,7 +1,8 @@
 <template>
     <div class="oneself"
     :value="value"
-    @input="$emit('input', $event)">
+    @input="$emit('input', $event)"
+    >
         <div class="oneself-contant">
             <div class="oneself-header" @click="$router.back()">
                     <van-icon name="arrow-left" size="16"/>
@@ -92,7 +93,7 @@
             </div>
             <!-- 图表分析展示 -->
             <div class="oneself-crap">
-                <div class="oneself-crap-trend">
+                <div>
                     <van-tabs v-model="timer" background='#20212A' line-height='0' title-active-color='#2F98FF'>
                         <van-tab title="分时">分时</van-tab>
                         <van-tab title="日K">日K</van-tab>
@@ -201,14 +202,12 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.oneself-contant {
-    padding: 0 15px;
-}
 .oneself-header {
     height: 44px;
     line-height: 44px;
     display: flex;
     align-items: center;
+    padding: 3px 15px;
     .van-icon {
         color: #fff;
     }
@@ -255,7 +254,9 @@ export default {
     align-items: center;
     color:rgba(53,192,137,1);
     border-bottom: 2px solid #14151C;
+    padding: 0 15px;
     padding-bottom: 8px;
+
     .oneself-number-mark {
         font-size:40px;
         font-family:DINAlternate-Bold,DINAlternate;
@@ -275,24 +276,25 @@ export default {
     }
 }
 .oneself-list {
+    padding: 10px 8px;
+    box-sizing: border-box;
     table {
         width: 100%;
-        padding: 10px 0;
         font-size:12px;
         font-family:PingFangSC;
         font-weight:400;
         color:rgba(127,129,155,1);
-        td {
-            white-space: nowrap;
-        }
-    }
-    tr {
-        height:22px;
-        padding: 10px 0;
-        td:nth-child(even) {
-            color:#fff;
-            text-align: right;
-            padding-right: 5px;
+        tr {
+            height:22px;
+            padding: 10px 0;
+            td {
+                white-space: nowrap;
+            }
+            td:nth-child(even) {
+                color:#fff;
+                text-align: right;
+                padding-right: 5px;
+            }
         }
     }
     tr:nth-child(1) {
@@ -314,6 +316,7 @@ export default {
     border-bottom: 2px solid #14151C;
     box-sizing: border-box;
     height: 48px;
+    padding: 0 10px;
     p:nth-child(1) {
         padding-top: 8px;
         font-size:12px;
@@ -339,13 +342,17 @@ export default {
     color:rgba(127,129,155,1);
     line-height:20px;
 }
-.oneself-crap-trend {
+.oneself-crap {
+    padding: 0 15px;
     .van-tab__pane {
         height: 220px;
     }
 }
 .oneself-news {
     border-top: 2px solid #14151C;
+    /deep/.van-ellipsis {
+        font-size: 16px
+    }
     .van-tab__pane {
         padding-bottom: 60px;
         div {
