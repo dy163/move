@@ -75,6 +75,7 @@ export default {
 }
 .van-hairline--top-bottom {
     background-color: #20212A;
+    border-top: 1px solid #14151C;
 }
 .van-tabbar-item__text {
     height:14px;

@@ -345,17 +345,18 @@ export default {
                 .quotation-img-two {
                     display: flex;
                     justify-content: center;
+                    padding-top: 50px;
                 }
                 .quotation-test {
                     display: flex;
                     justify-content: center;
+                    padding-bottom: 80px;
                     height:17px;
                     font-size:12px;
                     font-family:PingFangSC;
                     font-weight:400;
                     color:rgba(83,84,92,1);
                     line-height:17px;
-                    text-align: center;
                 }
             }
         }
