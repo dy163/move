@@ -9,6 +9,18 @@ body {
 .van-hairline-unset--top-bottom::after {
   border: #20212A;
 }
+.van-cell-group {
+  background-color: #20212A;
+}
+.van-cell {
+  color: #fff;
+  background-color: #353641;
+  padding: 0 16px;
+  border-radius: 5px;
+  box-sizing: border-box;
+  height: 50px;
+  line-height: 50px;
+}
 .van-field__control {
   color: #fff;
 }

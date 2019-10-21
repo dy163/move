@@ -121,15 +121,13 @@ form {
       width: 85px;
       margin-left: 8px;
       border: 0;
+      height: 50px;
+      border-radius: 3px;
       color: #7E829C;
       .van-button__text {
         margin: 0 -20px;
       }
     }
-  }
-  .van-cell {
-    color: #fff;
-    background-color:#353641;
   }
   .resetting-time {
     margin-left: 10px;;
@@ -143,6 +141,7 @@ form {
     background-color: #2F98FF;
     color: #fff;
     border: 0;
+    border-radius: 3px;
   }
 }
 

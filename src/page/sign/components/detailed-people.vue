@@ -106,19 +106,10 @@ form {
     color:rgba(255,255,255,1);
     border: 0;
 }
-.van-hairline--top-bottom {
-    height:50px;
-    background:rgba(54,55,64,1);
-    border-radius:6px;
-}
 .van-cell-group {
-    height:50px;
-    border-radius:3px;
     margin-bottom: 8px;
 }
 .van-cell {
-    color: #A3A3A7;
-    background-color:#353641;
     font-size: 16px;
 }
 .relative {

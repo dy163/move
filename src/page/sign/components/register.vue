@@ -122,21 +122,18 @@ form {
 }
 .van-cell-group {
   width: 100%;
-  border-radius:3px;
   margin-bottom: 15px;
-}
-.van-cell {
-  color: #fff;
-  background-color:#353641;
 }
 .login-btn-box {
   padding-top: 15px;
 }
 .login-btn {
   width: 100%;
+  font-size:16px;
   background-color: #2F98FF;
   color: #fff;
   border: 0;
+  border-radius: 3px;
 }
 .annotation {
   height:17px;

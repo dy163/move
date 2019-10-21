@@ -63,25 +63,18 @@ p {
 form {
   padding: 0 15px;
   padding-top: 20px;
-  .van-cell-group {
-    width: 100%;
-    border-radius:3px;
-    .triangle {
-      border-top: 4px solid #fff;
-      border-left: 4px solid transparent;
-      border-right: 4px solid transparent;
-      display: inline-block;
-      text-align: center;
-      margin-left: 10px;
-    }
-    /deep/.van-field__label {
-      width: 65px;
-    }
+  .triangle {
+    border-top: 4px solid #fff;
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    display: inline-block;
+    text-align: center;
+    margin-left: 10px;
   }
-}
-.van-cell {
-    color: #fff;
-    background-color:#353641;
+  /deep/.van-field__label {
+    width: 65px;
+  }
+
 }
 .login-btn-box {
   padding-top: 30px;
@@ -90,13 +83,12 @@ form {
   width: 100%;
   background-color: #2F98FF;
   border: 0;
+  border-radius: 3px;
   .van-button__text {
-    height:22px;
     font-size:16px;
     font-family:PingFangSC-Medium,PingFangSC;
     font-weight:500;
     color:rgba(255,255,255,1);
-    line-height:22px;
   }
 }
 </style>

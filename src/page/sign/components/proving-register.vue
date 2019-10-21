@@ -25,7 +25,6 @@
                 <!-- 倒计时获取验证码 -->
 
                   <van-button
-                  hairline
                   :disabled="!!codeTimer"
                   :loading="codeLoading"
                   @click="handleClickTimer"
@@ -124,15 +123,13 @@ form {
         margin-left: 8px;
         color: #7E829C;
         border: 0;
+        height: 50px;
+        border-radius: 3px;
         .van-button__text {
           margin: 0 -20px;
         }
       }
     }
-}
-.van-cell {
-  color: #fff;
-  background-color:#353641;
 }
 .yzregister-box {
     display: flex;
@@ -149,5 +146,6 @@ form {
   background-color: #2F98FF;
   color: #fff;
   border: 0;
+  border-radius: 3px;
 }
 </style>

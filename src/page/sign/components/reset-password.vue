@@ -65,17 +65,12 @@ form {
 .van-cell-group {
   margin-bottom: 20px;
 }
-.van-cell {
-  color: #fff;
-  background-color:#353641;
-}
 .login-btn {
   border: 0;
+  border-radius: 3px;
   margin-top: 30px;
   width: 100%;
-  height:44px;
   background:rgba(47,152,255,1);
-  border-radius:3px;
   font-size:16px;
   font-family:PingFangSC;
   font-weight:500;

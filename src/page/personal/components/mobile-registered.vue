@@ -113,24 +113,18 @@ form {
     display: flex;
     align-items: center;
     flex: 1;
-    .van-cell-group {
-      width: 100%;
-      border-radius:3px;
-    }
     .van-button {
       background-color:#353641;
       width: 85px;
       margin-left: 8px;
       color: #7E829C;
       border: 0;
+      height: 50px;
+      border-radius: 3px;
       .van-button__text {
         margin: 0 -20px;
         font-size: 14px
       }
-    }
-    .van-cell {
-      color: #EEEEEE;
-      background-color:#353641;
     }
     .van-field__label {
         color: #EEEEEE;
@@ -164,9 +158,8 @@ form {
     font-size:16px;
     font-family:PingFangSC-Medium,PingFangSC;
     font-weight:500;
-    line-height:22px;
+    border-radius: 3px;
   }
-
 }
 
 </style>

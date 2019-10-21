@@ -120,7 +120,9 @@ form {
       background-color: #353641;
       color: #7E829C;
       width: 85px;
+      height: 50px;
       border: 0;
+      border-radius:3px;
       .van-button__text {
         margin: 0 -20px;
         font-size:14px;
@@ -128,10 +130,6 @@ form {
         font-weight:400;
       }
     }
-}
-.van-cell {
-  color: #fff;
-  background-color:#353641;
 }
 .login-btn-box {
   padding-top: 20px;
@@ -141,5 +139,6 @@ form {
   background-color: #2F98FF;
   color: #fff;
   border: 0;
+  border-radius:3px;
 }
 </style>

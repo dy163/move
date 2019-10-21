@@ -99,9 +99,7 @@ export default {
 }
 .login-code {
   margin-bottom: 15px;
-  display: flex;
-  align-items: center;
-  background-color:#353641;
+  border-radius: 15px;
   .triangle {
       border-top: 4px solid #fff;
       border-left: 4px solid transparent;
@@ -115,10 +113,15 @@ export default {
 form {
   padding: 0 15px;
 }
-.van-cell {
-  color: #fff;
-  background-color:#353641;
-}
+// .van-cell {
+//   color: #fff;
+//   background-color:#353641;
+//   padding: 0 16px;
+//   border-radius: 5px;
+//   box-sizing: border-box;
+//   height: 46px;
+//   line-height: 46px;
+// }
 .login-btn-box {
   padding-top: 30px;
 }

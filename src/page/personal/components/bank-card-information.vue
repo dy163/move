@@ -152,14 +152,11 @@ export default {
     }
     .van-cell-group {
         margin-bottom: 8px;
-        padding: 4px 0;
         height:50px;
         background:rgba(54,55,64,1);
-        border-radius:6px;
         box-sizing: border-box;
         .van-cell {
             color: #A3A3A7;
-            background-color:#353641;
         }
     }
     .bank-card-content-tips {

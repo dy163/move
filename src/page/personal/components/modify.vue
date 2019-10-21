@@ -54,19 +54,6 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.van-nav-bar {
-    background-color: #20212A;
-}
-.van-nav-bar .van-icon {
-    color: #fff;
-}
-.van-hairline--bottom::after {
-    border-bottom: 2px solid #14151C;
-}
-.van-cell {
-    color: #fff;
-    background-color:#353641;
-}
 .login-btn-box {
     padding-top: 30px;
 }
@@ -75,6 +62,7 @@ export default {
     background-color: #2F98FF;
     color: #fff;
     border: 0;
+    border-radius: 3px;
 }
 .modify-content {
     padding: 0 15px;

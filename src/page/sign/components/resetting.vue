@@ -78,25 +78,19 @@ form {
       margin-left: 10px;
     }
 }
-.van-cell {
-    color: #fff;
-    background-color:#353641;
-}
 .login-btn-box {
   padding-top: 30px;
 }
 .login-btn {
   width: 100%;
   border: 0;
+  border-radius: 3px;
   background-color: #2F98FF;
   .van-button__text {
-    width:32px;
-    height:22px;
     font-size:16px;
     font-family:PingFangSC-Regular,PingFangSC;
     font-weight:400;
     color:rgba(255,255,255,1);
-    line-height:22px;
   }
 }
 </style>

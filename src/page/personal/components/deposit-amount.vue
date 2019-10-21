@@ -98,7 +98,11 @@ export default {
             color:rgba(51,51,51,1);
             padding-left: 5px;
         }
-        .van-cell-group, .van-hairline--top-bottom {
+        .van-cell {
+            background-color: #fff;
+            border-radius: 0;
+        }
+        .van-hairline--top-bottom {
             padding: 0;
         }
         /deep/.van-field__control {
