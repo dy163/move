@@ -121,7 +121,7 @@
                             v-for="(item,index) in notice"
                             :key="index">
                                 <p>{{ item.title }}</p>
-                                <p><span>{{ item.timer }}</span></p>
+                                <p class="quotation-right"><span>{{ item.timer }}</span></p>
                             </div>
                         </van-list>
                     </van-tab>
@@ -151,11 +151,14 @@ export default {
       list: [
         { title: '07月25日主力资金抢筹最积极的前10股（附名单）', timer: '今天 15:10' },
         { title: '07月25日主力资金抢筹最积极的前10股（附名单）', timer: '今天 15:10' },
+        { title: '07月25日主力资金抢筹最积极的前10股（附名单）', timer: '今天 15:10' },
         { title: '食品饮料行业Q2基金持仓分析：食品饮料持仓创历史新高处上升期', timer: '今天 15:10' }
       ],
       notice: [
         { title: '贵州茅台关于会计政策变更的公告', timer: '2019-07-17' },
         { title: '贵州茅台第二届监事会2019年度第三次会议决议的…', timer: '2019-07-17' },
+        { title: '贵州茅台关于会计政策变更的公告', timer: '2019-07-17' },
+        { title: '贵州茅台关于会计政策变更的公告', timer: '2019-07-17' },
         { title: '贵州茅台关于会计政策变更的公告', timer: '2019-07-17' }
 
       ]
@@ -318,9 +321,11 @@ export default {
     }
     .quotation-news {
         border-top: 2px solid #14151C;
-        padding-bottom: 100px;
         /deep/.van-ellipsis {
             font-size: 16px
+        }
+        .van-list {
+            margin-bottom: 40px;
         }
         .van-tab__pane {
             div {
@@ -341,6 +346,9 @@ export default {
                     color:rgba(109,112,135,1);
                     line-height:16px;
                     padding-top: 8px;
+                }
+                .quotation-right {
+                    text-align: right;
                 }
                 .quotation-img-two {
                     display: flex;

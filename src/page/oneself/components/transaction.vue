@@ -104,32 +104,24 @@
                 <div class="oneself-news">
                     <van-tabs v-model="tidings" background='#20212A' line-height='0' title-active-color='#2F98FF'>
                         <van-tab title="新闻">
-                            <div slot="default">
-                                <p>07月25日主力资金抢筹最积极的前10股（附名单）</p>
-                                <p><span>今天 15:10</span></p>
-                            </div>
-                            <div slot="default">
-                                <p>07月25日主力资金抢筹最积极的前10股（附名单）</p>
-                                <p><span>今天 15:10</span></p>
-                            </div>
-                            <div slot="default">
-                                <p>食品饮料行业Q2基金持仓分析：食品饮料持仓创历史新高处上升期</p>
-                                <p><span>今天 15:10</span></p>
-                            </div>
+                            <van-list>
+                                <div slot="default"
+                                v-for="(item,index) in list"
+                                :key="index">
+                                    <p>{{ item.title }}</p>
+                                    <p><span>{{ item.timer }}</span></p>
+                                </div>
+                            </van-list>
                         </van-tab>
                         <van-tab title="公告">
-                            <div slot="default">
-                                <p>贵州茅台关于会计政策变更的公告</p>
-                                <p>2019-07-17</p>
-                            </div>
-                            <div slot="default">
-                                <p>贵州茅台第二届监事会2019年度第三次会议决议的…</p>
-                                <p>2019-07-17</p>
-                            </div>
-                            <div slot="default">
-                                <p>贵州茅台关于会计政策变更的公告</p>
-                                <p>2019-07-17</p>
-                            </div>
+                            <van-list>
+                                <div slot="default"
+                                v-for="(item,index) in notice"
+                                :key="index">
+                                    <p>{{ item.title }}</p>
+                                    <p class="oneself-right"><span>{{ item.timer }}</span></p>
+                                </div>
+                            </van-list>
                         </van-tab>
                         <van-tab title="分析">
                             <div slot="default">
@@ -191,7 +183,21 @@ export default {
       radio: '',
       isShow: false,
       isPurchase: false,
-      side: true
+      side: true,
+      list: [
+        { title: '07月25日主力资金抢筹最积极的前10股（附名单）', timer: '今天 15:10' },
+        { title: '07月25日主力资金抢筹最积极的前10股（附名单）', timer: '今天 15:10' },
+        { title: '07月25日主力资金抢筹最积极的前10股（附名单）', timer: '今天 15:10' },
+        { title: '食品饮料行业Q2基金持仓分析：食品饮料持仓创历史新高处上升期', timer: '今天 15:10' }
+      ],
+      notice: [
+        { title: '贵州茅台关于会计政策变更的公告', timer: '2019-07-17' },
+        { title: '贵州茅台第二届监事会2019年度第三次会议决议的…', timer: '2019-07-17' },
+        { title: '贵州茅台关于会计政策变更的公告', timer: '2019-07-17' },
+        { title: '贵州茅台关于会计政策变更的公告', timer: '2019-07-17' },
+        { title: '贵州茅台关于会计政策变更的公告', timer: '2019-07-17' }
+
+      ]
     }
   },
   methods: {
@@ -352,17 +358,19 @@ export default {
     /deep/.van-ellipsis {
         font-size: 16px
     }
+    .van-list {
+        margin-bottom: 40px;
+    }
     .van-tab__pane {
-        padding-bottom: 60px;
         div {
             border-bottom: 1px solid #14151C;
             padding: 10px 0;
+            box-sizing: border-box;
             p:nth-child(1) {
                 font-size:14px;
                 font-family:PingFangSC;
                 font-weight:500;
                 color:rgba(255,255,255,1);
-
             }
             p:nth-child(2) {
                 height:16px;
@@ -373,6 +381,9 @@ export default {
                 line-height:16px;
                 padding-top: 8px;
             }
+            .oneself-right {
+                text-align: right;
+            }
             .oneself-img {
                 display: flex;
                 justify-content: center;
@@ -382,14 +393,14 @@ export default {
             .oneself-test {
                 display: flex;
                 justify-content: center;
-                    height:17px;
-                    font-size:12px;
-                    font-family:PingFangSC;
-                    font-weight:400;
-                    color:rgba(83,84,92,1);
-                    line-height:17px;
-                    text-align: center;
-                    padding-bottom: 50px;
+                height:17px;
+                font-size:12px;
+                font-family:PingFangSC;
+                font-weight:400;
+                color:rgba(83,84,92,1);
+                line-height:17px;
+                text-align: center;
+                padding-bottom: 50px;
             }
         }
     }
@@ -399,7 +410,7 @@ export default {
     align-items: center;
     position: fixed;
     bottom: 0;
-    height:49px;
+    height:50px;
     background:rgba(32,33,42,1);
     div:nth-child(1) {
         width:117px;
@@ -407,7 +418,7 @@ export default {
         display: flex;
         align-items: center;
         justify-content: center;
-        height: 49px;
+        height: 50px;
         img {
             width:20px;
             height:19px;
@@ -419,7 +430,6 @@ export default {
             font-weight:500;
             color:rgba(255,255,255,1);
         }
-
     }
     div:nth-child(2) {
         width:117px;
@@ -427,7 +437,7 @@ export default {
         display: flex;
         align-items: center;
         justify-content: center;
-        height: 49px;
+        height: 50px;
         img {
             width:20px;
             height:19px;
@@ -441,7 +451,6 @@ export default {
         }
     }
     .oneself-buy-follow {
-        // padding: 0 22px;
         width: 71px;
         text-align: center;
         padding-bottom: 5px;
