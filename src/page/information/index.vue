@@ -220,9 +220,6 @@ export default {
 .van-tab__pane {
     color: #fff;
 }
-.van-hairline--top-bottom {
-    background-color: #20212A;
-}
 .information-tabs {
     padding-bottom: 50px;
     /deep/.van-ellipsis {
@@ -264,9 +261,7 @@ export default {
     }
 }
 .information-title {
-    width:221px;
-    height:48px;
-    font-size:17px;
+    font-size:16px;
     font-family:PingFangSC;
     font-weight:500;
     line-height:24px;
@@ -286,7 +281,6 @@ export default {
 .information-Optional {
     padding: 0 15px;
     h3 {
-        width:36px;
         height:25px;
         font-size:18px;
         font-family:PingFangSC;
@@ -297,24 +291,20 @@ export default {
     }
     div {
         border-bottom: 1px solid #000;
-        // height: 111px;
         p {
             padding-bottom: 10px;
         }
         p:nth-child(1) {
-            // height:18px;
             font-size:13px;
             font-family:PingFangSC;
             font-weight:500;
             color:rgba(255,255,255,1);
-            // line-height:18px;
             padding-top: 18px;
             span {
                 color: #35C089;
             }
         }
         p:nth-child(2) {
-            width:336px;
             font-size:16px;
             font-family:PingFangSC;
             font-weight:500;
@@ -363,26 +353,22 @@ export default {
     }
 }
 .information-front-page-foot {
-    border-bottom: 1px solid #000;
     display: flex;
-    // padding: 0px 15px 20px 15px;
+    justify-content: space-between;
     padding: 20px 15px;
+    border-bottom: 1px solid #000;
+    box-sizing: border-box;
     .img {
-        flex: 1;
         margin-left: 13px;
     }
     .information-front-page-foot-name {
-        height:16px;
         font-size:12px;
-        // -webkit-transform: scale(0.75);
         font-family:PingFangSC;
         font-weight:400;
         color:rgba(106,109,131,1);
-        line-height:16px;
-        padding-top: 12px;
+        padding-top: 8px;
         span:nth-child(1) {
             display: inline-block;
-            width:24px;
             height:12px;
             border-radius:1px;
             border:1px solid rgba(255,55,80,1);
@@ -401,7 +387,6 @@ export default {
     align-items: center;
     padding: 20px 15px;
     p:nth-child(1) {
-        width:72px;
         height:24px;
         font-size:17px;
         font-family:PingFangSC-Medium,PingFangSC;
@@ -410,7 +395,6 @@ export default {
         line-height:24px;
     }
     p:nth-child(2) {
-        width:48px;
         height:17px;
         font-size:12px;
         font-family:PingFangSC-Regular,PingFangSC;
@@ -418,6 +402,10 @@ export default {
         color:rgba(255,255,255,1);
         line-height:17px;
     }
+}
+/deep/.van-swipe__indicator {
+    width: 0;
+    height: 0;
 }
 .information-hot-news {
     padding: 0 15px;
