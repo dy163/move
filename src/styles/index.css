@@ -7,7 +7,7 @@ body {
 }
 .van-hairline--top-bottom::after,
 .van-hairline-unset--top-bottom::after {
-  border-width: 0;
+  border: #20212A;
 }
 .van-field__control {
   color: #fff;
