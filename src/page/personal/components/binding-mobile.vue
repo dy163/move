@@ -74,7 +74,6 @@ form {
   /deep/.van-field__label {
     width: 65px;
   }
-
 }
 .login-btn-box {
   padding-top: 30px;
