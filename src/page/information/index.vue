@@ -40,48 +40,8 @@
                     </van-list>
                     <!-- hot事件 -->
                     <Hot/>
-                    <!-- <div class="information-hot">
-                        <p>热点事件</p>
-                        <p>查看更多</p>
-                    </div>
-                    轮播热点信息
-                    <div class="information-hot-news">
-                        <van-swipe :autoplay="3000" indicator-color="white">
-                            <van-swipe-item
-                            v-for="(item,index) in hot"
-                            :key="index">
-                                <div class="information-hot-news-all">
-                                    <div class="information-hot-news-img"></div>
-                                    <div class="information-hot-news-title">
-                                        <p>{{ item.title }}</p>
-                                        <p>{{ item.content }}</p>
-                                    </div>
-                                </div>
-                            </van-swipe-item>
-                        </van-swipe>
-                    </div> -->
                     <!-- 下面热点列表 -->
-                    <van-list>
-                        <div class="information-front-page-foot"
-                        v-for="(item,index) in focus"
-                        :key="index">
-                            <div class="information-front-name">
-                                <p class="information-title">{{ item.title }}</p>
-                                <div class="information-box">
-                                    <p>
-                                        <span class="information-roof">{{ item.roof }}</span>
-                                    </p>
-                                    <p>
-                                        <span>{{ item.trusts }}</span>
-                                        <span>{{ item.timer }}</span>
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="img">
-                                <img src="@/assets/Rectangle.png" alt="">
-                            </div>
-                        </div>
-                    </van-list>
+                    <Foot/>
                 </van-tab>
                 <!-- 公告 -->
                 <van-tab title="公告" class="information-Optional">
@@ -94,24 +54,6 @@
                             <p>{{ item.time }}</p>
                         </div>
                     </van-list>
-                    <!-- <div>
-                        <p>贵州茅台（600519）<span>-0.80%</span></p>
-                        <p>茅台机场上半年运输指标位列贵州省支线机赞阿萨的吧就卡不</p>
-                        <p>2019-07-24 13:13 </p>
-                    </div>
-                    <div>
-                        <p>贵州茅台（600519）<span>-0.80%</span></p>
-                        <p>茅台机场上半年运输指标位列贵州省支线机</p>
-                        <p>2019-07-24 13:13 </p>
-                    </div><div>
-                        <p>贵州茅台（600519）<span>-0.80%</span></p>
-                        <p>茅台机场上半年运输指标位列贵州省支线机</p>
-                        <p>2019-07-24 13:13 </p>
-                    </div><div>
-                        <p>贵州茅台（600519）<span>-0.80%</span></p>
-                        <p>茅台机场上半年运输指标位列贵州省支线机</p>
-                        <p>2019-07-24 13:13 </p>
-                    </div> -->
                 </van-tab>
                 <!-- 自选 -->
                 <van-tab title="自选" class="information-Optional">
@@ -158,10 +100,12 @@
 </template>
 <script>
 import Hot from './components/hot.vue'
+import Foot from './components/foot.vue'
 export default {
   name: 'InformationIndex',
   components: {
-    Hot
+    Hot,
+    Foot
   },
   data () {
     return {
