@@ -21,9 +21,17 @@
                         <div class="information-front-page-foot"
                         v-for="(item,index) in focus"
                         :key="index">
-                            <div>
+                            <div class="information-front-name">
                                 <p class="information-title">{{ item.title }}</p>
-                                <p class="information-front-page-foot-name"><span>{{ item.roof }}</span>&nbsp;&nbsp;<span>{{ item.trusts }}</span>&nbsp;&nbsp;<span>{{ item.timer }}</span></p>
+                                <div class="information-box">
+                                    <p>
+                                        <span class="information-roof">{{ item.roof }}</span>
+                                    </p>
+                                    <p>
+                                        <span>{{ item.trusts }}</span>
+                                        <span>{{ item.timer }}</span>
+                                    </p>
+                                </div>
                             </div>
                             <div class="img">
                                 <img src="@/assets/Rectangle.png" alt="">
@@ -31,11 +39,12 @@
                         </div>
                     </van-list>
                     <!-- hot事件 -->
-                    <div class="information-hot">
+                    <Hot/>
+                    <!-- <div class="information-hot">
                         <p>热点事件</p>
                         <p>查看更多</p>
                     </div>
-                    <!-- 轮播热点信息 -->
+                    轮播热点信息
                     <div class="information-hot-news">
                         <van-swipe :autoplay="3000" indicator-color="white">
                             <van-swipe-item
@@ -50,14 +59,23 @@
                                 </div>
                             </van-swipe-item>
                         </van-swipe>
-                    </div>
+                    </div> -->
+                    <!-- 下面热点列表 -->
                     <van-list>
                         <div class="information-front-page-foot"
                         v-for="(item,index) in focus"
                         :key="index">
-                            <div>
+                            <div class="information-front-name">
                                 <p class="information-title">{{ item.title }}</p>
-                                <p class="information-front-page-foot-name"><span>{{ item.roof }}</span>&nbsp;&nbsp;<span>{{ item.trusts }}</span>&nbsp;&nbsp;<span>{{ item.timer }}</span></p>
+                                <div class="information-box">
+                                    <p>
+                                        <span class="information-roof">{{ item.roof }}</span>
+                                    </p>
+                                    <p>
+                                        <span>{{ item.trusts }}</span>
+                                        <span>{{ item.timer }}</span>
+                                    </p>
+                                </div>
                             </div>
                             <div class="img">
                                 <img src="@/assets/Rectangle.png" alt="">
@@ -139,8 +157,12 @@
     </div>
 </template>
 <script>
+import Hot from './components/hot.vue'
 export default {
   name: 'InformationIndex',
+  components: {
+    Hot
+  },
   data () {
     return {
       active: 'propelling',
@@ -227,7 +249,7 @@ export default {
         font-family:PingFangSC-Medium,PingFangSC;
         font-weight:500;
     }
-    /deep/ .van-tabs__wrap {
+    /deep/.van-tabs__wrap {
         position: fixed;
         top: 46px;
         width: 100%;
@@ -251,21 +273,6 @@ export default {
     width:18px;
     height:18px;
 }
-.information-content {
-    padding-top: 10px;
-    padding-bottom: 20px;
-    border-bottom: 1px solid #000;
-    display: flex;
-    .img {
-        margin-left: 13px;
-    }
-}
-.information-title {
-    font-size:16px;
-    font-family:PingFangSC;
-    font-weight:500;
-    line-height:24px;
-}
 .information-name {
     height:16px;
     font-size:11px;
@@ -277,6 +284,18 @@ export default {
 }
 .information-push {
     padding: 0 15px;
+    .information-title {
+        font-size:16px;
+        font-family:PingFangSC;
+        font-weight:500;
+        line-height:24px;
+        margin-right: 10px;
+    }
+    .information-content {
+        padding: 10px 0;
+        border-bottom: 1px solid #000;
+        display: flex;
+    }
 }
 .information-Optional {
     padding: 0 15px;
@@ -354,96 +373,41 @@ export default {
 }
 .information-front-page-foot {
     display: flex;
-    justify-content: space-between;
-    padding: 20px 15px;
-    border-bottom: 1px solid #000;
+    padding: 20px 0;
+    margin: 0 15px;
     box-sizing: border-box;
-    .img {
-        margin-left: 13px;
-    }
-    .information-front-page-foot-name {
-        font-size:12px;
+    border-bottom: 1px solid #000;
+    .information-title {
+        font-size:16px;
         font-family:PingFangSC;
-        font-weight:400;
-        color:rgba(106,109,131,1);
-        padding-top: 8px;
-        span:nth-child(1) {
-            display: inline-block;
-            height:12px;
-            border-radius:1px;
-            border:1px solid rgba(255,55,80,1);
-            line-height: 12px;
-            color: rgba(255,55,80,1);
-            font-size:12px;
-            -webkit-transform: scale(0.6);
-            padding: 5px;
-            font-family:PingFangSC-Regular,PingFangSC;
-        }
-    }
-}
-.information-hot {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px 15px;
-    p:nth-child(1) {
-        height:24px;
-        font-size:17px;
-        font-family:PingFangSC-Medium,PingFangSC;
         font-weight:500;
-        color:rgba(255,255,255,1);
         line-height:24px;
     }
-    p:nth-child(2) {
-        height:17px;
-        font-size:12px;
-        font-family:PingFangSC-Regular,PingFangSC;
-        font-weight:400;
-        color:rgba(255,255,255,1);
-        line-height:17px;
-    }
-}
-/deep/.van-swipe__indicator {
-    width: 0;
-    height: 0;
-}
-.information-hot-news {
-    padding: 0 15px;
-    padding-bottom: 10px;
-    .information-hot-news-all {
-        width:298px;
-        height:90px;
-        background:rgba(38,39,50,1);
-        border-radius:6px;
-        display: flex;
-        align-items: center;
-        .information-hot-news-img {
-            width:53px;
-            height:53px;
-            background:rgba(216,216,216,1);
-            border-radius:4px;
-            margin-left: 15px;
-        }
-        .information-hot-news-title {
-            padding-left: 12px;
+    .information-front-name {
+        font-family:PingFangSC-Regular,PingFang SC;
+        .information-box {
+            display: flex;
+            align-items: center;
+            padding-top: 15px;
             p:nth-child(1) {
-                width:96px;
-                height:22px;
-                font-size:16px;
-                font-family:PingFangSC-Medium,PingFangSC;
-                font-weight:500;
-                color:rgba(255,255,255,1);
-                line-height:22px;
-                padding-bottom: 5px;
+                border:1px solid #FF3750;
+                height: 0.68em;
+                line-height: 0.68em;
+                font-size: 0.2em;
+                color:#FF3750;
+                padding: 0.2em 0.17em;
+                border-radius: 3px;
+                margin-right: 5px;
+                margin-top: 5px;
             }
             p:nth-child(2) {
-                width:195px;
-                height:36px;
-                font-size:13px;
-                font-family:PingFangSC-Regular,PingFangSC;
+                font-size:12px;
                 font-weight:400;
-                color:rgba(255,255,255,1);
-                line-height:18px;
+                height: 16px;
+                color:rgba(126,130,156,1);
+                span {
+                    margin-right: 5px;
+                }
             }
         }
     }
