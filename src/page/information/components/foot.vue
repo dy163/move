@@ -44,48 +44,6 @@ export default {
 
 </script>
 <style lang='less' scoped>
-// .information-front-page-foot {
-//     display: flex;
-//     padding: 20px 0;
-//     margin: 0 15px;
-//     box-sizing: border-box;
-//     border-bottom: 1px solid #000;
-//     .information-title {
-//         font-size:16px;
-//         font-family:PingFangSC;
-//         font-weight:500;
-//         line-height:24px;
-//     }
-//     .information-front-name {
-//         font-family:PingFangSC-Regular,PingFang SC;
-//         .information-box {
-//             display: flex;
-//             align-items: center;
-//             padding-top: 15px;
-//             p:nth-child(1) {
-//                 border:1px solid #FF3750;
-//                 height: 0.68em;
-//                 line-height: 0.68em;
-//                 font-size: 0.2em;
-//                 color:#FF3750;
-//                 padding: 0.2em 0.17em;
-//                 border-radius: 3px;
-//                 margin-right: 5px;
-//                 margin-top: 5px;
-//             }
-//             p:nth-child(2) {
-//                 font-size:12px;
-//                 font-weight:400;
-//                 height: 16px;
-//                 color:rgba(126,130,156,1);
-//                 span {
-//                     margin-right: 5px;
-//                 }
-//             }
-//         }
-//     }
-// }
-
 .information-front-page-foot {
     height: 115px;
     display: flex;
