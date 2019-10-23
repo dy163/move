@@ -1,75 +1,76 @@
 <template>
-    <div class="transaction-if">
-        <form action="">
+    <div class="purchase">
+        <form>
             <van-popup
             :value="value"
             @input="$emit('input', $event)"
             position="bottom"
             :close-on-click-overlay="leave">
-            <div class="transaction-number-popup">
-            <div class="transaction-number-popup-add">
-                <img src="@/assets/img/close.png" @click="handleClickCancel">
-            </div>
-            <div class="transaction-number-popup-fluctuate">
-                <div>
-                    <p>限价</p>
-                    <p>
-                        <img src="@/assets/img/reduce.png"  @click="priceReduceClick">
-                        <input type="text" v-model="price">
-                        <img src="@/assets/img/plus.png" @click="pricePlusClick">
-                    </p>
-                </div>
-                <p class="transaction-show">最小价格变化0.001</p>
-            </div>
-            <div class="transaction-number-popup-fluctuate">
-                <div>
-                    <p>数量</p>
-                    <p>
-                        <img src="@/assets/img/reduce.png" alt="" @click="amountReduceClick">
-                        <input type="text" v-model="amount">
-                        <img src="@/assets/img/plus.png" alt="" @click="amountPlusClick">
-                    </p>
-                </div>
-                <p class="transaction-show">最少交易数量1</p>
-            </div>
-                <div class="transaction-number-popup-book">
-                    <p>1/4</p>
-                    <p>1/3</p>
-                    <p>1/2</p>
-                    <p>全仓</p>
-                </div>
-                <div class="transaction-number-popup-cash">
-                    <p>现金可买<span>0</span></p>
-                </div>
-                <div class="transaction-number-popup-rate">
-                    <p>手续费</p>
-                    <p><img src="@/assets/img/mark.png" alt=""></p>
-                    <p>约¥0.00</p>
-                    <p>订单金额</p>
-                    <p>¥0.00</p>
-                </div>
-                <div class="transaction-number-popup-check">
-                    <p>盘前盘后交易</p>
-                    <p><img src="@/assets/img/mark.png"></p>
-                    <van-radio-group v-model="radio">
-                        <van-radio name="1">允许</van-radio>
-                    </van-radio-group>
-                    <van-radio-group v-model="radio">
-                        <van-radio name="2">不允许</van-radio>
-                    </van-radio-group>
+                <div class="purchase-popup">
+                    <div class="purchase-add">
+                        <img src="@/assets/img/close.png" @click="handleClickCancel">
+                    </div>
+                    <div class="purchase-fluctuate">
+                        <div>
+                            <p>限价</p>
+                            <p>
+                                <img src="@/assets/img/reduce.png"  @click="priceReduceClick">
+                                <input type="text" v-model="price">
+                                <img src="@/assets/img/plus.png" @click="pricePlusClick">
+                            </p>
+                        </div>
+                        <p class="purchase-show">最小价格变化0.001</p>
+                    </div>
+                    <div class="purchase-fluctuate">
+                        <div>
+                            <p>数量</p>
+                            <p>
+                                <img src="@/assets/img/reduce.png" alt="" @click="amountReduceClick">
+                                <input type="text" v-model="amount">
+                                <img src="@/assets/img/plus.png" alt="" @click="amountPlusClick">
+                            </p>
+                        </div>
+                        <p class="purchase-show">最少交易数量1</p>
+                    </div>
+                    <div class="purchase-book">
+                        <p>1/4</p>
+                        <p>1/3</p>
+                        <p>1/2</p>
+                        <p>全仓</p>
+                    </div>
+                    <div class="purchase-cash">
+                        <p>现金可买<span>0</span></p>
+                    </div>
+                    <div class="purchase-rate">
+                        <p>手续费</p>
+                        <p><img src="@/assets/img/mark.png" alt=""></p>
+                        <p>约¥0.00</p>
+                        <p>订单金额</p>
+                        <p>¥0.00</p>
+                    </div>
+                    <div class="purchase-check">
+                        <p>盘前盘后交易</p>
+                        <p><img src="@/assets/img/mark.png"></p>
+                        <van-radio-group v-model="radio">
+                            <van-radio name="1">允许</van-radio>
+                        </van-radio-group>
+                        <van-radio-group v-model="radio">
+                            <van-radio name="2">不允许</van-radio>
+                        </van-radio-group>
                     </div>
                 </div>
-                <div class="transaction-number-popup-space"></div>
-                <div class="transaction-number-popup-define">
+                <div class="purchase-space"></div>
+                <div class="purchase-define">
                     <p>实际金额 <span>¥0.00</span></p>
                     <van-button
-                    @click="shows = true">
+                    @click="handleClickOrder"
+                    @click.prevent="handleClickOrder">
                     确认买入</van-button>
                 </div>
-                </van-popup>
-            </form>
+            </van-popup>
+        </form>
         <!-- 确定买入的遮罩层展示 -->
-        <div class="transaction-cue">
+        <div class="purchase-cue">
             <van-popup v-model="shows" :close-on-click-overlay="leave">
                 <div>
                     <p>由于订单金额过小，无法支付手续费，请修改卖出股数重新提交订单</p>
@@ -130,6 +131,10 @@ export default {
     },
     amountPlusClick () {
       this.amount++
+    },
+    handleClickOrder () {
+    //   this.$toast('请填写正确得卖出数量')
+      this.shows = true
     }
   }
 }
@@ -137,15 +142,13 @@ export default {
 </script>
 
 <style lang='less' scoped>
-.transaction-if {
+.purchase {
     background:rgba(0,0,0,0.6);
-    // opacity:0.6;
-    .transaction-number-popup {
-
+    .purchase-popup {
         height:325px;
         width: 375px;
         background:rgba(54,55,64,1);
-        .transaction-number-popup-add {
+        .purchase-add {
             border-bottom: 1px solid #000;
             height: 36px;
             display: flex;
@@ -155,7 +158,7 @@ export default {
                 padding-right: 16px;
             }
         }
-        .transaction-number-popup-fluctuate {
+        .purchase-fluctuate {
             padding: 0 16px;
             div {
                 display: flex;
@@ -191,7 +194,7 @@ export default {
                     }
                 }
             }
-            .transaction-show {
+            .purchase-show {
                 text-align: right;
                 height:17px;
                 font-size:12px;
@@ -201,9 +204,8 @@ export default {
                 line-height:17px;
                 padding-right: 62px;
             }
-
         }
-        .transaction-number-popup-book {
+        .purchase-book {
             display: flex;
             justify-content: space-around;
             padding-top: 15px;
@@ -219,7 +221,7 @@ export default {
                 text-align: center;
             }
         }
-        .transaction-number-popup-cash {
+        .purchase-cash {
             height:17px;
             font-size:12px;
             font-family:PingFangSC-Regular,PingFangSC;
@@ -231,7 +233,7 @@ export default {
                 padding-left: 12px;
             }
         }
-        .transaction-number-popup-rate {
+        .purchase-rate {
             display: flex;
             align-items: center;
             padding: 0 15px;
@@ -271,7 +273,7 @@ export default {
                 color:rgba(47,152,255,1);
             }
         }
-        .transaction-number-popup-check {
+        .purchase-check {
             display: flex;
             align-items: center;
             padding: 15px;
@@ -301,13 +303,12 @@ export default {
                 }
             }
         }
-
     }
-    .transaction-number-popup-space {
+    .purchase-space {
         height: 27px;
         background:rgba(0,0,0,1);
     }
-    .transaction-number-popup-define {
+    .purchase-define {
         width:375px;
         background:rgba(54,55,64,1);
         display: flex;
@@ -333,32 +334,31 @@ export default {
             color: #fff;
         }
     }
-    .transaction-cue {
-    div {
-        width:300px;
-        height:164px;
-        background:rgba(32,33,43,1);
-        border-radius:3px;
-        text-align: center;
-        p {
-            padding: 28px 21px;
-            height:44px;
-            font-size:14px;
+    .purchase-cue {
+        div {
+            width:300px;
+            height:164px;
+            background:rgba(32,33,43,1);
+            border-radius:3px;
+            text-align: center;
             font-family:PingFangSC-Regular,PingFangSC;
             color:#fff;
-            line-height:22px;
-        }
-        .van-button {
-            width:227px;
-            height:38px;
-            line-height: 38px;
-            background:rgba(47,152,255,1);
-            color: #fff;
-            font-size:16px;
-            font-family:PingFangSC-Medium,PingFangSC;
+            p {
+                padding: 28px 21px;
+                height:44px;
+                font-size:14px;
+                line-height:22px;
+            }
+            .van-button {
+                width:227px;
+                height:38px;
+                line-height: 38px;
+                background:rgba(47,152,255,1);
+                color: #fff;
+                font-size:16px;
+            }
         }
     }
-}
 }
 .van-button {
     border: 0;
