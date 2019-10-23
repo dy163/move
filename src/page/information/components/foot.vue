@@ -44,40 +44,83 @@ export default {
 
 </script>
 <style lang='less' scoped>
+// .information-front-page-foot {
+//     display: flex;
+//     padding: 20px 0;
+//     margin: 0 15px;
+//     box-sizing: border-box;
+//     border-bottom: 1px solid #000;
+//     .information-title {
+//         font-size:16px;
+//         font-family:PingFangSC;
+//         font-weight:500;
+//         line-height:24px;
+//     }
+//     .information-front-name {
+//         font-family:PingFangSC-Regular,PingFang SC;
+//         .information-box {
+//             display: flex;
+//             align-items: center;
+//             padding-top: 15px;
+//             p:nth-child(1) {
+//                 border:1px solid #FF3750;
+//                 height: 0.68em;
+//                 line-height: 0.68em;
+//                 font-size: 0.2em;
+//                 color:#FF3750;
+//                 padding: 0.2em 0.17em;
+//                 border-radius: 3px;
+//                 margin-right: 5px;
+//                 margin-top: 5px;
+//             }
+//             p:nth-child(2) {
+//                 font-size:12px;
+//                 font-weight:400;
+//                 height: 16px;
+//                 color:rgba(126,130,156,1);
+//                 span {
+//                     margin-right: 5px;
+//                 }
+//             }
+//         }
+//     }
+// }
+
 .information-front-page-foot {
+    height: 115px;
     display: flex;
-    padding: 20px 0;
-    margin: 0 15px;
-    box-sizing: border-box;
-    border-bottom: 1px solid #000;
-    .information-title {
-        font-size:16px;
-        font-family:PingFangSC;
-        font-weight:500;
-        line-height:24px;
-    }
+    padding: 0 15px;
     .information-front-name {
         font-family:PingFangSC-Regular,PingFang SC;
+        .information-title {
+            font-size:16px;
+            font-family:PingFangSC;
+            font-weight:500;
+            line-height:24px;
+        }
         .information-box {
+            height: 16px;
+            line-height: 16px;
+            margin-top: 15px;
             display: flex;
-            align-items: center;
-            padding-top: 15px;
             p:nth-child(1) {
                 border:1px solid #FF3750;
-                height: 0.68em;
-                line-height: 0.68em;
-                font-size: 0.2em;
                 color:#FF3750;
-                padding: 0.2em 0.17em;
+                height: 16px;
+                line-height: 16px;
+                font-size: 12px;
+                transform: scale(0.7);
+                padding: 2px 5px;
                 border-radius: 3px;
-                margin-right: 5px;
-                margin-top: 5px;
+                // height: 0.68em;
+                // line-height: 0.68em;
+                // font-size: 0.2em;
+                // padding: 0.2em 0.3em;
+                // border-radius: 3px;
+                // margin-right: 5px;
             }
             p:nth-child(2) {
-                font-size:12px;
-                font-weight:400;
-                height: 16px;
-                color:rgba(126,130,156,1);
+                font-size: 12px;
                 span {
                     margin-right: 5px;
                 }
@@ -85,32 +128,4 @@ export default {
         }
     }
 }
-
-// .information-front-page-foot {
-//     height: 115px;
-//     display: flex;
-//     padding: 0 15px;
-//     .information-front-name {
-//         font-family:PingFangSC-Regular,PingFang SC;
-//         .information-title {
-//             font-size:16px;
-//             font-family:PingFangSC;
-//             font-weight:500;
-//             line-height:24px;
-//         }
-//         .information-box {
-//             display: flex;
-//             p:nth-child(1) {
-//                 width: 24px;
-//                 z-index: 9999;
-//                 color: red;
-//                 font-size: 16px;
-//                 transform: scale(0.5);
-//             }
-//             p:nth-child(2) {
-//                 font-size: 12px;
-//             }
-//         }
-//     }
-// }
 </style>

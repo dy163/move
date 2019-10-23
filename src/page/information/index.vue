@@ -57,7 +57,6 @@
                 </van-tab>
                 <!-- 自选 -->
                 <van-tab title="自选" class="information-Optional">
-
                     <!-- <van-list
                     v-model="loading"
                     :finished="finished"
@@ -335,14 +334,22 @@ export default {
             padding-top: 15px;
             p:nth-child(1) {
                 border:1px solid #FF3750;
-                height: 0.68em;
-                line-height: 0.68em;
-                font-size: 0.2em;
                 color:#FF3750;
-                padding: 0.2em 0.17em;
+                height: 16px;
+                line-height: 16px;
+                font-size: 12px;
+                transform: scale(0.7);
+                padding: 2px 5px;
                 border-radius: 3px;
-                margin-right: 5px;
-                margin-top: 5px;
+                // border:1px solid #FF3750;
+                // height: 0.68em;
+                // line-height: 0.68em;
+                // font-size: 0.2em;
+                // color:#FF3750;
+                // padding: 0.2em 0.17em;
+                // border-radius: 3px;
+                // margin-right: 5px;
+                // margin-top: 5px;
             }
             p:nth-child(2) {
                 font-size:12px;
