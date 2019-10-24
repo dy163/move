@@ -341,6 +341,7 @@ export default {
                 transform: scale(0.7);
                 padding: 2px 5px;
                 border-radius: 3px;
+                margin-top: 3px;
                 // border:1px solid #FF3750;
                 // height: 0.68em;
                 // line-height: 0.68em;
@@ -349,7 +350,6 @@ export default {
                 // padding: 0.2em 0.17em;
                 // border-radius: 3px;
                 // margin-right: 5px;
-                // margin-top: 5px;
             }
             p:nth-child(2) {
                 font-size:12px;
