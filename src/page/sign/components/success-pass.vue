@@ -68,7 +68,6 @@ p {
     height:44px;
     background: #2F98FF;
     border-radius:3px;
-    border: 0;
     .van-button__text {
         width:32px;
         height:22px;

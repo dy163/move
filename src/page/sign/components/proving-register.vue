@@ -121,7 +121,6 @@ form {
         width: 85px;
         margin-left: 8px;
         color: #7E829C;
-        border: 0;
         height: 50px;
         border-radius: 3px;
         .van-button__text {
@@ -144,7 +143,6 @@ form {
   width: 100%;
   background-color: #2F98FF;
   color: #fff;
-  border: 0;
   border-radius: 3px;
 }
 </style>

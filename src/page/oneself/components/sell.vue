@@ -292,6 +292,9 @@ export default {
                 padding-right: 30px;
             }
             .van-radio {
+                /deep/.van-radio__icon {
+                    font-size: 12px
+                }
                 /deep/.van-radio__label  {
                     color: #fff;
                     font-size:12px;
@@ -358,8 +361,5 @@ export default {
             }
         }
     }
-}
-.van-button {
-    border: 0;
 }
 </style>

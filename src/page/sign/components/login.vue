@@ -126,7 +126,6 @@ form {
 }
 .login-btn {
   width: 100%;
-  border: 0;
   background-color: #2F98FF;
   .van-button__text {
     width:32px;

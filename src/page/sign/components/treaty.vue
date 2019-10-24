@@ -55,14 +55,6 @@ p {
         margin-right: 8px;
     }
 }
-.van-icon-success{
-    color: #fff;
-    background-color: #2F98FF;
-    border-radius: 50%;
-    border: 0;
-    margin-right: 8px;
-    margin-bottom: 17px;
-}
 .declare {
     text-align: center;
     padding: 10px 0 50px;
@@ -74,7 +66,6 @@ p {
     a {
         color: #2F98FF;
     }
-
 }
 .login-btn-box {
     padding: 0 15px;
@@ -84,7 +75,6 @@ p {
     height:44px;
     background: #2F98FF;
     border-radius:3px;
-    border: 0;
     .van-button__text {
         width:32px;
         height:22px;

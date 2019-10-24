@@ -50,3 +50,6 @@ body {
   font-weight: 500;
   color: #ffffff;
 }
+.van-button {
+  border: 0;
+}

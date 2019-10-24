@@ -277,7 +277,6 @@ export default {
     .van-dropdown-menu__title::after {
         border: 0;
     }
-
 }
 /deep/.van-dropdown-menu {
     background-color:rgba(54,55,64,1);

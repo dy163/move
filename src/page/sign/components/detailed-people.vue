@@ -103,7 +103,6 @@ form {
     font-family:PingFangSC;
     font-weight:500;
     color:rgba(255,255,255,1);
-    border: 0;
 }
 .van-cell-group {
     margin-bottom: 8px;

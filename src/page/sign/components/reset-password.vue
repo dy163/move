@@ -65,7 +65,6 @@ form {
   margin-bottom: 20px;
 }
 .login-btn {
-  border: 0;
   border-radius: 3px;
   margin-top: 30px;
   width: 100%;

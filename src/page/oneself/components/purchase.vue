@@ -276,10 +276,10 @@ export default {
             display: flex;
             align-items: center;
             padding: 15px;
+            font-family:PingFangSC-Regular,PingFangSC;
             p:nth-child(1) {
                 height:20px;
                 font-size:14px;
-                font-family:PingFangSC-Regular,PingFangSC;
                 font-weight:400;
                 color:rgba(163,163,167,1);
                 line-height:20px;
@@ -293,10 +293,12 @@ export default {
                 padding-right: 30px;
             }
             .van-radio {
+                /deep/.van-radio__icon {
+                    font-size: 12px
+                }
                 /deep/.van-radio__label  {
                     color: #fff;
                     font-size:12px;
-                    font-family:PingFangSC-Regular,PingFangSC;
                     font-weight:400;
                     padding-right: 15px;
                 }
@@ -358,8 +360,5 @@ export default {
             }
         }
     }
-}
-.van-button {
-    border: 0;
 }
 </style>

@@ -31,7 +31,7 @@
             >
             <div class="bank-btn" >
                 <span></span>
-                <van-button color="#363740" class="cancel" @click="show = false">取消</van-button>
+                <van-button color="#363740" class="cancel" @click.prevent="show = false">取消</van-button>
                 <span class="crevice"></span>
                 <van-button color="#2F98FF" class="cancel" @click.prevent="handeleClickConfirm()">确认</van-button>
             </div>
@@ -171,7 +171,6 @@ export default {
             line-height: 38px;
             border-radius:3px;
             margin-left: 30px;
-            border: 0;
             .van-button__text {
                 font-size:14px;
                 font-family:PingFangSC-Regular,PingFangSC;

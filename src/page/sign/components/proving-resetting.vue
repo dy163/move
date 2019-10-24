@@ -119,7 +119,6 @@ form {
       background-color:#353641;
       width: 85px;
       margin-left: 8px;
-      border: 0;
       height: 50px;
       border-radius: 3px;
       color: #7E829C;
@@ -139,7 +138,6 @@ form {
     width: 100%;
     background-color: #2F98FF;
     color: #fff;
-    border: 0;
     border-radius: 3px;
   }
 }

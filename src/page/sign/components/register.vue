@@ -131,7 +131,6 @@ form {
   font-size:16px;
   background-color: #2F98FF;
   color: #fff;
-  border: 0;
   border-radius: 3px;
 }
 .annotation {

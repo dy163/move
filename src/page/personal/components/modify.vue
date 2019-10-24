@@ -60,7 +60,6 @@ export default {
     width: 100%;
     background-color: #2F98FF;
     color: #fff;
-    border: 0;
     border-radius: 3px;
 }
 .modify-content {
