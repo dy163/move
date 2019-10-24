@@ -144,9 +144,6 @@ export default {
       focus: [
         { title: '长江证券：美股大幅反弹，与美国经济“背离”？', roof: '置顶', trusts: '长江证券研究', timer: '今天 12:35' },
         { title: '长江证券：美股大幅反弹，与美国经济“背离”？', roof: '置顶', trusts: '长江证券研究', timer: '今天 12:35' },
-        { title: '长江证券：美股大幅反弹，与美国经济“背离”？', roof: '置顶', trusts: '长江证券研究', timer: '今天 12:35' },
-        { title: '长江证券：美股大幅反弹，与美国经济“背离”？', roof: '置顶', trusts: '长江证券研究', timer: '今天 12:35' },
-        { title: '长江证券：美股大幅反弹，与美国经济“背离”？', roof: '置顶', trusts: '长江证券研究', timer: '今天 12:35' },
         { title: '长江证券：美股大幅反弹，与美国经济“背离”？', roof: '置顶', trusts: '长江证券研究', timer: '今天 12:35' }
       ]
     }
@@ -315,11 +312,17 @@ export default {
     }
 }
 .information-front-page-foot {
+    // display: flex;
+    // padding: 20px 0;
+    // margin: 0 15px;
+    // box-sizing: border-box;
+    // border-bottom: 1px solid #000;
+
+    height: 115px;
     display: flex;
-    padding: 20px 0;
+    align-items: center;
     margin: 0 15px;
-    box-sizing: border-box;
-    border-bottom: 1px solid #000;
+    border-bottom: 1px solid #14151C;
     .information-title {
         font-size:16px;
         font-family:PingFangSC;

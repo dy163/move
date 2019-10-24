@@ -47,7 +47,9 @@ export default {
 .information-front-page-foot {
     height: 115px;
     display: flex;
-    padding: 0 15px;
+    align-items: center;
+    margin: 0 15px;
+    border-bottom: 1px solid #14151C;
     .information-front-name {
         font-family:PingFangSC-Regular,PingFang SC;
         .information-title {
@@ -57,10 +59,9 @@ export default {
             line-height:24px;
         }
         .information-box {
-            height: 16px;
-            line-height: 16px;
-            margin-top: 15px;
             display: flex;
+            align-items: center;
+            padding-top: 15px;
             p:nth-child(1) {
                 border:1px solid #FF3750;
                 color:#FF3750;
@@ -70,6 +71,8 @@ export default {
                 transform: scale(0.7);
                 padding: 2px 5px;
                 border-radius: 3px;
+                margin-top: 3px;
+
                 // height: 0.68em;
                 // line-height: 0.68em;
                 // font-size: 0.2em;
@@ -79,6 +82,9 @@ export default {
             }
             p:nth-child(2) {
                 font-size: 12px;
+                font-weight:400;
+                height: 16px;
+                color:rgba(126,130,156,1);
                 span {
                     margin-right: 5px;
                 }
