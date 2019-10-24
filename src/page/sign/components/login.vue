@@ -30,7 +30,6 @@
         <div class="login-btn-box">
           <van-button
             class="login-btn"
-            @click="handleClickPhone"
             @click.prevent="handleClickPhone"
           >登录</van-button>
         </div>

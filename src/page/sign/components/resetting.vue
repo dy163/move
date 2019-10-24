@@ -20,7 +20,6 @@
           <div class="login-btn-box">
             <van-button
             class="login-btn"
-            @click="handleClickNextStep"
             @click.prevent="handleClickNextStep"
             >下一步</van-button>
           </div>

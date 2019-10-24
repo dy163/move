@@ -22,7 +22,7 @@
                 <van-button
                   :disabled="!!codeTimer"
                   :loading="codeLoading"
-                  @click="handleClickTimer"
+                  @click.prevent="handleClickTimer"
                   >
                   {{ codeTimer ? `${codeTimeSeconds}s` : '获取验证码' }}
                   </van-button>
@@ -30,7 +30,6 @@
             <div class="login-btn-box">
                 <van-button
                 class="login-btn"
-                @click="handleClick"
                 @click.prevent="handleClick"
                 >下一步</van-button>
             </div>

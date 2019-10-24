@@ -1,8 +1,8 @@
 <template>
     <div class="bank-card-add">
         <van-nav-bar title="我的银行卡" @click-left="$router.back()" @click-right="onClickRight">
-            <van-icon name="arrow-left" slot="left" />
-            <van-icon name="plus" slot="right" />
+            <van-icon name="arrow-left" slot="left" size="16px"/>
+            <van-icon name="plus" slot="right" size="16px"/>
         </van-nav-bar>
         <div class="bank-card-content">
             <div class="bank-card-content-card"
@@ -33,7 +33,7 @@
                 <span></span>
                 <van-button color="#363740" class="cancel" @click="show = false">取消</van-button>
                 <span class="crevice"></span>
-                <van-button color="#2F98FF" class="cancel" @click="handeleClickConfirm()">确认</van-button>
+                <van-button color="#2F98FF" class="cancel" @click.prevent="handeleClickConfirm()">确认</van-button>
             </div>
         </van-dialog>
     </div>

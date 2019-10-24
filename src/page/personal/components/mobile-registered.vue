@@ -27,14 +27,13 @@
                     <van-button
                     :disabled="!!codeTimer"
                     :loading="codeLoading"
-                    @click="handleClickTimer">
+                    @click.prevent="handleClickTimer">
                     {{ codeTimer ? `${codeTimeSeconds}s` : '获取验证码' }}
                     </van-button>
             </div>
             <div class="login-btn-box">
                 <van-button
                 class="login-btn"
-                @click="handleRegistered"
                 @click.prevent="handleRegistered"
                 >修改手机号</van-button>
             </div>

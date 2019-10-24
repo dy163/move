@@ -62,7 +62,7 @@
             <div class="sell-space"></div>
             <div class="sell-define">
                 <p>实际金额 <span>¥0.00</span></p>
-                <van-button @click="handleClickOrder"  @click.prevent="handleClickOrder">确认卖出</van-button>
+                <van-button @click.prevent="handleClickOrder">确认卖出</van-button>
             </div>
             </van-popup>
         </form>
@@ -71,7 +71,7 @@
             <van-popup v-model="shows" :close-on-click-overlay="leave">
                 <div>
                     <p>由于订单金额过小，无法支付手续费，请修改卖出股数重新提交订单</p>
-                    <van-button round @click="handleClickConfiom">确 定</van-button>
+                    <van-button round @click.prevent="handleClickConfiom">确 定</van-button>
                 </div>
             </van-popup>
         </div>

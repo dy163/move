@@ -41,7 +41,6 @@
             <div class="login-btn-box">
               <van-button
               class="login-btn"
-              @click="handleClick"
               @click.prevent="handleClick"
               >确认注册</van-button>
             </div>

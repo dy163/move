@@ -18,7 +18,6 @@
             <div class="login-btn-box">
                 <van-button
                 class="login-btn"
-                @click="handleClick"
                 @click.prevent="handleClick"
                 >获取验证码</van-button>
             </div>

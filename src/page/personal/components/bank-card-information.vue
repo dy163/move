@@ -41,7 +41,7 @@
             </div>
         </div>
         <div >
-            <van-button color="#2F98FF" @click="handeleClickQuestion" class="bank-card-btn">确认</van-button>
+            <van-button color="#2F98FF" @click.prevent="handeleClickQuestion" class="bank-card-btn">确认</van-button>
         </div>
         <!-- 提示弹窗 -->
         <van-dialog
@@ -57,9 +57,9 @@
             <div class="card-line"></div>
             <div class="bank-btn">
                 <span></span>
-                <van-button color="#363740" class="cancel" @click="showes = false">取消</van-button>
+                <van-button color="#363740" class="cancel" @click.prevent="showes = false">取消</van-button>
                 <span class="crevice"></span>
-                <van-button color="#2F98FF" class="cancel" @click="handeleClickConfirm">确认</van-button>
+                <van-button color="#2F98FF" class="cancel" @click.prevent="handeleClickConfirm">确认</van-button>
             </div>
         </van-dialog>
     </div>
@@ -90,15 +90,12 @@ export default {
   methods: {
     // 确认按钮
     handeleClickQuestion () {
-      const bank = this.user.bank
       const card = this.user.card
       const phone = this.user.phone
       const name = this.user.name
       const phoneReg = /^[1][3,4,5,7,8][0-9]{9}$/
       const cardReg = /^([1-9]{1})(\d{14}|\d{18})$/
-      if (!bank) {
-        this.$toast('请填写银行名称')
-      } else if (!card) {
+      if (!card) {
         this.$toast('请正确填写银行卡号')
       } else if (!cardReg.test(card)) {
         this.$toast('卡号错误')
