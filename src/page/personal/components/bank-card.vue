@@ -1,8 +1,8 @@
 <template>
     <div class="bank-card">
         <van-nav-bar title="我的银行卡" @click-left="$router.back()"  @click-right="onClickRight">
-            <van-icon name="arrow-left" slot="left" />
-            <van-icon name="plus" slot="right" />
+            <van-icon name="arrow-left" slot="left" size="16px"/>
+            <van-icon name="plus" slot="right" size="16px"/>
         </van-nav-bar>
         <div class="bank-card-content">
             <img src="@/assets/img/sign.png" alt="">

@@ -4,25 +4,32 @@
         <van-nav-bar
         title="资产"
         left-arrow
-        @click-left="$router.back()"/>
+        @click-left="$router.back()"
+        @click-right="$router.push('/bank-card')">
+          <van-icon name="idcard" slot="right" size="20px"/>
+        </van-nav-bar>
         <!-- 资产总得展示 -->
         <div class="capital-reveal">
             <div class="capital-reveal-top">
                 <p>账户总资产(RMB)</p>
                 <p>1.74</p>
             </div>
+            <div class="capital-reveal-triangle">
+                <p></p>
+                <p></p>
+                <p></p>
+            </div>
             <div class="capital-reveal-foot">
                 <div>
                     <router-link to="/deposit">
                         <img src="@/assets/img/deposit.png" alt="" style="vertical-align:middle">
-                        <span>入金</span>
+                        <span>入 金</span>
                     </router-link>
                 </div>
-                <p></p>
                 <div>
                     <router-link to="">
                         <img src="@/assets/img/yield.png" alt="" style="vertical-align:middle">
-                        <span>出金</span>
+                        <span>出 金</span>
                     </router-link>
                 </div>
             </div>
@@ -163,51 +170,87 @@ export default {
     height:170px;
     background:linear-gradient(90deg,rgba(59,113,255,1) 0%,rgba(68,162,255,1) 100%);
     color: #fff;
-}
-.capital-reveal-top {
-    text-align: center;
-    padding-top: 30px;
-    p:nth-child(1) {
-        height:17px;
-        font-size:12px;
-        font-family:PingFangSC;
-        font-weight:400;
-        line-height:17px;
-        margin-bottom: 3px;
+    .capital-reveal-triangle {
+        p:nth-child(1) {
+            position: fixed;
+            top: 90px;
+            width: 0;
+            height: 0;
+            border-left: 63.5px solid transparent;
+            border-right: 63.5px solid transparent;
+            border-bottom: 127px solid rgba(255,255,255,0.03);
+        }
+        p:nth-child(2) {
+            position: fixed;
+            top: 132px;
+            left: 215px;
+            width: 0;
+            height: 0;
+            border-left: 41px solid transparent;
+            border-right: 41px solid transparent;
+            border-bottom: 83px solid rgba(255,255,255,0.03);
+        }
+        p:nth-child(3) {
+            position: fixed;
+            top: 100px;
+            right: 11px;
+            width: 0;
+            height: 0;
+            border-left: 58px solid transparent;
+            border-right: 58px solid transparent;
+            border-bottom: 116px solid rgba(255,255,255,0.03);
+        }
     }
-    p:nth-child(2) {
-        height:47px;
-        font-size:40px;
-        font-family:DINAlternate;
-        font-weight:bold;
-        line-height:47px;
-    }
-}
-.capital-reveal-foot {
-    height:43px;
-    margin-top: 30px;
-    display: flex;
-    align-items: center;
-    background:rgba(255,255,255,0.1);
-    p {
-        width: 1px;
-        height: 28px;
-        background-color: #fff;
-    }
-    div {
-        flex: 1;
+    .capital-reveal-top {
         text-align: center;
-        a {
-            color: #fff;
-            span {
-                padding-left: 5px;
-                width:26px;
-                height:18px;
-                font-size:13px;
-                font-family:PingFangSC-Medium,PingFangSC;
-                font-weight:500;
-                color:rgba(255,255,255,1);
-                line-height:18px;
+        padding-top: 30px;
+        p:nth-child(1) {
+            height:17px;
+            font-size:12px;
+            font-family:PingFangSC;
+            font-weight:400;
+            line-height:17px;
+            margin-bottom: 3px;
+        }
+        p:nth-child(2) {
+            height:47px;
+            font-size:40px;
+            font-family:DINAlternate;
+            font-weight:bold;
+            line-height:47px;
+        }
+    }
+    .capital-reveal-foot {
+        position: fixed;
+        width: 100%;
+        height:43px;
+        margin-top: 30px;
+        display: flex;
+        align-items: center;
+        background:rgba(255,255,255,0.1);
+        z-index: 2000;
+        div:nth-child(1) {
+            a {
+                border-right: 1px solid #fff;
+            }
+        }
+        div {
+            flex: 1;
+            text-align: center;
+            a {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: #fff;
+                img {
+                    width: 23px;
+                }
+                span {
+                    padding-left: 5px;
+                    font-size:14px;
+                    font-family:PingFangSC-Medium,PingFangSC;
+                    font-weight:500;
+                }
             }
         }
     }
