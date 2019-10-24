@@ -23,15 +23,12 @@
                   </van-cell-group>
                 </div>
                 <!-- 倒计时获取验证码 -->
-
                   <van-button
                   :disabled="!!codeTimer"
                   :loading="codeLoading"
-                  @click.prevent="handleClickTimer"
-                  >
+                  @click.prevent="handleClickTimer">
                   {{ codeTimer ? `${codeTimeSeconds}s` : '获取验证码' }}
                   </van-button>
-
             </div>
             <!-- 提示下一步 -->
             <div class="login-btn-box">

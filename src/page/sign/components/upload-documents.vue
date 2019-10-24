@@ -5,7 +5,7 @@
         left-arrow
         @click-left="$router.back()"
         />
-        <form action="">
+        <form>
             <p class="upload-documents-header">请拍摄您的身份证原件</p>
             <div class="upload-documents-content">
                 <div class="upload-documents-img" @click="show = true">
