@@ -69,22 +69,6 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.van-nav-bar {
-    background-color: #20212A;
-}
-.van-nav-bar .van-icon {
-    color: #fff;
-
-}
-.van-hairline--bottom::after {
-    border: 2px solid #14151C
-}
-.van-nav-bar__title {
-    font-size:17px;
-    font-family:PingFangSC;
-    font-weight:500;
-    color:rgba(255,255,255,1);
-}
 .order-list {
     .order-list-fixed {
         display: flex;
@@ -141,11 +125,13 @@ export default {
                 align-items: center;
                 padding-top: 8px;
                 span {
-
                     background:rgba(68,127,255,1);
                     border-radius:3px;
                     font-size:8px;
                     font-weight:400;
+                    height: 8px;
+                    line-height: 8px;
+                    padding: 2px 3px;
                 }
             }
         }
