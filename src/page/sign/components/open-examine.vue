@@ -3,9 +3,9 @@
         <!-- 头部 -->
         <van-nav-bar
         title="开 户 审 核"
-        left-arrow
-        @click-left="$router.back()"
-        />
+        @click-left="$router.back()">
+            <van-icon name="arrow-left" slot="left"/>
+        </van-nav-bar>
         <!-- 审核状态提示 -->
         <div class="success-content">
             <img src="@/assets/img/success.png" alt="">

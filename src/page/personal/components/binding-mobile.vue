@@ -2,9 +2,9 @@
     <div class="binding-mobile">
         <van-nav-bar
         title="修改手机号"
-        left-arrow
-        @click-left="$router.back()"
-        />
+        @click-left="$router.back()">
+          <van-icon name="arrow-left" slot="left"/>
+        </van-nav-bar>
         <p>绑定新手机号</p>
         <form>
             <van-cell-group>

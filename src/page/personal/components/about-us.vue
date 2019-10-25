@@ -2,9 +2,9 @@
     <div class="about-us">
         <van-nav-bar
         title="关于我们"
-        left-arrow
-        @click-left="$router.back()"
-        />
+        @click-left="$router.back()">
+            <van-icon name="arrow-left" slot="left"/>
+        </van-nav-bar>
         <div class="about-icon">
             <p></p>
         </div>

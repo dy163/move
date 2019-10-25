@@ -2,9 +2,9 @@
     <div class="porfit-loss">
         <van-nav-bar
         title="盈亏分析"
-        left-arrow
-        @click-left="$router.back()"
-        />
+        @click-left="$router.back()">
+            <van-icon name="arrow-left" slot="left"/>
+        </van-nav-bar>
         <div class="porfit-loss-show" :style="porfit">
             <div>
                 <p>持仓股票总资产(USD)</p>

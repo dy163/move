@@ -3,10 +3,10 @@
         <!-- 头部 -->
         <van-nav-bar
         title="资产"
-        left-arrow
         @click-left="$router.back()"
         @click-right="$router.push('/bank-card')">
-          <van-icon name="idcard" slot="right" size="20px"/>
+            <van-icon name="arrow-left" slot="left"/>
+            <van-icon name="idcard" slot="right" size="20px"/>
         </van-nav-bar>
         <!-- 资产总得展示 -->
         <div class="capital-reveal">

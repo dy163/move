@@ -2,9 +2,9 @@
     <div class="bank-card">
         <van-nav-bar
         title="添加银行卡"
-        left-arrow
-        @click-left="$router.back()"
-        />
+        @click-left="$router.back()">
+            <van-icon name="arrow-left" slot="left"/>
+        </van-nav-bar>
         <div class="bank-card-content">
             <div class="bank-card-content-top">
                 <p>填写您本人的收款银行卡信息</p>

@@ -2,9 +2,9 @@
     <div class="payment-agreement">
         <van-nav-bar
         title="支付服务协议"
-        left-arrow
-        @click-left="$router.back()"
-        />
+        @click-left="$router.back()">
+            <van-icon name="arrow-left" slot="left"/>
+        </van-nav-bar>
         <div class="payment-agreement-content">
             <p>1、支付服务（又称“基础支付服务”）：指支付宝向您及您的客户所提供的“支付宝”软件系统及其附随提供的款项代收代付服务（不包括信用卡支付服务、国际支付及/或花呗），包括但不限于余额支付、余额宝支付、借记卡快捷支付（含卡通），具体以服务提供者届时提供的服务为准。</p>
             <p>2、借记卡快捷支付（含卡通）：指持卡人（下文或称“买家”）向支付宝系统提交银行借记卡信息并付款，由支付宝完成代收代付的服务。</p>

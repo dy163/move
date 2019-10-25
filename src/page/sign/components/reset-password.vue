@@ -1,10 +1,10 @@
 <template>
     <div class="reset-password">
         <van-nav-bar
-            title="重 置 密 码"
-            left-arrow
-            @click-left="$router.back()"
-            />
+          title="重 置 密 码"
+          @click-left="$router.back()">
+          <van-icon name="arrow-left" slot="left"/>
+        </van-nav-bar>
         <form>
           <!-- 第一次密码输入 -->
           <van-cell-group>

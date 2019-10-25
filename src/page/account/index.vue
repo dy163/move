@@ -2,9 +2,9 @@
     <div class="account">
         <van-nav-bar
         title="开 户"
-        left-arrow
-        @click-left="$router.back()"
-        />
+        @click-left="$router.back()">
+            <van-icon name="arrow-left" slot="left"/>
+        </van-nav-bar>
         <div class="blank-space"></div>
         <!-- 手机验证开户 -->
         <div class="account-rapidly">

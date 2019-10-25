@@ -2,8 +2,8 @@
     <div class="quotation">
         <van-nav-bar title="股票" fixed>
             <div slot="right">
-                <img src="@/assets/img/search.png" alt="" style="vertical-align:middle" class="nav-img">
-                <img src="@/assets/img/refresh.png" alt="" style="vertical-align:middle">
+                <img src="@/assets/img/search.png" class="nav-img">
+                <img src="@/assets/img/refresh.png" class="nav-img">
             </div>
         </van-nav-bar>
         <div class="quotation-content">
@@ -104,11 +104,13 @@ export default {
 .van-nav-bar {
     background-color: #20212A;
     .nav-img {
-        margin-right: 22px;
+        margin-left: 18px;
+        width: 16px;
+        vertical-align: middle;
     }
 }
 .nil {
-    height: 92px;
+    height: 85px;
 }
 .quotation-content {
     padding: 0 15px;
@@ -204,10 +206,10 @@ export default {
     color:rgba(255,255,255,1);
     line-height:22px;
     padding-top: 10px;
-    margin-bottom: 50px;
+    margin-bottom: 60px;
     img {
         vertical-align: middle;
-        padding-right: 3px;
+        margin-right: 8px;
     }
 
 }

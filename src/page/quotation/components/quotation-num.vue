@@ -2,7 +2,7 @@
     <div class="quotation">
         <!-- 头部名称 -->
         <div class="quotation-header" @click="$router.back()">
-                <van-icon name="arrow-left" size="16"/>
+                <van-icon name="arrow-left"/>
             <div>
                 <p> <span>HK</span> 恒生指数(HSI)</p>
                 <p>交易中07-25 10:36:20</p>

@@ -2,9 +2,9 @@
     <div class="selective">
         <van-nav-bar
         title="修改手机号"
-        left-arrow
-        @click-left="$router.back()"
-        />
+        @click-left="$router.back()">
+            <van-icon name="arrow-left" slot="left"/>
+        </van-nav-bar>
         <div class="selective-content">
             <div>
                 <span>为保证您的帐号安全，需选择一种方式进行验证您的身份</span>

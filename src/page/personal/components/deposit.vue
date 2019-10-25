@@ -2,9 +2,9 @@
     <div class="deposit">
         <van-nav-bar
         title="入金"
-        left-arrow
-        @click-left="$router.back()"
-        />
+        @click-left="$router.back()">
+            <van-icon name="arrow-left" slot="left"/>
+        </van-nav-bar>
         <div class="deposit-content-top"></div>
         <div class="deposit-content">
             <!-- 极速入金 -->

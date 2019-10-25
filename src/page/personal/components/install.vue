@@ -2,9 +2,9 @@
     <div class="install">
         <van-nav-bar
         title="设置"
-        left-arrow
-        @click-left="$router.back()"
-        />
+        @click-left="$router.back()">
+            <van-icon name="arrow-left" slot="left"/>
+        </van-nav-bar>
         <div class="install-jump">
             <div>
                 <p>

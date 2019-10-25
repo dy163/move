@@ -2,9 +2,9 @@
     <div class="account">
         <van-nav-bar
         title="账号管理"
-        left-arrow
-        @click-left="$router.back()"
-        />
+        @click-left="$router.back()">
+            <van-icon name="arrow-left" slot="left"/>
+        </van-nav-bar>
         <div class="account-jump">
             <div>
                 <span></span>

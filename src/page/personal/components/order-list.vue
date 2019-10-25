@@ -1,7 +1,7 @@
 <template>
     <div class="order-list">
         <van-nav-bar title="订单列表" @click-left="$router.back()" @click-right="onClickRight">
-            <van-icon name="arrow-left" slot="left" size="16"/>
+            <van-icon name="arrow-left" slot="left"/>
             <!-- <van-icon name="plus" slot="right" /> -->
         </van-nav-bar>
         <div class="order-list">

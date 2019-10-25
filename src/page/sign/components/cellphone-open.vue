@@ -2,9 +2,9 @@
     <div class="open-cellphone">
         <van-nav-bar
         title="输入手机号"
-        left-arrow
-        @click-left="$router.back()"
-        />
+        @click-left="$router.back()">
+          <van-icon name="arrow-left" slot="left"/>
+        </van-nav-bar>
         <p>手机验证开户</p>
         <form>
             <van-cell-group>

@@ -1,6 +1,7 @@
 <template>
     <div class="deposit-amount">
-        <van-nav-bar title="入金" left-arrow @click-left="$router.back()">
+        <van-nav-bar title="入金" @click-left="$router.back()">
+            <van-icon name="arrow-left" slot="left"/>
             <!-- <van-icon name="weapp-nav" slot="right" /> -->
         </van-nav-bar>
         <div class="deposit-amount-space"></div>
@@ -65,6 +66,9 @@ export default {
 }
 .van-icon {
     color: #333333;
+}
+.van-hairline--bottom::after {
+    border-bottom: 0;
 }
 .van-nav-bar {
     background-color: #fff;

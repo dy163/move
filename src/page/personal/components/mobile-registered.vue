@@ -2,9 +2,9 @@
     <div class="mobile-registered">
         <van-nav-bar
         title="重置密码"
-        left-arrow
-        @click-left="$router.back()"
-        />
+        @click-left="$router.back()">
+          <van-icon name="arrow-left" slot="left"/>
+        </van-nav-bar>
         <div class="resetting-name">
             <p>绑定新手机号</p>
             <p>已发送短信验证码到17600110101</p>

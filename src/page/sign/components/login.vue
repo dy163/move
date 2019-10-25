@@ -2,8 +2,9 @@
   <div class="login">
     <!-- 头部 -->
       <van-nav-bar
-        left-arrow
-        @click-left="$router.back()"/>
+        @click-left="$router.back()">
+        <van-icon name="arrow-left" slot="left"/>
+      </van-nav-bar>
       <form>
         <p class="login-header">登录</p>
         <!-- 输入登录手机号 -->

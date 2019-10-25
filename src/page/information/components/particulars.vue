@@ -1,8 +1,10 @@
 <template>
     <div class="particulars">
-        <van-nav-bar title="资 讯 详 情">
-            <van-icon name="search" slot="right" size="18px"/>
-            <van-icon name="replay" slot="right" size="18px"/>
+        <van-nav-bar title="资 讯 详 情" fixed>
+            <div slot="right">
+                <img src="@/assets/img/search.png" alt="" style="vertical-align:middle" class="nav-img">
+                <img src="@/assets/img/refresh.png" alt="" style="vertical-align:middle" class="nav-img">
+            </div>
         </van-nav-bar>
         <p class="particulars-title">【美股收盘】科技行业摆脱新的监管威胁纳指和标普500双双创下历史新高</p>
         <p class="particulars-name">启程无忧<span>2019-07-25</span>&nbsp;<span>05:03</span></p>
@@ -33,22 +35,13 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.van-nav-bar {
-    background-color: #20212A;
-}
-.van-nav-bar__title {
-    font-size:17px;
-    font-family:PingFangSC;
-    font-weight:500;
-}
-.van-icon-search {
-    color: #fff;
-    padding-right: 22px;
-}
-.van-icon-replay {
-    color: #fff;
+.nav-img {
+    margin-left: 18px;
+    width: 16px;
+    vertical-align: middle;
 }
 .particulars-title {
+    margin-top: 46px;
     height:52px;
     font-size:20px;
     font-family:PingFangSC;

@@ -2,9 +2,9 @@
     <div class="resetting">
         <van-nav-bar
         title="重置密码"
-        left-arrow
-        @click-left="$router.back()"
-        />
+        @click-left="$router.back()">
+          <van-icon name="arrow-left" slot="left"/>
+        </van-nav-bar>
         <p>登录密码重置</p>
         <form>
           <!-- 输入手机号 -->

@@ -2,9 +2,9 @@
     <div>
         <van-nav-bar
             title="确 认 信 息"
-            left-arrow
-            @click-left="$router.back()"
-            />
+            @click-left="$router.back()">
+            <van-icon name="arrow-left" slot="left"/>
+        </van-nav-bar>
         <p>请确认您的个人信息，请手动填写</p>
         <form>
             <van-cell-group>

@@ -2,9 +2,9 @@
     <div class="proving-register">
         <!-- 头部 -->
         <van-nav-bar
-        left-arrow
-        @click-left="$router.back()"
-        />
+        @click-left="$router.back()">
+          <van-icon name="arrow-left" slot="left"/>
+        </van-nav-bar>
         <p class="yzregister-header">注册账号</p>
         <p class="yzregister-number">已发送验证码到<span>17600110101</span></p>
         <!-- 表单验证 -->

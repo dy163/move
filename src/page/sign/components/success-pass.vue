@@ -3,8 +3,9 @@
         <!-- 头部 -->
         <van-nav-bar
         title="重 置 密 码"
-        left-arrow
-        @click-left="$router.back()"/>
+        @click-left="$router.back()">
+            <van-icon name="arrow-left" slot="left"/>
+        </van-nav-bar>
         <!-- 提示成功图片 -->
         <div class="success-center">
             <van-icon name="success" size="54px"/>

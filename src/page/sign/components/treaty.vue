@@ -2,8 +2,9 @@
     <div class="treaty">
         <van-nav-bar
         title="协 议 认 可"
-        left-arrow
-        @click-left="$router.back()"/>
+        @click-left="$router.back()">
+            <van-icon name="arrow-left" slot="left"/>
+        </van-nav-bar>
         <div class="success-content">
             <img src="@/assets/img/recognition.png" alt="">
             <p>我已阅读并同意全部开户文件，了解相关风险并自愿在某某证券开户。</p>

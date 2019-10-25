@@ -3,8 +3,9 @@
         <!-- 头部 -->
         <van-nav-bar
         title="风险披露声明"
-        left-arrow
-        @click-left="$router.back()"/>
+        @click-left="$router.back()">
+            <van-icon name="arrow-left" slot="left"/>
+        </van-nav-bar>
         <div class="treaty-particulars-content">
             <h3>本项简要声明并不全部披露关于贵金属（包括黄金及白银，统称为“金银”）的所有风险及其它重要方面。鉴于有关风险，客户在开始进行此类交易之前，应该了解有关交易性质和客户所面临的风险程度，贵金属交易并不适合于所有普罗大众。客户必须根据客户本人的投资经验、目的、财力和承受风险能力等相关情形，仔细考虑这类交易是否适合客户本人。客户应该在开户及开始交易前咨询法律及其它专业意见。</h3>
             <h6>贵金属交易</h6>

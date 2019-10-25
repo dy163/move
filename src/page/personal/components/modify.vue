@@ -2,9 +2,9 @@
     <div class="modify">
         <van-nav-bar
         title="修改手机号"
-        left-arrow
-        @click-left="$router.back()"
-        />
+        @click-left="$router.back()">
+          <van-icon name="arrow-left" slot="left"/>
+        </van-nav-bar>
         <div class="modify-content">
             <div class="modify-pass">
                 <p>登录密码</p>

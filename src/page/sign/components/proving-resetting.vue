@@ -3,9 +3,9 @@
       <!-- 头部 -->
         <van-nav-bar
         title="重置密码"
-        left-arrow
-        @click-left="$router.back()"
-        />
+        @click-left="$router.back()">
+          <van-icon name="arrow-left" slot="left"/>
+        </van-nav-bar>
         <!-- 发送手机号 -->
         <p class="resetting-name">身份验证</p>
         <p class="resetting-te">已发送短信验证码到17600110101</p>

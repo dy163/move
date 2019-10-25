@@ -1,8 +1,9 @@
 <template>
     <div class="register">
         <van-nav-bar
-        left-arrow
-        @click-left="$router.back()"/>
+        @click-left="$router.back()">
+          <van-icon name="arrow-left" slot="left"/>
+        </van-nav-bar>
         <p class="register-header">手机号注册</p>
         <form>
           <!-- 注册手机号 -->

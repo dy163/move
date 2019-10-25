@@ -2,9 +2,9 @@
     <div class="upload-documents">
         <van-nav-bar
         title="上传证件"
-        left-arrow
-        @click-left="$router.back()"
-        />
+        @click-left="$router.back()">
+            <van-icon name="arrow-left" slot="left"/>
+        </van-nav-bar>
         <form>
             <p class="upload-documents-header">请拍摄您的身份证原件</p>
             <div class="upload-documents-content">

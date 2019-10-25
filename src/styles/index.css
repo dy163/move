@@ -50,6 +50,9 @@ body {
   font-weight: 500;
   color: #ffffff;
 }
+.van-icon-arrow-left {
+  font-size: 16px;
+}
 .van-button {
   border: 0;
 }

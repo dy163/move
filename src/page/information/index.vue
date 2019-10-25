@@ -2,8 +2,8 @@
     <div class="information">
         <van-nav-bar title="资 讯" fixed>
             <div slot="right">
-                <img src="@/assets/img/search.png" alt="" style="vertical-align:middle" class="nav-img">
-                <img src="@/assets/img/refresh.png" alt="" style="vertical-align:middle">
+                <img src="@/assets/img/search.png" class="nav-img">
+                <img src="@/assets/img/refresh.png" class="nav-img">
             </div>
         </van-nav-bar>
         <div>
@@ -97,6 +97,7 @@
         <app-tabbar/>
     </div>
 </template>
+
 <script>
 import Hot from './components/hot.vue'
 import Foot from './components/foot.vue'
@@ -176,8 +177,10 @@ export default {
 .van-nav-bar {
     background-color: #20212A;
     .nav-img {
-        margin-right: 22px;
-    }
+    margin-left: 18px;
+    width: 16px;
+    vertical-align: middle;
+}
 }
 .van-tab__pane {
     color: #fff;
