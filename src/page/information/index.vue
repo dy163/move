@@ -44,19 +44,19 @@
                     <Foot/>
                 </van-tab>
                 <!-- 公告 -->
-                <van-tab title="公告" class="information-Optional">
+                <van-tab title="公告" class="information-oneself">
                     <van-list>
                         <div
                         v-for="(item, index) in Optional"
                         :key="index">
-                            <p>{{ item.name }}&nbsp;&nbsp;<span>{{ item.range }}</span></p>
-                            <p>{{ item.brief }}</p>
-                            <p>{{ item.time }}</p>
+                            <p class="information-range">{{ item.name }}&nbsp;&nbsp;<span>{{ item.range }}</span></p>
+                            <p class="information-brief">{{ item.brief }}</p>
+                            <p class="information-time">{{ item.time }}</p>
                         </div>
                     </van-list>
                 </van-tab>
                 <!-- 自选 -->
-                <van-tab title="自选" class="information-Optional">
+                <van-tab title="自选" class="information-oneself">
                     <!-- <van-list
                     v-model="loading"
                     :finished="finished"
@@ -64,13 +64,13 @@
                     @load="onLoad"
                     > -->
                     <van-list>
-                        <h3>今日</h3>
                         <div
                         v-for="(item, index) in Optional"
                         :key="index">
-                            <p>{{ item.name }}&nbsp;&nbsp;<span>{{ item.range }}</span></p>
-                            <p>{{ item.brief }}</p>
-                            <p>{{ item.time }}</p>
+                            <p class="information-head"> <span>{{ item.head }}</span></p>
+                            <p class="information-range">{{ item.name }}&nbsp;&nbsp;<span>{{ item.range }}</span></p>
+                            <p class="information-brief">{{ item.brief }}</p>
+                            <p class="information-time">{{ item.time }}</p>
                         </div>
                     </van-list>
                 </van-tab>
@@ -132,15 +132,15 @@ export default {
         { title: '港股独角兽周年记：折翼的小米集团能在成资本宠儿么', source: '腾讯深网 今天', date: '11:26' }
       ],
       Optional: [
+        { head: '今天', name: '贵州茅台（600519)', range: '-0.80%', brief: '茅台机场上半年运输指标位列贵州省支线机', time: '2019-07-24 13:13' },
+        { name: '贵州茅台（600519)', range: '-0.80%', brief: '茅台机场上半年运输指标位列贵州省支线机', time: '2019-07-24 13:13' },
+        { head: '今天', name: '贵州茅台（600519)', range: '-0.80%', brief: '茅台机场上半年运输指标位列贵州省支线机', time: '2019-07-24 13:13' },
+        { head: '今天', name: '贵州茅台（600519)', range: '-0.80%', brief: '茅台机场上半年运输指标位列贵州省支线机', time: '2019-07-24 13:13' },
         { name: '贵州茅台（600519)', range: '-0.80%', brief: '茅台机场上半年运输指标位列贵州省支线机', time: '2019-07-24 13:13' },
         { name: '贵州茅台（600519)', range: '-0.80%', brief: '茅台机场上半年运输指标位列贵州省支线机', time: '2019-07-24 13:13' },
+        { head: '今天', name: '贵州茅台（600519)', range: '-0.80%', brief: '茅台机场上半年运输指标位列贵州省支线机', time: '2019-07-24 13:13' },
         { name: '贵州茅台（600519)', range: '-0.80%', brief: '茅台机场上半年运输指标位列贵州省支线机', time: '2019-07-24 13:13' },
-        { name: '贵州茅台（600519)', range: '-0.80%', brief: '茅台机场上半年运输指标位列贵州省支线机', time: '2019-07-24 13:13' },
-        { name: '贵州茅台（600519)', range: '-0.80%', brief: '茅台机场上半年运输指标位列贵州省支线机', time: '2019-07-24 13:13' },
-        { name: '贵州茅台（600519)', range: '-0.80%', brief: '茅台机场上半年运输指标位列贵州省支线机', time: '2019-07-24 13:13' },
-        { name: '贵州茅台（600519)', range: '-0.80%', brief: '茅台机场上半年运输指标位列贵州省支线机', time: '2019-07-24 13:13' },
-        { name: '贵州茅台（600519)', range: '-0.80%', brief: '茅台机场上半年运输指标位列贵州省支线机', time: '2019-07-24 13:13' },
-        { name: '贵州茅台（600519)', range: '-0.80%', brief: '茅台机场上半年运输指标位列贵州省支线机', time: '2019-07-24 13:13' }
+        { head: '今天', name: '贵州茅台（600519)', range: '-0.80%', brief: '茅台机场上半年运输指标位列贵州省支线机', time: '2019-07-24 13:13' }
       ],
       focus: [
         { title: '长江证券：美股大幅反弹，与美国经济“背离”？', roof: '置顶', trusts: '长江证券研究', timer: '今天 12:35' },
@@ -180,13 +180,14 @@ export default {
     margin-left: 18px;
     width: 16px;
     vertical-align: middle;
-}
+    }
 }
 .van-tab__pane {
     color: #fff;
 }
 .information-tabs {
-    padding-bottom: 50px;
+    // padding-bottom: 50px;
+    margin-bottom: 50px;
     /deep/.van-ellipsis {
         font-size:15px;
         font-family:PingFangSC-Medium,PingFangSC;
@@ -240,48 +241,42 @@ export default {
         display: flex;
     }
 }
-.information-Optional {
+.information-oneself {
     padding: 0 15px;
-    h3 {
-        height:25px;
+    .information-head {
         font-size:18px;
         font-family:PingFangSC;
         font-weight:500;
         color:rgba(255,255,255,1);
-        line-height:25px;
-        padding-top: 15px;
     }
-    div {
-        border-bottom: 1px solid #000;
-        p {
-            padding-bottom: 10px;
-        }
-        p:nth-child(1) {
-            font-size:13px;
-            font-family:PingFangSC;
-            font-weight:500;
-            color:rgba(255,255,255,1);
-            padding-top: 18px;
-            span {
-                color: #35C089;
-            }
-        }
-        p:nth-child(2) {
-            font-size:16px;
-            font-family:PingFangSC;
-            font-weight:500;
-            color:rgba(255,255,255,1);
-        }
-        p:nth-child(3) {
-            height:12px;
-            font-size:11px;
-            font-family:DINAlternate;
-            font-weight:bold;
-            color:rgba(126,130,156,1);
-            line-height:12px;
-            padding-bottom: 20px;
+    .information-range {
+        font-size:13px;
+        font-family:PingFangSC;
+        font-weight:500;
+        color:rgba(255,255,255,1);
+        height: 38px;
+        line-height: 38px;
+        span {
+            color: #35C089;
         }
     }
+    .information-brief {
+        font-size:16px;
+        font-family:PingFangSC;
+        font-weight:500;
+        color:rgba(255,255,255,1);
+        padding-bottom: 8px;
+    }
+    .information-time {
+        font-size:12px;
+        font-family:DINAlternate;
+        font-weight:bold;
+        color:rgba(126,130,156,1);
+        height: 35px;
+        border-bottom: 1px solid #14151C;
+        margin-bottom: 10px;
+    }
+
 }
 .information-front-page-top {
     height: 180px;
