@@ -88,7 +88,7 @@ export default {
 }
 .login-btn-box {
     padding: 0 63px;
-    margin-top: 72px;
+    padding-top: 40px;
     .login-btn {
         width:250px;
         height:40px;
