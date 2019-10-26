@@ -62,34 +62,28 @@ export default {
     background:rgba(54,55,64,1);
 }
 .account-rapidly {
-    padding: 0 35px;
     display: flex;
-    justify-content: left;
-    align-items: center;
-    margin: 30px 0 45px;
+    margin: 35px 35px;
+    font-family:PingFangSC-Regular,PingFang SC;
     img {
         height: 45px;
     }
-    p {
-        color: #fff;
-        height:15px;
-        font-size:12px;
-        font-family:PingFangSC;
-        font-weight:400;
-        line-height:15px;
-        padding-top: 10px;
-    }
-    a {
-        color: #2F98FF;
-        width:68px;
-        height:22px;
-        font-size:16px;
-        font-family:PingFangSC;
-        font-weight:500;
-        line-height:22px;
-    }
     div {
         padding-left: 20px;
+
+        a {
+            display: flex;
+            padding-bottom: 10px;
+            color: #2F98FF;
+            font-size:16px;
+            font-weight:500;
+        }
+        p {
+            color: #fff;
+            font-size:12px;
+            font-weight:400;
+            letter-spacing: 1px;
+        }
     }
 }
 .login-btn-box {
