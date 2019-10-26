@@ -55,8 +55,8 @@ export default {
   name: 'LoginIndex',
   data () {
     return {
-      code: '',
-      password: ''
+      code: '13112348974',
+      password: 'hh123456'
     }
   },
 
@@ -65,10 +65,16 @@ export default {
     handleClickPhone () {
       const phone = this.code
       const reg = /^[1][3,4,5,7,8][0-9]{9}$/
+      const pass = this.password
+      const passReg = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,30}$/
       if (!phone) {
         this.$toast('请输入手机号')
       } else if (!reg.test(phone)) {
         this.$toast('手机号格式错误')
+      } else if (!pass) {
+        this.$toast('密码错误')
+      } else if (!passReg.test(pass)) {
+        this.$toast('密码过于简单')
       } else {
         this.$router.push('/personal')
       }
