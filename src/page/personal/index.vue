@@ -4,17 +4,15 @@
             <van-icon name="setting-o" slot="right" color="#fff" size="18px"/>
         </van-nav-bar>
         <!-- 个人简介 -->
-        <div class="personal-name">
+        <div class="personal-name" @click="$router.push('/letter')">
             <div>
                 <img src="@/assets/img/portrait.png" alt="">
+                <div>
+                    <p>Xy_</p>
+                    <p>暂无个人简介</p>
+                </div>
             </div>
-            <div>
-                <p>Xy_</p>
-                <p>暂无个人简介</p>
-            </div>
-            <div>
-                <van-icon name="arrow" color="#707177" @click="$router.push('/letter')"/>
-            </div>
+            <van-icon name="arrow" color="#707177" @click="$router.push('/letter')"/>
         </div>
         <!-- 盒子 -->
         <div class="personal-box">
@@ -59,46 +57,43 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.van-nav-bar {
-    height: 44px;
-    background-color: #20212A;
-}
-.van-hairline--bottom::after {
-    border-bottom: 1px solid #000;
-}
 .personal-name {
     height: 124px;
     display: flex;
-    align-items: center;
+    justify-content: space-between;
     padding: 0 15px;
-    div {
-        display: inline-block;
-    }
-    div:nth-child(2) {
-        padding-left: 20px;
-        box-sizing: border-box;
-        p:nth-child(1) {
-            height:24px;
-            font-size:17px;
-            font-family:PingFangSC;
-            font-weight:500;
-            color:rgba(255,255,255,1);
-            line-height:24px;
-            margin-bottom: 2px;
+    font-family:PingFangSC;
+    div:nth-child(1) {
+        display: flex;
+        align-items: center;
+        img {
+            width: 64px;
+            height: 64px;
         }
-        p:nth-child(2) {
-            height:17px;
-            font-size:12px;
-            font-family:PingFangSC;
-            font-weight:400;
-            color:rgba(116,119,143,1);
-            line-height:17px;
+        div {
+            padding-left: 20px;
+            box-sizing: border-box;
+            p:nth-child(1) {
+                height:24px;
+                font-size:17px;
+                font-weight:500;
+                color:rgba(255,255,255,1);
+                line-height:24px;
+                margin-bottom: 2px;
+            }
+            p:nth-child(2) {
+                padding-top: 5px;
+                height:17px;
+                font-size:12px;
+                font-weight:400;
+                color:rgba(116,119,143,1);
+                line-height:17px;
+            }
+
         }
     }
-    div:nth-child(3) {
-        margin-left: 150px;
-        box-sizing: border-box;
-        padding-bottom: 48px;
+    .van-icon-arrow {
+        font-size: 16px;
     }
 }
 .personal-box {
