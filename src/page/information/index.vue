@@ -177,16 +177,15 @@ export default {
 .van-nav-bar {
     background-color: #20212A;
     .nav-img {
-    margin-left: 18px;
-    width: 16px;
-    vertical-align: middle;
+        margin-left: 18px;
+        width: 18px;
+        vertical-align: middle;
     }
 }
 .van-tab__pane {
     color: #fff;
 }
 .information-tabs {
-    // padding-bottom: 50px;
     margin-bottom: 50px;
     /deep/.van-ellipsis {
         font-size:15px;
