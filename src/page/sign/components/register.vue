@@ -43,6 +43,7 @@
 </template>
 
 <script>
+// import { signRegister } from '@/api/user'
 const initCodeTimeSeconds = 60
 export default {
   name: 'CellphoneOpen',

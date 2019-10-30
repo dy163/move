@@ -7,19 +7,20 @@ export const login = ({ account, password }) => request({
   url: 'user/login',
   data: {
     account,
-    password
+    password,
+    status: 'register'
   }
 })
 /**
  * 获取注册短信验证码
  */
-// export const signRegister = ( data ) => {
-//   return request({
-//     method: 'POST',
-//     url: 'user/sendMessage',
-//     data: {
-//       phone,
-//       status: "register"
-//     }
-//   })
-// }
+export const signRegister = ({ phone }) => {
+  return request({
+    method: 'POST',
+    url: 'user/sendMessage',
+    data: {
+      phone,
+      status: 'register'
+    }
+  })
+}
