@@ -10,7 +10,7 @@
         <!-- 输入登录手机号 -->
         <van-cell-group class="login-code">
           <van-field
-          v-model="code"
+          v-model="user.account"
           placeholder="请输入您的新手机号号码">
             <div slot="label">
               <span>+86</span>
@@ -22,7 +22,7 @@
         <van-cell-group>
           <van-field
           id="password"
-          v-model="password"
+          v-model="user.password"
           label="密码"
           type="password"
           right-icon="closed-eye"
@@ -53,32 +53,43 @@
   </div>
 </template>
 <script>
+import { login } from '@/api/user'
+
 export default {
   name: 'LoginIndex',
   data () {
     return {
-      code: '13112348974',
-      password: 'hh123456'
+      user: {
+        account: '18636235298',
+        password: ''
+      }
     }
   },
 
   methods: {
     // 登录验证手机
-    handleClickPhone () {
-      const phone = this.code
-      const reg = /^[1][3,4,5,7,8][0-9]{9}$/
-      const pass = this.password
-      const passReg = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,30}$/
-      if (!phone) {
-        this.$toast('请输入手机号')
-      } else if (!reg.test(phone)) {
-        this.$toast('手机号格式错误')
-      } else if (!pass) {
-        this.$toast('密码错误')
-      } else if (!passReg.test(pass)) {
-        this.$toast('密码过于简单')
-      } else {
-        this.$router.push('/personal')
+    async handleClickPhone () {
+      try {
+        const res = await login(this.user)
+        console.log(res)
+        const phone = this.user.account
+        const reg = /^[1][3,4,5,7,8][0-9]{9}$/
+        const pass = this.user.password
+        const passReg = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,30}$/
+        if (!phone) {
+          this.$toast('请输入手机号')
+        } else if (!reg.test(phone)) {
+          this.$toast('手机号格式错误')
+        } else if (!pass) {
+          this.$toast('密码错误')
+        } else if (!passReg.test(pass)) {
+          this.$toast('密码过于简单')
+        } else {
+          this.$router.push('/personal')
+        }
+      } catch (err) {
+        console.log(err)
+        this.$msg.error('登录失败')
       }
     },
     // 验证登录密码得显示和隐藏
@@ -121,15 +132,6 @@ export default {
 form {
   padding: 0 15px;
 }
-// .van-cell {
-//   color: #fff;
-//   background-color:#353641;
-//   padding: 0 16px;
-//   border-radius: 5px;
-//   box-sizing: border-box;
-//   height: 46px;
-//   line-height: 46px;
-// }
 .login-btn-box {
   padding-top: 30px;
 }

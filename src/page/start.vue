@@ -1,7 +1,7 @@
 <template>
   <div class="start">
     <van-button type="info" to="/">注册</van-button>
-    <van-button type="info" to="/sign/login">登录</van-button>
+    <van-button type="info" to="/login">登录</van-button>
   </div>
 </template>
 

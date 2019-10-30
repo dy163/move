@@ -1,116 +1,108 @@
 <template>
-    <div class="register">
+    <div class="open-cellphone">
         <van-nav-bar
+        title="输入手机号"
         @click-left="$router.back()">
           <van-icon name="arrow-left" slot="left"/>
         </van-nav-bar>
-        <p class="register-header">手机号注册</p>
+        <p>手机验证开户</p>
         <form>
-          <!-- 注册手机号 -->
             <van-cell-group>
-              <van-field
-              v-model="code"
-              placeholder="手机号码"
-              right-icon="close"
-              @click-right-icon="code = ''">
-                <div slot="label">
-                  <span>+86</span>
-                  <span class="triangle"></span>
-                </div>
-              </van-field>
+                <van-field
+                v-model="code"
+                placeholder="请输入您的手机号号码">
+                  <div slot="label">
+                    <span>+86</span>
+                    <span class="triangle"></span>
+                  </div>
+                </van-field>
             </van-cell-group>
-            <!-- 密码输入 -->
-            <van-cell-group>
-              <van-field
-              v-model="pass"
-              label="密码"
-              id="password"
-              type="password"
-              right-icon="closed-eye"
-              @click-right-icon="typeClickPassword"
-              placeholder="8-24位数字英文或字符" />
-            </van-cell-group>
-            <!-- 再次输入密码 -->
-            <van-cell-group>
-              <van-field
-              v-model="againpass"
-              label="密码"
-              type="password"
-              placeholder="请再次输入密码" />
-            </van-cell-group>
-            <!-- 注册 -->
-            <div class="login-btn-box">
-              <van-button
-              class="login-btn"
-              @click.prevent="handleClick"
-              >确认注册</van-button>
+            <div class="resetting-box">
+                <van-cell-group class="resetting-model">
+                    <van-field
+                    label="验证码"
+                    v-model="pass"
+                    placeholder="请输入验证码" />
+                </van-cell-group>
+                <van-button
+                  :disabled="!!codeTimer"
+                  :loading="codeLoading"
+                  @click.prevent="handleClickTimer"
+                  >
+                  {{ codeTimer ? `${codeTimeSeconds}s` : '获取验证码' }}
+                  </van-button>
             </div>
-            <!-- 了解更多知识 -->
-            <div class="annotation">
-              <p>
-                点击“确认注册”，即表示您同意
-                <router-link to="/sign/treaty-particulars">产品许可协议</router-link>及
-                <router-link to="/sign/treaty-particulars">隐私政策</router-link>
-              </p>
+            <div class="login-btn-box">
+                <van-button
+                class="login-btn"
+                @click.prevent="handleClick"
+                >下一步</van-button>
             </div>
         </form>
     </div>
 </template>
+
 <script>
+const initCodeTimeSeconds = 60
 export default {
-  name: 'Register',
+  name: 'CellphoneOpen',
+  props: {},
   data () {
     return {
-      code: '',
-      pass: '',
-      againpass: ''
+      code: '18636235298',
+      pass: '123456',
+      codeLoading: false,
+      codeTimer: null, // 倒计时定时器
+      codeTimeSeconds: initCodeTimeSeconds // 定时器事件
     }
   },
   methods: {
-    // 验证手机号
+    // 输入手机正则验证
     handleClick () {
       const phone = this.code
-      const pass = this.pass
-      const againpass = this.againpass
-      const reg = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,30}$/
+      const reg = /^[1][3,4,5,7,8][0-9]{9}$/
+      const yzreg = /^\d{6}$/
       if (!phone) {
-        this.$toast('手机不能为空')
-      } else if (!reg.test(pass)) {
-        this.$toast('密码不能少于8位需要包含，数字字母')
-      } else if (pass !== againpass) {
-        this.$toast('两次密码不一致')
+        this.$toast('请输入手机号')
+      } else if (!reg.test(phone)) {
+        this.$toast('手机号格式错误')
+      } else if (!yzreg.test(this.pass)) {
+        this.$toast('请输入6位数字验证码')
       } else {
-        this.$router.push({ name: 'sign', params: { type: 'proving-register' } })
+        this.$router.push({ name: 'sign', params: { type: 'detailed-people' } })
       }
     },
-    // 控制密码得隐藏与显示
-    typeClickPassword () {
-      const password = document.getElementById('password')
-      if (password.type === 'password') {
-        password.type = 'text'
-      } else if (password.type === 'text') {
-        password.type = 'password'
-      }
+    // 定时器函数
+    handleClickTimer () {
+      this.codeTimer = window.setInterval(() => {
+        this.codeTimeSeconds--
+        if (this.codeTimeSeconds <= 0) {
+          window.clearInterval(this.codeTimer)
+          // 定时器回到初始状态
+          this.codeTimeSeconds = initCodeTimeSeconds
+          // 回到初始重新为空
+          this.codeTimer = null
+        }
+      }, 1000)
     }
   }
 }
 </script>
 
 <style lang="less" scoped>
-.register-header {
-  width:120px;
-  height:33px;
-  font-size:24px;
+p {
+  padding-left: 16px;
+  height:29px;
+  font-size:21px;
+  font-family:PingFangSC;
   font-weight:500;
-  color:rgba(255,255,255,1);
-  padding-left: 15px;
-  padding-bottom: 20px;
-  line-height:33px;
-  font-family:PingFangSC-Medium,PingFangSC;
-  padding-top: 50px;
+  color:#fff;
+  line-height:29px;
+  margin-top: 20px;
 }
 form {
   padding: 0 15px;
+  padding-top: 40px;
   .triangle {
     border-top: 4px solid #fff;
     border-left: 4px solid transparent;
@@ -120,33 +112,35 @@ form {
     margin-left: 10px;
   }
 }
-.van-cell-group {
-  width: 100%;
-  margin-bottom: 15px;
+.resetting-box {
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    .resetting-model {
+      width: 250px;
+      margin-right: 10px;
+    }
+    .van-button {
+      background-color: #353641;
+      color: #7E829C;
+      width: 85px;
+      height: 50px;
+      border-radius:3px;
+      .van-button__text {
+        margin: 0 -20px;
+        font-size:14px;
+        font-family:PingFangSC-Regular,PingFangSC;
+        font-weight:400;
+      }
+    }
 }
 .login-btn-box {
-  padding-top: 15px;
+  padding-top: 20px;
 }
 .login-btn {
   width: 100%;
-  font-size:16px;
   background-color: #2F98FF;
   color: #fff;
-  border-radius: 3px;
-}
-.annotation {
-  height:17px;
-  font-size:12px;
-  font-family:PingFangSC;
-  font-weight:400;
-  color:rgba(147,152,177,1);
-  line-height:17px;
-  padding-top: 10px;
-  display: flex;
-  justify-content: center;
-  align-content: center;
-  a {
-    color: #2F98FF;
-  }
+  border-radius:3px;
 }
 </style>

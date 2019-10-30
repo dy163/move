@@ -7,7 +7,7 @@
         </van-nav-bar>
         <div class="resetting-name">
             <p>绑定新手机号</p>
-            <p>已发送短信验证码到17600110101</p>
+            <p>已发送短信验证码到 <span>17600110101</span> </p>
         </div>
         <form>
             <div class="resetting-box">

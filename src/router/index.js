@@ -11,6 +11,12 @@ export default new Router({
     },
     // 登录
     {
+      name: 'login',
+      path: '/login',
+      component: () => import('@/page/login')
+    },
+    // 动态渲染的sing下的页面
+    {
       name: 'sign',
       path: '/sign/:type',
       component: () => import('@/page/sign')

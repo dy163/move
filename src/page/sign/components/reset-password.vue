@@ -6,17 +6,24 @@
           <van-icon name="arrow-left" slot="left"/>
         </van-nav-bar>
         <form>
+          <!-- 请输入旧密码 -->
+          <van-cell-group>
+            <van-field
+            v-model="user.used"
+            type="password"
+            placeholder="请输入旧密码"/>
+          </van-cell-group>
           <!-- 第一次密码输入 -->
           <van-cell-group>
             <van-field
-            v-model="firstPassword"
+            v-model="user.first"
             type="password"
             placeholder="请输入新密码"/>
           </van-cell-group>
           <!-- 第二次密码输入 -->
           <van-cell-group>
             <van-field
-            v-model="secondPassword"
+            v-model="user.second"
             type="password"
             placeholder="请再次输入新密码"/>
           </van-cell-group>
@@ -35,15 +42,19 @@ export default {
   name: 'ResetPassword',
   data () {
     return {
-      firstPassword: '',
-      secondPassword: ''
+      user: {
+        used: '',
+        first: '',
+        second: ''
+      }
+
     }
   },
   methods: {
     // 下一步操作
     handleClickNextStep () {
-      const phone = this.firstPassword
-      const password = this.secondPassword
+      const phone = this.userfirst
+      const password = this.user.second
       const reg = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,30}$/
       if (!phone) {
         this.$toast('密码不能为空')

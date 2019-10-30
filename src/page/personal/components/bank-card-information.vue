@@ -165,6 +165,7 @@ export default {
             font-weight:500;
             color:rgba(255,255,255,1);
             line-height:17px;
+            padding-bottom: 2px;
         }
         p {
             height:40px;

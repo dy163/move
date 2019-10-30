@@ -3,29 +3,24 @@ import axios from 'axios'
 
 // 定义一个request 代表axios
 const request = axios.create({
-  baseURL: 'http://域名'
+  baseURL: 'http://192.168.3.79:8080/'
 })
 
 // Add a request interceptor（添加请求拦截器）
 request.interceptors.request.use(function (config) {
   // Do something before request is sent
   return config
-}, async error => {
+}, function (error) {
   // Do something with request error
   return Promise.reject(error)
 })
 
-// Add a response interceptor （添加响应拦截器）
+// Add a response interceptor
 request.interceptors.response.use(function (response) {
+  // Do something with response data
   return response
-}, async error => {
-  console.log('请求失败,进入响应拦截器了')
-  // 如果状态吗是401
-  // if (error.response && error.response.status === 401) {
-  //   if (!user) {
-  //     return router.push({ name: 'sign/login' })
-  //   }
-  // }
+}, function (error) {
+  // Do something with response error
   return Promise.reject(error)
 })
 
