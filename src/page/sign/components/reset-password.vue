@@ -8,11 +8,17 @@
         <form>
           <!-- 第一次密码输入 -->
           <van-cell-group>
-            <van-field v-model="firstPassword" type="password" placeholder="请输入新密码"/>
+            <van-field
+            v-model="firstPassword"
+            type="password"
+            placeholder="请输入新密码"/>
           </van-cell-group>
           <!-- 第二次密码输入 -->
           <van-cell-group>
-            <van-field v-model="secondPassword" type="password" placeholder="请再次输入新密码"/>
+            <van-field
+            v-model="secondPassword"
+            type="password"
+            placeholder="请再次输入新密码"/>
           </van-cell-group>
           <div class="login-btn-box">
             <van-button

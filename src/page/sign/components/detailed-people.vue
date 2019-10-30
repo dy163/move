@@ -23,16 +23,26 @@
             <div class="relative">
                 <p>学历</p>
                 <van-dropdown-menu>
-                    <van-dropdown-item v-model="record" :options="option1" />
+                    <van-dropdown-item
+                    v-model="record"
+                    :options="option1" />
                 </van-dropdown-menu>
-                <van-icon name="arrow-down" class="relative-icon" size="16"/>
+                <van-icon
+                name="arrow-down"
+                class="relative-icon"
+                size="16"/>
             </div>
             <div class="relative">
                 <p class="relative-name">职业</p>
                 <van-dropdown-menu>
-                    <van-dropdown-item v-model="profession" :options="option2" />
+                    <van-dropdown-item
+                    v-model="profession"
+                    :options="option2" />
                 </van-dropdown-menu>
-                <van-icon name="arrow-down" class="relative-icon" size="16"/>
+                <van-icon
+                name="arrow-down"
+                class="relative-icon"
+                size="16"/>
             </div>
             <div class="login-btn-box">
                 <van-button

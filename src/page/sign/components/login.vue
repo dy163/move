@@ -9,7 +9,9 @@
         <p class="login-header">登录</p>
         <!-- 输入登录手机号 -->
         <van-cell-group class="login-code">
-          <van-field  v-model="code" placeholder="请输入您的新手机号号码">
+          <van-field
+          v-model="code"
+          placeholder="请输入您的新手机号号码">
             <div slot="label">
               <span>+86</span>
               <span class="triangle"></span>

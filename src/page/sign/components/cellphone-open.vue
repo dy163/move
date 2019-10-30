@@ -8,7 +8,9 @@
         <p>手机验证开户</p>
         <form>
             <van-cell-group>
-                <van-field  v-model="code" placeholder="请输入您的手机号号码">
+                <van-field
+                v-model="code"
+                placeholder="请输入您的手机号号码">
                   <div slot="label">
                     <span>+86</span>
                     <span class="triangle"></span>
@@ -17,7 +19,10 @@
             </van-cell-group>
             <div class="resetting-box">
                 <van-cell-group class="resetting-model">
-                    <van-field  label="验证码" v-model="pass" placeholder="请输入验证码" />
+                    <van-field
+                    label="验证码"
+                    v-model="pass"
+                    placeholder="请输入验证码" />
                 </van-cell-group>
                 <van-button
                   :disabled="!!codeTimer"
