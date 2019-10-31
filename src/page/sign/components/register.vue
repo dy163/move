@@ -9,7 +9,7 @@
         <form>
             <van-cell-group>
                 <van-field
-                v-model="code"
+                v-model="phone"
                 placeholder="请输入您的手机号号码">
                   <div slot="label">
                     <span>+86</span>
@@ -21,7 +21,7 @@
                 <van-cell-group class="resetting-model">
                     <van-field
                     label="验证码"
-                    v-model="pass"
+                    v-model="code"
                     placeholder="请输入验证码" />
                 </van-cell-group>
                 <van-button
@@ -43,48 +43,68 @@
 </template>
 
 <script>
-// import { signRegister } from '@/api/user'
-const initCodeTimeSeconds = 60
+import { sendMessage, identifyCode } from '@/api/user'
+const initCodeTimeSeconds = 120
+
 export default {
   name: 'CellphoneOpen',
   props: {},
   data () {
     return {
-      code: '18636235298',
-      pass: '123456',
+      phone: '17685670138',
+      code: '',
       codeLoading: false,
       codeTimer: null, // 倒计时定时器
       codeTimeSeconds: initCodeTimeSeconds // 定时器事件
     }
   },
   methods: {
-    // 输入手机正则验证
-    handleClick () {
-      const phone = this.code
-      const reg = /^[1][3,4,5,7,8][0-9]{9}$/
-      const yzreg = /^\d{6}$/
-      if (!phone) {
-        this.$toast('请输入手机号')
-      } else if (!reg.test(phone)) {
-        this.$toast('手机号格式错误')
-      } else if (!yzreg.test(this.pass)) {
-        this.$toast('请输入6位数字验证码')
-      } else {
-        this.$router.push({ name: 'sign', params: { type: 'detailed-people' } })
+    // 验证码请求
+    async handleClickTimer () {
+      try {
+        const res = await sendMessage(this.phone)
+        console.log(res)
+        this.codeTimer = window.setInterval(() => {
+          this.codeTimeSeconds--
+          if (this.codeTimeSeconds <= 0) {
+            window.clearInterval(this.codeTimer)
+            // 定时器回到初始状态
+            this.codeTimeSeconds = initCodeTimeSeconds
+            // 回到初始重新为空
+            this.codeTimer = null
+          }
+        }, 1000)
+      } catch (error) {
+        console.log(error)
+        console.log('验证码发送失败')
       }
     },
-    // 定时器函数
-    handleClickTimer () {
-      this.codeTimer = window.setInterval(() => {
-        this.codeTimeSeconds--
-        if (this.codeTimeSeconds <= 0) {
-          window.clearInterval(this.codeTimer)
-          // 定时器回到初始状态
-          this.codeTimeSeconds = initCodeTimeSeconds
-          // 回到初始重新为空
-          this.codeTimer = null
+
+    // 手机号正则验证 验证码后台验证
+    async handleClick () {
+      try {
+        const code = this.code
+        const phone = this.phone
+        const reg = /^[1][3,4,5,7,8][0-9]{9}$/
+        if (!phone) {
+          this.$toast('请输入手机号')
+        } else if (!reg.test(phone)) {
+          this.$toast('手机号格式错误')
+        } else if (!code) {
+          this.$toast('请输入6位数字验证码')
+        } else {
+          const res = await identifyCode(phone, code)
+          // console.log(res.data.status)
+          if (res.data.status) {
+            this.$router.push({ name: 'sign', params: { type: 'detailed-people' } })
+          } else {
+            this.$toast('验证码错误')
+          }
         }
-      }, 1000)
+      } catch (error) {
+        console.log(error)
+        console.log('错误了')
+      }
     }
   }
 }

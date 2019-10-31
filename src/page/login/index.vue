@@ -53,7 +53,7 @@
   </div>
 </template>
 <script>
-import { login } from '@/api/user'
+// import { login } from '@/api/user'
 
 export default {
   name: 'LoginIndex',
@@ -70,8 +70,8 @@ export default {
     // 登录验证手机
     async handleClickPhone () {
       try {
-        const res = await login(this.user)
-        console.log(res)
+        // const res = await login(this.user)
+        // console.log(res)
         const phone = this.user.account
         const reg = /^[1][3,4,5,7,8][0-9]{9}$/
         const pass = this.user.password
