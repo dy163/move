@@ -10,7 +10,7 @@
         <div class="account-rapidly">
             <img src="@/assets/img/gsou.png">
             <div @click="gsouClick = true">
-                <router-link to="/sign/cellphone-open">极速开户</router-link>
+                <router-link to="/sign/register">极速开户</router-link>
                 <!-- <router-link to="">极速开户</router-link> -->
                 <p>1分钟提交真实身份信息即可成功开户。</p>
             </div>
@@ -34,7 +34,7 @@
         <div class="login-btn-box">
             <van-button
             class="login-btn"
-            to="/sign/cellphone-open"
+            to="/sign/register"
             round
             >立即开户</van-button>
         </div>

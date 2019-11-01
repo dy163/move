@@ -51,7 +51,8 @@ export default {
   props: {},
   data () {
     return {
-      phone: '17685670138',
+      // phone: '17685670138',
+      phone: '',
       code: '',
       codeLoading: false,
       codeTimer: null, // 倒计时定时器
