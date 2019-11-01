@@ -98,7 +98,7 @@ export default {
           // console.log(res.data.status)
           console.log(res.data.result)
           // 存储手机号下面得步骤使用
-          this.phone = window.sessionStorage.getItem('phone')
+          // this.phone = window.sessionStorage.getItem('phone')
           window.sessionStorage.setItem('phong', res.data.result)
           if (res.data.status) {
             this.$router.push({ name: 'sign', params: { type: 'detailed-people' } })

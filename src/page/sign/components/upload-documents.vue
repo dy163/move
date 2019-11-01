@@ -52,6 +52,7 @@
 </template>
 
 <script>
+// import { register } from '@/api/user'
 export default {
   name: 'UploadDocuments',
   props: {},

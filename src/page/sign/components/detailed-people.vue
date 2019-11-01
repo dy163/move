@@ -40,12 +40,12 @@
 </template>
 
 <script>
-// import { register } from '@/api/user'
 export default {
   name: 'DetailedPeople',
   props: {},
   data () {
     return {
+      phone: '',
       username: '',
       cards: '',
       password: '',
@@ -63,33 +63,27 @@ export default {
       ]
     }
   },
+
   methods: {
-    async handleClick () {
-      // try {
-      //   const res = await register(
-      //     this.username,
-      //     this.password,
-      //     this.repassword,
-      //     this.record,
-      //     this.profession)
-      //   console.log(res)
-      // } catch (error) {
-
-      // }
-
-      // if (
-      //   this.user.names === '' ||
-      //   this.user.cards === '' ||
-      //   this.user.pass === '' ||
-      //   this.user.entry === ''
-      // ) {
-      //   this.$toast('请认真填写内容')
-      // } else {
-      //   this.$router.push({
-      //     name: 'sign',
-      //     params: { type: 'upload-documents' }
-      //   })
-      // }
+    handleClick () {
+      // 正则验证
+      const regCards = /^[0-9]{6,20}$/
+      const regPassword = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,30}$/
+      if (!this.username) {
+        this.$toast('请输入姓名')
+      } else if (!regCards.test(this.cards)) {
+        this.$toast('身份证号码错误')
+      } else if (!regPassword.test(this.password)) {
+        this.$toast('密码太过简单')
+      } else if (this.password !== this.repassword) {
+        this.$toast('两次输入密码不一样')
+      } else if (this.edu_bg === '') {
+        this.$toast('请选择学历')
+      } else if (this.position === '') {
+        this.$toast('请选择职业')
+      } else {
+        this.$router.push({ name: 'sign', params: { type: 'upload-documents' } })
+      }
     }
   }
 }
