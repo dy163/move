@@ -4,11 +4,6 @@ Vue.use(Router)
 
 export default new Router({
   routes: [
-    {
-      path: '/start',
-      name: 'start',
-      component: () => import('@/page/start.vue')
-    },
     // 登录
     {
       name: 'login',

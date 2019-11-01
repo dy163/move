@@ -6,29 +6,29 @@
     <p>请确认您的个人信息，请手动填写</p>
     <form>
       <van-cell-group>
-        <van-field label="姓名" v-model="user.names" />
+        <van-field label="姓名" v-model="username" />
       </van-cell-group>
       <van-cell-group>
-        <van-field label="身份证号" v-model="user.cards" />
+        <van-field label="身份证号" v-model="cards" />
       </van-cell-group>
       <van-cell-group>
-        <van-field label="密码" v-model="user.pass" type="password" />
+        <van-field label="密码" v-model="password" type="password" />
       </van-cell-group>
       <van-cell-group>
-        <van-field label="确认密码" v-model="user.entry" type="password" />
+        <van-field label="确认密码" v-model="repassword" type="password" />
       </van-cell-group>
       <!-- 下拉选择框 -->
       <div class="relative">
         <p>学历</p>
         <van-dropdown-menu>
-          <van-dropdown-item v-model="record" :options="option1" />
+          <van-dropdown-item v-model="record" :options="edu_bg" />
         </van-dropdown-menu>
         <van-icon name="arrow-down" class="relative-icon" size="16" />
       </div>
       <div class="relative">
         <p class="relative-name">职业</p>
         <van-dropdown-menu>
-          <van-dropdown-item v-model="profession" :options="option2" />
+          <van-dropdown-item v-model="profession" :options="position" />
         </van-dropdown-menu>
         <van-icon name="arrow-down" class="relative-icon" size="16" />
       </div>
@@ -38,46 +38,58 @@
     </form>
   </div>
 </template>
+
 <script>
+// import { register } from '@/api/user'
 export default {
   name: 'DetailedPeople',
   props: {},
   data () {
     return {
-      user: {
-        names: '',
-        cards: '',
-        pass: '',
-        entry: ''
-      },
+      username: '',
+      cards: '',
+      password: '',
+      repassword: '',
       record: 0,
       profession: 0,
-      option1: [
+      edu_bg: [
         { text: '本科', value: 0 },
         { text: '硕士', value: 1 },
         { text: '研究生', value: 2 }
       ],
-      option2: [
+      position: [
         { text: '运维工程师', value: 0 },
         { text: '前端工程师', value: 1 }
       ]
     }
   },
   methods: {
-    handleClick () {
-      if (
-        this.user.names === '' ||
-        this.user.cards === '' ||
-        this.user.pass === '' ||
-        this.user.entry === ''
-      ) {
-        this.$toast('请认真填写内容')
-      } else {
-        this.$router.push({
-          name: 'sign',
-          params: { type: 'upload-documents' }
-        })
-      }
+    async handleClick () {
+      // try {
+      //   const res = await register(
+      //     this.username,
+      //     this.password,
+      //     this.repassword,
+      //     this.record,
+      //     this.profession)
+      //   console.log(res)
+      // } catch (error) {
+
+      // }
+
+      // if (
+      //   this.user.names === '' ||
+      //   this.user.cards === '' ||
+      //   this.user.pass === '' ||
+      //   this.user.entry === ''
+      // ) {
+      //   this.$toast('请认真填写内容')
+      // } else {
+      //   this.$router.push({
+      //     name: 'sign',
+      //     params: { type: 'upload-documents' }
+      //   })
+      // }
     }
   }
 }
