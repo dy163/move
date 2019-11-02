@@ -35,11 +35,11 @@ export const register = (
   username,
   password,
   repassword,
+  edu_bg,
+  position,
   ID_card_reverse,
   ID_card_front,
-  ID_card_and_myself,
-  edu_bg,
-  position) => {
+  ID_card_and_myself,) => {
   let formData = new FormData()
   formData.append('phone', phone)
   formData.append('username', username)

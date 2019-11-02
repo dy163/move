@@ -40,59 +40,63 @@
 </template>
 
 <script>
-
 export default {
-  name: 'DetailedPeople',
+  name: "DetailedPeople",
   props: {},
-  data () {
+  data() {
     return {
-      username: '',
-      cards: '',
-      password: '',
-      repassword: '',
-      record: '',
-      profession: '',
+      username: "",
+      cards: "",
+      password: "",
+      repassword: "",
+      record: "",
+      profession: "",
       edu_bg: [
-        { text: '本科', value: 0 },
-        { text: '硕士', value: 1 },
-        { text: '研究生', value: 2 }
+        { text: "本科", value: 0 },
+        { text: "硕士", value: 1 },
+        { text: "研究生", value: 2 },
+        { text: "其他", value: 3 }
       ],
       position: [
-        { text: '运维工程师', value: 0 },
-        { text: '前端工程师', value: 1 }
+        { text: "运维工程师", value: 0 },
+        { text: "前端工程师", value: 1 },
+        { text: "其他", value: 2 }
       ]
-    }
+    };
   },
 
   methods: {
-    async handleClick () {
+    async handleClick() {
       // 正则验证
-      const regCards = /^[0-9]{6,20}$/
-      const regPassword = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,30}$/
+      const regCards = /^[0-9]{6,20}$/;
+      const regPassword = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,30}$/;
       if (!this.username) {
-        this.$toast('请输入姓名')
+        this.$toast("请输入姓名");
       } else if (!regCards.test(this.cards)) {
-        this.$toast('身份证号码错误')
+        this.$toast("身份证号码错误");
       } else if (!regPassword.test(this.password)) {
-        this.$toast('密码太过简单')
+        this.$toast("密码太过简单");
       } else if (this.password !== this.repassword) {
-        this.$toast('两次输入密码不一样')
-      } else if (this.edu_bg === '') {
-        this.$toast('请选择学历')
-      } else if (this.position === '') {
-        this.$toast('请选择职业')
+        this.$toast("两次输入密码不一样");
+      } else if (this.edu_bg === "") {
+        this.$toast("请选择学历");
+      } else if (this.position === "") {
+        this.$toast("请选择职业");
       } else {
-        window.localStorage.setItem('username',this.username)
-        window.localStorage.setItem('cards',this.cards)
-        window.localStorage.setItem('password',this.password)
-        window.localStorage.setItem('repassword',this.repassword)
-        window.localStorage.setItem('record',this.record)
-        window.localStorage.setItem('profession',this.profession)
-        this.$router.push({ name: 'sign', params: { type: 'upload-documents' } })
+        window.localStorage.setItem("username", this.username);
+        window.localStorage.setItem("cards", this.cards);
+        window.localStorage.setItem("password", this.password);
+        window.localStorage.setItem("repassword", this.repassword);
+        window.localStorage.setItem("record", this.record);
+        window.localStorage.setItem("profession", this.profession);
+        this.$router.push({
+          name: "sign",
+          params: { type: "upload-documents" }
+        });
       }
     }
   }
-}
+};
 </script>
 
 <style lang="less" scoped>

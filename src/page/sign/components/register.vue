@@ -1,129 +1,119 @@
 <template>
-    <div class="open-cellphone">
-        <van-nav-bar
-        title="输入手机号"
-        @click-left="$router.back()">
-          <van-icon name="arrow-left" slot="left"/>
-        </van-nav-bar>
-        <p>手机验证开户</p>
-        <form>
-            <van-cell-group>
-                <van-field
-                v-model="phone"
-                placeholder="请输入您的手机号号码">
-                  <div slot="label">
-                    <span>+86</span>
-                    <span class="triangle"></span>
-                  </div>
-                </van-field>
-            </van-cell-group>
-            <div class="resetting-box">
-                <van-cell-group class="resetting-model">
-                    <van-field
-                    label="验证码"
-                    v-model="code"
-                    placeholder="请输入验证码" />
-                </van-cell-group>
-                <van-button
-                  :disabled="!!codeTimer"
-                  :loading="codeLoading"
-                  @click.prevent="handleClickTimer"
-                  >
-                  {{ codeTimer ? `${codeTimeSeconds}s` : '获取验证码' }}
-                  </van-button>
-            </div>
-            <div class="login-btn-box">
-                <van-button
-                class="login-btn"
-                @click.prevent="handleClick"
-                >下一步</van-button>
-            </div>
-        </form>
-    </div>
+  <div class="open-cellphone">
+    <van-nav-bar title="输入手机号" @click-left="$router.back()">
+      <van-icon name="arrow-left" slot="left" />
+    </van-nav-bar>
+    <p>手机验证开户</p>
+    <form>
+      <van-cell-group>
+        <van-field v-model="phone" placeholder="请输入您的手机号号码">
+          <div slot="label">
+            <span>+86</span>
+            <span class="triangle"></span>
+          </div>
+        </van-field>
+      </van-cell-group>
+      <div class="resetting-box">
+        <van-cell-group class="resetting-model">
+          <van-field label="验证码" v-model="code" placeholder="请输入验证码" />
+        </van-cell-group>
+        <van-button
+          :disabled="!!codeTimer"
+          :loading="codeLoading"
+          @click.prevent="handleClickTimer"
+        >{{ codeTimer ? `${codeTimeSeconds}s` : '获取验证码' }}</van-button>
+      </div>
+      <div class="login-btn-box">
+        <van-button class="login-btn" @click.prevent="handleClick">下一步</van-button>
+      </div>
+    </form>
+  </div>
 </template>
 
 <script>
-import { getRegisterCode, identifyRegisterCode } from '@/api/user'
-const initCodeTimeSeconds = 120
+import { getRegisterCode, identifyRegisterCode } from "@/api/user";
+const initCodeTimeSeconds = 120;
 
 export default {
-  name: 'CellphoneOpen',
+  name: "CellphoneOpen",
   props: {},
-  data () {
+  data() {
     return {
       // phone: '17685670138',
-      phone: '',
-      code: '',
+      phone: "",
+      code: "",
       codeLoading: false,
       codeTimer: null, // 倒计时定时器
       codeTimeSeconds: initCodeTimeSeconds // 定时器事件
-    }
+    };
   },
   methods: {
     // 验证码请求
-    async handleClickTimer () {
+    async handleClickTimer() {
       try {
-        const res = await getRegisterCode(this.phone)
-        console.log(res)
+        const res = await getRegisterCode(this.phone);
+        console.log(res);
         this.codeTimer = window.setInterval(() => {
-          this.codeTimeSeconds--
+          this.codeTimeSeconds--;
           if (this.codeTimeSeconds <= 0) {
-            window.clearInterval(this.codeTimer)
+            window.clearInterval(this.codeTimer);
             // 定时器回到初始状态
-            this.codeTimeSeconds = initCodeTimeSeconds
+            this.codeTimeSeconds = initCodeTimeSeconds;
             // 回到初始重新为空
-            this.codeTimer = null
+            this.codeTimer = null;
           }
-        }, 1000)
+        }, 1000);
       } catch (error) {
-        console.log(error)
-        console.log('验证码发送失败')
+        console.log(error);
+        console.log("验证码发送失败");
       }
     },
 
     // 手机号正则验证 验证码后台验证
-    async handleClick () {
+    async handleClick() {
       try {
-        const code = this.code
-        const phone = this.phone
-        const reg = /^[1][3,4,5,7,8][0-9]{9}$/
+        const code = this.code;
+        const phone = this.phone;
+        const reg = /^[1][3,4,5,7,8][0-9]{9}$/;
         if (!phone) {
-          this.$toast('请输入手机号')
+          this.$toast("请输入手机号");
         } else if (!reg.test(phone)) {
-          this.$toast('手机号格式错误')
+          this.$toast("手机号格式错误");
         } else if (!code) {
-          this.$toast('请输入6位数字验证码')
+          this.$toast("请输入6位数字验证码");
         } else {
-          const res = await identifyRegisterCode(phone, code)
+          const res = await identifyRegisterCode(phone, code);
           // console.log(res.data.status)
-          console.log(res.data.result)
+          console.log(res.data.result);
           // 存储手机号下面得步骤使用
-          // this.phone = window.sessionStorage.getItem('phone')
-          window.localStorage.setItem('phone', res.data.result)
+          window.localStorage.setItem("phone", res.data.result);
           if (res.data.status) {
-            this.$router.push({ name: 'sign', params: { type: 'detailed-people' } })
+            this.$router.push({
+              name: "sign",
+              params: { type: "detailed-people" }
+            });
           } else {
-            this.$toast('验证码错误')
+            this.$toast("验证码错误");
           }
         }
       } catch (error) {
-        console.log(error)
-        console.log('错误了')
+        console.log(error);
+        console.log("错误了");
       }
     }
   }
-}
+};
 </script>
 
 <style lang="less" scoped>
 p {
   padding-left: 16px;
-  height:29px;
-  font-size:21px;
-  font-family:PingFangSC;
-  font-weight:500;
-  color:#fff;
-  line-height:29px;
+  height: 29px;
+  font-size: 21px;
+  font-family: PingFangSC;
+  font-weight: 500;
+  color: #fff;
+  line-height: 29px;
   margin-top: 20px;
 }
 form {
@@ -139,34 +129,34 @@ form {
   }
 }
 .resetting-box {
-    margin-top: 10px;
-    display: flex;
-    align-items: center;
-    .resetting-model {
-      width: 250px;
-      margin-right: 10px;
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  .resetting-model {
+    width: 250px;
+    margin-right: 10px;
+  }
+  .van-button {
+    background-color: #353641;
+    color: #7e829c;
+    width: 85px;
+    height: 50px;
+    border-radius: 3px;
+    .van-button__text {
+      margin: 0 -20px;
+      font-size: 14px;
+      font-family: PingFangSC-Regular, PingFangSC;
+      font-weight: 400;
     }
-    .van-button {
-      background-color: #353641;
-      color: #7E829C;
-      width: 85px;
-      height: 50px;
-      border-radius:3px;
-      .van-button__text {
-        margin: 0 -20px;
-        font-size:14px;
-        font-family:PingFangSC-Regular,PingFangSC;
-        font-weight:400;
-      }
-    }
+  }
 }
 .login-btn-box {
   padding-top: 20px;
 }
 .login-btn {
   width: 100%;
-  background-color: #2F98FF;
+  background-color: #2f98ff;
   color: #fff;
-  border-radius:3px;
+  border-radius: 3px;
 }
 </style>
