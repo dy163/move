@@ -3,27 +3,27 @@ import request from '@/utils/request'
 /**
  * 获取注册短信验证码
  */
-export const sendMessage = (phone) => {
+export const getRegisterCode = (phone) => {
   let formData = new FormData()
   formData.append('phone', phone)
   formData.append('status', 'register')
   return request({
     method: 'POST',
-    url: 'user/sendMessage',
+    url: 'user/getRegisterCode',
     data: formData
   })
 }
 /**
  *校验注册短信验证码
  */
-export const identifyCode = (phone, code) => {
+export const identifyRegisterCode = (phone, code) => {
   let formData = new FormData()
   formData.append('phone', phone)
   formData.append('code', code)
   formData.append('status', 'register')
   return request({
     method: 'POST',
-    url: 'user/identifyCode',
+    url: 'user/identifyRegisterCode',
     data: formData
   })
 }

@@ -43,7 +43,7 @@
 </template>
 
 <script>
-import { sendMessage, identifyCode } from '@/api/user'
+import { getRegisterCode, identifyRegisterCode } from '@/api/user'
 const initCodeTimeSeconds = 120
 
 export default {
@@ -63,7 +63,7 @@ export default {
     // 验证码请求
     async handleClickTimer () {
       try {
-        const res = await sendMessage(this.phone)
+        const res = await getRegisterCode(this.phone)
         console.log(res)
         this.codeTimer = window.setInterval(() => {
           this.codeTimeSeconds--
@@ -94,12 +94,12 @@ export default {
         } else if (!code) {
           this.$toast('请输入6位数字验证码')
         } else {
-          const res = await identifyCode(phone, code)
+          const res = await identifyRegisterCode(phone, code)
           // console.log(res.data.status)
           console.log(res.data.result)
           // 存储手机号下面得步骤使用
           // this.phone = window.sessionStorage.getItem('phone')
-          window.sessionStorage.setItem('phong', res.data.result)
+          window.localStorage.setItem('phone', res.data.result)
           if (res.data.status) {
             this.$router.push({ name: 'sign', params: { type: 'detailed-people' } })
           } else {

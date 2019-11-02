@@ -40,18 +40,18 @@
 </template>
 
 <script>
+
 export default {
   name: 'DetailedPeople',
   props: {},
   data () {
     return {
-      phone: '',
       username: '',
       cards: '',
       password: '',
       repassword: '',
-      record: 0,
-      profession: 0,
+      record: '',
+      profession: '',
       edu_bg: [
         { text: '本科', value: 0 },
         { text: '硕士', value: 1 },
@@ -65,7 +65,7 @@ export default {
   },
 
   methods: {
-    handleClick () {
+    async handleClick () {
       // 正则验证
       const regCards = /^[0-9]{6,20}$/
       const regPassword = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,30}$/
@@ -82,6 +82,12 @@ export default {
       } else if (this.position === '') {
         this.$toast('请选择职业')
       } else {
+        window.localStorage.setItem('username',this.username)
+        window.localStorage.setItem('cards',this.cards)
+        window.localStorage.setItem('password',this.password)
+        window.localStorage.setItem('repassword',this.repassword)
+        window.localStorage.setItem('record',this.record)
+        window.localStorage.setItem('profession',this.profession)
         this.$router.push({ name: 'sign', params: { type: 'upload-documents' } })
       }
     }
