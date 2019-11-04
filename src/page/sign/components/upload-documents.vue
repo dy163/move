@@ -8,8 +8,8 @@
       <div class="upload-documents-content">
         <!-- 正面身份证 -->
         <div class="upload-documents-img">
-          <van-uploader capture="camera" :after-read="face">
-            <img src="@/assets/img/full-face.png" ref="face" />
+          <van-uploader capture="camera" :after-read="face" :accept="'image/*'" result-type="text">
+            <img src="@/assets/img/full-face.png" ref="file" />
           </van-uploader>
           <p class="upload-documents-apell">上传身份证正面</p>
           <div class="active" v-show="show">
@@ -19,7 +19,7 @@
         </div>
         <!-- 背面身份证 -->
         <div class="upload-documents-img">
-          <van-uploader capture="camera" :after-read="backlighting">
+          <van-uploader capture="camera" :after-read="backlighting" result-type="text">
             <img src="@/assets/img/backlighting.png" ref="backlighting" />
           </van-uploader>
           <p class="upload-documents-apell">上传身份证正面</p>
@@ -31,7 +31,7 @@
       </div>
       <!-- 手持身份证 -->
       <div class="upload-documents-img-fouter">
-        <van-uploader capture="camera" :after-read="hold">
+        <van-uploader capture="camera" :after-read="hold" result-type="text">
           <img src="@/assets/img/hold.png" ref="hold" />
         </van-uploader>
         <p class="upload-documents-apell">上传手持身份证件照</p>
@@ -54,12 +54,12 @@
       <p>拍照</p>
       <p>手机相册选择</p>
       <p class="upload-documents-cancel">取消</p>
-    </div> -->
+    </div>-->
   </div>
 </template>
 
 <script>
-import { uploadImg } from '@/api/user'
+import { uploadImg } from "@/api/user";
 export default {
   name: "UploadDocuments",
   props: {},
@@ -68,58 +68,36 @@ export default {
       show: false,
       side: false,
       self: false,
-      imgSrc: '默认图片的地址 不支持相对路径',
-      imgUrl: ''
+      imgSrc: "默认图片的地址 不支持相对路径",
+      imgUrl: ""
     };
   },
   methods: {
     // 获取正面照片
-    showimgUrl () {
-      let formData = new FormData()
-      formData.append('file', this.imgUrl)
-      formData.append('token', this.$store.state.token.token)
-      this.postForm(api.BaseUrl + api.modifyAvatar, formData)
-        .then(res => {
-          this.$layer.toast({
-            content: res.data.message,
-            offset: 'auto',
-            time: 1000
-          })
-        })
-        .catch(err => {
-          this.$layer.toast({
-            content: err.data.message,
-            offset: 'auto',
-            time: 2000
-          })
-        })
+    async face(file) {
+      // console.log(file.file)
+      const formData = new FormData();
+      formData.append("file", file.file);
+      const res = await uploadImg(formData);
+      console.log(res);
     },
-  
-
-    async face () {
-      const formData = new FormData()
-      formData.append('file', ID_card_front)
-      const res = await uploadImg(ID_card_front)
-      console.log(res.config)
-    },
-
 
     // 获取背面照片
-    async backlighting (file) {
-      this.$refs.backlighting.src = file.content
-      const formData = new FormData()
-      formData.append('file',this.$refs.backlighting.src)
-      await uploadImg(formData)
+    async backlighting(file) {
+      this.$refs.backlighting.src = file.content;
+      const formData = new FormData();
+      formData.append("file", this.$refs.backlighting.src);
+      await uploadImg(formData);
     },
     // 获取手持照片
-    async hold (file) {
-      this.$refs.hold.src = file.content
-      const formData = new FormData()
-      formData.append('file',this.$refs.hold.src)
-      await uploadImg(formData)
+    async hold(file) {
+      this.$refs.hold.src = file.content;
+      const formData = new FormData();
+      formData.append("file", this.$refs.hold.src);
+      await uploadImg(formData);
     }
   }
-}
+};
 </script>
 
 <style lang="less" scoped>
