@@ -75,6 +75,13 @@ export default {
         try {
             //   console.log(file);
             this.$refs.face.src = file.content;
+            // console.log(this.$refs.face.src)
+            const reader = new FileReader () 
+            // reader.addEventListener("load", function () {
+            //   preview.src = reader.result;
+            //   console.log(preview.src)
+            // }, false);
+
             this.show = true;
             // const phone = window.localStorage.getItem('phone')
             // const username = window.localStorage.getItem('username')

@@ -31,15 +31,15 @@ export const identifyRegisterCode = (phone, code) => {
  * 注册信息
  */
 export const register = (
-  phone,
-  username,
-  password,
-  repassword,
-  edu_bg,
-  position,
-  ID_card_reverse,
-  ID_card_front,
-  ID_card_and_myself,) => {
+  phone = null,
+  username = null,
+  password = null,
+  repassword = null,
+  edu_bg = null,
+  position = null,
+  ID_card_reverse = null,
+  ID_card_front = null,
+  ID_card_and_myself = null,) => {
   let formData = new FormData()
   formData.append('phone', phone)
   formData.append('username', username)
