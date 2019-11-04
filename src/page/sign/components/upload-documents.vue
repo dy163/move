@@ -6,7 +6,7 @@
     <form>
       <p class="upload-documents-header">请拍摄您的身份证原件</p>
       <div class="upload-documents-content">
-        <!-- <div class="upload-documents-img" @click="show = true"> -->
+        <!-- 正面身份证 -->
         <div class="upload-documents-img">
           <van-uploader capture="camera" :after-read="face">
             <img src="@/assets/img/full-face.png" ref="face" />
@@ -17,7 +17,7 @@
             <p>已上传，解析成功</p>
           </div>
         </div>
-        <!-- <div class="upload-documents-img" @click="side = true"> -->
+        <!-- 背面身份证 -->
         <div class="upload-documents-img">
           <van-uploader capture="camera" :after-read="backlighting">
             <img src="@/assets/img/backlighting.png" ref="backlighting" />
@@ -29,6 +29,7 @@
           </div>
         </div>
       </div>
+      <!-- 手持身份证 -->
       <div class="upload-documents-img-fouter">
         <van-uploader capture="camera" :after-read="hold">
           <img src="@/assets/img/hold.png" ref="hold" />
@@ -50,15 +51,15 @@
       <p>3.按样本拍摄本人手持证件(正面)照片，保持信息清晰。</p>
     </div>
     <!-- <div class="upload-documents-none" v-show="false">
-                <p>拍照</p>
-                <p>手机相册选择</p>
-                <p class="upload-documents-cancel">取消</p>
-    </div>-->
+      <p>拍照</p>
+      <p>手机相册选择</p>
+      <p class="upload-documents-cancel">取消</p>
+    </div> -->
   </div>
 </template>
 
 <script>
-import { register } from '@/api/user'
+import { uploadImg } from '@/api/user'
 export default {
   name: "UploadDocuments",
   props: {},
@@ -66,88 +67,59 @@ export default {
     return {
       show: false,
       side: false,
-      self: false
+      self: false,
+      imgSrc: '默认图片的地址 不支持相对路径',
+      imgUrl: ''
     };
   },
   methods: {
     // 获取正面照片
-    async face(file) {
-        try {
-            //   console.log(file);
-            this.$refs.face.src = file.content;
-            // console.log(this.$refs.face.src)
-            const reader = new FileReader () 
-            // reader.addEventListener("load", function () {
-            //   preview.src = reader.result;
-            //   console.log(preview.src)
-            // }, false);
-
-            this.show = true;
-            // const phone = window.localStorage.getItem('phone')
-            // const username = window.localStorage.getItem('username')
-            // const password = window.localStorage.getItem('password')
-            // const repassword = window.localStorage.getItem('repassword')
-            // const record = window.localStorage.getItem('record')
-            // const profession = window.localStorage.getItem('profession')
-            // const ID_card_reverse = this.$refs.face.src
-            // const res = await register( 
-            //     phone,
-            //     username,
-            //     password,
-            //     repassword,
-            //     record,
-            //     profession,
-            //     ID_card_reverse)
-            // console.log(res)
-        } catch (error) {
-            console.log(error)
-        }
-    
-
+    showimgUrl () {
+      let formData = new FormData()
+      formData.append('file', this.imgUrl)
+      formData.append('token', this.$store.state.token.token)
+      this.postForm(api.BaseUrl + api.modifyAvatar, formData)
+        .then(res => {
+          this.$layer.toast({
+            content: res.data.message,
+            offset: 'auto',
+            time: 1000
+          })
+        })
+        .catch(err => {
+          this.$layer.toast({
+            content: err.data.message,
+            offset: 'auto',
+            time: 2000
+          })
+        })
     },
+  
+
+    async face () {
+      const formData = new FormData()
+      formData.append('file', ID_card_front)
+      const res = await uploadImg(ID_card_front)
+      console.log(res.config)
+    },
+
+
     // 获取背面照片
-    backlighting(file) {
-      this.$refs.backlighting.src = file.content;
-      this.side = true;
+    async backlighting (file) {
+      this.$refs.backlighting.src = file.content
+      const formData = new FormData()
+      formData.append('file',this.$refs.backlighting.src)
+      await uploadImg(formData)
     },
     // 获取手持照片
-    async hold(file) {
-        try {
-            this.$refs.hold.src = file.content;
-            this.self = true;
-            if (!this.show) {
-                this.$toast("请上传身份证正面");
-            } else if (!this.side){
-                this.$toast("请上传身份证背面");
-            } else {
-                // const phone = window.localStorage.getItem('phone')
-                // const username = window.localStorage.getItem('username')
-                // const password = window.localStorage.getItem('password')
-                // const repassword = window.localStorage.getItem('repassword')
-                // const record = window.localStorage.getItem('record')
-                // const profession = window.localStorage.getItem('profession')
-                // const ID_card_reverse = this.$refs.face.src
-                // const ID_card_front = this.$refs.backlighting.src
-                // const ID_card_and_myself = this.$refs.hold.src
-                // const res = await register (
-                //     phone,
-                //     username,
-                //     password,
-                //     repassword,
-                //     ID_card_reverse,
-                //     ID_card_front,
-                //     ID_card_and_myself,
-                //     record,
-                //     profession)
-                // this.$router.push({ name: "sign", params: { type: "treaty" } });
-            }
-        } catch (error) {
-            this.error('错误了')
-            console.log(error)
-        }
+    async hold (file) {
+      this.$refs.hold.src = file.content
+      const formData = new FormData()
+      formData.append('file',this.$refs.hold.src)
+      await uploadImg(formData)
     }
   }
-};
+}
 </script>
 
 <style lang="less" scoped>

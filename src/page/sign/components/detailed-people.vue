@@ -40,6 +40,7 @@
 </template>
 
 <script>
+import { register } from '@/api/user'
 export default {
   name: "DetailedPeople",
   props: {},
@@ -66,7 +67,7 @@ export default {
   },
 
   methods: {
-    async handleClick() {
+    handleClick() {
       // 正则验证
       const regCards = /^[0-9]{6,20}$/;
       const regPassword = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,30}$/;
@@ -94,6 +95,17 @@ export default {
           params: { type: "upload-documents" }
         });
       }
+    },
+
+    handleClickNext() {
+      // const formData = new FormData ()
+      // formData.append("username", this.username)
+      // formData.append("cards", this.cards)
+      // formData.append("password", this.password)
+      // formData.append("repassword", this.repassword)
+      // formData.append("record", this.record)
+      // formData.append("profession", this.profession)
+      // await register(formData)
     }
   }
 };

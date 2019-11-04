@@ -30,29 +30,32 @@ export const identifyRegisterCode = (phone, code) => {
 /**
  * 注册信息
  */
-export const register = (
-  phone = null,
-  username = null,
-  password = null,
-  repassword = null,
-  edu_bg = null,
-  position = null,
-  ID_card_reverse = null,
-  ID_card_front = null,
-  ID_card_and_myself = null,) => {
-  let formData = new FormData()
-  formData.append('phone', phone)
-  formData.append('username', username)
-  formData.append('password', password)
-  formData.append('repassword', repassword)
-  formData.append('ID_card_reverse', ID_card_reverse)
-  formData.append('ID_card_front', ID_card_front)
-  formData.append('ID_card_and_myself', ID_card_and_myself)
-  formData.append('edu_bg', edu_bg)
-  formData.append('position', position)
+export const register = formData => {
   return request({
     method: 'POST',
     url: 'user/register',
+    data: formData
+  })
+}
+
+/**
+ * 图片上传
+ */
+export const uploadImg = formData  => {
+  return request({
+    method: 'POST',
+    url: 'file/uploadImg',
+    data: formData
+  })
+}
+
+/**
+ * 账号（手机号或用户编号）密码登录
+ */
+export const login = formData  => {
+  return request({
+    method: 'POST',
+    url: 'user/login',
     data: formData
   })
 }
