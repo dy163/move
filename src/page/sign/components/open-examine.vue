@@ -7,7 +7,7 @@
             <van-icon name="arrow-left" slot="left"/>
         </van-nav-bar>
         <!-- 审核状态提示 -->
-        <div class="success-content">
+        <div class="success-content" @click="$router.push('/login')">
             <img src="@/assets/img/success.png" alt="">
         </div>
         <div class="open-examine-test">

@@ -59,3 +59,14 @@ export const login = formData  => {
     data: formData
   })
 }
+
+/**
+ * 获取修改短信验证码
+ */
+export const getResetPaCode = formData  => {
+  return request({
+    method: 'POST',
+    url: '/user/getResetPaCode',
+    data: formData
+  })
+}

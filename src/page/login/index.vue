@@ -10,7 +10,7 @@
         <!-- 输入登录手机号 -->
         <van-cell-group class="login-code">
           <van-field
-          v-model="user.account"
+          v-model="account"
           placeholder="请输入您的新手机号号码">
             <div slot="label">
               <span>+86</span>
@@ -22,7 +22,7 @@
         <van-cell-group>
           <van-field
           id="password"
-          v-model="user.password"
+          v-model="password"
           label="密码"
           type="password"
           right-icon="closed-eye"
@@ -53,16 +53,13 @@
   </div>
 </template>
 <script>
-// import { login } from '@/api/user'
-
+import { login } from '@/api/user'
 export default {
   name: 'LoginIndex',
   data () {
     return {
-      user: {
-        account: '18636235298',
-        password: ''
-      }
+      account: '18636235298',
+      password: ''
     }
   },
 
@@ -70,11 +67,9 @@ export default {
     // 登录验证手机
     async handleClickPhone () {
       try {
-        // const res = await login(this.user)
-        // console.log(res)
-        const phone = this.user.account
+        const phone = this.account
         const reg = /^[1][3,4,5,7,8][0-9]{9}$/
-        const pass = this.user.password
+        const pass = this.password
         const passReg = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,30}$/
         if (!phone) {
           this.$toast('请输入手机号')
@@ -85,11 +80,17 @@ export default {
         } else if (!passReg.test(pass)) {
           this.$toast('密码过于简单')
         } else {
-          this.$router.push('/personal')
+          const formData = new FormData()
+          formData.append( 'account', this.account)
+          formData.append( 'password', this.password )
+          const res = await login(formData)
+          console.log(res)
+          if(res.data.status) {
+            this.$router.push('/personal')
+          } 
         }
       } catch (err) {
         console.log(err)
-        this.$msg.error('登录失败')
       }
     },
     // 验证登录密码得显示和隐藏

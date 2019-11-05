@@ -88,8 +88,8 @@ export default {
         window.localStorage.setItem("ID_card_number", this.cards);
         window.localStorage.setItem("password", this.password);
         window.localStorage.setItem("repassword", this.repassword);
-        window.localStorage.setItem("record", this.record);
-        window.localStorage.setItem("profession", this.profession);
+        window.localStorage.setItem("edu_bg", this.edu_bg[this.record].text);
+        window.localStorage.setItem("position", this.position[this.profession].text);
         this.$router.push({
           name: "sign",
           params: { type: "upload-documents" }
@@ -141,7 +141,7 @@ form {
     font-size: 14px;
     font-family: PingFangSC-Regular, PingFangSC;
     font-weight: 400;
-    color: rgba(163, 163, 167, 1);
+    color: rgba(255, 255, 255, 1);
     padding-left: 15px;
   }
 }

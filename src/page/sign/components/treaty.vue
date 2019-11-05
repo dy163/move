@@ -27,42 +27,43 @@ export default {
   methods: {
     async handleRegisterClick() {
       try {
-        const phone = window.localStorage.getItem( 'phone' )
-        const username = window.localStorage.getItem( 'username' )
-        const ID_card_number = window.localStorage.getItem( 'ID_card_number' )
-        const password = window.localStorage.getItem( 'password' )
-        const repassword = window.localStorage.getItem( 'repassword' )
-        const record = window.localStorage.getItem( 'record' )
-        const profession = window.localStorage.getItem( 'profession' )
-        const ID_card_front = window.localStorage.getItem( 'ID_card_front' )
-        const ID_card_reverse = window.localStorage.getItem( 'ID_card_reverse' )
-        const ID_card_and_myself = window.localStorage.getItem( 'ID_card_and_myself' )
+        const phone = window.localStorage.getItem("phone");
+        const username = window.localStorage.getItem("username");
+        const ID_card_number = window.localStorage.getItem("ID_card_number");
+        const password = window.localStorage.getItem("password");
+        const repassword = window.localStorage.getItem("repassword");
+        const edu_bg = window.localStorage.getItem("edu_bg");
+        const position = window.localStorage.getItem("position");
+        const ID_card_front = window.localStorage.getItem("ID_card_front");
+        const ID_card_reverse = window.localStorage.getItem("ID_card_reverse");
+        const ID_card_and_myself = window.localStorage.getItem(
+          "ID_card_and_myself"
+        );
         // 构造一个请求体
         const formData = new FormData();
-        formData.append('phone', phone);
-        formData.append('username', username);
-        formData.append('ID_card_number', ID_card_number);
-        formData.append('password', password);
-        formData.append('repassword', repassword);
-        formData.append('ID_card_front', ID_card_front);
-        formData.append('ID_card_reverse', ID_card_reverse);
-        formData.append('ID_card_and_myself', ID_card_and_myself);
-        formData.append('edu_bg', record);
-        formData.append('position', profession);
-        const data = await register(formData)
-        console.log(data.data)
-        // if(data.data.status)
-        // this.$router.push({
-        //     name: "sign",
-        //     params: { type: "open-examine" }
-        // });
+        formData.append("phone", phone);
+        formData.append("username", username);
+        formData.append("ID_card_number", ID_card_number);
+        formData.append("password", password);
+        formData.append("repassword", repassword);
+        formData.append("ID_card_front", ID_card_front);
+        formData.append("ID_card_reverse", ID_card_reverse);
+        formData.append("ID_card_and_myself", ID_card_and_myself);
+        formData.append("edu_bg", edu_bg);
+        formData.append("position", position);
+        const data = await register(formData);
+        console.log(data.data.status);
+        if (!data.data.status) {
+          this.$router.push({
+            name: "sign",
+            params: { type: "open-examine" }
+          });
+        } else {
+          this.$toast("注册信息填写错误");
+        }
       } catch (error) {
-          this.$toast('信息错误')
-          
+        console.log(error);
       }
-
-        
-      
     }
   }
 };
