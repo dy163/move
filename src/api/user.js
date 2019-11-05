@@ -9,7 +9,7 @@ export const getRegisterCode = (phone) => {
   formData.append('status', 'register')
   return request({
     method: 'POST',
-    url: 'user/getRegisterCode',
+    url: '/user/getRegisterCode',
     data: formData
   })
 }
@@ -23,7 +23,7 @@ export const identifyRegisterCode = (phone, code) => {
   formData.append('status', 'register')
   return request({
     method: 'POST',
-    url: 'user/identifyRegisterCode',
+    url: '/user/identifyRegisterCode',
     data: formData
   })
 }
@@ -33,7 +33,7 @@ export const identifyRegisterCode = (phone, code) => {
 export const register = formData => {
   return request({
     method: 'POST',
-    url: 'user/register',
+    url: '/user/register',
     data: formData
   })
 }
@@ -44,7 +44,7 @@ export const register = formData => {
 export const uploadImg = formData  => {
   return request({
     method: 'POST',
-    url: 'file/uploadImg',
+    url: '/file/uploadImg',
     data: formData
   })
 }
@@ -55,7 +55,7 @@ export const uploadImg = formData  => {
 export const login = formData  => {
   return request({
     method: 'POST',
-    url: 'user/login',
+    url: '/user/login',
     data: formData
   })
 }

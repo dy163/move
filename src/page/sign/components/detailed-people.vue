@@ -40,7 +40,7 @@
 </template>
 
 <script>
-import { register } from '@/api/user'
+import { register } from "@/api/user";
 export default {
   name: "DetailedPeople",
   props: {},
@@ -88,8 +88,10 @@ export default {
         window.localStorage.setItem("cards", this.cards);
         window.localStorage.setItem("password", this.password);
         window.localStorage.setItem("repassword", this.repassword);
-        window.localStorage.setItem("record", this.record);
-        window.localStorage.setItem("profession", this.profession);
+        JSON.stringify(window.localStorage.setItem("record", this.record));
+        JSON.stringify(
+          window.localStorage.setItem("profession", this.profession)
+        );
         this.$router.push({
           name: "sign",
           params: { type: "upload-documents" }

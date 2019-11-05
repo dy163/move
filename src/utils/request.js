@@ -3,7 +3,7 @@ import axios from 'axios'
 
 // 定义一个request 代表axios
 const request = axios.create({
-  baseURL: 'http://192.168.3.79:8080/'
+  baseURL: 'http://192.168.3.79:8080'
 })
 
 // Add a request interceptor（添加请求拦截器）

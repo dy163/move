@@ -8,8 +8,13 @@
       <div class="upload-documents-content">
         <!-- 正面身份证 -->
         <div class="upload-documents-img">
-          <van-uploader capture="camera" :after-read="face" :accept="'image/*'" result-type="text">
-            <img src="@/assets/img/full-face.png" ref="file" />
+          <van-uploader
+            capture="camera"
+            :after-read="face"
+            accept="image/png, image/jpeg, image/gif"
+            result-type="text"
+          >
+            <img :src="faceImg" />
           </van-uploader>
           <p class="upload-documents-apell">上传身份证正面</p>
           <div class="active" v-show="show">
@@ -19,10 +24,15 @@
         </div>
         <!-- 背面身份证 -->
         <div class="upload-documents-img">
-          <van-uploader capture="camera" :after-read="backlighting" result-type="text">
-            <img src="@/assets/img/backlighting.png" ref="backlighting" />
+          <van-uploader
+            capture="camera"
+            :after-read="backlighting"
+            accept="image/png, image/jpeg, image/gif"
+            result-type="text"
+          >
+            <img :src="backlightingImg" />
           </van-uploader>
-          <p class="upload-documents-apell">上传身份证正面</p>
+          <p class="upload-documents-apell">上传身份证背面</p>
           <div class="active" v-show="side">
             <p></p>
             <p>已上传，解析成功</p>
@@ -31,8 +41,13 @@
       </div>
       <!-- 手持身份证 -->
       <div class="upload-documents-img-fouter">
-        <van-uploader capture="camera" :after-read="hold" result-type="text">
-          <img src="@/assets/img/hold.png" ref="hold" />
+        <van-uploader
+          capture="camera"
+          :after-read="hold"
+          accept="image/png, image/jpeg, image/gif"
+          result-type="text"
+        >
+          <img :src="holdImg" />
         </van-uploader>
         <p class="upload-documents-apell">上传手持身份证件照</p>
         <div class="active" v-show="self">
@@ -59,7 +74,7 @@
 </template>
 
 <script>
-import { uploadImg } from "@/api/user";
+import { uploadImg, register } from "@/api/user";
 export default {
   name: "UploadDocuments",
   props: {},
@@ -68,33 +83,63 @@ export default {
       show: false,
       side: false,
       self: false,
-      imgSrc: "默认图片的地址 不支持相对路径",
-      imgUrl: ""
+      faceImg: require("@/assets/img/full-face.png"),
+      backlightingImg: require("@/assets/img/backlighting.png"),
+      holdImg: require("@/assets/img/hold.png")
     };
   },
   methods: {
     // 获取正面照片
     async face(file) {
-      // console.log(file.file)
-      const formData = new FormData();
-      formData.append("file", file.file);
-      const res = await uploadImg(formData);
-      console.log(res);
+      try {
+        const formData = new FormData();
+        formData.append("file", file.file);
+        const res = await uploadImg(formData);
+        this.faceImg = "http://" + res.data.result;
+        this.show = true;
+      } catch (error) {
+        this.$toast("操作失败");
+        console.log(error);
+      }
     },
 
     // 获取背面照片
     async backlighting(file) {
-      this.$refs.backlighting.src = file.content;
-      const formData = new FormData();
-      formData.append("file", this.$refs.backlighting.src);
-      await uploadImg(formData);
+      try {
+        const formData = new FormData();
+        formData.append("file", file.file);
+        const res = await uploadImg(formData);
+        this.backlightingImg = "http://" + res.data.result;
+        this.side = true;
+      } catch (error) {
+        this.$toast("操作失败");
+        console.log(error);
+      }
     },
     // 获取手持照片
     async hold(file) {
-      this.$refs.hold.src = file.content;
-      const formData = new FormData();
-      formData.append("file", this.$refs.hold.src);
-      await uploadImg(formData);
+      try {
+        const formData = new FormData();
+        formData.append("file", file.file);
+        const res = await uploadImg(formData);
+        this.holdImg = "http://" + res.data.result;
+        this.self = true;
+        if (this.show !== true) {
+          this.$toast('请上传身份证正面')
+        } else if (this.side !== true){
+          this.$toast('请上传身份证背面')
+        } else {
+          window.setInterval(()=> {
+            this.$router.push({
+              name: "sign",
+              params: { type: "treaty" }
+            });
+          }, 2000)
+        }
+      } catch (error) {
+        this.$toast("操作失败");
+        console.log(error);
+      }
     }
   }
 };
