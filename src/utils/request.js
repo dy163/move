@@ -8,6 +8,10 @@ const request = axios.create({
 
 // Add a request interceptor（添加请求拦截器）
 request.interceptors.request.use(function (config) {
+  let token = window.localStorage.getItem('token')
+  if(token) {
+    config.headers.Authorization = `Bearer ${token}`
+  }
   // Do something before request is sent
   return config
 }, function (error) {

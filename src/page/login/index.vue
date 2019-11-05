@@ -85,6 +85,8 @@ export default {
           formData.append( 'password', this.password )
           const res = await login(formData)
           console.log(res)
+          let token = JSON.parse(res.result.sessionid)
+          window.localStorage.setItem('token',token)
           if(res.data.status) {
             this.$router.push('/personal')
           } 
