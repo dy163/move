@@ -51,8 +51,7 @@ export default {
     // 验证码请求
     async handleClickTimer() {
       try {
-        const res = await getRegisterCode(this.phone);
-        console.log(res);
+        await getRegisterCode(this.phone);
         this.codeTimer = window.setInterval(() => {
           this.codeTimeSeconds--;
           if (this.codeTimeSeconds <= 0) {
@@ -83,8 +82,6 @@ export default {
           this.$toast("请输入6位数字验证码");
         } else {
           const res = await identifyRegisterCode(phone, code);
-          // console.log(res.data.status)
-          console.log(res.data.result);
           // 存储手机号下面得步骤使用
           window.localStorage.setItem("phone", res.data.result);
           if (res.data.status) {
@@ -98,7 +95,6 @@ export default {
         }
       } catch (error) {
         console.log(error);
-        console.log("错误了");
       }
     }
   }

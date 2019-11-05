@@ -15,7 +15,7 @@
         <div class="login-btn-box">
           <van-button
             class="login-btn"
-            to="/sign/login"
+            to="/login"
           >登录</van-button>
         </div>
     </div>

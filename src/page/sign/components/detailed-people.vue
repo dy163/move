@@ -85,29 +85,16 @@ export default {
         this.$toast("请选择职业");
       } else {
         window.localStorage.setItem("username", this.username);
-        window.localStorage.setItem("cards", this.cards);
+        window.localStorage.setItem("ID_card_number", this.cards);
         window.localStorage.setItem("password", this.password);
         window.localStorage.setItem("repassword", this.repassword);
-        JSON.stringify(window.localStorage.setItem("record", this.record));
-        JSON.stringify(
-          window.localStorage.setItem("profession", this.profession)
-        );
+        window.localStorage.setItem("record", this.record);
+        window.localStorage.setItem("profession", this.profession);
         this.$router.push({
           name: "sign",
           params: { type: "upload-documents" }
         });
       }
-    },
-
-    handleClickNext() {
-      // const formData = new FormData ()
-      // formData.append("username", this.username)
-      // formData.append("cards", this.cards)
-      // formData.append("password", this.password)
-      // formData.append("repassword", this.repassword)
-      // formData.append("record", this.record)
-      // formData.append("profession", this.profession)
-      // await register(formData)
     }
   }
 };
