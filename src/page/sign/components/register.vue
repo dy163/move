@@ -39,7 +39,6 @@ export default {
   props: {},
   data() {
     return {
-      // phone: '17685670138',
       phone: "",
       code: "",
       codeLoading: false,

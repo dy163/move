@@ -1,51 +1,84 @@
 <template>
     <div class="modify">
-        <van-nav-bar
+      <van-nav-bar
         title="修改手机号"
-        @click-left="$router.back()">
-          <van-icon name="arrow-left" slot="left"/>
-        </van-nav-bar>
-        <div class="modify-content">
-            <div class="modify-pass">
-                <p>登录密码</p>
+        @click-left="$router.back()"
+      >
+        <van-icon name="arrow-left" slot="left"/>
+      </van-nav-bar>
+      <!-- 内容表单 -->
+      <form>
+        <van-cell-group>
+          <van-field v-model="phone" placeholder="请输入新手机号号码">
+            <div slot="label">
+              <span>+86</span>
+              <span class="triangle"></span>
             </div>
-            <div class="modify-enter">
-                <van-cell-group>
-                    <van-field v-model="pass" type="password"/>
-                </van-cell-group>
-            </div>
-            <div>
-                <router-link to="/sign/resetting">忘记登录密码？</router-link>
-            </div>
-            <div class="login-btn-box">
-                <van-button
-                class="login-btn"
-                @click.prevent="handleClickNext"
-                >下一步</van-button>
-            </div>
+          </van-field>
+        </van-cell-group>
+        <div class="resetting-box">
+          <van-cell-group class="resetting-model">
+            <van-field label="验证码" v-model="code" placeholder="请输入验证码" />
+          </van-cell-group>
+          <van-button
+            :disabled="!!codeTimer"
+            :loading="codeLoading"
+            @click.prevent="handleClickTimer"
+          >{{ codeTimer ? `${codeTimeSeconds}s` : '获取验证码' }}</van-button>
         </div>
-
+        <div class="login-btn-box">
+          <van-button 
+            class="login-btn" 
+            @click.prevent="handleClick"
+          >
+          修改手机号</van-button>
+        </div>
+      </form>
     </div>
 </template>
 
 <script>
+const initCodeTimeSeconds = 120;
 export default {
   name: 'Modify',
   data () {
     return {
-      pass: ''
+      phone: "",
+      code: "",
+      codeLoading: false,
+      codeTimer: null, // 倒计时定时器
+      codeTimeSeconds: initCodeTimeSeconds // 定时器事件
     }
   },
   methods: {
-    handleClickNext () {
-      const pass = this.pass
-      const reg = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,30}$/
-      if (!pass) {
-        this.$toast('请输入登录密码')
-      } else if (!reg.test(pass)) {
-        this.$toast('密码不正确')
+    // 验证码请求
+    handleClickTimer() {
+      this.codeTimer = window.setInterval(() => {
+        this.codeTimeSeconds--;
+        if (this.codeTimeSeconds <= 0) {
+          window.clearInterval(this.codeTimer);
+          // 定时器回到初始状态
+          this.codeTimeSeconds = initCodeTimeSeconds;
+          // 回到初始重新为空
+          this.codeTimer = null;
+        }
+      }, 1000);
+    },
+
+    // 手机号正则验证 验证码后台验证
+    handleClick() {
+      const code = this.code;
+      const phone = this.phone;
+      const reg = /^[1][3,4,5,7,8][0-9]{9}$/;
+      if (!phone) {
+        this.$toast("请输入手机号");
+      } else if (!reg.test(phone)) {
+        this.$toast("手机号格式错误");
+      } else if (!code) {
+        this.$toast("请输入6位数字验证码");
       } else {
-        this.$router.push('/selective-verification')
+        this.$toast('修改成功')
+        this.$router.push('/login')
       }
     }
   }
@@ -53,42 +86,47 @@ export default {
 </script>
 
 <style lang="less" scoped>
+form {
+  padding: 0 15px;
+  padding-top: 40px;
+  .triangle {
+    border-top: 4px solid #fff;
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    display: inline-block;
+    text-align: center;
+    margin-left: 10px;
+  }
+}
+.resetting-box {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  .resetting-model {
+    width: 250px;
+    margin-right: 10px;
+  }
+  .van-button {
+    background-color: #353641;
+    color: #7e829c;
+    width: 85px;
+    height: 50px;
+    border-radius: 3px;
+    .van-button__text {
+      margin: 0 -20px;
+      font-size: 14px;
+      font-family: PingFangSC-Regular, PingFangSC;
+      font-weight: 400;
+    }
+  }
+}
 .login-btn-box {
-    padding-top: 30px;
+  padding-top: 20px;
 }
 .login-btn {
-    width: 100%;
-    background-color: #2F98FF;
-    color: #fff;
-    border-radius: 3px;
-}
-.modify-content {
-    padding: 0 15px;
-    div:nth-child(3) {
-        padding-top: 5px;
-        display: flex;
-        justify-content: flex-end;
-        font-size:14px;
-        font-family:PingFangSC;
-        font-weight:400;
-        color:rgba(255,255,255,1);
-        a {
-            color: #FFFFFF;
-        }
-    }
-}
-.modify-pass {
-    p {
-        padding: 20px 0;
-        height:29px;
-        font-size:21px;
-        font-family:PingFangSC;
-        font-weight:500;
-        color:rgba(255,255,255,1);
-        line-height:29px;
-    }
-}
-.modify-enter {
-    padding-top: 20px;
+  width: 100%;
+  background-color: #2f98ff;
+  color: #fff;
+  border-radius: 3px;
 }
 </style>

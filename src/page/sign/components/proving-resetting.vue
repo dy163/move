@@ -8,36 +8,37 @@
         </van-nav-bar>
         <!-- 发送手机号 -->
         <p class="resetting-name">身份验证</p>
-        <p class="resetting-te">已发送短信验证码到17600110101</p>
+        <!-- <p class="resetting-te">已发送短信验证码到17600110101</p> -->
         <form>
-            <div class="resetting-box">
-              <!-- 验证码 -->
-                <div>
-                  <van-cell-group class="resetting-model">
-                    <van-field
-                      v-model="verification"
-                      center
-                      label="验证码"
-                      placeholder="请输入短信验证码"
-                    >
-                    </van-field>
-                  </van-cell-group>
-                </div>
-                <!-- 倒计时按钮 -->
-                  <van-button
-                  :disabled="!!codeTimer"
-                  :loading="codeLoading"
-                  @click.prevent="handleClickTimer">
-                  {{ codeTimer ? `${codeTimeSeconds}s` : '获取验证码' }}
-                  </van-button>
+          <div class="resetting-box">
+            <!-- 验证码 -->
+            <div>
+              <van-cell-group class="resetting-model">
+                <van-field
+                  v-model="verification"
+                  center
+                  label="验证码"
+                  placeholder="请输入短信验证码"
+                >
+                </van-field>
+              </van-cell-group>
             </div>
-            <!-- 下步操作 -->
-            <div class="login-btn-box">
-                <van-button
-                class="login-btn"
-                @click.prevent="handleClickNextStep"
-                >下一步</van-button>
-            </div>
+            <!-- 倒计时按钮 -->
+            <van-button
+              :disabled="!!codeTimer"
+              :loading="codeLoading"
+              @click.prevent="handleClickTimer">
+              {{ codeTimer ? `${codeTimeSeconds}s` : '获取验证码' }}
+            </van-button>
+          </div>
+          <!-- 下步操作 -->
+          <div class="login-btn-box">
+            <van-button
+              class="login-btn"
+              @click.prevent="handleClickNextStep"
+            >
+            下一步</van-button>
+          </div>
         </form>
     </div>
 </template>

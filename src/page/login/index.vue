@@ -59,7 +59,7 @@ export default {
   data () {
     return {
       account: '18636235298',
-      password: ''
+      password: 'xx123456'
     }
   },
 
@@ -76,7 +76,7 @@ export default {
         } else if (!reg.test(phone)) {
           this.$toast('手机号格式错误')
         } else if (!pass) {
-          this.$toast('密码错误')
+          this.$toast('请输入密码')
         } else if (!passReg.test(pass)) {
           this.$toast('密码过于简单')
         } else {
@@ -85,8 +85,10 @@ export default {
           formData.append( 'password', this.password )
           const res = await login(formData)
           console.log(res)
-          let token = JSON.parse(res.result.sessionid)
-          window.localStorage.setItem('token',token)
+
+
+          // let token = JSON.parse(res.result.sessionid)
+          // window.localStorage.setItem('token',res.result.sessionid)
           if(res.data.status) {
             this.$router.push('/personal')
           } 

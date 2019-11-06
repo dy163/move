@@ -8,9 +8,9 @@ const request = axios.create({
 
 // Add a request interceptor（添加请求拦截器）
 request.interceptors.request.use(function (config) {
-  let token = window.localStorage.getItem('token')
-  if(token) {
-    config.headers.Authorization = `Bearer ${token}`
+  let user = window.localStorage.getItem('user')
+  if(user) {
+    config.headers.Authorization = `Bearer ${user}`
   }
   // Do something before request is sent
   return config
@@ -29,6 +29,49 @@ request.interceptors.response.use(function (response) {
 })
 
 export default request
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // import axios from 'axios'
 // // import store from '@/store'

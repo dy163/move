@@ -62,24 +62,6 @@ export default new Router({
       path: '/modify',
       component: () => import('@/page/personal/components/modify')
     },
-    // 选择验证方式(短信)selective-verification
-    {
-      name: 'selective-verification',
-      path: '/selective-verification',
-      component: () => import('@/page/personal/components/selective-verification')
-    },
-    // 绑定新手机binding-mobile
-    {
-      name: 'binding-mobile',
-      path: '/binding-mobile',
-      component: () => import('@/page/personal/components/binding-mobile')
-    },
-    // 验证手机号新的已注册mobile-registered
-    {
-      name: 'mobile-registered',
-      path: '/mobile-registered',
-      component: () => import('@/page/personal/components/mobile-registered')
-    },
 
     // 关于我们（版本号）
     {

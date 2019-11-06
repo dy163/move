@@ -8,11 +8,11 @@ export default new Vuex.Store({
    user: JSON.parse(window.localStorage.getItem('token'))
   },
   mutations: {
-    // setUser (state, phone) {
-    //   state.phone = phone
-    //   // 持久化本地信息
-    //   window.localStorage.setItem('phone', JSON.stringify(state.phone))
-    // }
+    setUser (state, user) {
+      state.user = user
+      // 持久化本地信息
+      window.localStorage.setItem('user', JSON.stringify(state.user))
+    }
   },
   actions: {
 
