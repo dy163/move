@@ -85,10 +85,9 @@ export default {
           formData.append( 'password', this.password )
           const res = await login(formData)
           console.log(res)
-
-
-          // let token = JSON.parse(res.result.sessionid)
-          // window.localStorage.setItem('token',res.result.sessionid)
+          const token = res.data.result
+          // 返回得token值存储到本地
+          window.localStorage.setItem('sessionid',token.sessionid)
           if(res.data.status) {
             this.$router.push('/personal')
           } 

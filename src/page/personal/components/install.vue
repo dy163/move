@@ -20,12 +20,13 @@
             </div>
         </div>
         <div class="install-foot">
-            <router-link to="">退出登录</router-link>
+            <p @click="handleClickExit">退出登录</p>
         </div>
     </div>
 </template>
 
 <script>
+import { exit } from '@/api/user'
 export default {
   name: 'Install',
   data () {
@@ -34,7 +35,15 @@ export default {
     }
   },
   methods: {
-
+    // 退出登录
+    async handleClickExit () {
+      try {
+        const res = await exit()
+        console.log(res)
+      } catch (error) {
+        console.log(error)
+      }
+    }
   }
 }
 </script>
@@ -67,6 +76,12 @@ export default {
 .install-foot {
     text-align: center;
     padding-top: 80px;
+    height:22px;
+    font-size:16px;
+    font-family:PingFangSC;
+    font-weight:500;
+    line-height:22px;
+    color: #5794F0;
 }
 .router-link-exact-active {
     height:22px;

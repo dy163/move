@@ -61,6 +61,15 @@ export const login = formData  => {
 }
 
 /**
+ * 退出登录
+ */
+export const exit = ()  => {
+  return request({
+    method: 'POST',
+    url: '/user/exit'
+  })
+}
+/**
  * 获取修改短信验证码
  */
 export const getResetPaCode = formData  => {

@@ -5,14 +5,14 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-   user: JSON.parse(window.localStorage.getItem('token'))
+    // user: JSON.parse(window.localStorage.getItem('sessionid')) 
   },
   mutations: {
-    setUser (state, user) {
-      state.user = user
-      // 持久化本地信息
-      window.localStorage.setItem('user', JSON.stringify(state.user))
-    }
+    // setUser (state, user) {
+    //   state.user = user
+    //   // 持久化本地信息
+    //   window.localStorage.setItem('sessionid', JSON.stringify(state.sessionid))
+    // }
   },
   actions: {
 
