@@ -52,9 +52,9 @@ export default new Router({
     },
     // 账号管理
     {
-      name: 'account-management',
-      path: '/account-management',
-      component: () => import('@/page/personal/components/account-management')
+      name: 'management',
+      path: '/management',
+      component: () => import('@/page/personal/components/management')
     },
     // 修改手机号modify
     {

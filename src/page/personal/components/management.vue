@@ -1,11 +1,11 @@
 <template>
-    <div class="account">
+    <div class="management">
         <van-nav-bar
         title="账号管理"
         @click-left="$router.back()">
             <van-icon name="arrow-left" slot="left"/>
         </van-nav-bar>
-        <div class="account-jump">
+        <div class="management-jump">
             <div>
                 <span></span>
                 <p>手机号</p>
@@ -15,7 +15,7 @@
                 <van-icon name="arrow" color="#7F819B" size="15px"/>
             </div>
         </div>
-        <div class="account-foot">
+        <div class="management-foot">
             <div>
                 <p><router-link to="/sign/resetting">修改登录密码</router-link></p>
             </div>
@@ -28,7 +28,7 @@
 
 <script>
 export default {
-  name: 'AccountManagement',
+  name: 'Management',
   data () {
     return {
 
@@ -42,7 +42,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.account-jump {
+.management-jump {
     padding: 0 15px;
     border-bottom: 1px solid #14151C;
     display: flex;
@@ -83,7 +83,7 @@ export default {
         }
     }
 }
-.account-foot {
+.management-foot {
     padding: 0 15px;
     height: 50px;
     line-height: 50px;
