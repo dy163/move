@@ -3,27 +3,27 @@
         <van-nav-bar
           title="重 置 密 码"
           @click-left="$router.back()">
-          <van-icon name="arrow-left" slot="left"/>
+          <van-icon name="arrow-left" slot="left"/> 
         </van-nav-bar>
         <form>
           <!-- 请输入旧密码 -->
           <van-cell-group>
             <van-field
-            v-model="user.used"
+            v-model="oldPassword"
             type="password"
             placeholder="请输入旧密码"/>
           </van-cell-group>
           <!-- 第一次密码输入 -->
           <van-cell-group>
             <van-field
-            v-model="user.first"
+            v-model="newPassword"
             type="password"
             placeholder="请输入新密码"/>
           </van-cell-group>
           <!-- 第二次密码输入 -->
           <van-cell-group>
             <van-field
-            v-model="user.second"
+            v-model="rePassword"
             type="password"
             placeholder="请再次输入新密码"/>
           </van-cell-group>
@@ -38,33 +38,45 @@
 </template>
 
 <script>
+import { resetPassword } from '@/api/user'
 export default {
   name: 'ResetPassword',
   data () {
     return {
-      user: {
-        used: '',
-        first: '',
-        second: ''
-      }
-
+      oldPassword: '',
+      newPassword: '',
+      rePassword: ''
     }
   },
   methods: {
     // 下一步操作
-    handleClickNextStep () {
-      const phone = this.userfirst
-      const password = this.user.second
-      const reg = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,30}$/
-      if (!phone) {
-        this.$toast('密码不能为空')
-      } else if (!reg.test(phone)) {
-        this.$toast('密码不能少于8位需要包含，数字字母')
-      } else if (phone !== password) {
-        this.$toast('两次密码不一致')
-      } else {
-        this.$router.push({ name: 'sign', params: { type: 'success-pass' } })
+    async handleClickNextStep () {
+      try {
+        const phone = this.oldPassword
+        const password = this.newPassword
+        const reg = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,30}$/
+        if (!phone) {
+          this.$toast('请输入旧密码')
+        } else if (!reg.test(password)) {
+          this.$toast('密码不能少于8位需要包含，数字字母')
+        } else if (password !== this.rePassword) {
+          this.$toast('两次密码不一致')
+        } else {
+          const formData = new FormData()
+          formData.append('oldPassword', this.oldPassword)
+          formData.append('newPassword', this.newPassword)
+          formData.append('rePassword', this.rePassword)
+          const res = await resetPassword(formData)
+          if (res.data.status) {
+            this.$router.push({ name: 'sign', params: { type: 'success-pass' } })
+          } else {
+            this.$toast('修改失败')
+          }
+        }
+      } catch (error) {
+        console.log(error)
       }
+      
     }
   }
 }

@@ -10,14 +10,14 @@
                 <span></span>
                 <p>手机号</p>
             </div>
-            <div>
+            <div @click="$router.push('/modify')">
                 <span>176****2000</span>
                 <van-icon name="arrow" color="#7F819B" size="15px"/>
             </div>
         </div>
         <div class="account-foot">
             <div>
-                <p><router-link to="/modify">修改登录密码</router-link></p>
+                <p><router-link to="/sign/resetting">修改登录密码</router-link></p>
             </div>
             <div>
                 <van-icon name="arrow" color="#7F819B" size="15px"/>

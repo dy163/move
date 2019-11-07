@@ -7,20 +7,18 @@ const request = axios.create({
 })
 
 // Add a request interceptor（添加请求拦截器）
-request.interceptors.request.use(function (config) {
-
-  // 统一配置请求头
-  const sessionid = window.localStorage.getItem('sessionid')
-  if(sessionid) {
-    config.headers.token = sessionid
-  }
-  
-  // Do something before request is sent
-  return config
-}, function (error) {
-  // Do something with request error
-  return Promise.reject(error)
-})
+request.interceptors.request.use(
+  config => {
+   let token = sessionStorage.getItem("sessionid");
+   if(token) { // 判断是否存在token，如果存在的话，则每个http header都加上token
+    config.headers.token = `${token}`;
+   }
+   return config;
+  },
+  err => {
+   return Promise.reject(err);
+ 
+  });
 
 // Add a response interceptor
 request.interceptors.response.use(function (response) {
@@ -32,18 +30,6 @@ request.interceptors.response.use(function (response) {
 })
 
 export default request
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

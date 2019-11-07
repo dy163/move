@@ -1,7 +1,5 @@
 <template>
     <div>
-      <!-- 重置密码 发送验证码 -->
-      <ProvingResetting v-if="this.$route.params.type === 'proving-resetting'"/>
       <!-- 手机验证开户 -->
       <Register v-if="this.$route.params.type === 'register'"/>
       <!-- 两次输入验证密码 -->
@@ -24,7 +22,6 @@
 </template>
 
 <script>
-import ProvingResetting from './components/proving-resetting.vue'
 import ResetPassword from './components/reset-password.vue'
 import Resetting from './components/resetting.vue'
 import SuccessPass from './components/success-pass.vue'
@@ -38,7 +35,6 @@ import OpenExamine from './components/open-examine'
 export default {
   name: 'sign',
   components: {
-    ProvingResetting,
     ResetPassword,
     Resetting,
     SuccessPass,
