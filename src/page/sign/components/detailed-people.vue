@@ -84,12 +84,12 @@ export default {
       } else if (this.position === "") {
         this.$toast("请选择职业");
       } else {
-        window.localStorage.setItem("username", this.username);
-        window.localStorage.setItem("ID_card_number", this.cards);
-        window.localStorage.setItem("password", this.password);
-        window.localStorage.setItem("repassword", this.repassword);
-        window.localStorage.setItem("edu_bg", this.edu_bg[this.record].text);
-        window.localStorage.setItem("position", this.position[this.profession].text);
+        window.sessionStorage.setItem("username", this.username);
+        window.sessionStorage.setItem("ID_card_number", this.cards);
+        window.sessionStorage.setItem("password", this.password);
+        window.sessionStorage.setItem("repassword", this.repassword);
+        window.sessionStorage.setItem("edu_bg", this.edu_bg[this.record].text);
+        window.sessionStorage.setItem("position", this.position[this.profession].text);
         this.$router.push({
           name: "sign",
           params: { type: "upload-documents" }

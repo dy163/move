@@ -8,7 +8,7 @@
         <div class="install-jump">
             <div>
                 <p>
-                    <router-link to="/account-management">账号管理</router-link>
+                    <router-link to="/management">账号管理</router-link>
                 </p>
                 <p><van-icon name="arrow" color="#7F819B"/></p>
             </div>
@@ -39,7 +39,16 @@ export default {
     async handleClickExit () {
       try {
         const res = await exit()
-        console.log(res)
+        if (res.data.status) {
+            window.localStorage.clear()
+            window.sessionStorage.clear()
+            this.$toast('退出成功')
+            window.setInterval(() => {
+                this.$router.push('/login')
+            }, 2000)
+        } else {
+            return
+        }
       } catch (error) {
         console.log(error)
       }

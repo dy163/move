@@ -27,16 +27,16 @@ export default {
   methods: {
     async handleRegisterClick() {
       try {
-        const phone = window.localStorage.getItem("phone");
-        const username = window.localStorage.getItem("username");
-        const ID_card_number = window.localStorage.getItem("ID_card_number");
-        const password = window.localStorage.getItem("password");
-        const repassword = window.localStorage.getItem("repassword");
-        const edu_bg = window.localStorage.getItem("edu_bg");
-        const position = window.localStorage.getItem("position");
-        const ID_card_front = window.localStorage.getItem("ID_card_front");
-        const ID_card_reverse = window.localStorage.getItem("ID_card_reverse");
-        const ID_card_and_myself = window.localStorage.getItem(
+        const phone = window.sessionStorage.getItem("phone");
+        const username = window.sessionStorage.getItem("username");
+        const ID_card_number = window.sessionStorage.getItem("ID_card_number");
+        const password = window.sessionStorage.getItem("password");
+        const repassword = window.sessionStorage.getItem("repassword");
+        const edu_bg = window.sessionStorage.getItem("edu_bg");
+        const position = window.sessionStorage.getItem("position");
+        const ID_card_front = window.sessionStorage.getItem("ID_card_front");
+        const ID_card_reverse = window.sessionStorage.getItem("ID_card_reverse");
+        const ID_card_and_myself = window.sessionStorage.getItem(
           "ID_card_and_myself"
         );
         // 构造一个请求体

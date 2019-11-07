@@ -82,7 +82,7 @@ export default {
         } else {
           const res = await identifyRegisterCode(phone, code);
           // 存储手机号下面得步骤使用
-          window.localStorage.setItem("phone", res.data.result);
+          window.sessionStorage.setItem("phone", res.data.result);
           if (res.data.status) {
             this.$router.push({
               name: "sign",
