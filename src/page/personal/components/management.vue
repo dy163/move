@@ -11,7 +11,7 @@
                 <p>手机号</p>
             </div>
             <div @click="$router.push('/modify')">
-                <span>176****2000</span>
+                <span>{{ phone }}</span>
                 <van-icon name="arrow" color="#7F819B" size="15px"/>
             </div>
         </div>
@@ -31,11 +31,14 @@ export default {
   name: 'Management',
   data () {
     return {
-
+        phone: '176****2000'
     }
   },
+  computed: {
+      
+  },
   methods: {
-
+    
   }
 
 }

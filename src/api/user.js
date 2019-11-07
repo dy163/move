@@ -117,10 +117,10 @@ export const getUpdatePhoneCode = formData  => {
 /**
  * 11.获取修改手机号短信验证码
  */
-// export const resetPassword = formData  => {
-//   return request({
-//     method: 'POST',
-//     url: '/user/resetPassword',
-//     data: formData
-//   })
-// }
+export const updatePhone = formData  => {
+  return request({
+    method: 'POST',
+    url: '/user/updatePhone',
+    data: formData
+  })
+}
