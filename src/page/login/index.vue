@@ -60,7 +60,7 @@ export default {
         const reg = /^[1][3,4,5,7,8][0-9]{9}$/;
         const pass = this.password;
         const passReg = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,30}$/;
-
+        this.$toast.setDefaultOptions({ duration: 800 });
         if (!phone) {
           this.$toast("请输入手机号");
         } else if (!reg.test(phone)) {

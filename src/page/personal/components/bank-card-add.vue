@@ -75,6 +75,7 @@ export default {
     handeleClickConfirm () {
       this.show = false
       JSON.stringify(this.labellist.splice(this.willDeleteIndex, 1))
+      this.$toast.setDefaultOptions({ duration: 800 });
       this.$toast('已删除')
     },
     // 长按按钮展示弹框

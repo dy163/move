@@ -11,7 +11,7 @@
       <!-- 个人得确认信息 -->
       <DetailedPeople v-if="this.$route.params.type === 'detailed-people'"/>
       <!-- 上传证件 -->
-      <UploadDocuments v-if="this.$route.params.type === 'upload-documents'"/>
+      <Upload v-if="this.$route.params.type === 'upload'"/>
       <!-- 风险披露声明 -->
       <TreatyParticulars v-if="this.$route.params.type === 'treaty-particulars'"/>
       <!-- 协议认可 -->
@@ -27,7 +27,7 @@ import Resetting from './components/resetting.vue'
 import SuccessPass from './components/success-pass.vue'
 import Register from './components/register.vue'
 import DetailedPeople from './components/detailed-people.vue'
-import UploadDocuments from './components/upload-documents.vue'
+import Upload from './components/upload.vue'
 import TreatyParticulars from './components/treaty-particulars.vue'
 import Treaty from './components/treaty.vue'
 import OpenExamine from './components/open-examine'
@@ -40,7 +40,7 @@ export default {
     SuccessPass,
     Register,
     DetailedPeople,
-    UploadDocuments,
+    Upload,
     TreatyParticulars,
     Treaty,
     OpenExamine

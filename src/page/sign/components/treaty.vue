@@ -52,7 +52,7 @@ export default {
         formData.append("edu_bg", edu_bg);
         formData.append("position", position);
         const data = await register(formData);
-        console.log(data.data.status);
+        this.$toast.setDefaultOptions({ duration: 800 });
         if (!data.data.status) {
           this.$router.push({
             name: "sign",

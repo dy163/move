@@ -71,6 +71,7 @@ export default {
       // 正则验证
       const regCards = /^[0-9]{6,20}$/;
       const regPassword = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,30}$/;
+      this.$toast.setDefaultOptions({ duration: 800 });
       if (!this.username) {
         this.$toast("请输入姓名");
       } else if (!regCards.test(this.cards)) {

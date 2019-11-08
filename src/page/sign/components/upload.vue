@@ -1,13 +1,13 @@
 <template>
-  <div class="upload-documents">
+  <div class="upload">
     <van-nav-bar title="上传证件" @click-left="$router.back()">
       <van-icon name="arrow-left" slot="left" />
     </van-nav-bar>
     <form>
-      <p class="upload-documents-header">请拍摄您的身份证原件</p>
-      <div class="upload-documents-content">
+      <p class="upload-header">请拍摄您的身份证原件</p>
+      <div class="upload-content">
         <!-- 正面身份证 -->
-        <div class="upload-documents-img">
+        <div>
           <van-uploader
             capture="camera"
             :after-read="face"
@@ -16,14 +16,14 @@
           >
             <img :src="faceImg" />
           </van-uploader>
-          <p class="upload-documents-apell">上传身份证正面</p>
+          <p class="upload-apell">上传身份证正面</p>
           <div class="active" v-show="show">
             <p></p>
             <p>已上传，解析成功</p>
           </div>
         </div>
         <!-- 背面身份证 -->
-        <div class="upload-documents-img">
+        <div>
           <van-uploader
             capture="camera"
             :after-read="backlighting"
@@ -32,7 +32,7 @@
           >
             <img :src="backlightingImg" />
           </van-uploader>
-          <p class="upload-documents-apell">上传身份证背面</p>
+          <p class="upload-apell">上传身份证背面</p>
           <div class="active" v-show="side">
             <p></p>
             <p>已上传，解析成功</p>
@@ -40,43 +40,45 @@
         </div>
       </div>
       <!-- 手持身份证 -->
-      <div class="upload-documents-img-fouter">
-        <van-uploader
-          capture="camera"
-          :after-read="hold"
-          accept="image/png, image/jpeg, image/gif"
-          result-type="text"
-        >
-          <img :src="holdImg" />
-        </van-uploader>
-        <p class="upload-documents-apell">上传手持身份证件照</p>
-        <div class="active" v-show="self">
-          <p></p>
-          <p>已上传，解析成功</p>
+      <div class="upload-hold">
+        <div class="upload-hold-shift">
+          <van-uploader
+            capture="camera"
+            :after-read="hold"
+            accept="image/png, image/jpeg, image/gif"
+            result-type="text"
+          >
+            <img :src="holdImg" />
+          </van-uploader>
+          <p class="upload-apell">上传手持身份证件照</p>
+          <div class="active" v-show="self">
+            <p></p>
+            <p>已上传，解析成功</p>
+          </div>
         </div>
       </div>
     </form>
-    <div class="upload-documents-can">
+    <div class="upload-can">
       <p>照片要求</p>
       <img src="@/assets/img/prompt.png" />
     </div>
-    <div class="upload-documents-fouter">
+    <div class="upload-fouter">
       <p>1.身份证为大陆公民持有的本人二代身份证；</p>
       <p>2.请确保身份证边框完整，字体清晰，证件号码清晰可见；</p>
       <p>3.按样本拍摄本人手持证件(正面)照片，保持信息清晰。</p>
     </div>
-    <!-- <div class="upload-documents-none" v-show="false">
+    <div class="upload-none" v-show="false">
       <p>拍照</p>
       <p>手机相册选择</p>
-      <p class="upload-documents-cancel">取消</p>
-    </div>-->
+      <p class="upload-cancel">取消</p>
+    </div>
   </div>
 </template>
 
 <script>
 import { uploadImg, register } from "@/api/user";
 export default {
-  name: "UploadDocuments",
+  name: "Upload",
   props: {},
   data() {
     return {
@@ -97,7 +99,7 @@ export default {
         const res = await uploadImg(formData);
         this.faceImg = "http://" + res.data.result;
         this.show = true;
-        window.sessionStorage.setItem("ID_card_front", res.data.result)
+        window.sessionStorage.setItem("ID_card_front", res.data.result);
       } catch (error) {
         this.$toast("操作失败");
         console.log(error);
@@ -112,12 +114,13 @@ export default {
         const res = await uploadImg(formData);
         this.backlightingImg = "http://" + res.data.result;
         this.side = true;
-        window.sessionStorage.setItem("ID_card_reverse", res.data.result)
+        window.sessionStorage.setItem("ID_card_reverse", res.data.result);
       } catch (error) {
         this.$toast("操作失败");
         console.log(error);
       }
     },
+
     // 获取手持照片
     async hold(file) {
       try {
@@ -126,18 +129,18 @@ export default {
         const res = await uploadImg(formData);
         this.holdImg = "http://" + res.data.result;
         this.self = true;
-        window.sessionStorage.setItem("ID_card_and_myself", res.data.result)
+        window.sessionStorage.setItem("ID_card_and_myself", res.data.result);
         if (this.show !== true) {
-          this.$toast('请上传身份证正面')
-        } else if (this.side !== true){
-          this.$toast('请上传身份证背面')
+          this.$toast("请上传身份证正面");
+        } else if (this.side !== true) {
+          this.$toast("请上传身份证背面");
         } else {
-          window.setInterval(()=> {
+          window.setInterval(() => {
             this.$router.push({
               name: "sign",
               params: { type: "treaty" }
             });
-          }, 2000)
+          }, 2000);
         }
       } catch (error) {
         this.$toast("操作失败");
@@ -149,128 +152,130 @@ export default {
 </script>
 
 <style lang="less" scoped>
-img {
-  width: 100%;
-}
-.upload-documents-header {
-  text-align: center;
-  color: #fff;
-  padding: 28px 0;
-  font-size: 16px;
-}
-.upload-documents-content {
-  color: #7f819b;
-  display: flex;
-  text-align: center;
-  img {
-    width: 157px;
-    height: 100px;
-  }
-  .upload-documents-img {
-    padding: 0 15px;
-    position: relative;
-    .upload-documents-apell {
-      height: 17px;
-      font-size: 12px;
-      font-family: PingFangSC;
-      font-weight: 400;
-      line-height: 17px;
-      display: inline-block;
-      padding-bottom: 8px;
-    }
-    .active {
-      width: 157px;
-      height: 17px;
-      line-height: 17px;
-      background: rgba(0, 0, 0, 0.3);
-      border-radius: 0px 0px 6px 6px;
-      color: #fff;
-      position: absolute;
-      top: 82px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      p:nth-child(1) {
-        width: 13px;
-        height: 13px;
-        background: #56ffbd;
-        border-radius: 50%;
-        margin-right: -25px;
-        margin-left: 35px;
-      }
-      p:nth-child(2) {
-        font-size: 16px;
-        -webkit-transform: scale(0.5);
-        font-family: PingFangSC;
-        font-weight: 400;
-      }
-    }
-  }
-}
-.upload-documents-img-fouter {
-  text-align: center;
-  position: relative;
-  padding-top: 8px;
-  padding-bottom: 20px;
-  img {
-    width: 157px;
-    height: 100px;
-  }
-  .upload-documents-apell {
-    font-size: 12px;
-    font-family: PingFangSC;
-    padding: 10px 0;
-    color: #7f819b;
-  }
-  .active {
-    width: 157px;
-    height: 17px;
-    line-height: 17px;
-    background: rgba(0, 0, 0, 0.3);
-    border-radius: 0px 0px 6px 6px;
+form {
+  padding: 0 15px;
+  font-family: PingFangSC-Regular, PingFang SC;
+  .upload-header {
+    text-align: center;
     color: #fff;
-    position: absolute;
-    top: 82px;
-    left: 109px;
+    padding: 28px 0;
+    font-size: 16px;
+  }
+  /deep/.van-uploader__input {
+    height: 100px;
+  }
+  /deep/.van-uploader__input-wrapper {
+    height: 100px;
+  }
+  img {
+    width: 158px;
+    height: 100px;
+  }
+  .upload-content {
+    display: flex;
+    justify-content: space-between;
+    div {
+      width: 158px;
+      position: relative;
+      .upload-apell {
+        font-size: 12px;
+        text-align: center;
+        color: rgba(127, 129, 155, 1);
+        padding: 10px;
+      }
+      .active {
+        height: 17px;
+        line-height: 17px;
+        background: rgba(0, 0, 0, 0.3);
+        border-radius: 0px 0px 6px 6px;
+        color: #fff;
+        position: absolute;
+        top: 83px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        p:nth-child(1) {
+          width: 13px;
+          height: 13px;
+          background: #56ffbd;
+          border-radius: 50%;
+          margin-right: -25px;
+          margin-left: 35px;
+        }
+        p:nth-child(2) {
+          font-size: 16px;
+          -webkit-transform: scale(0.5);
+          font-family: PingFangSC;
+          font-weight: 400;
+        }
+      }
+    }
+  }
+  .upload-hold {
     display: flex;
     justify-content: center;
-    align-items: center;
-    p:nth-child(1) {
-      width: 13px;
-      height: 13px;
-      background: #56ffbd;
-      border-radius: 50%;
-      margin-right: -25px;
-      margin-left: 35px;
-    }
-    p:nth-child(2) {
-      font-size: 16px;
-      -webkit-transform: scale(0.5);
-      font-family: PingFangSC;
-      font-weight: 400;
+    .upload-hold-shift {
+      position: relative;
+      .upload-apell {
+        font-size: 12px;
+        color: rgba(127, 129, 155, 1);
+        text-align: center;
+        padding-top: 10px;
+      }
+      .active {
+        width: 158px;
+        height: 17px;
+        line-height: 17px;
+        background: rgba(0, 0, 0, 0.3);
+        border-radius: 0px 0px 6px 6px;
+        color: #fff;
+        position: absolute;
+        top: 83px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        p:nth-child(1) {
+          width: 13px;
+          height: 13px;
+          background: #56ffbd;
+          border-radius: 50%;
+          margin-right: -25px;
+          margin-left: 35px;
+        }
+        p:nth-child(2) {
+          font-size: 16px;
+          -webkit-transform: scale(0.5);
+          font-family: PingFangSC;
+          font-weight: 400;
+        }
+      }
     }
   }
 }
-.upload-documents-can {
+.upload-can {
+  padding: 0 15px;
+  padding-top: 30px;
   p {
-    width: 64px;
-    height: 22px;
     font-size: 16px;
     font-family: PingFangSC-Regular, PingFangSC;
     font-weight: 400;
     color: rgba(255, 255, 255, 1);
     line-height: 22px;
-    padding: 0 15px;
+  }
+  img {
+    width: 100%;
   }
 }
-.upload-documents-fouter {
+.upload-fouter {
   padding: 0 15px;
   font-size: 14px;
   font-family: PingFangSC;
-  font-weight: 400;
   color: #7f819b;
+  p {
+    padding: 2px;
+  }
 }
-.upload-documents-none {
+.upload-none {
   color: #fff;
   text-align: center;
   p {
@@ -284,7 +289,7 @@ img {
   p:nth-child(1) {
     border-bottom: 1px solid #000;
   }
-  .upload-documents-cancel {
+  .upload-cancel {
     color: #3095fa;
     margin-top: 8px;
   }

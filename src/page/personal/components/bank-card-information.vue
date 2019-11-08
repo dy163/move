@@ -95,6 +95,7 @@ export default {
       const name = this.user.name
       const phoneReg = /^[1][3,4,5,7,8][0-9]{9}$/
       const cardReg = /^([1-9]{1})(\d{14}|\d{18})$/
+      this.$toast.setDefaultOptions({ duration: 800 });
       if (!card) {
         this.$toast('请正确填写银行卡号')
       } else if (!cardReg.test(card)) {
