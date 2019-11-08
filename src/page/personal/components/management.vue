@@ -1,105 +1,109 @@
 <template>
-    <div class="management">
-        <van-nav-bar
-        title="账号管理"
-        @click-left="$router.back()">
-            <van-icon name="arrow-left" slot="left"/>
-        </van-nav-bar>
-        <div class="management-jump">
-            <div>
-                <span></span>
-                <p>手机号</p>
-            </div>
-            <div @click="$router.push('/modify')">
-                <span>{{ phone }}</span>
-                <van-icon name="arrow" color="#7F819B" size="15px"/>
-            </div>
-        </div>
-        <div class="management-foot">
-            <div>
-                <p><router-link to="/sign/resetting">修改登录密码</router-link></p>
-            </div>
-            <div>
-                <van-icon name="arrow" color="#7F819B" size="15px"/>
-            </div>
-        </div>
+  <div class="management">
+    <van-nav-bar title="账号管理" @click-left="$router.back()">
+      <van-icon name="arrow-left" slot="left" />
+    </van-nav-bar>
+    <div class="management-jump">
+      <div>
+        <span></span>
+        <p>手机号</p>
+      </div>
+      <div @click="$router.push('/modify')">
+        <span>{{ phone }}</span>
+        <van-icon name="arrow" color="#7F819B" size="15px" />
+      </div>
     </div>
+    <div class="management-foot">
+      <div>
+        <p>
+          <router-link to="/sign/resetting">修改登录密码</router-link>
+        </p>
+      </div>
+      <div>
+        <van-icon name="arrow" color="#7F819B" size="15px" />
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
 export default {
-  name: 'Management',
-  data () {
+  name: "Management",
+  data() {
     return {
-        phone: '176****2000'
-    }
+      phone: ""
+    };
   },
-  computed: {
-      
+  created() {
+    const tel = window.sessionStorage.getItem("phone");
+    const tell = "" + tel;
+    const reg = /^[1][3,4,5,7,8][0-9]{9}$/;
+    const account = reg.test(tel)
+      ? tel.replace(tell.substring(3, 7), "****")
+      : tel.replace(tell.substring(3, 8), "*****");
+    this.phone = account;
   },
-  methods: {
-    
-  }
 
-}
+  methods: {}
+};
 </script>
 
 <style lang="less" scoped>
 .management-jump {
-    padding: 0 15px;
-    border-bottom: 1px solid #14151C;
+  padding: 0 15px;
+  border-bottom: 1px solid #14151c;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 50px;
+  line-height: 50px;
+  div:nth-child(1) {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    height: 50px;
-    line-height: 50px;
-    div:nth-child(1) {
-        display: flex;
-        align-items: center;
-        span {
-            display: inline-block;
-            width:27px;
-            height:27px;
-            background:rgba(216,216,216,1);
-            border-radius: 50%;
-        }
-        p {
-            display: inline-block;
-            width:45px;
-            font-size:15px;
-            font-family:PingFangSC-Medium,PingFangSC;
-            font-weight:500;
-            color:rgba(255,255,255,1);
-            padding-left: 10px;
-        }
+    span {
+      display: inline-block;
+      width: 27px;
+      height: 27px;
+      background: rgba(216, 216, 216, 1);
+      border-radius: 50%;
     }
-    div:nth-child(2) {
-        display: flex;
-        align-items: center;
-        span {
-            font-size:15px;
-            font-family:PingFangSC-Regular,PingFangSC;
-            font-weight:400;
-            color:rgba(147,152,177,1);
-            vertical-align: middle;
-            padding-right: 10px;
-        }
+    p {
+      display: inline-block;
+      width: 45px;
+      font-size: 15px;
+      font-family: PingFangSC-Medium, PingFangSC;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 1);
+      padding-left: 10px;
     }
+  }
+  div:nth-child(2) {
+    display: flex;
+    align-items: center;
+    span {
+      font-size: 15px;
+      font-family: PingFangSC-Regular, PingFangSC;
+      font-weight: 400;
+      color: rgba(147, 152, 177, 1);
+      vertical-align: middle;
+      padding-right: 10px;
+    }
+  }
 }
 .management-foot {
-    padding: 0 15px;
-    height: 50px;
-    line-height: 50px;
-    display: flex;
-    justify-content: space-between;
-    a {
-        color: #fff;
-        width:90px;
-        height:21px;
-        font-size:15px;
-        font-family:PingFangSC;
-        font-weight:500;
-        line-height:21px;
-    }
+  padding: 0 15px;
+  height: 50px;
+  line-height: 50px;
+  display: flex;
+  justify-content: space-between;
+  a {
+    color: #fff;
+    width: 90px;
+    height: 21px;
+    font-size: 15px;
+    font-family: PingFangSC;
+    font-weight: 500;
+    line-height: 21px;
+  }
 }
 </style>
