@@ -34,6 +34,9 @@ export default {
   data() {
     return {};
   },
+  created() {
+    this.$toast.setDefaultOptions({ duration: 800 });
+  },
   methods: {
     // 退出登录
     async handleClickExit() {
@@ -42,7 +45,6 @@ export default {
         if (res.data.status) {
           window.localStorage.clear();
           window.sessionStorage.clear();
-          this.$toast.setDefaultOptions({ duration: 800 });
           this.$toast("退出成功");
           window.setInterval(() => {
             this.$router.push("/login");

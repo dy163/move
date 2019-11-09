@@ -52,6 +52,11 @@ export default {
       codeTimeSeconds: initCodeTimeSeconds // 定时器事件
     }
   },
+
+  created() {
+    this.$toast.setDefaultOptions({ duration: 800 });
+  },
+
   methods: {
     // 验证码请求
     async handleClickTimer() {
@@ -81,7 +86,6 @@ export default {
         const code = this.code;
         const phone = this.phone;
         const reg = /^[1][3,4,5,7,8][0-9]{9}$/;
-        this.$toast.setDefaultOptions({ duration: 800 });
         if (!phone) {
           this.$toast("请输入手机号");
         } else if (!reg.test(phone)) {

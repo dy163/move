@@ -51,6 +51,9 @@ export default {
       password: "dy123456"
     };
   },
+  created() {
+    this.$toast.setDefaultOptions({ duration: 800 });
+  },
 
   methods: {
     // 登录验证手机
@@ -61,7 +64,6 @@ export default {
         const pass = this.password;
         const passReg = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,30}$/;
         const regNum = /^[0-9]{12}$/;
-        this.$toast.setDefaultOptions({ duration: 800 });
         if (!phone) {
           this.$toast("请输入手机号");
         } else if (!reg.test(phone) && !regNum.test(phone)) {

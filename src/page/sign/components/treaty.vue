@@ -24,6 +24,11 @@ export default {
   data() {
     return {};
   },
+
+  created() {
+    this.$toast.setDefaultOptions({ duration: 800 });
+  },
+
   methods: {
     async handleRegisterClick() {
       try {
@@ -52,7 +57,6 @@ export default {
         formData.append("edu_bg", edu_bg);
         formData.append("position", position);
         const data = await register(formData);
-        this.$toast.setDefaultOptions({ duration: 800 });
         if (!data.data.status) {
           this.$router.push({
             name: "sign",

@@ -48,6 +48,11 @@ export default {
       rePassword: ''
     }
   },
+
+  created() {
+    this.$toast.setDefaultOptions({ duration: 800 });
+  },
+
   methods: {
     // 下一步操作
     async handleClickNextStep () {
@@ -55,7 +60,6 @@ export default {
         const phone = this.oldPassword
         const password = this.newPassword
         const reg = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,30}$/
-        this.$toast.setDefaultOptions({ duration: 800 });
         if (!phone) {
           this.$toast('请输入旧密码')
         } else if (!reg.test(password)) {
