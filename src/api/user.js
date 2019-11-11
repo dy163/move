@@ -4,7 +4,7 @@ import request from '@/utils/request'
  * 1.获取注册短信验证码
  */
 export const getRegisterCode = (phone) => {
-  let formData = new FormData()
+  const formData = new FormData()
   formData.append('phone', phone)
   formData.append('status', 'register')
   return request({
@@ -17,7 +17,7 @@ export const getRegisterCode = (phone) => {
  * 2.校验注册短信验证码
  */
 export const identifyRegisterCode = (phone, code) => {
-  let formData = new FormData()
+  const formData = new FormData()
   formData.append('phone', phone)
   formData.append('code', code)
   formData.append('status', 'register')
@@ -41,7 +41,9 @@ export const register = formData => {
 /**
  * 4.图片上传
  */
-export const uploadImg = formData  => {
+export const uploadImg = (file)  => {
+  const formData = new FormData();
+  formData.append("file", file.file);
   return request({
     method: 'POST',
     url: '/file/uploadImg',
@@ -121,6 +123,28 @@ export const updatePhone = formData  => {
   return request({
     method: 'POST',
     url: '/user/updatePhone',
+    data: formData
+  })
+}
+
+/**
+ * 12.更改头像（先走上传接口获取上传图片路径）
+ */
+export const updateHeaderImg = formData  => {
+  return request({
+    method: 'POST',
+    url: '/user/updateHeaderImg',
+    data: formData
+  })
+}
+
+/**
+ * 13.获取用户信息
+ */
+export const getUserInfo = formData  => {
+  return request({
+    method: 'POST',
+    url: '/user/getUserInfo',
     data: formData
   })
 }

@@ -77,6 +77,7 @@
 
 <script>
 import { uploadImg, register } from "@/api/user";
+const http = "http://192.168.3.79:8080"
 export default {
   name: "Upload",
   props: {},
@@ -90,14 +91,16 @@ export default {
       holdImg: require("@/assets/img/hold.png")
     };
   },
+  // created() {
+  //   
+  // },
+
   methods: {
     // 获取正面照片
     async face(file) {
       try {
-        const formData = new FormData();
-        formData.append("file", file.file);
-        const res = await uploadImg(formData);
-        this.faceImg = "http://" + res.data.result;
+        const res = await uploadImg(file);
+        this.faceImg = http + res.data.result;
         this.show = true;
         window.sessionStorage.setItem("ID_card_front", res.data.result);
       } catch (error) {
@@ -109,10 +112,8 @@ export default {
     // 获取背面照片
     async backlighting(file) {
       try {
-        const formData = new FormData();
-        formData.append("file", file.file);
-        const res = await uploadImg(formData);
-        this.backlightingImg = "http://" + res.data.result;
+        const res = await uploadImg(file);
+        this.backlightingImg = http + res.data.result;
         this.side = true;
         window.sessionStorage.setItem("ID_card_reverse", res.data.result);
       } catch (error) {
@@ -124,10 +125,8 @@ export default {
     // 获取手持照片
     async hold(file) {
       try {
-        const formData = new FormData();
-        formData.append("file", file.file);
-        const res = await uploadImg(formData);
-        this.holdImg = "http://" + res.data.result;
+        const res = await uploadImg(file);
+        this.holdImg = http + res.data.result;
         this.self = true;
         window.sessionStorage.setItem("ID_card_and_myself", res.data.result);
         if (this.show !== true) {

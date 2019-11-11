@@ -22,70 +22,145 @@
             </div>
         </div>
         <!-- 具体数据展示 -->
-        <div class="quotation-list" style="overflow-x:auto">
+        <div class="quotation-list">
             <table>
                 <tr>
                     <td>今&nbsp;&nbsp;&nbsp;开</td>
                     <td>0.950</td>
                     <td>最&nbsp;&nbsp;&nbsp;高</td>
                     <td>0.980</td>
-                    <td>成交量</td>
-                    <td>0</td>
+                    <td>换手</td>
+                    <td>5.51%</td>
                 </tr>
                 <tr>
                     <td>昨&nbsp;&nbsp;&nbsp;收</td>
-                    <td>0.970</td>
+                    <td>5.51%</td>
                     <td>最&nbsp;&nbsp;&nbsp;低</td>
-                    <td>0.950</td>
-                    <td>成交额</td>
-                    <td>- -</td>
+                    <td>4.88</td>
+                    <td>振幅</td>
+                    <td>3.90%</td>
                 </tr>
-                <tr>
-                    <td>总股本</td>
-                    <td>1.84亿</td>
-                    <td>流通值</td>
-                    <td>4462.00万</td>
-                    <td>52周最低</td>
-                    <td>0.840</td>
-                </tr>
-                <tr>
-                    <td>总市值</td>
-                    <td>1.78亿</td>
-                    <td>流通股</td>
-                    <td>4600.00万</td>
-                    <td>52周最高</td>
-                    <td>2.840</td>
-                </tr>
-                <tr>
-                    <td>市盈率(动）</td>
-                    <td>- -</td>
-                    <td>换手率</td>
-                    <td>0.00%</td>
-                    <td>每股收益</td>
-                    <td>0.07</td>
-                </tr>
-                <tr>
-                    <td>市盈率(静)</td>
-                    <td>14.06</td>
-                    <td>振&nbsp;&nbsp;&nbsp;幅</td>
-                    <td>0.00%</td>
-                    <td>股息率</td>
-                    <td>0.00%</td>
-                </tr>
-                <tr>
-                    <td>每&nbsp;&nbsp;&nbsp;手</td>
-                    <td>2000</td>
-                    <td>Beta值</td>
-                    <td>- -</td>
-                    <td>股&nbsp;&nbsp;&nbsp;息</td>
-                    <td>- -</td>
-                </tr>
-            </table>
+            <!-- </table>
         </div>
+        <div 
+        class="a"
+        style="overflow-x:auto" 
+        v-if="true">
+                <table> -->
+                <tr>
+                    <td>涨停</td>
+                    <td>4.62</td>
+                    <td>量比</td>
+                    <td>0.98</td>
+                    <td>成交量</td>
+                    <td>583844</td>
+                </tr>
+                <tr>
+                    <td>跌停</td>
+                    <td>4.62</td>
+                    <td>均价</td>
+                    <td>4.97</td>
+                    <td>成交额</td>
+                    <td>2.90亿</td>
+                </tr>
+                <tr>
+                    <td>外盘</td>
+                    <td>236480</td>
+                    <td>总股本</td>
+                    <td>14.9亿</td>
+                    <td>流通值</td>
+                    <td>52.1亿</td>
+                </tr>
+                <tr>
+                    <td>内盘</td>
+                    <td>347363</td>
+                    <td>流通股</td>
+                    <td>10.6亿</td>
+                    <td>净资</td>
+                    <td>0.00%</td>
+                </tr>
+                <tr>
+                    <td>市净率</td>
+                    <td>0.50</td>
+                    <td>总市值</td>
+                    <td>73.0亿</td>
+                    <td>市盈率</td>
+                    <td>39.38</td>
+                </tr>
+                <tr>
+                    <td>收益(二)</td>
+                    <td>0.06</td>
+                    <td>委比</td>
+                    <td>9.35%</td>
+                    <td>委差</td>
+                    <td>1666</td>
+                </tr>
+                <!-- <van-collapse v-model="activeNames">
+                    <van-collapse-item  name="1">
+                        <table>
+                            <tr>
+                                <td>涨停</td>
+                                <td>4.62</td>
+                                <td>量比</td>
+                                <td>0.98</td>
+                                <td>成交量</td>
+                                <td>583844</td>
+                            </tr>
+                            <tr>
+                                <td>跌停</td>
+                                <td>4.62</td>
+                                <td>均价</td>
+                                <td>4.97</td>
+                                <td>成交额</td>
+                                <td>2.90亿</td>
+                            </tr>
+                            <tr>
+                                <td>外盘</td>
+                                <td>236480</td>
+                                <td>总股本</td>
+                                <td>14.9亿</td>
+                                <td>流通值</td>
+                                <td>52.1亿</td>
+                            </tr>
+                            <tr>
+                                <td>内盘</td>
+                                <td>347363</td>
+                                <td>流通股</td>
+                                <td>10.6亿</td>
+                                <td>净资</td>
+                                <td>0.00%</td>
+                            </tr>
+                            <tr>
+                                <td>市净率</td>
+                                <td>0.50</td>
+                                <td>总市值</td>
+                                <td>73.0亿</td>
+                                <td>市盈率</td>
+                                <td>39.38</td>
+                            </tr>
+                            <tr>
+                                <td>收益(二)</td>
+                                <td>0.06</td>
+                                <td>委比</td>
+                                <td>9.35%</td>
+                                <td>委差</td>
+                                <td>1666</td>
+                            </tr>
+                        </table>
+                    </van-collapse-item>
+                </van-collapse> -->
+            </table>
+            </div>
         <!-- 交易软件当前时间显示 -->
+        
         <div class="quotation-date">
             <p>财政年结日 <span>2018-06-30</span></p>
-            <p class="up-icon"><van-icon name="arrow-up" color="#7F819B" size="16"/></p>
+            <p class="up-icon">
+                <van-icon name="arrow-up" color="#7F819B" size="16" v-if="false"/>
+            </p>
+            <p class="up-icon">
+                <van-icon name="arrow-down" color="#7F819B" size="16"/>
+            </p>
         </div>
         <!-- 图表分析展示 -->
         <div class="quotation-crap">
@@ -148,6 +223,7 @@ export default {
     return {
       timer: '0',
       tidings: 0,
+      activeNames: [],
       list: [
         { title: '07月25日主力资金抢筹最积极的前10股（附名单）', timer: '今天 15:10' },
         { title: '07月25日主力资金抢筹最积极的前10股（附名单）', timer: '今天 15:10' },
