@@ -5,19 +5,15 @@
     </van-nav-bar>
     <!-- 个人简介 -->
     <div class="personal-name">
-      <!-- <div> -->
-        <van-uploader
+        <!-- <van-uploader
           capture="camera"
           :after-read="headerClick"
           accept="image/png, image/jpeg, image/gif"
           result-type="text"
         >
-        <!-- <div>
-          <img :src="headerPortrait" />
-        </div> -->
         <img :src="headerPortrait" />
-        </van-uploader>
-      <!-- </div> -->
+        </van-uploader> -->
+        <img src="@/assets/img/portrait.png" alt="">
       <div @click="$router.push('/letter')">
         <p>Xy_</p>
         <p>暂无个人简介</p>
@@ -56,33 +52,30 @@
 </template>
 
 <script>
-import { uploadImg, updateHeaderImg } from "@/api/user";
-const http = "http://192.168.3.79:8080"
+
 export default {
   name: "PersonalIndex",
   data() {
     return {
-      headerPortrait: require('@/assets/img/portrait.png')
+      // headerPortrait: require('@/assets/img/portrait.png')
     };
   },
   created () {
-    const portrait = window.localStorage.getItem('headerPortrait')
-    this.headerPortrait = http + portrait;
+    
   },
   methods: {
-    async headerClick(file) {
-        try {
-          const res = await uploadImg(file);
-          window.localStorage.setItem('headerPortrait',res.data.result)
-          const formData = new FormData();         
-          formData.append("header_img", res.data.result);
-          await updateHeaderImg(formData)
-        } catch (error) {
-          this.$toast('头像上传失败')
-          console.log(error)
-        }
-        
-    }
+    // async headerClick(file) {
+    //   try {
+    //     const res = await uploadImg(file);
+    //     window.localStorage.setItem('headerPortrait',res.data.result)
+    //     const formData = new FormData();         
+    //     formData.append("header_img", res.data.result);
+    //     await updateHeaderImg(formData)
+    //   } catch (error) {
+    //     this.$toast('头像上传失败')
+    //     console.log(error)
+    //   }
+    // }
   }
 };
 </script>
@@ -94,15 +87,11 @@ export default {
   align-items: center;
   padding: 0 15px;
   font-family: PingFangSC;
-  // div:nth-child(1) {
-  //   border-radius: 50%;
-    img {
-      width: 64px;
-      height: 64px;
-      // background-color: #fff;
-      border-radius: 50%;
-    }
-  // }
+  img {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+  }
   /deep/.van-uploader__input {
     width: 64px;
     height: 64px;

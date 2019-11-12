@@ -56,6 +56,12 @@ export default new Router({
       path: '/management',
       component: () => import('@/page/personal/components/management')
     },
+    // 编辑个人信息
+    {
+      name: 'myself',
+      path: '/myself',
+      component: () => import('@/page/personal/components/myself')
+    },
     // 修改手机号modify
     {
       name: 'modify',
