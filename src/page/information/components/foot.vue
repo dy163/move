@@ -10,7 +10,8 @@
                         <p>
                             <span class="information-roof">{{ item.roof }}</span>
                         </p>
-                        <p>
+                        <!-- <van-tag type="danger" size="medium" plain>标签</van-tag> -->
+                        <p class="information-information">
                             <span>{{ item.trusts }}</span>
                             <span>{{ item.timer }}</span>
                         </p>
@@ -62,6 +63,12 @@ export default {
             display: flex;
             align-items: center;
             padding-top: 15px;
+            // .van-tag {
+            //     padding: 2px  5px;
+            //     // font-size: 12px;
+            //     transform: scale(0.7);
+            //     background-color: #20212A;
+            // }
             p:nth-child(1) {
                 border:1px solid #FF3750;
                 color:#FF3750;
@@ -80,7 +87,7 @@ export default {
                 // border-radius: 3px;
                 // margin-right: 5px;
             }
-            p:nth-child(2) {
+            .information-information {
                 font-size: 12px;
                 font-weight:400;
                 height: 16px;

@@ -10,7 +10,7 @@
       </div>
       <div @click="$router.push('/modify')">
         <span>{{ phone }}</span>
-        <van-icon name="arrow" color="#7F819B" size="15px" />
+        <van-icon name="arrow" color="#7F819B" />
       </div>
     </div>
     <div class="management-foot">
@@ -20,7 +20,17 @@
         </p>
       </div>
       <div>
-        <van-icon name="arrow" color="#7F819B" size="15px" />
+        <van-icon name="arrow" color="#7F819B" />
+      </div>
+    </div>
+    <div class="management-foot">
+      <div>
+        <p>
+          <router-link to="/sign/resetting">重置交易密码</router-link>
+        </p>
+      </div>
+      <div>
+        <van-icon name="arrow" color="#7F819B" />
       </div>
     </div>
   </div>
@@ -49,9 +59,15 @@ export default {
 </script>
 
 <style lang="less" scoped>
+.management {
+  background:rgba(34,34,46,1);
+  .van-icon-arrow {
+    font-size: 15px;
+    margin-right: -5px;
+  }
+}
 .management-jump {
   padding: 0 15px;
-  border-bottom: 1px solid #14151c;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -96,6 +112,7 @@ export default {
   line-height: 50px;
   display: flex;
   justify-content: space-between;
+  border-top: 1px solid #14151c;
   a {
     color: #fff;
     width: 90px;
