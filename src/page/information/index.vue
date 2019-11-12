@@ -24,10 +24,7 @@
                             <div class="information-front-name">
                                 <p class="information-title">{{ item.title }}</p>
                                 <div class="information-box">
-                                    <p>
-                                        <span class="information-roof">{{ item.roof }}</span>
-                                    </p>
-                                    <!-- <van-tag type="danger" size="medium" plain>标签</van-tag> -->
+                                    <van-tag type="danger" size="medium" plain>{{ item.roof }}</van-tag>
                                     <p class="information-information">
                                         <span>{{ item.trusts }}</span>
                                         <span>{{ item.timer }}</span>
@@ -310,12 +307,6 @@ export default {
     }
 }
 .information-front-page-foot {
-    // display: flex;
-    // padding: 20px 0;
-    // margin: 0 15px;
-    // box-sizing: border-box;
-    // border-bottom: 1px solid #000;
-
     height: 115px;
     display: flex;
     align-items: center;
@@ -331,24 +322,12 @@ export default {
         font-family:PingFangSC-Regular,PingFang SC;
         .information-box {
             display: flex;
-            align-items: center;
             padding-top: 15px;
-            // .van-tag {
-            //     padding: 2px  5px;
-            //     font-size: 12px;
-            //     transform: scale(0.7);
-            //     background-color: #20212A;
-            // }
-            p:nth-child(1) {
-                border:1px solid #FF3750;
-                color:#FF3750;
-                height: 16px;
-                line-height: 16px;
+            .van-tag {
+                padding: 2px  5px;
                 font-size: 12px;
                 transform: scale(0.7);
-                padding: 2px 5px;
-                border-radius: 3px;
-                margin-top: 3px;
+                background-color: #20212A;
             }
             .information-information {
                 font-size:12px;

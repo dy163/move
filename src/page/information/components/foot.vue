@@ -7,10 +7,10 @@
                 <div class="information-front-name">
                     <p class="information-title">{{ item.title }}</p>
                     <div class="information-box">
-                        <p>
+                        <!-- <p>
                             <span class="information-roof">{{ item.roof }}</span>
-                        </p>
-                        <!-- <van-tag type="danger" size="medium" plain>标签</van-tag> -->
+                        </p> -->
+                        <van-tag type="danger" size="medium" plain>标签</van-tag>
                         <p class="information-information">
                             <span>{{ item.trusts }}</span>
                             <span>{{ item.timer }}</span>
@@ -61,24 +61,23 @@ export default {
         }
         .information-box {
             display: flex;
-            align-items: center;
             padding-top: 15px;
-            // .van-tag {
-            //     padding: 2px  5px;
-            //     // font-size: 12px;
-            //     transform: scale(0.7);
-            //     background-color: #20212A;
-            // }
-            p:nth-child(1) {
-                border:1px solid #FF3750;
-                color:#FF3750;
-                height: 16px;
-                line-height: 16px;
+            .van-tag {
+                padding: 2px  5px;
                 font-size: 12px;
                 transform: scale(0.7);
-                padding: 2px 5px;
-                border-radius: 3px;
-                margin-top: 3px;
+                background-color: #20212A;
+            }
+            // p:nth-child(1) {
+            //     border:1px solid #FF3750;
+            //     color:#FF3750;
+            //     height: 16px;
+            //     line-height: 16px;
+            //     font-size: 12px;
+            //     transform: scale(0.7);
+            //     padding: 2px 5px;
+            //     border-radius: 3px;
+            //     margin-top: 3px;
 
                 // height: 0.68em;
                 // line-height: 0.68em;
@@ -86,7 +85,7 @@ export default {
                 // padding: 0.2em 0.3em;
                 // border-radius: 3px;
                 // margin-right: 5px;
-            }
+            // }
             .information-information {
                 font-size: 12px;
                 font-weight:400;
