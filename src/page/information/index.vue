@@ -32,7 +32,7 @@
                                 </div>
                             </div>
                             <div class="img">
-                                <img src="@/assets/Rectangle.png" alt="">
+                                <img src="@/assets/img/blank-picture.png" alt="">
                             </div>
                         </div>
                     </van-list>
@@ -84,7 +84,7 @@
                             <p class="information-name">{{ item.source }}<span>{{ item.date }}</span></p>
                         </div>
                         <div class="img">
-                            <img src="@/assets/Rectangle.png" alt="">
+                            <img src="@/assets/img/blank-picture.png" alt="">
                         </div>
                     </div>
                     </van-list>
