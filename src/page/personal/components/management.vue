@@ -8,7 +8,7 @@
         <span></span>
         <p>手机号</p>
       </div>
-      <div @click="$router.push('/modify')">
+      <div>
         <span>{{ phone }}</span>
         <van-icon name="arrow" color="#7F819B" />
       </div>
@@ -37,6 +37,7 @@
 </template>
 
 <script>
+import { getUserInfo } from '@/api/user.js'
 export default {
   name: "Management",
   data() {
@@ -44,17 +45,20 @@ export default {
       phone: ""
     };
   },
-  created() {
-    const tel = window.localStorage.getItem("phone");
-    const tell = "" + tel;
-    const reg = /^[1][3,4,5,7,8][0-9]{9}$/;
-    const account = reg.test(tel)
-      ? tel.replace(tell.substring(3, 7), "****")
-      : tel.replace(tell.substring(3, 8), "*****");
-    this.phone = account;
+  async created() {
+    try {
+        const res = await getUserInfo()
+        const tel = res.data.result.phone
+        const tell = "" + tel;
+        this.phone = tel.replace(tell.substring(3, 7), "****")
+      } catch (error) {
+        console.log(error)
+      }
   },
 
-  methods: {}
+  methods: {
+    
+  }
 };
 </script>
 

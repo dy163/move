@@ -24,12 +24,12 @@
     <div class="myself-content">
       <p>姓名</p>
       <div class="myself-content-value">
-        <p class="myself-content-name">张某某</p>
+        <p class="myself-content-name">{{ name }}</p>
       </div>
     </div>
     <div class="myself-content">
       <p>简介</p>
-      <div class="myself-content-value" @click="showPopup">
+      <div class="myself-content-value" @click="show = true">
         <p class="myself-content-brief">用一段话介绍自己</p>
         <van-icon name="arrow" />
       </div>
@@ -42,9 +42,9 @@
       :close-on-click-overlay="false"
     >
       <div class="myself-header">
-        <van-icon name="arrow-left" @click="closeClick"/>
+        <van-icon name="arrow-left" @click="show = false"/>
         <p class="myself-letter">编辑简介</p>
-        <p class="myself-fulfil" @click="closeClick">完成</p>
+        <p class="myself-fulfil" @click="show = false">完成</p>
       </div>
       <div class="popup-content">
         <textarea 
@@ -61,11 +61,14 @@
 <script>
 import { uploadImg, updateHeaderImg } from "@/api/user";
 const http = "http://192.168.3.79:8080"
+
 export default {
   name: "Myself",
   data() {
     return {
       show: false,
+      name:'',
+      headerPortrait: '',
       number: 50,
       items: {
         text: ""
@@ -73,9 +76,21 @@ export default {
     };
   },
 
+  // async created() {
+  //   try {
+  //     const res = await getUserInfo()
+  //     const a = http + res.data.result.header_img
+  //     this.headerPortrait =  a?  a : headerPortrait
+  //     this.name = res.data.result.username
+  //   } catch (error) {
+  //     console.log(error)
+  //   }
+  // },
   created() {
-    const portrait = window.localStorage.getItem('headerPortrait')
-    this.headerPortrait = http + portrait;
+    this.headerPortrait =http + window.localStorage.getItem('header_img')
+    this.name = window.localStorage.getItem('username')
+    // const portrait = window.localStorage.getItem('headerPortrait')
+    // this.headerPortrait = http + portrait;
   },
 
   watch: {
@@ -92,20 +107,17 @@ export default {
 
   methods: {
     onClickRight() {},
-    showPopup() {
-      this.show = true;
-    },
-    closeClick() {
-      this.show = false;
-    },
     // 上传图片
     async headerClick(file) {
       try {
+        //先走上传图片路径
         const res = await uploadImg(file);
-        window.localStorage.setItem('headerPortrait',res.data.result)
+        const headerPortrait = res.data.result
+        window.localStorage.setItem('headerPortrait',headerPortrait)
         const formData = new FormData();         
-        formData.append("header_img", res.data.result);
-        await updateHeaderImg(formData)
+        formData.append("header_img", headerPortrait);
+        const data = await updateHeaderImg(formData)
+        console.log(data)
       } catch (error) {
         this.$toast('头像上传失败')
         console.log(error)

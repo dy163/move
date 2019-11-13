@@ -6,7 +6,7 @@ const request = axios.create({
   baseURL: 'http://192.168.3.79:8080'
 })
 
-// Add a request interceptor（添加请求拦截器）
+// Add a request interceptor（请求拦截器）
 request.interceptors.request.use(
   config => {
    let token = localStorage.getItem("sessionid");
@@ -20,7 +20,7 @@ request.interceptors.request.use(
  
   });
 
-// Add a response interceptor
+// Add a response interceptor(响应拦截器)
 request.interceptors.response.use(function (response) {
   // Do something with response data
   return response

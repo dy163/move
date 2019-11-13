@@ -42,7 +42,7 @@
   </div>
 </template>
 <script>
-import { login } from "@/api/user";
+import { login, getUserInfo } from "@/api/user";
 export default {
   name: "LoginIndex",
   data() {
@@ -54,6 +54,7 @@ export default {
   created() {
     this.$toast.setDefaultOptions({ duration: 800 });
   },
+ 
 
   methods: {
     // 登录验证手机
@@ -77,10 +78,29 @@ export default {
           formData.append("account", this.account);
           formData.append("password", this.password);
           const res = await login(formData);
+          // this.$store.commit()
           const token = res.data.result;
           // 返回得token值存储到本地
-          window.localStorage.setItem("phone", phone);
           window.localStorage.setItem("sessionid", token.sessionid);
+          // const data = await getUserInfo()
+          // console.log(data)
+
+
+          const data = await getUserInfo()
+          window.localStorage.setItem('ID_card_number',data.data.result.ID_card_number)
+          window.localStorage.setItem('edu_bg',data.data.result.edu_bg)
+          window.localStorage.setItem('header_img',data.data.result.header_img)
+          window.localStorage.setItem('intro',data.data.result.intro)
+          window.localStorage.setItem('last_login_time',data.data.result.last_login_time)
+          window.localStorage.setItem('login_number',data.data.result.login_number)
+          window.localStorage.setItem('phone',data.data.result.phone)
+          window.localStorage.setItem('position',data.data.result.position)
+          window.localStorage.setItem('reg_time',data.data.result.reg_time)
+          window.localStorage.setItem('usercode',data.data.result.usercode)
+          window.localStorage.setItem('username',data.data.result.username)
+
+
+
           if (res.data.status) {
             this.$router.push("/personal");
           }
@@ -97,6 +117,24 @@ export default {
         password.type = "text";
       } else if (password.type === "text") {
         password.type = "password";
+      }
+    },
+    async getUserInfo() {
+      try {
+        const res = await getUserInfo()
+        window.localStorage.setItem('ID_card_number',res.data.result.ID_card_number)
+        window.localStorage.setItem('edu_bg',res.data.result.edu_bg)
+        window.localStorage.setItem('header_img',res.data.result.header_img)
+        window.localStorage.setItem('intro',res.data.result.intro)
+        window.localStorage.setItem('last_login_time',res.data.result.last_login_time)
+        window.localStorage.setItem('login_number',res.data.result.login_number)
+        window.localStorage.setItem('phone',res.data.result.phone)
+        window.localStorage.setItem('position',res.data.result.position)
+        window.localStorage.setItem('reg_time',res.data.result.reg_time)
+        window.localStorage.setItem('usercode',res.data.result.usercode)
+        window.localStorage.setItem('username',res.data.result.username)
+      } catch (error) {
+        
       }
     }
   }

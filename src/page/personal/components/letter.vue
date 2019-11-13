@@ -13,7 +13,7 @@
           <img :src="headerPortrait" />
           <!-- <img src="@/assets/img/portrait.png" alt=""> -->
           <!-- <img src="@/assets/小哥.jpg" alt=""> -->
-          <p>张某某</p>
+          <p>{{ name }}</p>
         </div>
         <div class="letter-dynamic">
           <img src="@/assets//img/hollow.png" alt="">
@@ -24,17 +24,19 @@
 
 <script>
 const http = "http://192.168.3.79:8080"
+
 export default {
   name: 'Letter',
   data () {
     return {
-      headerPortrait: require("@/assets/img/portrait.png")
+      name: '',
+      headerPortrait: ''
     }
   },
   created() {
-    const portrait = window.localStorage.getItem('headerPortrait')
-    this.headerPortrait = http + portrait;
-  }
+    this.headerPortrait =http + window.localStorage.getItem('header_img')
+    this.name = window.localStorage.getItem('username')
+  },
 }
 </script>
 
