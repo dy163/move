@@ -10,8 +10,8 @@
           </p>
         </div>
         <div class="letter-content">
-          <!-- <img src="@/assets/Bitmap Copy.png" alt=""> -->
-          <img src="@/assets/img/portrait.png" alt="">
+          <img :src="headerPortrait" />
+          <!-- <img src="@/assets/img/portrait.png" alt=""> -->
           <!-- <img src="@/assets/小哥.jpg" alt=""> -->
           <p>张某某</p>
         </div>
@@ -23,12 +23,17 @@
 </template>
 
 <script>
+const http = "http://192.168.3.79:8080"
 export default {
   name: 'Letter',
   data () {
     return {
-
+      headerPortrait: require("@/assets/img/portrait.png")
     }
+  },
+  created() {
+    const portrait = window.localStorage.getItem('headerPortrait')
+    this.headerPortrait = http + portrait;
   }
 }
 </script>

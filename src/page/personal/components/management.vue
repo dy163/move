@@ -45,7 +45,7 @@ export default {
     };
   },
   created() {
-    const tel = window.sessionStorage.getItem("phone");
+    const tel = window.localStorage.getItem("phone");
     const tell = "" + tel;
     const reg = /^[1][3,4,5,7,8][0-9]{9}$/;
     const account = reg.test(tel)

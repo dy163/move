@@ -9,7 +9,7 @@ const request = axios.create({
 // Add a request interceptor（添加请求拦截器）
 request.interceptors.request.use(
   config => {
-   let token = sessionStorage.getItem("sessionid");
+   let token = localStorage.getItem("sessionid");
    if(token) { // 判断是否存在token，如果存在的话，则每个http header都加上token
     config.headers.token = `${token}`;
    }

@@ -102,7 +102,7 @@ export default {
         const res = await uploadImg(file);
         this.faceImg = http + res.data.result;
         this.show = true;
-        window.sessionStorage.setItem("ID_card_front", res.data.result);
+        window.localStorage.setItem("ID_card_front", res.data.result);
       } catch (error) {
         this.$toast("操作失败");
         console.log(error);
@@ -115,7 +115,7 @@ export default {
         const res = await uploadImg(file);
         this.backlightingImg = http + res.data.result;
         this.side = true;
-        window.sessionStorage.setItem("ID_card_reverse", res.data.result);
+        window.localStorage.setItem("ID_card_reverse", res.data.result);
       } catch (error) {
         this.$toast("操作失败");
         console.log(error);
@@ -128,7 +128,7 @@ export default {
         const res = await uploadImg(file);
         this.holdImg = http + res.data.result;
         this.self = true;
-        window.sessionStorage.setItem("ID_card_and_myself", res.data.result);
+        window.localStorage.setItem("ID_card_and_myself", res.data.result);
         if (this.show !== true) {
           this.$toast("请上传身份证正面");
         } else if (this.side !== true) {

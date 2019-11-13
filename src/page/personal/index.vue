@@ -5,15 +5,8 @@
     </van-nav-bar>
     <!-- 个人简介 -->
     <div class="personal-name">
-        <!-- <van-uploader
-          capture="camera"
-          :after-read="headerClick"
-          accept="image/png, image/jpeg, image/gif"
-          result-type="text"
-        >
         <img :src="headerPortrait" />
-        </van-uploader> -->
-        <img src="@/assets/img/portrait.png" alt="">
+        <!-- <img src="@/assets/img/portrait.png" alt=""> -->
       <div @click="$router.push('/letter')">
         <p>Xy_</p>
         <p>暂无个人简介</p>
@@ -52,16 +45,17 @@
 </template>
 
 <script>
-
+const http = "http://192.168.3.79:8080"
 export default {
   name: "PersonalIndex",
   data() {
     return {
-      // headerPortrait: require('@/assets/img/portrait.png')
+      headerPortrait: require('@/assets/img/portrait.png')
     };
   },
   created () {
-    
+    const portrait = window.localStorage.getItem('headerPortrait')
+    this.headerPortrait = http + portrait;
   },
   methods: {
     // async headerClick(file) {

@@ -14,15 +14,15 @@
           accept="image/png, image/jpeg, image/gif"
           result-type="text"
         >
-        <!-- <img :src="headerPortrait" /> -->
-        <img src="@/assets/img/portrait.png" alt="">
+        <img :src="headerPortrait" />
+        <!-- <img src="@/assets/img/portrait.png" alt=""> -->
         <!-- <img src="@/assets/小哥.jpg" alt /> -->
         </van-uploader>
         <van-icon name="arrow" />
       </div>
     </div>
     <div class="myself-content">
-      <p>昵称</p>
+      <p>姓名</p>
       <div class="myself-content-value">
         <p class="myself-content-name">张某某</p>
       </div>

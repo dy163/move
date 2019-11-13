@@ -79,8 +79,8 @@ export default {
           const res = await login(formData);
           const token = res.data.result;
           // 返回得token值存储到本地
-          window.sessionStorage.setItem("phone", phone);
-          window.sessionStorage.setItem("sessionid", token.sessionid);
+          window.localStorage.setItem("phone", phone);
+          window.localStorage.setItem("sessionid", token.sessionid);
           if (res.data.status) {
             this.$router.push("/personal");
           }
