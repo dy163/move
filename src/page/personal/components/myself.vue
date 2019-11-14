@@ -75,24 +75,11 @@ export default {
       }
     };
   },
-
-  // async created() {
-  //   try {
-  //     const res = await getUserInfo()
-  //     const a = http + res.data.result.header_img
-  //     this.headerPortrait =  a?  a : headerPortrait
-  //     this.name = res.data.result.username
-  //   } catch (error) {
-  //     console.log(error)
-  //   }
-  // },
-  created() {
-    this.headerPortrait =http + window.localStorage.getItem('header_img')
+  async created() {
     this.name = window.localStorage.getItem('username')
-    // const portrait = window.localStorage.getItem('headerPortrait')
-    // this.headerPortrait = http + portrait;
+    const portrait = window.localStorage.getItem('header_img')
+    this.headerPortrait = http + portrait;
   },
-
   watch: {
     items: {
       handler: function() {
@@ -113,11 +100,11 @@ export default {
         //先走上传图片路径
         const res = await uploadImg(file);
         const headerPortrait = res.data.result
-        window.localStorage.setItem('headerPortrait',headerPortrait)
+        this.$store.commit('setClickImg', headerPortrait)
         const formData = new FormData();         
         formData.append("header_img", headerPortrait);
-        const data = await updateHeaderImg(formData)
-        console.log(data)
+        await updateHeaderImg(formData)
+        this.headerPortrait = http + headerPortrait
       } catch (error) {
         this.$toast('头像上传失败')
         console.log(error)

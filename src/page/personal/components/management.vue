@@ -37,7 +37,6 @@
 </template>
 
 <script>
-import { getUserInfo } from '@/api/user.js'
 export default {
   name: "Management",
   data() {
@@ -45,15 +44,11 @@ export default {
       phone: ""
     };
   },
-  async created() {
-    try {
-        const res = await getUserInfo()
-        const tel = res.data.result.phone
-        const tell = "" + tel;
-        this.phone = tel.replace(tell.substring(3, 7), "****")
-      } catch (error) {
-        console.log(error)
-      }
+  created() {
+    const tel = window.localStorage.getItem('phone')
+    const tell = "" + tel;
+    this.phone = tel.replace(tell.substring(3, 7), "****")
+  
   },
 
   methods: {

@@ -47,6 +47,7 @@ export default {
   name: "LoginIndex",
   data() {
     return {
+      userInfo:{},
       account: "18636235298",
       password: "dy123456"
     };
@@ -82,25 +83,18 @@ export default {
           const token = res.data.result;
           // 返回得token值存储到本地
           window.localStorage.setItem("sessionid", token.sessionid);
-          // const data = await getUserInfo()
-          // console.log(data)
-
-
           const data = await getUserInfo()
-          window.localStorage.setItem('ID_card_number',data.data.result.ID_card_number)
-          window.localStorage.setItem('edu_bg',data.data.result.edu_bg)
-          window.localStorage.setItem('header_img',data.data.result.header_img)
-          window.localStorage.setItem('intro',data.data.result.intro)
-          window.localStorage.setItem('last_login_time',data.data.result.last_login_time)
-          window.localStorage.setItem('login_number',data.data.result.login_number)
-          window.localStorage.setItem('phone',data.data.result.phone)
-          window.localStorage.setItem('position',data.data.result.position)
-          window.localStorage.setItem('reg_time',data.data.result.reg_time)
-          window.localStorage.setItem('usercode',data.data.result.usercode)
-          window.localStorage.setItem('username',data.data.result.username)
-
-
-
+          this.$store.commit('setClickCard', data.data.result.ID_card_number)
+          this.$store.commit('setClickEdu', data.data.result.edu_bg)
+          this.$store.commit('setClickImg', data.data.result.header_img)
+          this.$store.commit('setClickIntro', data.data.result.intro)
+          this.$store.commit('setClickTime', data.data.result.last_login_time)
+          this.$store.commit('setClickNumber', data.data.result.login_number)
+          this.$store.commit('setClickPhone', data.data.result.phone)
+          this.$store.commit('setClickPosition', data.data.result.position)
+          this.$store.commit('setClickReg', data.data.result.reg_time)
+          this.$store.commit('setClickUsercode', data.data.result.usercode)
+          this.$store.commit('setClickUsername', data.data.result.username)
           if (res.data.status) {
             this.$router.push("/personal");
           }
@@ -117,24 +111,6 @@ export default {
         password.type = "text";
       } else if (password.type === "text") {
         password.type = "password";
-      }
-    },
-    async getUserInfo() {
-      try {
-        const res = await getUserInfo()
-        window.localStorage.setItem('ID_card_number',res.data.result.ID_card_number)
-        window.localStorage.setItem('edu_bg',res.data.result.edu_bg)
-        window.localStorage.setItem('header_img',res.data.result.header_img)
-        window.localStorage.setItem('intro',res.data.result.intro)
-        window.localStorage.setItem('last_login_time',res.data.result.last_login_time)
-        window.localStorage.setItem('login_number',res.data.result.login_number)
-        window.localStorage.setItem('phone',res.data.result.phone)
-        window.localStorage.setItem('position',res.data.result.position)
-        window.localStorage.setItem('reg_time',res.data.result.reg_time)
-        window.localStorage.setItem('usercode',res.data.result.usercode)
-        window.localStorage.setItem('username',res.data.result.username)
-      } catch (error) {
-        
       }
     }
   }
