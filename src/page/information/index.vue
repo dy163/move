@@ -7,13 +7,20 @@
             </div>
         </van-nav-bar>
         <div>
-            <van-tabs class="information-tabs" v-model="active" background="#20212A" title-inactive-color="#fff" title-active-color="#5794F0" line-height="0">
+            <van-tabs 
+            class="information-tabs" 
+            v-model="active"
+            background="#20212A" 
+            title-inactive-color="#fff" 
+            title-active-color="#5794F0" 
+            line-height="0"
+            sticky>
                 <!-- 要闻 -->
                 <van-tab title="要闻" class="information-front-page">
-                    <div class="information-front-page-top" :style="porfit">
+                    <div class="information-front-page-top">
                         <img src="@/assets/img/diagram.png" alt="">
                         <div class="information-front-page-among">
-                            <p><img src="@/assets/img/involved.png" alt=""></p>
+                            <img src="@/assets/img/involved.png">
                             <p>【科创板成交额突破200亿元】财联社7月23日讯，科创板25家公司今日成交额突破20…</p>
                         </div>
                     </div>
@@ -108,10 +115,6 @@ export default {
   data () {
     return {
       active: 'propelling',
-      porfit: {
-        backgroundImage: 'url(' + require('@/assets/img/diagram.png') + ')',
-        backgroundRepeat: 'no-repeat'
-      },
       loading: false,
       finished: false,
       hot: [
@@ -191,13 +194,11 @@ export default {
         font-weight:500;
     }
     /deep/.van-tabs__wrap {
-        position: fixed;
         top: 46px;
-        width: 100%;
         background-color: #20212A;
     }
     /deep/ .van-tabs__content {
-        margin-top: 90px;
+        margin-top: 46px;
     }
     /deep/.van-tabs__nav {
         margin-right: 130px;
@@ -294,15 +295,16 @@ export default {
         img {
             width: 45px;
             height: 40px;
-            padding-right: 13px;
+            margin: 0 15px;
         }
-        p:nth-child(2) {
+        p {
             height:40px;
             font-size:13px;
             font-family:PingFangSC-Regular,PingFangSC;
             font-weight:400;
             color:rgba(255,255,255,1);
             line-height:20px;
+            padding-right: 15px;
         }
     }
 }
