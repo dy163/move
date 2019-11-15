@@ -5,7 +5,7 @@
             :value="value"
             @input="$emit('input', $event)"
             position="bottom"
-            :close-on-click-overlay="leave">
+            :close-on-click-overlay="false">
                 <div class="purchase-popup">
                     <div class="purchase-add">
                         <img src="@/assets/img/close.png" @click="handleClickCancel">
@@ -17,6 +17,7 @@
                                 <img src="@/assets/img/reduce.png"  @click="priceReduceClick">
                                 <input type="text" v-model="price">
                                 <img src="@/assets/img/plus.png" @click="pricePlusClick">
+                                <!-- <van-stepper v-model="valueot" step="0.002" :decimal-length="3"/> -->
                             </p>
                         </div>
                         <p class="purchase-show">最小价格变化0.001</p>
@@ -70,7 +71,7 @@
         </form>
         <!-- 确定买入的遮罩层展示 -->
         <div class="purchase-cue">
-            <van-popup v-model="shows" :close-on-click-overlay="leave">
+            <van-popup v-model="shows" :close-on-click-overlay="false">
                 <div>
                     <p>由于订单金额过小，无法支付手续费，请修改卖出股数重新提交订单</p>
                     <van-button round @click.prevent="shows = false">确 定</van-button>
@@ -91,7 +92,7 @@ export default {
   },
   data () {
     return {
-      leave: false,
+    //   valueot: '',  
       radio: '',
       shows: false,
       showes: false,

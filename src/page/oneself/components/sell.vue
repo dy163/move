@@ -5,7 +5,7 @@
             :value="value"
             @input="$emit('input', $event)"
             position="bottom"
-            :close-on-click-overlay="leave">
+            :close-on-click-overlay="false">
                 <div class="sell-popup">
                     <div class="sell-add">
                         <img src="@/assets/img/close.png" @click="handleClickCancel">
@@ -68,7 +68,7 @@
         </form>
         <!-- 下单确定卖出数量提示的遮罩层 -->
         <div class="sell-cue">
-            <van-popup v-model="shows" :close-on-click-overlay="leave">
+            <van-popup v-model="shows" :close-on-click-overlay="false">
                 <div>
                     <p>由于订单金额过小，无法支付手续费，请修改卖出股数重新提交订单</p>
                     <van-button round @click.prevent="handleClickConfiom">确 定</van-button>
@@ -89,7 +89,6 @@ export default {
   },
   data () {
     return {
-      leave: false,
       radio: '',
       shows: false,
       showes: false,
