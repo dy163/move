@@ -135,6 +135,24 @@ export default new Router({
       path: '/letter',
       component: () => import('@/page/personal/components/letter')
     },
+    // 成交查询
+    {
+      name: 'inquire',
+      path: '/inquire',
+      component: () => import('@/page/personal/components/inquire')
+    },
+    // // 成交查询
+    // {
+    //   name: 'inquire',
+    //   path: '/inquire',
+    //   component: () => import('@/page/personal/components/inquire')
+    // },
+    // // 成交查询
+    // {
+    //   name: 'inquire',
+    //   path: '/inquire',
+    //   component: () => import('@/page/personal/components/inquire')
+    // },
 
     // 自选股票 oneself
     {

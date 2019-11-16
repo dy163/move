@@ -26,7 +26,7 @@
       <!-- 成交查询 -->
       <div>
         <img src="@/assets/img/deal.png"/>
-        <router-link to="/order-list">成交查询</router-link>
+        <router-link to="/inquire">成交查询</router-link>
       </div>
       <!-- 委托查询 -->
       <div>
