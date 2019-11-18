@@ -141,12 +141,12 @@ export default new Router({
       path: '/inquire',
       component: () => import('@/page/personal/components/inquire')
     },
-    // // 成交查询
-    // {
-    //   name: 'inquire',
-    //   path: '/inquire',
-    //   component: () => import('@/page/personal/components/inquire')
-    // },
+    // 成交查询
+    {
+      name: 'entrust',
+      path: '/entrust',
+      component: () => import('@/page/personal/components/entrust')
+    },
     // // 成交查询
     // {
     //   name: 'inquire',

@@ -31,7 +31,7 @@
       <!-- 委托查询 -->
       <div>
         <img src="@/assets/img/entrust.png"/>
-        <router-link to="/order-list">委托查询</router-link>
+        <router-link to="/entrust">委托查询</router-link>
       </div>
       <!-- 交割单查询 -->
       <div>
