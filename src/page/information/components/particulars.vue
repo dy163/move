@@ -3,7 +3,6 @@
         <van-nav-bar title="资 讯 详 情" fixed>
             <div slot="right">
                 <img src="@/assets/img/search.png" alt="" style="vertical-align:middle" class="nav-img">
-                <img src="@/assets/img/refresh.png" alt="" style="vertical-align:middle" class="nav-img">
             </div>
         </van-nav-bar>
         <p class="particulars-title">【美股收盘】科技行业摆脱新的监管威胁纳指和标普500双双创下历史新高</p>

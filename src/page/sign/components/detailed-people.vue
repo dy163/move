@@ -6,31 +6,61 @@
     <p>请确认您的个人信息，请手动填写</p>
     <form>
       <van-cell-group>
-        <van-field label="姓名" v-model="username" />
+        <van-field label="姓名" v-model="username" placeholder="请输入姓名"/>
       </van-cell-group>
       <van-cell-group>
-        <van-field label="身份证号" v-model="cards" />
+        <van-field label="身份证号" v-model="cards" placeholder="请输入身份证号"/>
       </van-cell-group>
       <van-cell-group>
-        <van-field label="密码" v-model="password" type="password" />
+        <van-field label="密码" v-model="password" type="password" placeholder="请输入密码"/>
       </van-cell-group>
       <van-cell-group>
-        <van-field label="确认密码" v-model="repassword" type="password" />
+        <van-field label="确认密码" v-model="repassword" type="password" placeholder="请再次输入密码"/>
       </van-cell-group>
-      <!-- 下拉选择框 -->
-      <div class="relative">
-        <p>学历</p>
-        <van-dropdown-menu>
-          <van-dropdown-item v-model="record" :options="edu_bg" />
-        </van-dropdown-menu>
-        <van-icon name="arrow-down" class="relative-icon" size="16" />
+      <!-- ******学历 -->
+      <div class="selectBox">
+        <div class="selectBox_show" v-on:click.stop="isShowSelect = !isShowSelect">
+          <van-cell-group>
+            <van-field
+              label="学历"
+              v-model="unitModel"
+              placeholder="请选择学历"
+              disabled
+              right-icon="arrow-down"
+            />
+          </van-cell-group>
+        </div>
+        <div class="selectBox_list" v-show="isShowSelect">
+          <div
+            class="selectBox_listLi"
+            v-for="(item, index) in edu_bg"
+            :key="item.id"
+            @click.stop="select(item, index)"
+          >{{item.value}}</div>
+        </div>
       </div>
-      <div class="relative">
-        <p class="relative-name">职业</p>
-        <van-dropdown-menu>
-          <van-dropdown-item v-model="profession" :options="position" />
-        </van-dropdown-menu>
-        <van-icon name="arrow-down" class="relative-icon" size="16" />
+      <!-- *******职业 -->
+      <div class="selectBox">
+        <div class="selectBox_show" v-on:click.stop="isShowPosition = !isShowPosition">
+          <!-- <input type="text" name="unit" v-model="unitModel"  placeholder="请选择" disabled/> -->
+          <van-cell-group>
+            <van-field
+              label="职业"
+              v-model="unitPosition"
+              placeholder="请选择职业"
+              disabled
+              right-icon="arrow-down"
+            />
+          </van-cell-group>
+        </div>
+        <div class="selectBox_list" v-show="isShowPosition">
+          <div
+            class="selectBox_listLi"
+            v-for="(item, index) in position"
+            :key="item.id"
+            @click.stop="selectPosition(item, index)"
+          >{{item.value}}</div>
+        </div>
       </div>
       <div class="login-btn-box">
         <van-button class="login-btn" @click.prevent="handleClick">下一步</van-button>
@@ -52,17 +82,22 @@ export default {
       repassword: "",
       record: "",
       profession: "",
+      unitModel: "",
+      isShowSelect: false,
       edu_bg: [
-        { text: "本科", value: 0 },
-        { text: "硕士", value: 1 },
-        { text: "研究生", value: 2 },
-        { text: "其他", value: 3 }
+        { key: 0, value: "本科" },
+        { key: 1, value: "硕士" },
+        { key: 2, value: "研究生" },
+        { key: 3, value: "其他" }
       ],
+      unitPosition: "",
+      isShowPosition: false,
       position: [
-        { text: "运维工程师", value: 0 },
-        { text: "前端工程师", value: 1 },
-        { text: "其他", value: 2 }
-      ]
+        { key: 0, value: "运维工程师" },
+        { key: 1, value: "前端工程师" },
+        { key: 2, value: "大人" },
+        { key: 3, value: "其他" }
+      ],
     };
   },
 
@@ -71,6 +106,18 @@ export default {
   },
 
   methods: {
+    // 选择学历方法
+    select(item, index) {
+      this.isShowSelect = false;
+      this.unitModel = item.value;
+      window.localStorage.setItem("edu_bg", this.unitModel);
+    },
+    // 选择职业方法
+    selectPosition(item, index) {
+      this.isShowPosition = false;
+      this.unitPosition = item.value;
+      window.localStorage.setItem("position", this.unitPosition);
+    },
     handleClick() {
       // 正则验证
       const regCards = /^[0-9]{6,20}$/;
@@ -83,28 +130,50 @@ export default {
         this.$toast("密码太过简单");
       } else if (this.password !== this.repassword) {
         this.$toast("两次输入密码不一样");
-      } else if (this.edu_bg === "") {
+      } else if (!localStorage.getItem('edu_bg')) {
         this.$toast("请选择学历");
-      } else if (this.position === "") {
+      } else if (!localStorage.getItem('position')) {
         this.$toast("请选择职业");
       } else {
         window.localStorage.setItem("username", this.username);
         window.localStorage.setItem("ID_card_number", this.cards);
         window.localStorage.setItem("password", this.password);
         window.localStorage.setItem("repassword", this.repassword);
-        window.localStorage.setItem("edu_bg", this.edu_bg[this.record].text);
-        window.localStorage.setItem("position", this.position[this.profession].text);
         this.$router.push({
           name: "sign",
-          params: { type: "upload-documents" }
+          params: { type: "upload" }
         });
       }
-    }
+    },
   }
 };
 </script>
 
 <style lang="less" scoped>
+// 下拉框选择银行样式
+.selectBox {
+  position: relative;
+  .selectBox_list {
+    position: absolute;
+    color: #fff;
+    z-index: 99999;
+    background: rgba(23, 24, 34, 1);
+    width: 100%;
+    font-size: 14px;
+    .selectBox_listLi {
+      padding-left: 105px;
+      height: 50px;
+      line-height: 50px;
+    }
+  }
+  /deep/.van-field__control {
+    color: #fff;
+  }
+  /deep/.van-icon-arrow-down {
+    font-size: 14px;
+  }
+}
+// 其他
 p {
   color: #fff;
   padding: 15px;

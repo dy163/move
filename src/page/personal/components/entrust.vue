@@ -20,7 +20,6 @@
                 <van-col span="5">{{ item.title }}</van-col>
                 <van-col span="2">
                   <img src="@/assets/bill.png? @/assets/bill.png:@/assets/sell.png" />
-                  <!-- ? <img src="@/assets/bill.png" />:<img src="@/assets/sell.png" /> -->
                 </van-col>
                 <van-col span="5" class="table-money">{{ item.money }}</van-col>
                 <van-col span="7" class="entrust-content-big">{{ item.number }}</van-col>

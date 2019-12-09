@@ -2,8 +2,8 @@ import Vue from 'vue'
 import Router from 'vue-router'
 Vue.use(Router)
 
-export default new Router({
-  routes: [
+const router = new Router({
+  routes: [   
     // 登录
     {
       name: 'login',
@@ -93,24 +93,6 @@ export default new Router({
       path: '/deposit-amount',
       component: () => import('@/page/personal/components/deposit-amount')
     },
-    // 我的银行卡添加页面bank-card
-    {
-      name: 'bank-card',
-      path: '/bank-card',
-      component: () => import('@/page/personal/components/bank-card')
-    },
-    // 添加银行卡bank-card-information
-    {
-      name: 'bank-card-information',
-      path: '/bank-card-information',
-      component: () => import('@/page/personal/components/bank-card-information')
-    },
-    // 各种银行卡展示
-    {
-      name: 'bank-card-add',
-      path: '/bank-card-add',
-      component: () => import('@/page/personal/components/bank-card-add')
-    },
     // 支付协议payment-agreement
     {
       name: 'payment-agreement',
@@ -141,19 +123,25 @@ export default new Router({
       path: '/inquire',
       component: () => import('@/page/personal/components/inquire')
     },
-    // 成交查询
+    // 委托查询
     {
       name: 'entrust',
       path: '/entrust',
       component: () => import('@/page/personal/components/entrust')
     },
-    // // 成交查询
-    // {
-    //   name: 'inquire',
-    //   path: '/inquire',
-    //   component: () => import('@/page/personal/components/inquire')
-    // },
-
+    // 交割单查询
+    {
+      name: 'delivery',
+      path: '/delivery',
+      component: () => import('@/page/personal/components/delivery')
+    },
+    // 搜索股票 search
+    {
+      name: 'search',
+      path: '/search',
+      component: () => import('@/page/search')
+    },
+    
     // 自选股票 oneself
     {
       name: 'oneself',
@@ -163,8 +151,9 @@ export default new Router({
     // 交易界面（买入和卖出）
     {
       name: 'transaction',
+      // path: '/transaction/:q',
       path: '/transaction',
-      component: () => import('@/page/oneself/components/transaction')
+      component: () => import('@/page/transaction')
     },
 
     // 行情（quotation）
@@ -172,12 +161,19 @@ export default new Router({
       name: 'quotation',
       path: '/quotation',
       component: () => import('@/page/quotation')
-    },
-    // 行情详细展示
-    {
-      name: 'quotation-num',
-      path: '/quotation-num',
-      component: () => import('@/page/quotation/components/quotation-num')
     }
   ]
 })
+
+router.beforeEach((to, from, next) => {
+  // to and from are both route objects. must call `next`.
+  if (to.name === 'account') {
+    if (window.localStorage.getItem('sessionid')) {
+      router.replace('/capital')
+    }
+  }
+  next()
+})
+
+export default router
+

@@ -60,8 +60,9 @@ export default {
       this.active = 1
     } else if (this.$route.name === 'oneself') {
       this.active = 2
-    } else if (this.$route.name === '/') {
+    } else if (this.$route.name === 'capital') {
       this.active = 3
+      return
     } else if (this.$route.name === 'personal') {
       this.active = 4
     }

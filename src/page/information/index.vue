@@ -1,346 +1,109 @@
 <template>
-    <div class="information">
-        <van-nav-bar title="资 讯" fixed>
-            <div slot="right">
-                <img src="@/assets/img/search.png" class="nav-img">
-                <img src="@/assets/img/refresh.png" class="nav-img">
-            </div>
-        </van-nav-bar>
-        <div>
-            <van-tabs 
-            class="information-tabs" 
-            v-model="active"
-            background="#20212A" 
-            title-inactive-color="#fff" 
-            title-active-color="#5794F0" 
-            line-height="0"
-            sticky>
-                <!-- 要闻 -->
-                <van-tab title="要闻" class="information-front-page">
-                    <div class="information-front-page-top">
-                        <img src="@/assets/img/diagram.png" alt="">
-                        <div class="information-front-page-among">
-                            <img src="@/assets/img/involved.png">
-                            <p>【科创板成交额突破200亿元】财联社7月23日讯，科创板25家公司今日成交额突破20…</p>
-                        </div>
-                    </div>
-                    <van-list>
-                        <div class="information-front-page-foot"
-                        v-for="(item,index) in focus"
-                        :key="index">
-                            <div class="information-front-name">
-                                <p class="information-title">{{ item.title }}</p>
-                                <div class="information-box">
-                                    <van-tag type="danger" size="medium" plain>{{ item.roof }}</van-tag>
-                                    <p class="information-information">
-                                        <span>{{ item.trusts }}</span>
-                                        <span>{{ item.timer }}</span>
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="img">
-                                <img src="@/assets/img/blank-picture.png" alt="">
-                            </div>
-                        </div>
-                    </van-list>
-                    <!-- hot事件 -->
-                    <Hot/>
-                    <!-- 下面热点列表 -->
-                    <Foot/>
-                </van-tab>
-                <!-- 公告 -->
-                <van-tab title="公告" class="information-oneself">
-                    <van-list>
-                        <div
-                        v-for="(item, index) in Optional"
-                        :key="index">
-                            <p class="information-range">{{ item.name }}&nbsp;&nbsp;<span>{{ item.range }}</span></p>
-                            <p class="information-brief">{{ item.brief }}</p>
-                            <p class="information-time">{{ item.time }}</p>
-                        </div>
-                    </van-list>
-                </van-tab>
-                <!-- 自选 -->
-                <van-tab title="自选" class="information-oneself">
-                    <!-- <van-list
-                    v-model="loading"
-                    :finished="finished"
-                    finished-text="没有更多了"
-                    @load="onLoad"
-                    > -->
-                    <van-list>
-                        <div
-                        v-for="(item, index) in Optional"
-                        :key="index">
-                            <p class="information-head"> <span>{{ item.head }}</span></p>
-                            <p class="information-range">{{ item.name }}&nbsp;&nbsp;<span>{{ item.range }}</span></p>
-                            <p class="information-brief">{{ item.brief }}</p>
-                            <p class="information-time">{{ item.time }}</p>
-                        </div>
-                    </van-list>
-                </van-tab>
-                <!-- 推送 -->
-                <van-tab title="推送" name="propelling" class="information-push">
-                    <van-list>
-                    <div class="information-content"
-                    v-for="(item, index) in newsList"
-                    :key="index"
-                    @click="clickPush">
-                        <div>
-                            <p class="information-title">{{ item.title }}</p>
-                            <p class="information-name">{{ item.source }}<span>{{ item.date }}</span></p>
-                        </div>
-                        <div class="img">
-                            <img src="@/assets/img/blank-picture.png" alt="">
-                        </div>
-                    </div>
-                    </van-list>
-                </van-tab>
-            </van-tabs>
-        </div>
-        <!-- 底部导航 -->
-        <app-tabbar/>
+  <div class="information">
+    <van-nav-bar title="资 讯" fixed />
+    <div>
+      <van-tabs
+        class="information-tabs"
+        v-model="active"
+        background="#20212A"
+        title-inactive-color="#fff"
+        title-active-color="#5794F0"
+        line-height="0"
+        sticky
+      >
+        <!-- 要闻 -->
+        <van-tab title="要闻" class="information-front-page" name="propelling">
+          <FrontPageStory />
+          <!-- hot事件 -->
+          <Hot />
+          <!-- 下面热点列表 -->
+          <Foot />
+        </van-tab>
+        <!-- 公告 -->
+        <van-tab title="公告">
+          <Notice />
+        </van-tab>
+        <!-- 自选 -->
+        <van-tab title="自选">
+          <Free />
+        </van-tab>
+        <!-- 推送 -->
+        <van-tab title="推送" class="information-push" >
+          <Propelling />
+        </van-tab>
+      </van-tabs>
     </div>
+    <!-- 底部导航 -->
+    <app-tabbar />
+  </div>
 </template>
 
 <script>
-import Hot from './components/hot.vue'
-import Foot from './components/foot.vue'
+import FrontPageStory from "./components/frontPageStory.vue"; // 要闻
+import Hot from "./components/hot.vue"; // 要闻热点
+import Foot from "./components/foot.vue"; // 要闻推送
+import Free from "./components/free.vue"; // 自选
+import Notice from "./components/notice.vue"; // 公告
+import Propelling from "./components/propelling.vue"; // 公告
+
 export default {
-  name: 'InformationIndex',
+  name: "InformationIndex",
   components: {
     Hot,
-    Foot
+    Foot,
+    Free,
+    Notice,
+    FrontPageStory,
+    Propelling
   },
-  data () {
+  data() {
     return {
-      active: 'propelling',
-      loading: false,
-      finished: false,
-      hot: [
-        { title: '科创板来了！', content: '科创板开板！中国资本市场迎来历史性时刻。' },
-        { title: '科创板来了！', content: '科创板开板！中国资本市场迎来历史性时刻。' },
-        { title: '科创板来了！', content: '科创板开板！中国资本市场迎来历史性时刻。' }
-      ],
-      newsList: [
-        { title: '港股独角兽周年记：折翼的小米集团能在成资本宠儿么', source: '腾讯深网 今天', date: '11:26' },
-        { title: '港股独角兽周年记：折翼的小米集团能在成资本宠儿么', source: '腾讯深网 今天', date: '11:26' },
-        { title: '港股独角兽周年记：折翼的小米集团能在成资本宠儿么', source: '腾讯深网 今天', date: '11:26' },
-        { title: '港股独角兽周年记：折翼的小米集团能在成资本宠儿么', source: '腾讯深网 今天', date: '11:26' },
-        { title: '港股独角兽周年记：折翼的小米集团能在成资本宠儿么', source: '腾讯深网 今天', date: '11:26' },
-        { title: '港股独角兽周年记：折翼的小米集团能在成资本宠儿么', source: '腾讯深网 今天', date: '11:26' },
-        { title: '港股独角兽周年记：折翼的小米集团能在成资本宠儿么', source: '腾讯深网 今天', date: '11:26' },
-        { title: '港股独角兽周年记：折翼的小米集团能在成资本宠儿么', source: '腾讯深网 今天', date: '11:26' }
-      ],
-      Optional: [
-        { head: '今天', name: '贵州茅台（600519)', range: '-0.80%', brief: '茅台机场上半年运输指标位列贵州省支线机', time: '2019-07-24 13:13' },
-        { name: '贵州茅台（600519)', range: '-0.80%', brief: '茅台机场上半年运输指标位列贵州省支线机', time: '2019-07-24 13:13' },
-        { head: '今天', name: '贵州茅台（600519)', range: '-0.80%', brief: '茅台机场上半年运输指标位列贵州省支线机', time: '2019-07-24 13:13' },
-        { head: '今天', name: '贵州茅台（600519)', range: '-0.80%', brief: '茅台机场上半年运输指标位列贵州省支线机', time: '2019-07-24 13:13' },
-        { name: '贵州茅台（600519)', range: '-0.80%', brief: '茅台机场上半年运输指标位列贵州省支线机', time: '2019-07-24 13:13' },
-        { name: '贵州茅台（600519)', range: '-0.80%', brief: '茅台机场上半年运输指标位列贵州省支线机', time: '2019-07-24 13:13' },
-        { head: '今天', name: '贵州茅台（600519)', range: '-0.80%', brief: '茅台机场上半年运输指标位列贵州省支线机', time: '2019-07-24 13:13' },
-        { name: '贵州茅台（600519)', range: '-0.80%', brief: '茅台机场上半年运输指标位列贵州省支线机', time: '2019-07-24 13:13' },
-        { head: '今天', name: '贵州茅台（600519)', range: '-0.80%', brief: '茅台机场上半年运输指标位列贵州省支线机', time: '2019-07-24 13:13' }
-      ],
-      focus: [
-        { title: '长江证券：美股大幅反弹，与美国经济“背离”？', roof: '置顶', trusts: '长江证券研究', timer: '今天 12:35' },
-        { title: '长江证券：美股大幅反弹，与美国经济“背离”？', roof: '置顶', trusts: '长江证券研究', timer: '今天 12:35' },
-        { title: '长江证券：美股大幅反弹，与美国经济“背离”？', roof: '置顶', trusts: '长江证券研究', timer: '今天 12:35' }
-      ]
-    }
+      active: "propelling"
+    };
   },
-  methods: {
-    clickPush () {
-      this.$router.push('/particulars')
-    },
-    // 加载数据
-    onLoad () {
-      // 异步更新数据
-      setTimeout(() => {
-        for (let i = 0; i < 10; i++) {
-          this.list.push(this.list.length + 1)
-        }
-        // 加载状态结束
-        this.loading = false
-
-        // 数据全部加载完成
-        if (this.list.length >= 40) {
-          this.finished = true
-        }
-      }, 500)
-    }
-  }
-}
+  methods: {}
+};
 </script>
 
 <style lang="less" scoped>
 .van-nav-bar {
-    background-color: #20212A;
-    .nav-img {
-        margin-left: 18px;
-        width: 18px;
-        vertical-align: middle;
-    }
+  background-color: #20212a;
+  .nav-img {
+    margin-left: 18px;
+    width: 18px;
+    vertical-align: middle;
+  }
 }
 .van-tab__pane {
-    color: #fff;
+  color: #fff;
 }
 .information-tabs {
-    margin-bottom: 50px;
-    /deep/.van-ellipsis {
-        font-size:15px;
-        font-family:PingFangSC-Medium,PingFangSC;
-        font-weight:500;
-    }
-    /deep/.van-tabs__wrap {
-        top: 46px;
-        background-color: #20212A;
-    }
-    /deep/ .van-tabs__content {
-        margin-top: 46px;
-    }
-    /deep/.van-tabs__nav {
-        margin-right: 130px;
-    }
+  margin-bottom: 50px;
+  /deep/.van-ellipsis {
+    font-size: 15px;
+    font-family: PingFangSC-Medium, PingFangSC;
+    font-weight: 500;
+  }
+  /deep/.van-tabs__wrap {
+    top: 46px;
+    background-color: #20212a;
+  }
+  /deep/ .van-tabs__content {
+    margin-top: 46px;
+  }
+  /deep/.van-tabs__nav {
+    margin-right: 130px;
+  }
 }
 .van-tabbar-item__text {
-    height:14px;
-    font-size:10px;
-    font-family:PingFangSC;
-    font-weight:500;
-    line-height:14px;
+  height: 14px;
+  font-size: 10px;
+  font-family: PingFangSC;
+  font-weight: 500;
+  line-height: 14px;
 }
 .van-tabbar-item__icon {
-    width:18px;
-    height:18px;
-}
-.information-name {
-    height:16px;
-    font-size:11px;
-    font-family:PingFangSC;
-    font-weight:400;
-    color:rgba(106,109,131,1);
-    line-height:16px;
-    padding-top: 12px;
-}
-.information-push {
-    padding: 0 15px;
-    .information-title {
-        font-size:16px;
-        font-family:PingFangSC;
-        font-weight:500;
-        line-height:24px;
-        margin-right: 10px;
-    }
-    .information-content {
-        padding: 10px 0;
-        border-bottom: 1px solid #000;
-        display: flex;
-    }
-}
-.information-oneself {
-    padding: 0 15px;
-    .information-head {
-        font-size:18px;
-        font-family:PingFangSC;
-        font-weight:500;
-        color:rgba(255,255,255,1);
-    }
-    .information-range {
-        font-size:13px;
-        font-family:PingFangSC;
-        font-weight:500;
-        color:rgba(255,255,255,1);
-        height: 38px;
-        line-height: 38px;
-        span {
-            color: #35C089;
-        }
-    }
-    .information-brief {
-        font-size:16px;
-        font-family:PingFangSC;
-        font-weight:500;
-        color:rgba(255,255,255,1);
-        padding-bottom: 8px;
-    }
-    .information-time {
-        font-size:12px;
-        font-family:DINAlternate;
-        font-weight:bold;
-        color:rgba(126,130,156,1);
-        height: 35px;
-        border-bottom: 1px solid #14151C;
-        margin-bottom: 10px;
-    }
-
-}
-.information-front-page-top {
-    height: 180px;
-    position: relative;
-    margin-bottom: 60px;
-    img {
-        width: 100%;
-    }
-    .information-front-page-among {
-        position: absolute;
-        top: 167px;
-        margin: 0 15px;
-        height: 64px;
-        display: flex;
-        align-items: center;
-        background:rgba(38,39,50,1);
-        border-radius:8px;
-        img {
-            width: 45px;
-            height: 40px;
-            margin: 0 15px;
-        }
-        p {
-            height:40px;
-            font-size:13px;
-            font-family:PingFangSC-Regular,PingFangSC;
-            font-weight:400;
-            color:rgba(255,255,255,1);
-            line-height:20px;
-            padding-right: 15px;
-        }
-    }
-}
-.information-front-page-foot {
-    height: 115px;
-    display: flex;
-    align-items: center;
-    margin: 0 15px;
-    border-bottom: 1px solid #14151C;
-    .information-title {
-        font-size:16px;
-        font-family:PingFangSC;
-        font-weight:500;
-        line-height:24px;
-    }
-    .information-front-name {
-        font-family:PingFangSC-Regular,PingFang SC;
-        .information-box {
-            display: flex;
-            padding-top: 15px;
-            .van-tag {
-                padding: 2px  5px;
-                font-size: 12px;
-                transform: scale(0.7);
-                background-color: #20212A;
-            }
-            .information-information {
-                font-size:12px;
-                font-weight:400;
-                height: 16px;
-                color:rgba(126,130,156,1);
-                span {
-                    margin-right: 5px;
-                }
-            }
-        }
-    }
+  width: 18px;
+  height: 18px;
 }
 </style>

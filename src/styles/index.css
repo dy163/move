@@ -56,3 +56,18 @@ body {
 .van-button {
   border: 0;
 }
+.van-dialog {
+  background: #20212a;
+  color: #fff;
+}
+.van-dialog .van-button {
+  background: #20212a;
+  border: 0;
+  color: #fff;
+}
+.van-dialog .van-hairline--top::after {
+  border-top-width: 0;
+}
+.van-dialog [class*=van-hairline]::after {
+  border: 0;
+}

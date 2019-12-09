@@ -3,12 +3,12 @@
         <!-- hot事件 -->
         <div class="information-hot">
             <p>热点事件</p>
-            <p>查看更多</p>
+            <p @click="handleSee">查看更多</p>
         </div>
         <!-- 轮播热点信息 -->
         <div class="information-hot-news">
+            <!-- :autoplay="3000" -->
             <van-swipe
-            :autoplay="3000"
             indicator-color="white"
             :width="298"
             :show-indicators="false">
@@ -42,12 +42,15 @@ export default {
     }
   },
   methods: {
-
+    handleSee () {
+        console.log("*******")
+    }
   }
 
 }
 
 </script>
+
 <style lang='less' scoped>
 .information-hot {
     display: flex;

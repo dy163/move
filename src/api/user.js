@@ -139,7 +139,18 @@ export const updateHeaderImg = formData  => {
 }
 
 /**
- * 13.获取用户信息
+ * 13.更新个人简介
+ */
+export const updateIntro = formData  => {
+  return request({
+    method: 'POST',
+    url: '/user/updateIntro',
+    data: formData
+  })
+}
+
+/**
+ * 14.获取用户信息
  */
 export const getUserInfo = formData  => {
   return request({

@@ -36,7 +36,8 @@
         <router-link to="/sign/resetting" class="color-white">忘记密码</router-link>
       </div>
       <div class="register-fouter">
-        <router-link to="/sign/register" class="color-sapphire">没有账号？立即注册</router-link>
+        <!-- <router-link to="/sign/register" class="color-sapphire">没有账号？立即注册</router-link> -->
+        <router-link to="/" class="color-sapphire">没有账号？立即注册</router-link>
       </div>
     </form>
   </div>
@@ -48,14 +49,14 @@ export default {
   data() {
     return {
       userInfo:{},
-      account: "18636235298",
-      password: "dy123456"
+      // account: "18636235298",
+      account: "000000000001",
+      password: "123456"
     };
   },
   created() {
     this.$toast.setDefaultOptions({ duration: 800 });
   },
- 
 
   methods: {
     // 登录验证手机
@@ -72,14 +73,15 @@ export default {
           this.$toast("手机号格式错误");
         } else if (!pass) {
           this.$toast("请输入密码");
-        } else if (!passReg.test(pass)) {
-          this.$toast("密码过于简单");
-        } else {
+        } 
+        // else if (!passReg.test(pass)) {
+        //   this.$toast("密码过于简单");
+        // } 
+        else {
           const formData = new FormData();
           formData.append("account", this.account);
           formData.append("password", this.password);
           const res = await login(formData);
-          // this.$store.commit()
           const token = res.data.result;
           // 返回得token值存储到本地
           window.localStorage.setItem("sessionid", token.sessionid);
@@ -95,13 +97,14 @@ export default {
           this.$store.commit('setClickReg', data.data.result.reg_time)
           this.$store.commit('setClickUsercode', data.data.result.usercode)
           this.$store.commit('setClickUsername', data.data.result.username)
-          if (res.data.status) {
+          if (!res.data.status) {
+            this.$toast('登录失败')
+          } else {
             this.$router.push("/personal");
           }
         }
       } catch (err) {
         this.$toast("登录失败");
-        console.log(err);
       }
     },
     // 验证登录密码得显示和隐藏

@@ -9,7 +9,7 @@
         <!-- <img src="@/assets/img/portrait.png" alt=""> -->
       <div @click="$router.push('/letter')">
         <p>{{ name }}</p>
-        <p>暂无个人简介</p>
+        <p>{{ brief }}</p>
       </div>
       <van-icon 
       name="arrow" 
@@ -36,7 +36,7 @@
       <!-- 交割单查询 -->
       <div>
         <img src="@/assets/img/delivery.png"/>
-        <router-link to="/porfit-loss">交割单查询</router-link>
+        <router-link to="/delivery">交割单查询</router-link>
       </div>
     </div>
     <!-- 底部导航 -->
@@ -52,12 +52,14 @@ export default {
   data() {
     return {
       name: '',
-      headerPortrait: require('@/assets/img/portrait.png')
+      headerPortrait: require('@/assets/img/portrait.png'),
+      brief: '暂无个人简介'
     };
   },
   created() {
     this.headerPortrait =http + window.localStorage.getItem('header_img')
     this.name = window.localStorage.getItem('username')
+    this.brief = localStorage.getItem('intro')
   },
   methods: {
     

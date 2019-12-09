@@ -63,3 +63,20 @@ body{
 .van-button {
     border: 0;
 }
+
+// van-dialog样式
+.van-dialog {
+    background: rgba(32, 33, 42, 1);
+    color: #fff;
+    .van-button {
+        background: rgba(32, 33, 42, 1);
+        border: 0;
+        color: #fff;
+    }
+    .van-hairline--top::after {
+        border-top-width: 0
+    }
+    [class*=van-hairline]::after {
+        border: 0;
+    }
+}

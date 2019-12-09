@@ -30,7 +30,7 @@
     <div class="myself-content">
       <p>简介</p>
       <div class="myself-content-value" @click="show = true">
-        <p class="myself-content-brief">用一段话介绍自己</p>
+        <p class="myself-content-brief">{{ brief }}</p>
         <van-icon name="arrow" />
       </div>
     </div>
@@ -44,22 +44,25 @@
       <div class="myself-header">
         <van-icon name="arrow-left" @click="show = false"/>
         <p class="myself-letter">编辑简介</p>
-        <p class="myself-fulfil" @click="show = false">完成</p>
+        <p class="myself-fulfil" @click="handleIntro">完成</p>
       </div>
+      <!-- 监视 -->
       <div class="popup-content">
         <textarea 
-          v-model="items.text" 
-          ref="count" 
-          placeholder="请输入你想说的话"
-        ></textarea>
-        <p v-html="number"></p>
+          id="user1"
+          placeholder="请输入你想说的话" 
+          maxlength="50" 
+          @input="descInput" 
+          v-model="desc" 
+        />
+        <p>{{txtVal}}/50</p>
       </div>
     </van-popup>
   </div>
 </template>
 
 <script>
-import { uploadImg, updateHeaderImg } from "@/api/user";
+import { uploadImg, updateHeaderImg, updateIntro } from "@/api/user";
 const http = "http://192.168.3.79:8080"
 
 export default {
@@ -69,31 +72,20 @@ export default {
       show: false,
       name:'',
       headerPortrait: '',
-      number: 50,
-      items: {
-        text: ""
-      }
+      txtVal: 0,
+      desc:"",
+      brief: ''
     };
   },
-  async created() {
+  // 提前加载
+  created() {
     this.name = window.localStorage.getItem('username')
     const portrait = window.localStorage.getItem('header_img')
     this.headerPortrait = http + portrait;
-  },
-  watch: {
-    items: {
-      handler: function() {
-        var _this = this;
-        var _sum = 50; //字体限制为50个
-        _this.$refs.count.setAttribute("maxlength", _sum);
-        _this.number = _sum - _this.$refs.count.value.length;
-      },
-      deep: true
-    }
+    this.brief = localStorage.getItem('intro')
   },
 
   methods: {
-    onClickRight() {},
     // 上传图片
     async headerClick(file) {
       try {
@@ -108,6 +100,30 @@ export default {
       } catch (error) {
         this.$toast('头像上传失败')
         console.log(error)
+      }
+    },
+    // 监视文本输入改变
+    descInput(){
+      this.txtVal = this.desc.length;
+    },
+    // 更新简介
+    async handleIntro() {
+      try {
+        if(!this.desc) {
+          this.$toast('请输入你想说得话')
+        } else {
+          const formData = new FormData();         
+          formData.append("intro", this.desc);
+          const res = await updateIntro (formData)
+          this.$store.commit('setClickIntro', this.desc)
+          if(res.data.status) {
+            this.show = false
+            document.getElementById("user1").value="";
+            this.brief = localStorage.getItem('intro')
+          }
+        }
+      } catch (error) {
+        this.$toast('操作失败')
       }
     }
   }
