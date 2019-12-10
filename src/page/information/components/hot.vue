@@ -3,7 +3,8 @@
         <!-- hot事件 -->
         <div class="information-hot">
             <p>热点事件</p>
-            <p @click="handleSee">查看更多</p>
+            <!-- <p @click="handleSee">查看更多</p> -->
+            <p @click="$router.push('/hotspot')">查看更多</p>
         </div>
         <!-- 轮播热点信息 -->
         <div class="information-hot-news">

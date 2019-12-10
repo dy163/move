@@ -12,7 +12,7 @@
         sticky
       >
         <!-- 要闻 -->
-        <van-tab title="要闻" class="information-front-page" name="propelling">
+        <van-tab title="要闻">
           <FrontPageStory />
           <!-- hot事件 -->
           <Hot />
@@ -24,11 +24,11 @@
           <Notice />
         </van-tab>
         <!-- 自选 -->
-        <van-tab title="自选">
+        <van-tab title="自选" name="propelling">
           <Free />
         </van-tab>
         <!-- 推送 -->
-        <van-tab title="推送" class="information-push" >
+        <van-tab title="推送" >
           <Propelling />
         </van-tab>
       </van-tabs>
@@ -44,7 +44,7 @@ import Hot from "./components/hot.vue"; // 要闻热点
 import Foot from "./components/foot.vue"; // 要闻推送
 import Free from "./components/free.vue"; // 自选
 import Notice from "./components/notice.vue"; // 公告
-import Propelling from "./components/propelling.vue"; // 公告
+import Propelling from "./components/propelling.vue"; // 推送
 
 export default {
   name: "InformationIndex",

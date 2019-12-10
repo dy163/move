@@ -1,13 +1,12 @@
 <template>
   <div class="notice">
     <van-list>
-      <div v-for="(item, index) in Optional" :key="index" class="notice-content">
+      <div v-for="(item, index) in Optiona" :key="index" class="notice-content" @click="handleNotice(item)">
         <p class="notice-range">
-          {{ item.name }}
-          <span>{{ item.code }}</span>&nbsp;&nbsp;
-          <span style="color: #35C089">{{ item.range }}</span>
+          {{ item.stock_name }}
+          <span>{{ item.stock_code }}</span>&nbsp;&nbsp;
         </p>
-        <p class="notice-brief">{{ item.brief }}</p>
+        <p class="notice-brief">{{ item.title }}</p>
         <p class="notice-time">{{ item.time }}</p>
       </div>
     </van-list>
@@ -15,52 +14,36 @@
 </template>
 
 <script>
+import { noteGetList } from "@/api/information";
+
 export default {
   name: "Notice",
   data() {
     return {
-      Optional: [
-        {
-          name: "贵州茅台",
-          code: "（600519)",
-          range: "-0.80%",
-          brief: "茅台机场上半年运输指标位列贵州省支线机场第二",
-          time: "2019-07-24 13:13"
-        },
-        {
-          name: "贵州茅台",
-          code: "（600519)",
-          range: "-0.80%",
-          brief: "养驴大业：阿胶大跌后全国260多万头驴怎么办",
-          time: "2019-07-24 13:13"
-        },
-        {
-          name: "贵州茅台",
-          code: "（600519)",
-          range: "-0.80%",
-          brief:
-            "申万宏源-食品饮料行业周报：板块持仓接近高点，景气和外资偏好将长期支持溢价",
-          time: "2019-07-24 13:13"
-        },
-        {
-          name: "贵州",
-          code: "（600519)",
-          range: "-0.80%",
-          brief: "茅台机场上半年运输指标位列贵州省支线机",
-          time: "2019-07-24 13:13"
-        },
-        {
-          name: "贵州茅台",
-          code: "（600519)",
-          range: "-0.80%",
-          brief: "茅台机场上半年运输指标位列贵州省支线机",
-          time: "2019-07-24 13:13"
-        }
-      ]
+      page:'',        // 页数
+      number: '',     // 每页条数
+      Optiona: []
     };
   },
-  created() {},
-  methods: {}
+  created() {
+    this.handleNote()
+  },
+  methods: {
+    async handleNote() {
+      try {
+        const formData = new FormData();
+        formData.append("page", this.page);
+        formData.append("number", this.number);
+        const res = await noteGetList(formData);
+        this.Optiona = res.data.result
+      } catch (error) {
+        
+      }
+    },
+    handleNotice(q) {
+      this.$router.push({path: '/details',query: {q: q}});
+    }
+  }
 };
 </script>
 

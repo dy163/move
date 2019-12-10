@@ -3,19 +3,20 @@
     <van-list>
       <div
         class="propelling-content"
-        v-for="(item, index) in newsList"
+        v-for="(item, index) in pushList"
         :key="index"
-        @click="clickPush"
+        @click="handleClickMore(item)"
       >
         <div>
           <p class="propelling-title">{{ item.title }}</p>
           <p class="propelling-name">
-            {{ item.source }}
-            <span>{{ item.date }}</span>
+            {{ item.resource }}
+            <span>{{ item.time }}</span>
           </p>
         </div>
         <div class="img">
-          <img src="@/assets/img/blank-picture.png" alt />
+          <!-- <img src="@/assets/img/blank-picture.png" alt /> -->
+          <img :src="'http://192.168.3.79:8080' + item.img"/>
         </div>
       </div>
     </van-list>
@@ -23,59 +24,31 @@
 </template>
 
 <script>
+import { newsGetPush } from "@/api/information";
+
 export default {
   name: "Propelling",
   props: {},
   data() {
     return {
-      newsList: [
-        {
-          title: "港股独角兽周年记：折翼的小米集团能在成资本宠儿么",
-          source: "腾讯深网 今天",
-          date: "11:26"
-        },
-        {
-          title: "港股独角兽周年记：折翼的小米集团能在成资本宠儿么",
-          source: "腾讯深网 今天",
-          date: "11:26"
-        },
-        {
-          title: "港股独角兽周年记：折翼的小米集团能在成资本宠儿么",
-          source: "腾讯深网 今天",
-          date: "11:26"
-        },
-        {
-          title: "港股独角兽周年记：折翼的小米集团能在成资本宠儿么",
-          source: "腾讯深网 今天",
-          date: "11:26"
-        },
-        {
-          title: "港股独角兽周年记：折翼的小米集团能在成资本宠儿么",
-          source: "腾讯深网 今天",
-          date: "11:26"
-        },
-        {
-          title: "港股独角兽周年记：折翼的小米集团能在成资本宠儿么",
-          source: "腾讯深网 今天",
-          date: "11:26"
-        },
-        {
-          title: "港股独角兽周年记：折翼的小米集团能在成资本宠儿么",
-          source: "腾讯深网 今天",
-          date: "11:26"
-        },
-        {
-          title: "港股独角兽周年记：折翼的小米集团能在成资本宠儿么",
-          source: "腾讯深网 今天",
-          date: "11:26"
-        }
-      ]
+      pushList: []
     };
   },
-  created() {},
+  created() {
+    this.handlePush()
+  },
   methods: {
-    clickPush() {
-      this.$router.push("/particulars");
+    async handlePush () {
+      try {
+        const formData = new FormData();
+        const res = await newsGetPush(formData);
+        this.pushList = res.data.result
+      } catch (error) {
+        
+      }
+    },
+    handleClickMore(q) {
+      this.$router.push({path: '/particulars',query: {q: q}});
     }
   }
 };
@@ -95,6 +68,12 @@ export default {
     padding: 10px 0;
     border-bottom: 1px solid #000;
     display: flex;
+    justify-content: space-between;
+  }
+  img {
+    width: 111px;
+    height: 75px;
+    border-radius: 5px;
   }
 }
 .propelling-name {

@@ -54,13 +54,30 @@
 </template>
 
 <script>
+import { noteGetMySelect } from "@/api/information";
+
 export default {
   name: "Free",
   data() {
-    return {};
+    return {
+      pushList:[]
+    };
   },
-  created() {},
-  methods: {}
+  created() {
+    this.handleFree()
+  },
+  methods: {
+    async handleFree() {
+      try {
+        const formData = new FormData();
+        const res = await noteGetMySelect(formData);
+        this.pushList = res.data.result
+        console.log(this.pushList)
+      } catch (error) {
+        
+      }
+    }
+  }
 };
 </script>
 

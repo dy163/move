@@ -31,6 +31,18 @@ const router = new Router({
       path: '/information',
       component: () => import('@/page/information')
     },
+    // 热点更多展示页面（hotMore）**********************
+    {
+      name: 'hotspot',
+      path: '/hotspot',
+      component: () => import('@/page/information/components/hotspot')
+    },
+    // 公告详情（details）**********************
+    {
+      name: 'details',
+      path: '/details',
+      component: () => import('@/page/information/components/details')
+    },
     // 资讯信息的详细展示
     {
       name: 'particulars',

@@ -66,10 +66,6 @@ export default {
   },
   // 方法
   methods: {
-    handleClickIncrease() {
-      console.log("添加了");
-    },
-
     onLoad() {
       // 异步更新数据
       setTimeout(() => {

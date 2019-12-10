@@ -2,7 +2,7 @@
     <div class="particulars">
         <van-nav-bar title="资 讯" fixed></van-nav-bar>
         <p class="particulars-title">{{ detail.title }}</p>
-        <p class="particulars-name">{{ detail.resource}}<span>{{ detail.time }}</span></p>
+        <p class="particulars-name">{{ detail.stock_name}} <span>{{ detail.time }}</span></p>
         <div class="particulars-content">
             <p>{{ detail.content }}</p>
         </div>
@@ -12,10 +12,10 @@
 </template>
 
 <script>
-import { newsGetDetail } from "@/api/information";
+import { noteGetDetail } from "@/api/information";
 
 export default {
-  name: 'Particulars',
+  name: 'Details',
   data () {
     return {
       marker: '',
@@ -24,22 +24,23 @@ export default {
     }
   },
   created() {
-      this.handleNews()
+      this.handlenote()
   },
   methods: {
-    async handleNews(q) {
+    async handlenote(q) {
         try {
             this.list = this.$route.query.q
             const formData = new FormData();
             formData.append("id", this.list.id);
-            const res = await newsGetDetail(formData)
+            const res = await noteGetDetail(formData)
             this.detail = res.data.result
         } catch (error) {
             
         }
-    },
+    }
   },
 }
+
 </script>
 
 <style lang="less" scoped>
