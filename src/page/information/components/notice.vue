@@ -56,7 +56,8 @@ export default {
   }
   .notice-range {
     font-size: 15px;
-    padding-top: 20px;
+    padding-top: 10px;
+    font-weight: bold;
   }
   .notice-brief {
     font-size: 16px;
@@ -64,7 +65,6 @@ export default {
   }
   .notice-time {
     font-size: 11px;
-    font-weight: bold;
     color: rgba(126, 130, 156, 1);
     padding-bottom: 20px;
   }

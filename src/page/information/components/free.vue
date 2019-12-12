@@ -7,46 +7,17 @@
           @load="onLoad"
     >-->
     <van-list>
-      <div class="free-title">
+      <div class="free-title" v-for="item in pushList" :key="item.id">
         <div class="free-title-name">
           <p class="free-title-name-title">
-            贵州茅台
-            <span>(600519)</span>
+            {{item.stock_name}}
+            <span>（{{ item.stock_code }}）</span>
           </p>
           <p>查看更多</p>
         </div>
-        <div class="free-title-content">
-          <p class="free-stance">茅台机场上半年运输指标位列贵州省支线机场第二</p>
-          <p class="free-timer">2019-07-24 13:13</p>
-        </div>
-        <div class="free-title-content">
-          <p class="free-stance">养驴大业：阿胶大跌后全国260多万头驴怎么办</p>
-          <p class="free-timer">2019-07-24 13:13</p>
-        </div>
-        <div class="free-title-content">
-          <p class="free-stance">申万宏源-食品饮料行业周报：板块持仓接近高点，景气和外资偏好将长期支持溢价</p>
-          <p class="free-timer">2019-07-24 13:13</p>
-        </div>
-      </div>
-      <div class="free-title">
-        <div class="free-title-name">
-          <p class="free-title-name-title">
-            仁和药业
-            <span>(600519)</span>
-          </p>
-          <p>查看更多</p>
-        </div>
-        <div class="free-title-content">
-          <p class="free-stance">茅台机场上半年运输指标位列贵州省支线机场第二</p>
-          <p class="free-timer">2019-07-24 13:13</p>
-        </div>
-        <div class="free-title-content">
-          <p class="free-stance">养驴大业：阿胶大跌后全国260多万头驴怎么办</p>
-          <p class="free-timer">2019-07-24 13:13</p>
-        </div>
-        <div class="free-title-content">
-          <p class="free-stance">申万宏源-食品饮料行业周报：板块持仓接近高点，景气和外资偏好将长期支持溢价</p>
-          <p class="free-timer">2019-07-24 13:13</p>
+        <div class="free-title-content" v-for="items in item.data" :key="items.id" @click="handleMore(items)">
+          <p class="free-stance" >{{ items.title }}</p>
+          <p class="free-timer">{{ items.time }}</p>
         </div>
       </div>
     </van-list>
@@ -72,10 +43,12 @@ export default {
         const formData = new FormData();
         const res = await noteGetMySelect(formData);
         this.pushList = res.data.result
-        console.log(this.pushList)
       } catch (error) {
         
       }
+    },
+    handleMore(q) {
+      this.$router.push({path: '/details',query: {q: q}});
     }
   }
 };
@@ -83,17 +56,19 @@ export default {
 
 <style lang='less' scoped>
 .free {
+  height: 86px;
   padding: 0 15px;
   font-family: PingFangSC-Medium, PingFang SC;
   .free-title {
-    font-size: 18px;
     .free-title-name {
+      padding-top: 10px;
       display: flex;
       justify-content: space-between;
-      padding-bottom: 20px;
       .free-title-name-title {
+        font-size: 18px;
+        font-weight: bold;
         span {
-          font-size: 14px;
+          font-size: 12px;
         }
       }
       p:nth-child(2) {
@@ -102,13 +77,16 @@ export default {
     }
   }
   .free-stance {
+    padding-top: 20px;
     padding-bottom: 10px;
-    font-size: 16px
+    font-size: 16px;
+    // border-top: 1px dashed #14151c; ///////********* 
+    box-sizing: border-box;
   }
   .free-timer {
     font-size: 11px;
-    font-weight: bold;
     color: rgba(126, 130, 156, 1);
+    
     padding-bottom: 20px;
   }
 }

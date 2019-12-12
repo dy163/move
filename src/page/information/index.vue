@@ -12,7 +12,7 @@
         sticky
       >
         <!-- 要闻 -->
-        <van-tab title="要闻">
+        <van-tab title="要闻" name="propelling">
           <FrontPageStory />
           <!-- hot事件 -->
           <Hot />
@@ -24,7 +24,7 @@
           <Notice />
         </van-tab>
         <!-- 自选 -->
-        <van-tab title="自选" name="propelling">
+        <van-tab title="自选" >
           <Free />
         </van-tab>
         <!-- 推送 -->

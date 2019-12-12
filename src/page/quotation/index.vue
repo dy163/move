@@ -60,45 +60,53 @@ export default {
       stock: []
     };
   },
-  // 提前加载
+  /**
+   * 提前加载
+   */
+  // 
   mounted() {
     this.loadStock();
   },
-  // 方法
+  /**
+   * 方法
+   */
   methods: {
+    /**
+     * 异步更新数据
+     */
     onLoad() {
-      // 异步更新数据
       setTimeout(() => {
         for (let i = 0; i < 5; i++) {
           this.list.push(this.list.length + 1);
         }
-        // 加载状态结束
+        /**
+         * 加载状态结束
+         */
         this.loading = false;
-
-        // 数据全部加载完成
+        /**
+         * 数据全部加载完成
+         */
         if (this.list.length >= 5) {
           this.finished = true;
         }
       }, 500);
     },
-    // 加载股票数据
+    /**
+     * 加载股票数据
+     */
     async loadStock() {
       try {
         const formData = new FormData();
-        // formData.append("id", this.searchText);
-        // formData.append("fullname", this.searchText);       // 全称
-        // formData.append("shortname", this.searchText);      // 简称
-        // formData.append("stock_code", this.searchText);     // 数字股票代码
-        // formData.append("symbol", this.searchText);         // 英文标识
-        // formData.append("initial_name", this.searchText);   // 首拼
         const res = await getList(formData);
         this.stock = res.data.result;
       } catch (error) {
         this.$toast("失败操作");
       }
     },
+    /**
+     * 列表点击展示详情
+     */
     handleTranscation(q) {
-      // this.$router.push({name: "transaction",params: { q }});
       this.$router.push({path: '/transaction',query: {q: q}});
     }
   }

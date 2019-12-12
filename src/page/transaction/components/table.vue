@@ -1,5 +1,5 @@
 <template>
-  <div class="table">
+  <div class="table" >
     <div class="table-header" @click="$router.back()">
       <van-icon name="arrow-left" size="16" />
       <div>
@@ -105,23 +105,33 @@
 </template>
 
 <script>
+import { getList } from "@/api/stock";
+
 export default {
   name: "Table",
   props: {},
   data() {
     return {
       list: [],
+      showList: [],
       show: true,
       shows: false
     };
   },
   created() {
-    this.handleGetList();
+    this.handleGetShow();
   },
   methods: {
-    handleGetList(q) {
-      // this.list = this.$route.params.q;
-      this.list = this.$route.query.q
+    async handleGetShow(q) {
+      try {
+        this.showList = this.$route.query.q
+        const formData = new FormData();
+        formData.append("id", this.showList.id);
+        const res = await getList(formData)
+        this.list = res.data.result[0]
+      } catch (error) {
+        this.$toast('搜索列表详情失败')
+      }
     }
   }
 };

@@ -5,7 +5,7 @@
         <div class="information-front-name">
           <p class="information-title">{{ item.title }}</p>
           <div class="information-box">
-            <van-tag type="danger" size="medium" plain>标签</van-tag>
+            <!-- <van-tag type="danger" size="medium" plain>标签</van-tag> -->
             <p class="information-information">
               <span>{{ item.trusts }}</span>
               <span>{{ item.timer }}</span>

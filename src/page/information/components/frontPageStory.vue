@@ -1,74 +1,147 @@
 <template>
   <div class="frontPageStory">
     <div class="frontPageStory-front-page-top">
-      <van-swipe :autoplay="3000">
+      <van-swipe :autoplay="4000">
         <van-swipe-item v-for="(image, index) in images" :key="index">
-          <!-- <img v-lazy="image" /> -->
-          <img :src="image.normal" />
+          <!-- <img :src="image.normal" /> -->
+          <p class="image-lunbo">{{ image.title }}</p>
+          <img :src="'http://192.168.3.79:8080' + image.img" />
         </van-swipe-item>
       </van-swipe>
-      <div class="frontPageStory-front-page-among">
-        <img src="@/assets/img/involved.png" />
-        <p>【科创板成交额突破200亿元】财联社7月23日讯，科创板25家公司今日成交额突破20…</p>
-      </div>
     </div>
-    <van-list>
-      <div class="frontPageStory-front-page-foot" v-for="(item,index) in focus" :key="index" @click="handleNewMore(item)">
-        <div class="frontPageStory-front-name">
-          <p class="frontPageStory-title">{{ item.title }}</p>
-          <div class="frontPageStory-box">
-            <!-- <van-tag type="danger" size="medium" plain v-show="item.show">{{  item.is_top === 1? '置顶':'item.show' }}</van-tag> -->
-            <span class="frontPageStory-tag">{{  item.is_top === 1? '置顶':'' }}</span>
-            <p class="frontPageStory-information">
-              <span>{{ item.resource }}</span>
-              <span>{{ item.time }}</span>
-            </p>
+    <div class="among">
+      <div class="img">
+        <img src="@/assets/img/involved.png" />
+      </div>
+      <div>
+        <van-swipe :autoplay="3000" indicator-color="white">
+          <van-swipe-item v-for="item in flash" :key="item.id">
+            {{ item }}
+          </van-swipe-item>
+        </van-swipe>
+      </div>
+      <!-- <div>
+          <van-notice-bar>
+            <p v-for="item in flash" :key="item.id">{{ item }}</p>
+          </van-notice-bar>
+      </div>-->
+    </div>
+    <!-- 数据加载 -->
+    <div>
+      <!-- <van-list 
+        v-model="loading"
+        :finished="finished"
+        finished-text="没有更多了"
+        @load="onLoad"
+      >-->
+      <van-list>
+        <div
+          class="information-front-page-foot"
+          v-for="(item,index) in focus"
+          :key="index"
+          @click="handleNewMore(item)"
+        >
+          <div class="information-front-name">
+            <div class="information-title">
+              <p >{{ item.title }}</p>
+            </div>
+            <div class="information-box">
+              <van-tag type="danger" size="medium" plain>置顶</van-tag>
+              <p class="information-information">
+                <span>{{ item.resource }}</span>
+                <span>{{ item.time }}</span>
+              </p>
+            </div>
+          </div>
+          <div class="img">
+            <img :src="'http://192.168.3.79:8080' + item.img" />
           </div>
         </div>
-        <div class="img">
-          <img :src="'http://192.168.3.79:8080' + item.img"/>
-        </div>
-      </div>
-    </van-list>
+      </van-list>
+    </div>
   </div>
 </template>
 
 <script>
-import { newsGetList } from "@/api/information";
+import { newsGetTop, newsGetFlash, newsGetLunbo } from "@/api/information";
 
 export default {
   name: "FrontPageStory",
-  props: {},
   data() {
     return {
       show: true,
-      page:'',        // 页数
-      number: '',     // 每页条数
+      loading: false,
+      finished: false,
+      page: "", // 页数
+      number: "", // 每页条数
       images: [
-        { normal: require("@/assets/img/diagram.png") },
-        { normal: require("@/assets/img/diagram.png") },
-        { normal: require("@/assets/img/diagram.png") }
+        // { normal: require("@/assets/img/diagram.png") },
+        // { normal: require("@/assets/img/diagram.png") },
+        // { normal: require("@/assets/img/diagram.png") }
       ],
-      focus: []
+      focus: [],
+      flash: [],
     };
   },
   created() {
-    this.handleGetList()
+    this.handleGetTop();      // 置顶列表
+    this.handleGetFlash();    // 要闻快讯
+    this.handleGetLunbo();     // 轮播列表
   },
   methods: {
-    async handleGetList() {
+    /**
+     * 异步更新数据
+     */
+    onLoad() {
+      setTimeout(() => {
+        for (let i = 0; i < 1; i++) {
+          this.focus.push(this.focus.length + 1);
+        }
+        // 加载状态结束
+        this.loading = false;
+        // 数据全部加载完成
+        if (this.focus.length >= 2) {
+          this.finished = true;
+        }
+      }, 500);
+    },
+    /**
+     * 获取资讯要闻置顶列表
+     */
+    async handleGetTop() {
       try {
         const formData = new FormData();
-        formData.append("page", this.page);
-        formData.append("number", this.number);
-        const res = await newsGetList(formData)
-        this.focus  = res.data.result
+        const res = await newsGetTop(formData);
+        this.focus = res.data.result;
+      } catch (error) {}
+    },
+    /**
+     * 要闻快讯标题列表
+     */
+    async handleGetFlash() {
+      try {
+        const formData = new FormData();
+        const res = await newsGetFlash(formData);
+        this.flash = res.data.result;
+      } catch (error) {}
+    },
+    /**
+     * 资讯要闻轮播列表
+     */
+    async handleGetLunbo() {
+      try {
+        const formData = new FormData();
+        const res = await newsGetLunbo(formData);
+        this.images = res.data.result
       } catch (error) {
-        this.$toast('获取要闻列表失败')
+        
       }
     },
-    handleNewMore (q) {
-      this.$router.push({path: '/particulars',query: {q: q}});
+    /**
+     * 要闻详情展示跳转
+     */
+    handleNewMore(q) {
+      this.$router.push({ path: "/particulars", query: { q: q } });
     }
   }
 };
@@ -77,70 +150,102 @@ export default {
 <style lang='less' scoped>
 .frontPageStory-front-page-top {
   height: 180px;
-  position: relative;
-  margin-bottom: 60px;
+  margin-bottom: 40px;
+  font-size: 13px;
+  font-family: PingFangSC-Regular, PingFangSC;
+  color: rgba(255, 255, 255, 1);
   img {
-    width: 100%;
+    height: 180px;
+    // width: 100%;
+    width: 375px;
   }
-  .frontPageStory-front-page-among {
+  .image-lunbo {
+    width: 345px;
+    height: 30px;
+    line-height: 30px;
     position: absolute;
-    top: 167px;
-    margin: 0 15px;
-    height: 64px;
-    display: flex;
-    align-items: center;
-    background: rgba(38, 39, 50, 1);
-    border-radius: 8px;
-    img {
-      width: 45px;
-      height: 40px;
-      margin: 0 15px;
-    }
-    p {
-      height: 40px;
-      font-size: 13px;
-      font-family: PingFangSC-Regular, PingFangSC;
-      font-weight: 400;
-      color: rgba(255, 255, 255, 1);
-      line-height: 20px;
-      padding-right: 15px;
-    }
+    left: 50%;
+    top: 60%;
+    margin-left: -172.5px;
+    text-align: center;
+    border-radius: 5px;
+    font-size: 15px;
+    overflow:hidden;
+    text-overflow : ellipsis ;
+    white-space:nowrap
   }
 }
-.frontPageStory-front-page-foot {
+/deep/.van-swipe__indicators {
+  width: 0;
+}
+.among {
+  height: 65px;
+  line-height: 65px;
+  background: rgba(38, 39, 50, 1);
+  margin-top: -60px;
+  font-size: 13px;
+  width: 345px;
+  margin-left: 15px;
+  border-radius: 8px;
+  position: absolute;
+  .van-swipe {
+    margin-left: 60px;
+  }
+  /deep/.van-swipe-item {
+    overflow:hidden;
+    text-overflow : ellipsis ;
+    white-space:nowrap
+  }
+  .img {
+    position: absolute;
+    margin-top: 12.5px;
+    margin-left: 15px;
+  }
+  img {
+    width: 45px;
+    height: 40px;
+  }
+}
+.information-front-page-foot {
+  height: 115px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding: 15px;
+  margin: 0 15px;
   border-bottom: 1px solid #14151c;
-  img{
+  img {
     width: 117px;
     height: 75px;
     border-radius: 5px;
   }
-  .frontPageStory-title {
-    font-size: 16px;
-    font-family: PingFangSC;
-    font-weight: 500;
-    line-height: 24px;
-    margin-right: 8px;
-  }
-  .frontPageStory-front-name {
+  .information-front-name {
     font-family: PingFangSC-Regular, PingFang SC;
-    .frontPageStory-box {
+    .information-title {
+      height: 48px;
+      font-size: 16px;
+      font-family: PingFangSC;
+      font-weight: 500;
+      margin-right: 8px;
+      width: 224px;
+      overflow:hidden;
+      text-overflow : ellipsis ;
+      letter-spacing:1px;
+      p {
+        height: 24px;
+        line-height: 24px;
+      }
+    }
+    .information-box {
       display: flex;
-      padding-top: 10px;
-      .frontPageStory-tag {
-        // .van-tag {
-        // border: 1px solid red;
-        color: red;
+      padding-top: 15px;
+      .van-tag {
         padding: 2px 5px;
         font-size: 12px;
         transform: scale(0.7);
         background-color: #20212a;
       }
-      .frontPageStory-information {
+      .information-information {
         font-size: 12px;
+        // transform: scale(0.9);
         font-weight: 400;
         height: 16px;
         color: rgba(126, 130, 156, 1);

@@ -8,19 +8,20 @@
     </div>
     <div class="hotspot-list">
       <van-list>
-        <div class="hotspot-foot" v-for="(item,index) in focus" :key="index">
+        <div class="hotspot-foot" v-for="(item,index) in focus" :key="index" @click="handleNewMore(item)">
           <div class="hotspot-name">
             <p class="hotspot-title">{{ item.title }}</p>
             <div class="hotspot-box">
-              <van-tag type="danger" size="medium" plain>{{ item.roof }}</van-tag>
+              <!-- <van-tag type="danger" size="medium" plain>{{ item.roof }}</van-tag> -->
               <p class="hotspot-information">
-                <span>{{ item.trusts }}</span>
-                <span>{{ item.timer }}</span>
+                <span>{{ item.resource }}</span>
+                <span>{{ item.time }}</span>
               </p>
             </div>
           </div>
           <div class="img">
-            <img src="@/assets/img/blank-picture.png" alt />
+            <!-- <img src="@/assets/img/blank-picture.png" alt /> -->
+            <img :src="'http://192.168.3.79:8080' + item.img"/>
           </div>
         </div>
       </van-list>
@@ -32,53 +33,43 @@
 </template>
 
 <script>
+import { newsGetList } from "@/api/information";
+
 export default {
   name: "Hotspot",
   props: {},
   data() {
     return {
-      focus: [
-        {
-          title: "长江证券：美股大幅反弹，与美国经济“背离”？",
-          roof: "置顶",
-          trusts: "长江证券研究",
-          timer: "今天 12:35"
-        },
-        {
-          title: "长江证券：美股大幅反弹，与美国经济“背离”？",
-          roof: "置顶",
-          trusts: "长江证券研究",
-          timer: "今天 12:35"
-        },
-        {
-          title: "Facebook谷歌夺走传统电视广告，康卡斯特要如何自救？",
-          roof: "置顶",
-          trusts: "长江证券研究",
-          timer: "今天 12:35"
-        },
-        {
-          title: "中国移动互联网2019半年大报告：“红利”即将见顶",
-          roof: "置顶",
-          trusts: "长江证券研究",
-          timer: "今天 12:35"
-        },
-        {
-          title: "中国移动互联网2019半年大报告：“红利”即将见顶",
-          roof: "置顶",
-          trusts: "长江证券研究",
-          timer: "今天 12:35"
-        },
-        {
-          title: "中国移动互联网2019半年大报告：“红利”即将见顶",
-          roof: "置顶",
-          trusts: "长江证券研究",
-          timer: "今天 12:35"
-        }
-      ]
+      page: "", // 页数
+      number: "", // 每页条数
+      focus: []
     };
   },
-  created() {},
-  methods: {}
+  created() {
+    this.handleGetList();
+  },
+  methods: {
+    /**
+     * 数据列表加载接口函数
+     */
+    async handleGetList() {
+      try {
+        const formData = new FormData();
+        formData.append("page", this.page);
+        formData.append("number", this.number);
+        const res = await newsGetList(formData);
+        this.focus = res.data.result;
+      } catch (error) {
+        this.$toast("获取要闻列表失败");
+      }
+    },
+    /**
+     * 要闻详情展示跳转
+     */
+    handleNewMore(q) {
+      this.$router.push({ path: "/particulars", query: { q: q } });
+    }
+  }
 };
 </script>
 
@@ -93,11 +84,17 @@ export default {
 }
 .hotspot-list {
   margin-bottom: 50px;
+  img{
+    width: 117px;
+    height: 75px;
+    border-radius: 5px;
+  }
   .hotspot-foot {
     color: rgba(255, 255, 255, 1);
     height: 115px;
     display: flex;
     align-items: center;
+    justify-content: space-between;
     padding: 0 15px;
     border-bottom: 1px solid #14151c;
     .hotspot-title {
@@ -105,6 +102,7 @@ export default {
       font-family: PingFangSC;
       font-weight: 500;
       line-height: 24px;
+      margin-right: 8px;
     }
     .hotspot-name {
       font-family: PingFangSC-Regular, PingFang SC;

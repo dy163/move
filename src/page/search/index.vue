@@ -40,6 +40,7 @@
 <script>
 import { searchStock, searchGetList, searchAdd, getList } from "@/api/stock";
 import { debounce } from "lodash";
+
 export default {
   name: "SearchIndex",
   data() {
@@ -117,17 +118,13 @@ export default {
     async handleList(q) {
       try {
         // 添加搜索记录
-        // const formData = new FormData();
-        // formData.append("stock_name", q.shortname);
-        // formData.append("stock_code", q.stock_code);
-        // const res = await searchAdd(formData)
-        // console.log(res.data.status)
         // if(res.data.status) {  
           const formData = new FormData();
           formData.append("stock_code", q.stock_code);
           const res =  await getList(formData)
-          console.log(res.data.result[0])
-          this.$router.push({name: "transaction",params: {q}});
+          // console.log(res.data.result)
+          // this.$router.push({name: "transaction",params: {q}}); 
+          this.$router.push({path: '/transaction',query: {q: q}});
         // } 
       } catch (error) {
         

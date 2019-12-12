@@ -1,6 +1,7 @@
 <template>
   <div class="propelling">
     <van-list>
+      <!-- 内容数据展示 -->
       <div
         class="propelling-content"
         v-for="(item, index) in pushList"
@@ -14,8 +15,8 @@
             <span>{{ item.time }}</span>
           </p>
         </div>
+        <!-- 图片 -->
         <div class="img">
-          <!-- <img src="@/assets/img/blank-picture.png" alt /> -->
           <img :src="'http://192.168.3.79:8080' + item.img"/>
         </div>
       </div>
@@ -35,9 +36,12 @@ export default {
     };
   },
   created() {
-    this.handlePush()
+    this.handlePush()     // 提前加载
   },
   methods: {
+    /**
+     * 加载数据
+     */
     async handlePush () {
       try {
         const formData = new FormData();
@@ -47,6 +51,9 @@ export default {
         
       }
     },
+    /**
+     * 跳转详情页
+     */
     handleClickMore(q) {
       this.$router.push({path: '/particulars',query: {q: q}});
     }
