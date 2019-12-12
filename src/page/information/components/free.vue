@@ -13,7 +13,7 @@
             {{item.stock_name}}
             <span>（{{ item.stock_code }}）</span>
           </p>
-          <p>查看更多</p>
+          <p @click="$router.push('/freemore')">查看更多</p>
         </div>
         <div class="free-title-content" v-for="items in item.data" :key="items.id" @click="handleMore(items)">
           <p class="free-stance" >{{ items.title }}</p>
@@ -31,6 +31,7 @@ export default {
   name: "Free",
   data() {
     return {
+      isShow: false,
       pushList:[]
     };
   },
@@ -86,7 +87,7 @@ export default {
   .free-timer {
     font-size: 11px;
     color: rgba(126, 130, 156, 1);
-    
+    border-bottom: 1px dashed #14151c;
     padding-bottom: 20px;
   }
 }

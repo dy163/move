@@ -39,7 +39,9 @@ export default {
         formData.append("id", this.list.id);
         const res = await noteGetDetail(formData);
         this.detail = res.data.result;
-      } catch (error) {}
+      } catch (error) {
+        this.$toast("获取详情失败");
+      }
     }
   }
 };

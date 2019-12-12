@@ -1,32 +1,26 @@
 <template>
+  <!-- 轮播图片 -->
   <div class="frontPageStory">
     <div class="frontPageStory-front-page-top">
       <van-swipe :autoplay="4000">
         <van-swipe-item v-for="(image, index) in images" :key="index">
-          <!-- <img :src="image.normal" /> -->
           <p class="image-lunbo">{{ image.title }}</p>
           <img :src="'http://192.168.3.79:8080' + image.img" />
         </van-swipe-item>
       </van-swipe>
     </div>
+    <!-- 快讯轮播 -->
     <div class="among">
       <div class="img">
         <img src="@/assets/img/involved.png" />
       </div>
       <div>
         <van-swipe :autoplay="3000" indicator-color="white">
-          <van-swipe-item v-for="item in flash" :key="item.id">
-            {{ item }}
-          </van-swipe-item>
+          <van-swipe-item v-for="item in flash" :key="item.id">{{ item }}</van-swipe-item>
         </van-swipe>
       </div>
-      <!-- <div>
-          <van-notice-bar>
-            <p v-for="item in flash" :key="item.id">{{ item }}</p>
-          </van-notice-bar>
-      </div>-->
     </div>
-    <!-- 数据加载 -->
+    <!-- 置顶数据列表加载 -->
     <div>
       <!-- <van-list 
         v-model="loading"
@@ -43,7 +37,7 @@
         >
           <div class="information-front-name">
             <div class="information-title">
-              <p >{{ item.title }}</p>
+              <p>{{ item.title }}</p>
             </div>
             <div class="information-box">
               <van-tag type="danger" size="medium" plain>置顶</van-tag>
@@ -74,19 +68,15 @@ export default {
       finished: false,
       page: "", // 页数
       number: "", // 每页条数
-      images: [
-        // { normal: require("@/assets/img/diagram.png") },
-        // { normal: require("@/assets/img/diagram.png") },
-        // { normal: require("@/assets/img/diagram.png") }
-      ],
+      images: [],
       focus: [],
-      flash: [],
+      flash: []
     };
   },
   created() {
-    this.handleGetTop();      // 置顶列表
-    this.handleGetFlash();    // 要闻快讯
-    this.handleGetLunbo();     // 轮播列表
+    this.handleGetTop(); // 置顶列表
+    this.handleGetFlash(); // 要闻快讯
+    this.handleGetLunbo(); // 轮播列表
   },
   methods: {
     /**
@@ -113,7 +103,9 @@ export default {
         const formData = new FormData();
         const res = await newsGetTop(formData);
         this.focus = res.data.result;
-      } catch (error) {}
+      } catch (error) {
+        this.$toast("获取资讯要闻置顶列表失败");
+      }
     },
     /**
      * 要闻快讯标题列表
@@ -123,7 +115,9 @@ export default {
         const formData = new FormData();
         const res = await newsGetFlash(formData);
         this.flash = res.data.result;
-      } catch (error) {}
+      } catch (error) {
+        this.$toast("要闻快讯标题列表失败");
+      }
     },
     /**
      * 资讯要闻轮播列表
@@ -132,9 +126,9 @@ export default {
       try {
         const formData = new FormData();
         const res = await newsGetLunbo(formData);
-        this.images = res.data.result
+        this.images = res.data.result;
       } catch (error) {
-        
+        this.$toast("资讯要闻轮播列表失败");
       }
     },
     /**
@@ -170,9 +164,9 @@ export default {
     text-align: center;
     border-radius: 5px;
     font-size: 15px;
-    overflow:hidden;
-    text-overflow : ellipsis ;
-    white-space:nowrap
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 }
 /deep/.van-swipe__indicators {
@@ -192,9 +186,9 @@ export default {
     margin-left: 60px;
   }
   /deep/.van-swipe-item {
-    overflow:hidden;
-    text-overflow : ellipsis ;
-    white-space:nowrap
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
   .img {
     position: absolute;
@@ -226,9 +220,9 @@ export default {
       font-weight: 500;
       margin-right: 8px;
       width: 224px;
-      overflow:hidden;
-      text-overflow : ellipsis ;
-      letter-spacing:1px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      letter-spacing: 1px;
       p {
         height: 24px;
         line-height: 24px;

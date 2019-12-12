@@ -3,7 +3,6 @@
         <!-- hot事件 -->
         <div class="information-hot">
             <p>热点事件</p>
-            <!-- <p @click="handleSee">查看更多</p> -->
             <p @click="$router.push('/hotspot')">查看更多</p>
         </div>
         <!-- 轮播热点信息 -->
@@ -17,10 +16,11 @@
                 v-for="(item,index) in hot"
                 :key="index">
                     <div class="information-hot-news-all">
-                        <div class="information-hot-news-img"></div>
+                        <div class="information-hot-news-img">
+                        <img :src="'http://192.168.3.79:8080' + item.img" />
+                        </div>
                         <div class="information-hot-news-title">
                             <p>{{ item.title }}</p>
-                            <p>{{ item.content }}</p>
                         </div>
                     </div>
                 </van-swipe-item>
@@ -30,24 +30,33 @@
 </template>
 
 <script>
+import { newsGetRoll } from "@/api/information";
+
 export default {
   name: 'Hot',
   props: {},
   data () {
     return {
-      hot: [
-        { title: '科创板来了！', content: '科创板开板！中国资本市场迎来历史性时刻。' },
-        { title: '科创板来了！', content: '科创板开板！中国资本市场迎来历史性时刻。' },
-        { title: '科创板来了！', content: '科创板开板！中国资本市场迎来历史性时刻。' }
-      ]
+      hot: []
     }
   },
+  created() {
+    this.handleGetRoll()
+  },
   methods: {
-    handleSee () {
-        console.log("*******")
-    }
+    /**
+     * 热点事件滑动列表加载
+     */
+    async handleGetRoll() {
+      try {
+        const formData = new FormData();
+        const res = await newsGetRoll(formData);
+        this.hot = res.data.result
+      } catch (error) {
+        this.$toast('热点滑动事件获取失败')
+      }
+    }    
   }
-
 }
 
 </script>
@@ -89,21 +98,22 @@ export default {
         align-items: center;
         .information-hot-news-img {
             position: fixed;
-            width:53px;
-            height:53px;
-            background:rgba(216,216,216,1);
+            width:54px;
+            height:54px;
+            // background:rgba(216,216,216,1);
             border-radius:4px;
+            img {
+                width:54px;
+                height:54px;
+                border-radius:4px;
+            }
         }
         .information-hot-news-title {
             margin-left: 63px;
-            p:nth-child(1) {
-                font-size:16px;
-                font-family:PingFangSC-Medium,PingFangSC;
-                font-weight:500;
-                color:rgba(255,255,255,1);
-                padding-bottom: 5px;
-            }
-            p:nth-child(2) {
+            width: 200px;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            p {
                 font-size:13px;
                 font-family:PingFangSC-Regular,PingFangSC;
                 font-weight:400;

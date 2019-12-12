@@ -43,6 +43,12 @@ const router = new Router({
       path: '/details',
       component: () => import('@/page/information/components/details')
     },
+    // 公告详情（freemore）**********************
+    {
+      name: 'freemore',
+      path: '/freemore',
+      component: () => import('@/page/information/components/freemore')
+    },
     // 资讯信息的详细展示
     {
       name: 'particulars',

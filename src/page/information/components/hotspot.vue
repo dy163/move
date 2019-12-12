@@ -10,7 +10,9 @@
       <van-list>
         <div class="hotspot-foot" v-for="(item,index) in focus" :key="index" @click="handleNewMore(item)">
           <div class="hotspot-name">
-            <p class="hotspot-title">{{ item.title }}</p>
+            <div class="hotspot-title">
+              <p>{{ item.title }}</p>
+            </div>
             <div class="hotspot-box">
               <!-- <van-tag type="danger" size="medium" plain>{{ item.roof }}</van-tag> -->
               <p class="hotspot-information">
@@ -60,7 +62,7 @@ export default {
         const res = await newsGetList(formData);
         this.focus = res.data.result;
       } catch (error) {
-        this.$toast("获取要闻列表失败");
+        this.$toast("获取跟多热点列表失败");
       }
     },
     /**
@@ -97,15 +99,25 @@ export default {
     justify-content: space-between;
     padding: 0 15px;
     border-bottom: 1px solid #14151c;
-    .hotspot-title {
-      font-size: 16px;
-      font-family: PingFangSC;
-      font-weight: 500;
-      line-height: 24px;
-      margin-right: 8px;
-    }
     .hotspot-name {
       font-family: PingFangSC-Regular, PingFang SC;
+      .hotspot-title {
+        height: 48px;
+        font-size: 16px;
+        font-family: PingFangSC;
+        font-weight: 500;
+        margin-right: 8px;
+        width: 224px;
+        // word-break:break-all;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        letter-spacing: 1px;
+        display:-webkit-box!important; 
+        p {
+          height: 24px;
+          line-height: 24px;
+        }
+      }
       .hotspot-box {
         display: flex;
         padding-top: 15px;
