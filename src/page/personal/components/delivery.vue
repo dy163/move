@@ -1,6 +1,11 @@
 <template>
   <div class="delivery">
-    <van-nav-bar title="交割单查询" @click-left="$router.back()">
+    <van-nav-bar 
+    title="交割单查询" 
+    right-text="历史查询" 
+    @click-left="$router.back()"
+    @click-right="show = true;"
+    >
       <van-icon name="arrow-left" slot="left" />
     </van-nav-bar>
     <div class="delivery-content">
@@ -35,6 +40,53 @@
         </div>
       </van-list>
     </div>
+    <!-- 展示历史查询遮罩 -->
+    <div>
+      <van-popup 
+      v-model="show"
+      position="top">
+      <div>
+        <!-- <div class="popup-time" :item-height='20'>
+          <van-datetime-picker
+            v-model="currentDate"
+            type="date"
+            :min-date="minDate"
+          />
+          <van-datetime-picker
+            v-model="currentDate"
+            type="date"
+            :min-date="minDate"
+          />
+        </div> -->
+        
+        <van-row>
+        <van-col span="10">
+          <van-datetime-picker
+            v-model="currentDate"
+            type="date"
+            :min-date="minDate"
+          />
+        </van-col>
+        <van-col span="2">--</van-col>
+        <van-col span="10">
+          <van-datetime-picker
+            v-model="currentDate"
+            type="date"
+            :min-date="minDate"
+          />
+        </van-col>
+        <van-col span="2" style="color: red">确定</van-col>
+      </van-row>
+
+
+        <van-cell title="一周之内" is-link @click="handleColse"/>
+        <van-cell title="一月之内" is-link @click="handleColse"/>
+        <van-cell title="三月之内" is-link @click="handleColse"/>
+        <van-cell title="半年之内" is-link @click="handleColse"/>
+        <van-cell title="一年之内" is-link @click="handleColse"/>
+      </div>
+      </van-popup>
+    </div>
   </div>
 </template>
 
@@ -45,6 +97,7 @@ export default {
   name: "Delivery",
   data() {
     return {
+      show: false,
       list: [
         {
           title: "贵州茅台",
@@ -62,28 +115,39 @@ export default {
           timer: "2017-10-05 10:22",
           amount: "1,600"
         }
-      ]
+      ],
+      currentDate: new Date(),
+      minDate: new Date(),
     };
   },
   created() {
-    // this.handleDelivery()
+    this.handleDelivery()
   },
   methods: {
     async handleDelivery() {
         try {
-            const formData = new FormData();
-            // formData.append("time_range", this.account);
-            const res = await deliveryOrderGetList(formData)
-            console.log(res)
+          const formData = new FormData();
+          formData.append("time_range", 4);
+          const res = await deliveryOrderGetList(formData)
+          console.log(res)
         } catch (error) {
             this.$toast('失败了')
         }
+    },
+    handleColse() {
+      this.show = false
+      console.log(132131)
     }
-  }
+  },
+
 };
 </script>
 
 <style lang='less' scoped>
+.van-nav-bar__text {
+  color: #fff;
+  background-color: #20212A;
+}
 .delivery-content {
   position: fixed;
   background: rgba(23, 24, 34, 1);
@@ -135,6 +199,51 @@ export default {
       right: 0;
       top: 25px;
     }
+  }
+}
+/deep/.van-overlay {
+  margin-top: 46px;
+}
+.van-popup--top {
+  margin-top: 46px;
+  .van-cell {
+    background-color: #fff;
+    color: #000;
+    height: 40px;
+    line-height: 40px;
+    .van-cell__right-icon {
+      height: 40px;
+      line-height: 40px;
+    }
+  }
+  .van-cell:not(:last-child)::after {
+    border: 0;
+  }
+  // .popup-time {
+  //   display: flex;
+  //   justify-content: space-between;
+  //   /deep/.van-hairline--top-bottom, /deep/.van-picker__toolbar {
+  //     position: absolute;
+  //     height: 0;
+  //     width: 0;
+  //     .van-picker__cancel, .van-picker__confirm {
+  //       color: #fff;
+  //       padding: 0;
+  //     }
+  //   }
+  //   /deep/.van-picker-column {
+  //     width: 50px;
+  //   }
+  //   // /deep/.van-picker-column__wrapper {
+  //   //   border: 1px solid #000
+  //   // }
+  //   /deep/.van-picker__columns {
+  //     border: 1px solid #000;
+  //     height: 20px;
+  //   }
+  // }
+  .van-col--2{
+    font-size: 14px;
   }
 }
 </style>

@@ -106,33 +106,55 @@
 
 <script>
 import { getList } from "@/api/stock";
+// import { mySelectStockGetList } from "@/api/stock";    // 待定
 
 export default {
   name: "Table",
   props: {},
   data() {
     return {
-      list: [],
-      showList: [],
+      list: [],         // 行情
+      showList: [],     // 行情列表
       show: true,
-      shows: false
+      shows: false,
+      // freeList:[],      // 自选列表
+      // free: [],         // 自选
     };
   },
   created() {
     this.handleGetShow();
+    // this.handleFreeShow()    //  待定加载
   },
   methods: {
+    /**
+     * 行情列表详情
+     */
     async handleGetShow(q) {
       try {
         this.showList = this.$route.query.q
         const formData = new FormData();
-        formData.append("id", this.showList.id);
+        formData.append("stock_code", this.showList.stock_code);
         const res = await getList(formData)
         this.list = res.data.result[0]
       } catch (error) {
-        this.$toast('搜索列表详情失败')
+        this.$toast('行情列表详情失败')
       }
-    }
+    },
+    /**
+     * 自选列表详情
+     */
+    // async handleFreeShow(q) {
+    //   try {
+    //     this.freeList = this.$route.query.q
+    //     const formData = new FormData();
+    //     formData.append("stock_code", this.freeList.stock_code);
+    //     const res = await mySelectStockGetList(formData)
+    //     this.list = res.data.result[0]
+    //     console.log(this.list)
+    //   } catch (error) {
+    //     this.$toast('自选列表详情失败')
+    //   }
+    // }
   }
 };
 </script>

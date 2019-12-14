@@ -13,7 +13,8 @@
             {{item.stock_name}}
             <span>（{{ item.stock_code }}）</span>
           </p>
-          <p @click="$router.push('/freemore')">查看更多</p>
+          <!-- <p @click="$router.push('/freemore')">查看更多</p> -->
+          <p @click="handleFreeMore(item)">查看更多</p>
         </div>
         <div class="free-title-content" v-for="items in item.data" :key="items.id" @click="handleMore(items)">
           <p class="free-stance" >{{ items.title }}</p>
@@ -31,7 +32,6 @@ export default {
   name: "Free",
   data() {
     return {
-      isShow: false,
       pushList:[]
     };
   },
@@ -39,17 +39,29 @@ export default {
     this.handleFree()
   },
   methods: {
+    /**
+     * 获取自选列表
+     */
     async handleFree() {
       try {
         const formData = new FormData();
         const res = await noteGetMySelect(formData);
         this.pushList = res.data.result
       } catch (error) {
-        
+        this.$toast('加载自选列表失败')
       }
     },
+    /**
+     * 自选详情跳转
+     */
     handleMore(q) {
       this.$router.push({path: '/details',query: {q: q}});
+    },
+    /**
+     * 自选更多列表跳转
+     */
+    handleFreeMore (q) {
+      this.$router.push({path: '/freemore',query: {q: q}});
     }
   }
 };
@@ -57,7 +69,6 @@ export default {
 
 <style lang='less' scoped>
 .free {
-  height: 86px;
   padding: 0 15px;
   font-family: PingFangSC-Medium, PingFang SC;
   .free-title {

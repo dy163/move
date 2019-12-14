@@ -238,9 +238,8 @@ export default {
         const formData = new FormData()
         const res = await myBuyStockGetList(formData)
         this.shares = res.data.result
-        console.log(this.shares)
       } catch (error) {
-        
+        this.$toast("获取持仓数据失败");
       }
     }
   }

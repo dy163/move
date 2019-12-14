@@ -23,7 +23,7 @@
       </div>
       <div class="nil"></div>
       <van-list :finished="finished" finished-text="没有更多了">
-        <!-- <van-swipe-cell v-for="(item, index) in stock" :key="index" :on-close="handleDelete(item)"> -->
+        <!-- <van-swipe-cell v-for="(item, index) in stock" :key="index" :on-close="onClose"> -->
         <van-swipe-cell v-for="(item, index) in stock" :key="index">
           <div class="oneself-content-top" @click="handleTranscation(item)">
             <div>
@@ -60,17 +60,22 @@ import { mySelectStockGetList, mySelectStockDelete } from "@/api/stock";
 
 export default {
   name: "OneselfIndex",
+  inject:['reload'],
   data() {
     return {
       finished: false,
       stock: []
     };
   },
-  // 从新走生命周期
+  // 提前加载
   created() {
     this.loadStock();
   },
-  computed: {},
+  computed: {
+    // activeChannel () {
+    //   return this.channels[this.activeChannelIndex]
+    // }
+  },
   methods: {
     /**
      * 跳转到持仓页面
@@ -87,30 +92,11 @@ export default {
      * 展示详情
      */
     handleTranscation(q) {
-      // this.$router.push({name: "transaction",params: {q}})},
       this.$router.push({ path: "/transaction", query: { q: q } });
     },
     /**
      * 删除自选股
      */
-    // handleDelete(clickPosition, instance) {
-    //   // console.log(clickPosition)
-    //   // console.log(instance)
-    //   switch (clickPosition) {
-    //     case 'left':
-    //     case 'cell':
-    //     case 'outside':
-    //       instance.close();
-    //       break;
-    //     case 'right':
-    //       this.$dialog.confirm({
-    //         message: '确定删除吗？'
-    //       }).then(() => {
-    //         instance.close();
-    //       });
-    //       break;
-    //   }
-    // },
     async handleDelete(q) {
       this.$dialog
         .confirm({
@@ -122,10 +108,9 @@ export default {
             const formData = new FormData();
             formData.append("id", q.id);
             const res = await mySelectStockDelete(formData);
-            console.log(res.data.status);
-            if (res.data.status) {
-              this.loadStock();
-            }
+            /**
+             * 
+             */
           } catch (error) {
             this.$toast("清空失败");
           }
@@ -140,7 +125,6 @@ export default {
     async loadStock() {
       try {
         const formData = new FormData();
-        // formData.append('stock_code', this.oldPassword)
         const res = await mySelectStockGetList(formData);
         this.stock = res.data.result;
       } catch (error) {

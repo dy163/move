@@ -9,7 +9,9 @@
         @click="handleClickMore(item)"
       >
         <div>
-          <p class="propelling-title">{{ item.title }}</p>
+          <div class="propelling-title">
+            <p>{{ item.title }}</p>
+          </div>
           <p class="propelling-name">
             {{ item.resource }}
             <span>{{ item.time }}</span>
@@ -48,7 +50,7 @@ export default {
         const res = await newsGetPush(formData);
         this.pushList = res.data.result
       } catch (error) {
-        
+        this.$toast('加载推送数据失败')
       }
     },
     /**
@@ -65,16 +67,27 @@ export default {
 .propelling {
   padding: 0 15px;
   .propelling-title {
+    height: 48px;
     font-size: 16px;
     font-family: PingFangSC;
     font-weight: 500;
-    line-height: 24px;
-    margin-right: 10px;
+    margin-right: 8px;
+    width: 224px;
+    // word-break:break-all;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    letter-spacing: 1px;
+    display:-webkit-box!important; 
+    p {
+      height: 24px;
+      line-height: 24px;
+    }
   }
   .propelling-content {
-    padding: 10px 0;
+    height: 115px;
     border-bottom: 1px solid #000;
     display: flex;
+    align-items: center;
     justify-content: space-between;
   }
   img {

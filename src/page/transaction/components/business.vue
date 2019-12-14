@@ -64,7 +64,12 @@ export default {
           const stock_code = this.list.stock_code;
           const formData = new FormData();
           formData.append("stock_code", stock_code);
-          await mySelectStockAdd(formData);
+          const res = await mySelectStockAdd(formData);
+          if(res.data.status) {
+            this.$toast("添加自选成功");
+          } else {
+            this.$toast("股票已在自选中，请不要重复添加");
+          }
         }
       } catch (error) {
         this.$toast("添加失败");

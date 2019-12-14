@@ -3,6 +3,37 @@
     <van-nav-bar title="委托查询" @click-left="$router.back()">
       <van-icon name="arrow-left" slot="left" />
     </van-nav-bar>
+    <div class="entrust-header">
+      <van-row>
+        <van-col span="12" @click="handleToday">今日查询</van-col>
+        <van-col span="12">
+          <div v-show="show">
+            <!-- <span @click="handleShow">历史查询</span> -->
+            <span @click="handleShow">历史查询</span>
+            <van-icon name="arrow" />
+          </div>
+          <div v-show="showes">
+            <span @click="handleShowes">历史查询</span>
+            <van-icon name="arrow-down" />
+          </div>
+        </van-col>
+      </van-row>
+      <!-- 展示时间遮罩 -->
+      <van-popup 
+        v-model="showes" 
+        position="right" 
+        :close-on-click-overlay='false'
+        >
+        <div style="color:#20212A">
+          <van-cell title="一周之内" is-link @click="handleColse"/>
+          <van-cell title="一月之内" is-link @click="handleColse"/>
+          <van-cell title="三月之内" is-link @click="handleColse"/>
+          <van-cell title="半年之内" is-link @click="handleColse"/>
+          <van-cell title="一年之内" is-link @click="handleColse"/>
+        </div>
+      </van-popup>
+    </div>
+    <!-- 标题指示 -->
     <div class="entrust-content">
       <div class="entrust-content-header">
         <van-row>
@@ -43,17 +74,67 @@ export default {
   name: "Entrust",
   data() {
     return {
+      show: true,
+      showes:false,
+      // showes:true,
       list: [
         { title:'贵州茅台',money: '30.21元',number: '1,600',identifier: '102931',timer: '2017-10-05 10:22', amount: '1,600' },
         { title:'茅台',money: '30.21元',number: '1,600',identifier: '102931',timer: '2017-10-05 10:22', amount: '1,600' }
       ]
     };
   },
-  methods: {}
+  created() {
+
+  },
+  methods: {
+    /**
+     * 显示箭头朝向按钮
+     */
+    handleShow () {
+      this.show = false
+      this.showes = true
+    },
+    handleShowes() {
+      this.showes = false
+      this.show = true
+    },
+    handleColse() {
+      this.showes = false
+      this.show = true
+    },
+    /**
+     * 今天查询关闭
+     */
+    handleToday() {
+      this.showes = false
+      this.show = true
+    }
+  }
 };
 </script>
 
 <style lang='less' scoped>
+.entrust-header {
+  font-size: 16px;
+  height: 50px;
+  line-height: 50px;
+  color: #fff;
+  .van-col--12 {
+    text-align: center;
+  }
+  .van-col--12:nth-child(1) {
+    border-right: 1px solid rgba(23, 24, 34, 1);;
+  }
+  .van-col--12:nth-child(2) {
+    .van-icon {
+      font-size: 16px;
+      position: absolute;
+      height: 50px;
+      line-height: 50px;
+    }
+  }
+  
+}
 .entrust-content {
   position: fixed;
   background: rgba(23, 24, 34, 1);
@@ -105,6 +186,27 @@ export default {
       right: 0;
       top: 25px;
     }
+  }
+}
+/deep/.van-overlay {
+  margin-top: 96px;
+}
+.van-popup--right {
+  width: 188px;
+  position: absolute;
+  top: 196px;
+  .van-cell {
+    background-color: #fff;
+    color: #000;
+    height: 40px;
+    line-height: 40px;
+    .van-cell__right-icon {
+      height: 40px;
+      line-height: 40px;
+    }
+  }
+  .van-cell:not(:last-child)::after {
+    border: 0;
   }
 }
 </style>
