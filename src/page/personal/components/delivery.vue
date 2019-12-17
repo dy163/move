@@ -18,25 +18,24 @@
         </van-row>
       </div>
       <van-list>
-        <div class="delivery-content-include" v-for="item in list" :key="item.id">
-          <div class="delivery-content-table">
-            <div>
-              <van-row>
-                <van-col span="5">{{ item.title }}</van-col>
-                <van-col span="2">
-                  <img src="@/assets/bill.png? @/assets/bill.png:@/assets/sell.png" />
-                </van-col>
-                <van-col span="5" class="table-money">{{ item.money }}</van-col>
-                <van-col span="7" class="delivery-content-big">{{ item.number }}</van-col>
-              </van-row>
-              <van-row>
-                <van-col span="5">{{ item.identifier }}</van-col>
-                <van-col span="9">{{ item.timer }}</van-col>
-                <van-col span="5" class="delivery-content-small">{{ item.amount }}</van-col>
-              </van-row>
-            </div>
+        <div class="delivery-list" v-for="item in list" :key="item.id">
+          <div class="delivery-title">
+            <p>{{ item.stock_name }}</p>
+            <p class="delivery-small">{{ item.stock_code }}</p>
           </div>
-          <p class="delivery-content-state">已成</p>
+          <div class="delivery-photo">
+            <div class="delivery-buy">
+              <img src="@/assets/bill.png"/>
+              <p>{{item.bargain_price + '元'}}</p>
+            </div>
+            <p class="delivery-small">{{ item.date }} <span>{{ item.time }}</span> </p>
+          </div>
+          <div class="delivery-centered">
+            <p class="delivery-volume">{{ item.bargain_quantity }}</p>
+          </div>
+          <div class="delivery-quota">
+            <p>{{ item.bargain_amount }}</p>
+          </div>
         </div>
       </van-list>
     </div>
@@ -46,20 +45,20 @@
         <p class="time-header">自定义时间：</p>
         <div>
           <van-row>
-            <van-col span="8" @click="handleFreeMinClick">
+            <van-col span="8">
               <van-field v-model="starttime" clearable placeholder="请输入开始时间" @focus="start" />
             </van-col>
             <van-col span="2">-</van-col>
-            <van-col span="8" @click="handleFreeMaxClick">
+            <van-col span="8">
               <van-field v-model="endtime" clearable placeholder="请输入结束时间" @focus="end" />
             </van-col>
-            <van-col span="6">确定</van-col>
+            <van-col span="6" @click="handleConfirm">确定</van-col>
           </van-row>
-          <van-cell title="一周之内" is-link @click="handleColse" />
-          <van-cell title="一月之内" is-link @click="handleColse" />
-          <van-cell title="三月之内" is-link @click="handleColse" />
-          <van-cell title="半年之内" is-link @click="handleColse" />
-          <van-cell title="一年之内" is-link @click="handleColse" />
+          <van-cell title="一周之内" is-link @click="handleColseWeek" />
+          <van-cell title="一月之内" is-link @click="handleColseJanuary" />
+          <van-cell title="三月之内" is-link @click="handleColseMarch" />
+          <van-cell title="半年之内" is-link @click="handleColseJune" />
+          <van-cell title="一年之内" is-link @click="handleColseYear" />
         </div>
       </van-popup>
     </div>
@@ -103,8 +102,6 @@ export default {
       showes: false,
       show: false, //开始时间弹窗
       show1: false, //结束时间弹窗
-      // minHour: 10,
-      // maxHour: 20,
       minDate: new Date(),
       maxDate: new Date(2020, 11, 31),
       currentDate: new Date(), //开始标准时间
@@ -113,31 +110,18 @@ export default {
       starttime1: "", //开始时间时间戳
       endtime: "", //结束时间
       endtime1: "", //结束时间时间戳
-
-      list: [
-        {
-          title: "贵州茅台",
-          money: "30.21元",
-          number: "1,600",
-          identifier: "102931",
-          timer: "2017-10-05 10:22",
-          amount: "1,600"
-        },
-        {
-          title: "茅台",
-          money: "30.21元",
-          number: "1,600",
-          identifier: "102931",
-          timer: "2017-10-05 10:22",
-          amount: "1,600"
-        }
-      ]
+      list: []
     };
   },
 
-  // created() {
-  //   this.handleDelivery();****************************************
-  // },
+  created() {
+    this.handleDelivery();    // 0
+    this.handleColseWeek()    // 1
+    this.handleColseJanuary() // 2
+    this.handleColseMarch()   // 3
+    this.handleColseJune()    // 4
+    this.handleColseYear()    // 5
+  },
 
   methods: {
     /**
@@ -146,8 +130,8 @@ export default {
     async handleDelivery() {
       try {
         const formData = new FormData();
-        formData.append("time_range", 4);
         const res = await deliveryOrderGetList(formData);
+        this.list = res.data.result
       } catch (error) {
         this.$toast("失败了");
       }
@@ -161,16 +145,6 @@ export default {
     },
     /**
      * 自定义时间选择器
-     */
-    handleFreeMinClick() {
-      this.showStart = true;
-    },
-    handleFreeMaxClick() {
-      this.showStart = true;
-    },
-
-    /**
-     * 时间函数
      */
     // 选择开始时间
     start() {
@@ -219,6 +193,79 @@ export default {
         return `${value}日`;
       }
       return value;
+    },
+    /**
+     * 自定义时间确定按钮
+     */
+    handleConfirm () {
+      console.log(this.starttime)
+      console.log(this.endtime)
+      this.showes  = false
+    },
+    /**
+     * 周点击
+     */
+    async handleColseWeek() {
+      try {
+        const formData = new FormData();
+        formData.append('time_range', 1)
+        const res = await deliveryOrderGetList(formData);
+        this.list = res.data.result
+      } catch (error) {
+        
+      }
+    },
+    /**
+     * 月点击
+     */
+    async handleColseJanuary() {
+      try {
+        const formData = new FormData();
+        formData.append('time_range', 2)
+        const res = await deliveryOrderGetList(formData);
+        this.list = res.data.result
+      } catch (error) {
+        
+      }
+    },
+    /**
+     * 三月点击
+     */
+    async handleColseMarch() {
+      try {
+        const formData = new FormData();
+        formData.append('time_range', 3)
+        const res = await deliveryOrderGetList(formData);
+        this.list = res.data.result
+      } catch (error) {
+        
+      }
+    },
+    /**
+     * 半年点击
+     */
+    async handleColseJune() {
+      try {
+        const formData = new FormData();
+        formData.append('time_range', 4)
+        const res = await deliveryOrderGetList(formData);
+        this.list = res.data.result
+      } catch (error) {
+        
+      }
+    },
+    /**
+     * 一年点击
+     */
+    async handleColseYear() {
+      try {
+        const formData = new FormData();
+        formData.append('time_range', 5)
+        const res = await deliveryOrderGetList(formData);
+        this.list = res.data.result
+      } catch (error) {
+        
+      }
     }
   }
 };
@@ -244,41 +291,62 @@ export default {
     .header-style {
       text-align: right;
     }
-  }
-  .delivery-content-include {
-    font-size: 14px;
-    margin: 0 15px;
-    padding: 15px 0;
-    border-bottom: 1px dotted #2e2e2e;
-    color: rgba(255, 255, 255, 1);
-    position: relative;
-    .delivery-content-table {
-      .van-row {
-        img {
-          width: 18px;
-          display: flex;
-          align-items: center;
-          margin-right: 0;
-        }
-        .table-money,
-        .delivery-content-small,
-        .delivery-content-big,
-        .van-col--4 {
-          text-align: right;
-        }
-        .van-col--8 {
-          text-align: center;
-        }
-      }
-      .van-row:nth-child(2) {
-        padding-top: 6px;
-        font-size: 12px;
+    .van-row {
+      padding: 0;
+      .van-col--7 {
+        text-align: center;
       }
     }
-    .delivery-content-state {
-      position: absolute;
-      right: 0;
-      top: 25px;
+  }
+  .delivery-list {
+    height: 75px;
+    font-size: 14px;
+    color: rgba(255, 255, 255, 1);
+    border-bottom: 1px dotted #2e2e2e;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: nowrap;
+    padding: 0 15px;
+    div {
+      flex: 1;
+      p {
+        height: 37.5px;
+        line-height: 37.5px;
+      }
+    }
+    .delivery-title {
+      p {
+        width: 72px;
+      }
+    }
+    .delivery-photo {
+      margin-left: -15px;
+      img {
+        width: 22px;
+        height: 22px;
+      }
+      .delivery-buy {
+        width: 99px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        p {
+          text-align: right;
+        }
+      }
+      p {
+        width: 115px;
+      }
+    }
+    .delivery-small {
+      font-size: 12px
+    }
+    .delivery-centered {
+      text-align: center;
+    }
+    .delivery-quota {
+      text-align: right;
     }
   }
 }
