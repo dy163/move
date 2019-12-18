@@ -1,45 +1,27 @@
 <template>
-  <div class="delivery">
+  <div class="flowing">
     <van-nav-bar
-      title="交割单查询"
+      title="流水查询"
       right-text="历史查询"
       @click-left="$router.back()"
       @click-right="showes = true"
     >
       <van-icon name="arrow-left" slot="left" />
     </van-nav-bar>
-    <div class="delivery-content">
-      <div class="delivery-content-header">
-        <van-row>
-          <van-col span="5">证劵名称</van-col>
-          <van-col span="7" class="header-style">成交价</van-col>
-          <van-col span="7" class="header-style">成交量</van-col>
-          <van-col span="5" class="header-style">成交额</van-col>
-        </van-row>
+    <div class="flowing-content">
+      <div class="flowing-content-header">
+        <P>发生日期</P>
+        <P>操作</P>
+        <P>发生金额</P>
+        <P>剩余金额</P>
       </div>
       <van-list>
-        <div class="delivery-list" v-for="item in list" :key="item.id">
-          <div class="delivery-title">
-            <p>{{ item.stock_name }}</p>
-            <p class="delivery-small">{{ item.stock_code }}</p>
-          </div>
-          <div class="delivery-photo">
-            <div class="delivery-buy">
-              <img src="@/assets/bill.png" />
-              <p>{{item.bargain_price + '元'}}</p>
-            </div>
-            <p class="delivery-small">
-              {{ item.date }}
-              <span>{{ item.time }}</span>
-            </p>
-          </div>
-          <div class="delivery-centered">
-            <p class="delivery-volume">{{ item.bargain_quantity }}</p>
-          </div>
-          <div class="delivery-quota">
-            <p>{{ item.bargain_amount }}</p>
-          </div>
-        </div>
+        <van-row v-for="item in list" :key="item.id">
+          <van-col span="6">{{ item.date }}</van-col>
+          <van-col span="6">{{ item.service_type }}</van-col>
+          <van-col span="6">{{ item.flow_money }}</van-col>
+          <van-col span="6">{{ item.usable_assets }}</van-col>
+        </van-row>
       </van-list>
     </div>
     <!-- 展示历史查询遮罩 -->
@@ -68,7 +50,7 @@
     <!-- 自定义时间选择 -->
     <div>
       <!-- 开始时间控件 -->
-      <van-popup v-model="show" position="bottom">
+      <van-popup v-model="show" position="bottom" :overlay="false">
         <van-datetime-picker
           v-model="currentDate"
           type="date"
@@ -80,7 +62,7 @@
         />
       </van-popup>
       <!-- 结束时间控件 -->
-      <van-popup v-model="show1" position="bottom">
+      <van-popup v-model="show1" position="bottom" :overlay="false">
         <van-datetime-picker
           v-model="currentDate1"
           type="date"
@@ -96,10 +78,10 @@
 </template>
 
 <script>
-import { deliveryOrderGetList } from "@/api/stock";
+import { fundFlowGetList } from "@/api/stock";
 
 export default {
-  name: "Delivery",
+  name: "Flowing",
   data() {
     return {
       showes: false,
@@ -122,7 +104,7 @@ export default {
   computed: {},
 
   created() {
-    this.handleDelivery(); // 默认加载今天数据
+    this.handleFundFlow(); // 默认加载今天数据
   },
 
   methods: {
@@ -180,13 +162,13 @@ export default {
     /**
      * 加载今天数据
      */
-    async handleDelivery() {
+    async handleFundFlow() {
       try {
         const formData = new FormData();
-        const res = await deliveryOrderGetList(formData);
+        const res = await fundFlowGetList(formData);
         this.list = res.data.result;
       } catch (error) {
-        this.$toast("失败了");
+        this.$toast("获取今天数据失败");
       }
     },
     /**
@@ -204,7 +186,7 @@ export default {
           formData.append("time_range", 6);
           formData.append("min", min);
           formData.append("max", max);
-          const res = await deliveryOrderGetList(formData);
+          const res = await fundFlowGetList(formData);
           this.list = res.data.result;
           this.$toast("获取自定义列表成功");
         }
@@ -220,7 +202,7 @@ export default {
       try {
         const formData = new FormData();
         formData.append("time_range", 1);
-        const res = await deliveryOrderGetList(formData);
+        const res = await fundFlowGetList(formData);
         this.list = res.data.result;
         this.$toast("获取周列表成功");
       } catch (error) {
@@ -235,7 +217,7 @@ export default {
       try {
         const formData = new FormData();
         formData.append("time_range", 2);
-        const res = await deliveryOrderGetList(formData);
+        const res = await fundFlowGetList(formData);
         this.list = res.data.result;
         this.$toast("获取一月列表成功");
       } catch (error) {
@@ -250,7 +232,7 @@ export default {
       try {
         const formData = new FormData();
         formData.append("time_range", 3);
-        const res = await deliveryOrderGetList(formData);
+        const res = await fundFlowGetList(formData);
         this.list = res.data.result;
         this.$toast("获取三月列表成功");
       } catch (error) {
@@ -265,7 +247,7 @@ export default {
       try {
         const formData = new FormData();
         formData.append("time_range", 4);
-        const res = await deliveryOrderGetList(formData);
+        const res = await fundFlowGetList(formData);
         this.list = res.data.result;
         this.$toast("获取半年列表成功");
       } catch (error) {
@@ -280,7 +262,7 @@ export default {
       try {
         const formData = new FormData();
         formData.append("time_range", 5);
-        const res = await deliveryOrderGetList(formData);
+        const res = await fundFlowGetList(formData);
         this.list = res.data.result;
         this.$toast("获取一年列表成功");
       } catch (error) {
@@ -296,76 +278,41 @@ export default {
   color: #fff;
   background-color: #20212a;
 }
-.delivery-content {
-  position: fixed;
-  background: rgba(23, 24, 34, 1);
+.flowing-content {
+  padding: 0 15px;
+  font-family: PingFangSC-Regular, PingFang SC;
   height: 100%;
-  width: 100%;
-  .delivery-content-header {
-    height: 50px;
-    line-height: 50px;
-    margin: 0 15px;
+  .flowing-content-header {
+    height: 47px;
     font-size: 13px;
     color: rgba(124, 124, 130, 1);
-    border-bottom: 1px solid #2e2e2e;
-    .header-style {
-      text-align: right;
-    }
-    .van-row {
-      padding: 0;
-      .van-col--7 {
-        text-align: center;
-      }
-    }
-  }
-  .delivery-list {
-    height: 75px;
-    font-size: 14px;
-    color: rgba(255, 255, 255, 1);
-    border-bottom: 1px dotted #2e2e2e;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    flex-wrap: nowrap;
-    padding: 0 15px;
-    div {
+    // border-bottom: 0.5px solid #14151C;
+    p {
       flex: 1;
-      p {
-        height: 37.5px;
-        line-height: 37.5px;
-      }
     }
-    .delivery-title {
-      p {
-        width: 72px;
-      }
-    }
-    .delivery-photo {
-      margin-left: -15px;
-      img {
-        width: 22px;
-        height: 22px;
-      }
-      .delivery-buy {
-        width: 99px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        p {
-          text-align: right;
-        }
-      }
-      p {
-        width: 115px;
-      }
-    }
-    .delivery-small {
-      font-size: 12px;
-    }
-    .delivery-centered {
+    p:nth-child(2),
+    p:nth-child(3) {
       text-align: center;
     }
-    .delivery-quota {
+    p:nth-child(4) {
+      text-align: right;
+    }
+  }
+  .van-row {
+    height: 50px;
+    line-height: 50px;
+    padding: 0;
+    font-size: 14px;
+    color: rgba(255, 255, 255, 1);
+    border-top: 0.5px solid #14151c;
+    .van-col--6:nth-child(2),
+    .van-col--6:nth-child(3) {
+      text-align: center;
+    }
+    .van-col--6:nth-child(4) {
       text-align: right;
     }
   }

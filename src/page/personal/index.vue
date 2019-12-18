@@ -38,6 +38,11 @@
         <img src="@/assets/img/delivery.png"/>
         <router-link to="/delivery">交割单查询</router-link>
       </div>
+      <!-- 流水查询 -->
+      <div>
+        <img src="@/assets/img/flowing-water.png"/>
+        <router-link to="/flowing-water">流水查询</router-link>
+      </div>
     </div>
     <!-- 底部导航 -->
     <app-tabbar />

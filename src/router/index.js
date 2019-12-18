@@ -153,6 +153,12 @@ const router = new Router({
       path: '/delivery',
       component: () => import('@/page/personal/components/delivery')
     },
+    // 流水查询
+    {
+      name: 'flowing-water',
+      path: '/flowing-water',
+      component: () => import('@/page/personal/components/flowing-water')
+    },
     // 搜索股票 search
     {
       name: 'search',

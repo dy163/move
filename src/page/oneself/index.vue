@@ -111,6 +111,7 @@ export default {
             /**
              * 
              */
+            this.loadStock();
           } catch (error) {
             this.$toast("清空失败");
           }
