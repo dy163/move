@@ -37,6 +37,7 @@
             </div>
             <div>
               <p>{{ item.rise_or_fall_rate }}</p>
+              
             </div>
           </div>
           <template slot="right">
@@ -57,6 +58,7 @@
 
 <script>
 import { mySelectStockGetList, mySelectStockDelete } from "@/api/stock";
+import { log } from 'util';
 
 export default {
   name: "OneselfIndex",
@@ -107,11 +109,9 @@ export default {
             // on confirm
             const formData = new FormData();
             formData.append("id", q.id);
-            const res = await mySelectStockDelete(formData);
-            /**
-             * 
-             */
-            this.loadStock();
+            await mySelectStockDelete(formData);
+            // 
+            this.$nextTick(this.loadStock())  
           } catch (error) {
             this.$toast("清空失败");
           }
@@ -128,6 +128,9 @@ export default {
         const formData = new FormData();
         const res = await mySelectStockGetList(formData);
         this.stock = res.data.result;
+        if(!res.data.status) {
+          this.$toast('请登录获取自选数据')
+        }
       } catch (error) {
         this.$toast("失败操作");
       }

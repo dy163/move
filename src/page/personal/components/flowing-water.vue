@@ -334,6 +334,9 @@ export default {
   /deep/.van-overlay {
     margin-top: 46px;
   }
+  /deep/.van-field__control {
+    text-align: center;
+  }
   .van-cell {
     background-color: #fff;
     color: #000;

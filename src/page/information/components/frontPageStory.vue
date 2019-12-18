@@ -15,7 +15,7 @@
         <img src="@/assets/img/involved.png" />
       </div>
       <div>
-        <van-swipe :autoplay="3000" indicator-color="white">
+        <van-swipe :autoplay="3000" indicator-color="white" style="height: 64px;" vertical>
           <van-swipe-item v-for="item in flash" :key="item.id">{{ item }}</van-swipe-item>
         </van-swipe>
       </div>
@@ -172,6 +172,9 @@ export default {
 /deep/.van-swipe__indicators {
   width: 0;
 }
+/deep/.van-swipe__indicator {
+  width: 0;
+}
 .among {
   height: 65px;
   line-height: 65px;
@@ -183,7 +186,7 @@ export default {
   border-radius: 8px;
   position: absolute;
   .van-swipe {
-    margin-left: 60px;
+    margin-left: 70px;
   }
   /deep/.van-swipe-item {
     overflow: hidden;

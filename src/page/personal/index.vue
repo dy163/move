@@ -50,6 +50,7 @@
 </template>
 
 <script>
+
 const http = "http://192.168.3.79:8080"
 
 export default {
