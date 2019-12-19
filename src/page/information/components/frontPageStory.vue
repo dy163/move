@@ -1,58 +1,60 @@
 <template>
   <!-- 轮播图片 -->
   <div class="frontPageStory">
-    <div class="frontPageStory-front-page-top">
-      <van-swipe :autoplay="4000">
-        <van-swipe-item v-for="(image, index) in images" :key="index">
-          <p class="image-lunbo">{{ image.title }}</p>
-          <img :src="'http://192.168.3.79:8080' + image.img" />
-        </van-swipe-item>
-      </van-swipe>
-    </div>
-    <!-- 快讯轮播 -->
-    <div class="among">
-      <div class="img">
-        <img src="@/assets/img/involved.png" />
-      </div>
-      <div>
-        <van-swipe :autoplay="3000" indicator-color="white" style="height: 64px;" vertical>
-          <van-swipe-item v-for="item in flash" :key="item.id">{{ item }}</van-swipe-item>
+    <van-pull-refresh v-model="isLoading" @refresh="onRefresh">
+      <div class="frontPageStory-front-page-top">
+        <van-swipe :autoplay="4000">
+          <van-swipe-item v-for="(image, index) in images" :key="index">
+            <p class="image-lunbo">{{ image.title }}</p>
+            <img :src="'http://192.168.3.79:8080' + image.img" />
+          </van-swipe-item>
         </van-swipe>
       </div>
-    </div>
-    <!-- 置顶数据列表加载 -->
-    <div>
-      <!-- <van-list 
-        v-model="loading"
-        :finished="finished"
-        finished-text="没有更多了"
-        @load="onLoad"
-      >-->
-      <van-list>
-        <div
-          class="information-front-page-foot"
-          v-for="(item,index) in focus"
-          :key="index"
-          @click="handleNewMore(item)"
-        >
-          <div class="information-front-name">
-            <div class="information-title">
-              <p>{{ item.title }}</p>
-            </div>
-            <div class="information-box">
-              <van-tag type="danger" size="medium" plain>置顶</van-tag>
-              <p class="information-information">
-                <span>{{ item.resource }}</span>
-                <span>{{ item.time }}</span>
-              </p>
-            </div>
-          </div>
-          <div class="img">
-            <img :src="'http://192.168.3.79:8080' + item.img" />
-          </div>
+      <!-- 快讯轮播 -->
+      <div class="among">
+        <div class="img">
+          <img src="@/assets/img/involved.png" />
         </div>
-      </van-list>
-    </div>
+        <div>
+          <van-swipe :autoplay="3000" indicator-color="white" style="height: 64px;" vertical>
+            <van-swipe-item v-for="item in flash" :key="item.id">{{ item }}</van-swipe-item>
+          </van-swipe>
+        </div>
+      </div>
+      <!-- 置顶数据列表加载 -->
+      <div>
+        <!-- <van-list 
+          v-model="loading"
+          :finished="finished"
+          finished-text="没有更多了"
+          @load="onLoad"
+        >-->
+        <van-list>
+          <div
+            class="information-front-page-foot"
+            v-for="(item,index) in focus"
+            :key="index"
+            @click="handleNewMore(item)"
+          >
+            <div class="information-front-name">
+              <div class="information-title">
+                <p>{{ item.title }}</p>
+              </div>
+              <div class="information-box">
+                <van-tag type="danger" size="medium" plain>置顶</van-tag>
+                <p class="information-information">
+                  <span>{{ item.resource }}</span>
+                  <span>{{ item.time }}</span>
+                </p>
+              </div>
+            </div>
+            <!-- <div class="img"> -->
+              <img :src="'http://192.168.3.79:8080' + item.img" />
+            <!-- </div> -->
+          </div>
+        </van-list>
+      </div>
+    </van-pull-refresh>
   </div>
 </template>
 
@@ -63,6 +65,7 @@ export default {
   name: "FrontPageStory",
   data() {
     return {
+      isLoading: false,
       show: true,
       loading: false,
       finished: false,
@@ -79,6 +82,18 @@ export default {
     this.handleGetLunbo(); // 轮播列表
   },
   methods: {
+    /**
+     * 下拉刷新
+     */
+    onRefresh() {
+      setTimeout(() => {
+        this.$toast("刷新成功");
+        this.isLoading = false;
+        this.handleGetTop(); // 下拉刷新置顶列表
+        this.handleGetFlash(); // 下拉刷新要闻快讯
+        this.handleGetLunbo(); // 下拉刷新轮播列表
+      }, 500);
+    },
     /**
      * 异步更新数据
      */
@@ -206,6 +221,7 @@ export default {
 .information-front-page-foot {
   height: 115px;
   display: flex;
+  justify-content: space-between;
   align-items: center;
   margin: 0 15px;
   border-bottom: 1px solid #14151c;
@@ -219,10 +235,7 @@ export default {
     .information-title {
       height: 48px;
       font-size: 16px;
-      font-family: PingFangSC;
-      font-weight: 500;
-      margin-right: 8px;
-      width: 224px;
+      width: 220px;
       overflow: hidden;
       text-overflow: ellipsis;
       letter-spacing: 1px;
@@ -233,7 +246,8 @@ export default {
     }
     .information-box {
       display: flex;
-      padding-top: 15px;
+      padding-top: 13px;
+      width: 220px;
       .van-tag {
         padding: 2px 5px;
         font-size: 12px;
@@ -246,7 +260,7 @@ export default {
         font-weight: 400;
         height: 16px;
         color: rgba(126, 130, 156, 1);
-        span {
+        span:nth-child(1) {
           margin-right: 5px;
         }
       }

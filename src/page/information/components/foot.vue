@@ -14,10 +14,10 @@
             </p>
           </div>
         </div>
-        <div class="img">
+        <!-- <div class="img"> -->
           <!-- <img src="@/assets/img/blank-picture.png" alt /> -->
           <img :src="'http://192.168.3.79:8080' + item.img" />
-        </div>
+        <!-- </div> -->
       </div>
     </van-list>
   </div>
@@ -65,6 +65,7 @@ export default {
   height: 115px;
   display: flex;
   align-items: center;
+  justify-content: space-between;
   margin: 0 15px;
   border-bottom: 1px solid #14151c;
   img {
@@ -77,10 +78,8 @@ export default {
     .information-title {
       height: 48px;
       font-size: 16px;
-      font-family: PingFangSC;
       font-weight: 500;
-      margin-right: 8px;
-      width: 224px;
+      width: 220px;
       // word-break:break-all;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -93,7 +92,7 @@ export default {
     }
     .information-box {
       display: flex;
-      padding-top: 15px;
+      padding-top: 13px;
       .van-tag {
         padding: 2px 5px;
         font-size: 12px;

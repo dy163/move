@@ -1,19 +1,20 @@
 <template>
   <div class="hotspot">
     <van-nav-bar title="资 讯" fixed @click-left="$router.back()">
-      <van-icon name="arrow-left" slot="left"/>
+      <van-icon name="arrow-left" slot="left" />
     </van-nav-bar>
     <div class="hotspot-conent">
       <p>热点事件</p>
     </div>
     <div class="hotspot-list">
       <van-pull-refresh v-model="isLoading" @refresh="onRefresh">
-        <van-list 
-          v-model="loading"
-          :finished="finished"
-          finished-text="没有更多了"
-          @load="onLoad">
-          <div class="hotspot-foot" v-for="(item,index) in focus" :key="index" @click="handleNewMore(item)">
+        <van-list v-model="loading" :finished="finished" finished-text="没有更多了" @load="onLoad">
+          <div
+            class="hotspot-foot"
+            v-for="(item,index) in focus"
+            :key="index"
+            @click="handleNewMore(item)"
+          >
             <div class="hotspot-name">
               <div class="hotspot-title">
                 <p>{{ item.title }}</p>
@@ -25,9 +26,9 @@
                 </p>
               </div>
             </div>
-            <div class="img">
-              <img :src="'http://192.168.3.79:8080' + item.img"/>
-            </div>
+            <!-- <div class="img"> -->
+              <img :src="'http://192.168.3.79:8080' + item.img" />
+            <!-- </div> -->
           </div>
         </van-list>
       </van-pull-refresh>
@@ -46,11 +47,11 @@ export default {
   props: {},
   data() {
     return {
-      finished: false,  // 列表加载
-      loading: false,   // 列表加载
+      finished: false, // 列表加载
+      loading: false, // 列表加载
       isLoading: false, // 下拉刷新控制
       page: "1", // 页数
-      number: "5", // 每页条数
+      number: "", // 每页条数
       focus: []
     };
   },
@@ -61,9 +62,9 @@ export default {
     /**
      * 列表懒加载
      */
-    onLoad () {
+    onLoad() {
       // this.handleGetList()
-      this.loading = false   
+      this.loading = false;
       // this.finished = true;
     },
     /**
@@ -71,7 +72,7 @@ export default {
      */
     onRefresh() {
       setTimeout(() => {
-        this.$toast('刷新成功');
+        this.$toast("刷新成功");
         this.isLoading = false;
         this.handleGetList();
       }, 500);
@@ -111,7 +112,7 @@ export default {
 }
 .hotspot-list {
   margin-bottom: 50px;
-  img{
+  img {
     width: 117px;
     height: 75px;
     border-radius: 5px;
@@ -129,15 +130,12 @@ export default {
       .hotspot-title {
         height: 48px;
         font-size: 16px;
-        font-family: PingFangSC;
-        font-weight: 500;
-        margin-right: 8px;
-        width: 224px;
+        width: 220px;
         // word-break:break-all;
         overflow: hidden;
         text-overflow: ellipsis;
         letter-spacing: 1px;
-        display:-webkit-box!important; 
+        display: -webkit-box !important;
         p {
           height: 24px;
           line-height: 24px;
@@ -145,7 +143,7 @@ export default {
       }
       .hotspot-box {
         display: flex;
-        padding-top: 15px;
+        padding-top: 14px;
         .van-tag {
           padding: 2px 5px;
           font-size: 12px;

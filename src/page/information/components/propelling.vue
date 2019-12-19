@@ -20,9 +20,9 @@
             </p>
           </div>
           <!-- 图片 -->
-          <div class="img">
+          <!-- <div class="img"> -->
             <img :src="'http://192.168.3.79:8080' + item.img"/>
-          </div>
+          <!-- </div> -->
         </div>
       </van-list>
     </van-pull-refresh>
@@ -83,10 +83,7 @@ export default {
   .propelling-title {
     height: 48px;
     font-size: 16px;
-    font-family: PingFangSC;
-    font-weight: 500;
-    margin-right: 8px;
-    width: 224px;
+    width: 220px;
     // word-break:break-all;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -117,6 +114,6 @@ export default {
   font-weight: 400;
   color: rgba(106, 109, 131, 1);
   line-height: 16px;
-  padding-top: 12px;
+  padding-top: 13px;
 }
 </style>
