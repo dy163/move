@@ -38,7 +38,7 @@
 </template>
 
 <script>
-import { searchStock, searchGetList, searchAdd, getList } from "@/api/stock";
+import { searchStock, searchGetList, searchAdd, getList, searchClearList } from "@/api/stock";
 import { debounce } from "lodash";
 
 export default {
@@ -121,8 +121,9 @@ export default {
         // if(res.data.status) {  
           const formData = new FormData();
           formData.append("stock_code", q.stock_code);
-          const res =  await getList(formData)
-          // console.log(res.data.result)
+          formData.append("stock_name", q.stock_name);
+          const res =  await searchAdd(formData)
+          console.log(res.data.result)
           // this.$router.push({name: "transaction",params: {q}}); 
           this.$router.push({path: '/transaction',query: {q: q}});
         // } 
@@ -136,11 +137,12 @@ export default {
     handleDelete () {
       this.$dialog.confirm({
         title: '确定清空搜索列表？',
-      }).then( async function () {
+      }).then( async ()=> {
         try {
           // on confirm
-          // const formData = new FormData();
-          // await  searchClearGetList(formData)
+          const formData = new FormData();
+          await  searchClearList(formData)
+          this.searchList();
         } catch (error) {
           this.$toast('清空失败')
         }

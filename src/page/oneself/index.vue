@@ -22,30 +22,32 @@
         </p>
       </div>
       <div class="nil"></div>
-      <van-list :finished="finished" finished-text="没有更多了">
-        <!-- <van-swipe-cell v-for="(item, index) in stock" :key="index" :on-close="onClose"> -->
-        <van-swipe-cell v-for="(item, index) in stock" :key="index">
-          <div class="oneself-content-top" @click="handleTranscation(item)">
-            <div>
-              <p>{{ item.stock_name }}</p>
-              <p>
-                <span>{{ item.stock_code }}</span>
-              </p>
+      <!-- 下拉刷新 -->
+      <van-pull-refresh v-model="isLoading" @refresh="onRefresh">
+        <van-list :finished="finished" finished-text="没有更多了">
+          <!-- <van-swipe-cell v-for="(item, index) in stock" :key="index" :on-close="onClose"> -->
+          <van-swipe-cell v-for="(item, index) in stock" :key="index">
+            <div class="oneself-content-top" @click="handleTranscation(item)">
+              <div>
+                <p>{{ item.stock_name }}</p>
+                <p>
+                  <span>{{ item.stock_code }}</span>
+                </p>
+              </div>
+              <div>
+                <p>{{ item.current_price }}</p>
+              </div>
+              <div>
+                <p>{{ item.rise_or_fall_rate }}</p>
+              </div>
             </div>
-            <div>
-              <p>{{ item.current_price }}</p>
-            </div>
-            <div>
-              <p>{{ item.rise_or_fall_rate }}</p>
-              
-            </div>
-          </div>
-          <template slot="right">
-            <van-button square type="danger" text="删除" @click="handleDelete(item)" />
-            <!-- <van-button square type="danger" text="删除"/> -->
-          </template>
-        </van-swipe-cell>
-      </van-list>
+            <template slot="right">
+              <van-button square type="danger" text="删除" @click="handleDelete(item)" />
+              <!-- <van-button square type="danger" text="删除"/> -->
+            </template>
+          </van-swipe-cell>
+        </van-list>
+      </van-pull-refresh>
     </div>
     <div class="oneself-content-foot" @click="$router.push('/quotation')">
       <img src="@/assets/img/plus-small.png" alt />
@@ -58,27 +60,32 @@
 
 <script>
 import { mySelectStockGetList, mySelectStockDelete } from "@/api/stock";
-import { log } from 'util';
 
 export default {
   name: "OneselfIndex",
-  inject:['reload'],
   data() {
     return {
+      isLoading: false,
       finished: false,
       stock: []
     };
   },
   // 提前加载
-  created() {
+  mounted() {
     this.loadStock();
   },
-  computed: {
-    // activeChannel () {
-    //   return this.channels[this.activeChannelIndex]
-    // }
-  },
+
   methods: {
+    /**
+     * 下拉刷新
+     */
+    onRefresh() {
+      setTimeout(() => {
+        this.$toast("刷新成功");
+        this.isLoading = false;
+        this.loadStock();
+      }, 500);
+    },
     /**
      * 跳转到持仓页面
      */
@@ -104,14 +111,14 @@ export default {
         .confirm({
           title: "确定删除吗？"
         })
-        .then(async function() {
+        .then(async () => {
           try {
             // on confirm
             const formData = new FormData();
             formData.append("id", q.id);
             await mySelectStockDelete(formData);
-            // 
-            this.$nextTick(this.loadStock())  
+            // 重新获取数据
+            this.loadStock();
           } catch (error) {
             this.$toast("清空失败");
           }
@@ -128,8 +135,8 @@ export default {
         const formData = new FormData();
         const res = await mySelectStockGetList(formData);
         this.stock = res.data.result;
-        if(!res.data.status) {
-          this.$toast('请登录获取自选数据')
+        if (!res.data.status) {
+          this.$toast("请登录获取自选数据");
         }
       } catch (error) {
         this.$toast("失败操作");

@@ -1,27 +1,30 @@
 <template>
   <div class="free">
-    <!-- <van-list
-          v-model="loading"
-          :finished="finished"
-          finished-text="没有更多了"
-          @load="onLoad"
-    >-->
-    <van-list>
-      <div class="free-title" v-for="item in pushList" :key="item.id">
-        <div class="free-title-name">
-          <p class="free-title-name-title">
-            {{item.stock_name}}
-            <span>（{{ item.stock_code }}）</span>
-          </p>
-          <!-- <p @click="$router.push('/freemore')">查看更多</p> -->
-          <p @click="handleFreeMore(item)">查看更多</p>
+    <!-- 下拉刷新 -->
+    <van-pull-refresh v-model="isLoading" @refresh="onRefresh">
+      <!-- <van-list
+            v-model="loading"
+            :finished="finished"
+            finished-text="没有更多了"
+            @load="onLoad"
+      >-->
+      <van-list>
+        <div class="free-title" v-for="item in pushList" :key="item.id">
+          <div class="free-title-name">
+            <p class="free-title-name-title">
+              {{item.stock_name}}
+              <span>（{{ item.stock_code }}）</span>
+            </p>
+            <!-- <p @click="$router.push('/freemore')">查看更多</p> -->
+            <p @click="handleFreeMore(item)">查看更多</p>
+          </div>
+          <div class="free-title-content" v-for="items in item.data" :key="items.id" @click="handleMore(items)">
+            <p class="free-stance" >{{ items.title }}</p>
+            <p class="free-timer">{{ items.time }}</p>
+          </div>
         </div>
-        <div class="free-title-content" v-for="items in item.data" :key="items.id" @click="handleMore(items)">
-          <p class="free-stance" >{{ items.title }}</p>
-          <p class="free-timer">{{ items.time }}</p>
-        </div>
-      </div>
-    </van-list>
+      </van-list>
+    </van-pull-refresh>
   </div>
 </template>
 
@@ -32,6 +35,7 @@ export default {
   name: "Free",
   data() {
     return {
+      isLoading: false,
       pushList:[]
     };
   },
@@ -39,6 +43,16 @@ export default {
     this.handleFree()
   },
   methods: {
+    /**
+     * 下拉刷新
+     */
+    onRefresh() {
+      setTimeout(() => {
+        this.$toast('刷新成功');
+        this.isLoading = false;
+        this.handleFree()
+      }, 500);
+    },
     /**
      * 获取自选列表
      */

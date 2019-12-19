@@ -21,28 +21,30 @@
         </p>
       </div>
       <div class="nil"></div>
-      <van-list>
-        <div
-          class="quotation-content-top"
-          v-for="(item, index) in stock"
-          :key="index"
-          @click="handleTranscation(item)"
-        >
-          <div>
-            <p>{{ item.stock_name }}</p>
-            <p>
-              <!-- <span class="quotation-color">{{ item.marker }}</span> -->
-              <span>{{ item.stock_code }}</span>
-            </p>
+      <van-pull-refresh v-model="isLoading" @refresh="onRefresh">      
+        <van-list>
+          <div
+            class="quotation-content-top"
+            v-for="(item, index) in stock"
+            :key="index"
+            @click="handleTranscation(item)"
+          >
+            <div>
+              <p>{{ item.stock_name }}</p>
+              <p>
+                <!-- <span class="quotation-color">{{ item.marker }}</span> -->
+                <span>{{ item.stock_code }}</span>
+              </p>
+            </div>
+            <div>
+              <p>{{ item.current_price }}</p>
+            </div>
+            <div>
+              <p>{{ item.rise_or_fall_rate }}</p>
+            </div>
           </div>
-          <div>
-            <p>{{ item.current_price }}</p>
-          </div>
-          <div>
-            <p>{{ item.rise_or_fall_rate }}</p>
-          </div>
-        </div>
-      </van-list>
+        </van-list>
+      </van-pull-refresh>
     </div>
     <!-- 底部导航 -->
     <app-tabbar />
@@ -55,6 +57,7 @@ export default {
   name: "QuotationIndex",
   data() {
     return {
+      isLoading: false,
       loading: false,
       finished: false,
       stock: []
@@ -71,6 +74,16 @@ export default {
    * 方法
    */
   methods: {
+    /**
+     * 下拉刷新
+     */
+    onRefresh() {
+      setTimeout(() => {
+        this.$toast('刷新成功');
+        this.isLoading = false;
+        this.loadStock();
+      }, 500);
+    },
     /**
      * 异步更新数据
      */

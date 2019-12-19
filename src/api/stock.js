@@ -91,7 +91,7 @@ export const searchGetList = formData => {
 /**
  * 23.清空搜索记录列表
 */
-export const searchClearGetList = formData => {
+export const searchClearList = formData => {
   return request({
     method: 'POST',
     url: '/search/clearList',

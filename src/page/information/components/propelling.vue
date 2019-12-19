@@ -1,28 +1,31 @@
 <template>
   <div class="propelling">
-    <van-list>
-      <!-- 内容数据展示 -->
-      <div
-        class="propelling-content"
-        v-for="(item, index) in pushList"
-        :key="index"
-        @click="handleClickMore(item)"
-      >
-        <div>
-          <div class="propelling-title">
-            <p>{{ item.title }}</p>
+    <!-- 下拉刷新 -->
+    <van-pull-refresh v-model="isLoading" @refresh="onRefresh">
+      <van-list>
+        <!-- 内容数据展示 -->
+        <div
+          class="propelling-content"
+          v-for="(item, index) in pushList"
+          :key="index"
+          @click="handleClickMore(item)"
+        >
+          <div>
+            <div class="propelling-title">
+              <p>{{ item.title }}</p>
+            </div>
+            <p class="propelling-name">
+              {{ item.resource }}
+              <span>{{ item.time }}</span>
+            </p>
           </div>
-          <p class="propelling-name">
-            {{ item.resource }}
-            <span>{{ item.time }}</span>
-          </p>
+          <!-- 图片 -->
+          <div class="img">
+            <img :src="'http://192.168.3.79:8080' + item.img"/>
+          </div>
         </div>
-        <!-- 图片 -->
-        <div class="img">
-          <img :src="'http://192.168.3.79:8080' + item.img"/>
-        </div>
-      </div>
-    </van-list>
+      </van-list>
+    </van-pull-refresh>
   </div>
 </template>
 
@@ -34,6 +37,7 @@ export default {
   props: {},
   data() {
     return {
+      isLoading: false,
       pushList: []
     };
   },
@@ -41,6 +45,16 @@ export default {
     this.handlePush()     // 提前加载
   },
   methods: {
+    /**
+     * 下拉刷新
+     */
+    onRefresh() {
+      setTimeout(() => {
+        this.$toast('刷新成功');
+        this.isLoading = false;
+        this.handlePush()     // 下拉刷新加载
+      }, 500);
+    },
     /**
      * 加载数据
      */

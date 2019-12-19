@@ -7,26 +7,30 @@
       <p>热点事件</p>
     </div>
     <div class="hotspot-list">
-      <van-list>
-        <div class="hotspot-foot" v-for="(item,index) in focus" :key="index" @click="handleNewMore(item)">
-          <div class="hotspot-name">
-            <div class="hotspot-title">
-              <p>{{ item.title }}</p>
+      <van-pull-refresh v-model="isLoading" @refresh="onRefresh">
+        <van-list 
+          v-model="loading"
+          :finished="finished"
+          finished-text="没有更多了"
+          @load="onLoad">
+          <div class="hotspot-foot" v-for="(item,index) in focus" :key="index" @click="handleNewMore(item)">
+            <div class="hotspot-name">
+              <div class="hotspot-title">
+                <p>{{ item.title }}</p>
+              </div>
+              <div class="hotspot-box">
+                <p class="hotspot-information">
+                  <span>{{ item.resource }}</span>
+                  <span>{{ item.time }}</span>
+                </p>
+              </div>
             </div>
-            <div class="hotspot-box">
-              <!-- <van-tag type="danger" size="medium" plain>{{ item.roof }}</van-tag> -->
-              <p class="hotspot-information">
-                <span>{{ item.resource }}</span>
-                <span>{{ item.time }}</span>
-              </p>
+            <div class="img">
+              <img :src="'http://192.168.3.79:8080' + item.img"/>
             </div>
           </div>
-          <div class="img">
-            <!-- <img src="@/assets/img/blank-picture.png" alt /> -->
-            <img :src="'http://192.168.3.79:8080' + item.img"/>
-          </div>
-        </div>
-      </van-list>
+        </van-list>
+      </van-pull-refresh>
     </div>
 
     <!-- 底部导航 -->
@@ -42,8 +46,11 @@ export default {
   props: {},
   data() {
     return {
-      page: "", // 页数
-      number: "", // 每页条数
+      finished: false,  // 列表加载
+      loading: false,   // 列表加载
+      isLoading: false, // 下拉刷新控制
+      page: "1", // 页数
+      number: "5", // 每页条数
       focus: []
     };
   },
@@ -51,6 +58,24 @@ export default {
     this.handleGetList();
   },
   methods: {
+    /**
+     * 列表懒加载
+     */
+    onLoad () {
+      // this.handleGetList()
+      this.loading = false   
+      // this.finished = true;
+    },
+    /**
+     * 下拉刷新
+     */
+    onRefresh() {
+      setTimeout(() => {
+        this.$toast('刷新成功');
+        this.isLoading = false;
+        this.handleGetList();
+      }, 500);
+    },
     /**
      * 数据列表加载接口函数
      */
