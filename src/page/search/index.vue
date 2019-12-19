@@ -121,7 +121,7 @@ export default {
         // if(res.data.status) {  
           const formData = new FormData();
           formData.append("stock_code", q.stock_code);
-          formData.append("stock_name", q.stock_name);
+          formData.append("stock_name", q.shortname);
           const res =  await searchAdd(formData)
           console.log(res.data.result)
           // this.$router.push({name: "transaction",params: {q}}); 

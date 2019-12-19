@@ -238,6 +238,10 @@ export default {
       width: 220px;
       overflow: hidden;
       text-overflow: ellipsis;
+      display:-webkit-box!important;
+      -webkit-box-orient:vertical;
+      -webkit-line-clamp:2;
+      word-break:break-all;
       letter-spacing: 1px;
       p {
         height: 24px;
