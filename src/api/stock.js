@@ -131,3 +131,25 @@ export const deliveryOrderGetList = formData => {
     data: formData
   })
 }
+
+/**
+ * 39.获取历史委托查询列表
+*/
+export const entrustHistory = formData => {
+  return request({
+    method: 'POST',
+    url: '/entrust/history',
+    data: formData
+  })
+}
+
+/**
+ * 40.获取今日委托查询列表
+*/
+export const entrustTodayGetList = formData => {
+  return request({
+    method: 'POST',
+    url: '/entrust/todaygetList',
+    data: formData
+  })
+}
