@@ -17,7 +17,7 @@
     </form>
 
     <!-- 联想建议列表 -->
-    <van-cell-group class="group" v-if="suggestions.length && searchText.length">
+    <van-cell-group class="group" v-if="suggestions  && suggestions.length  && searchText && searchText.length">
       <van-cell class="cell" v-for="item in suggestions" :key="item.id">
         <div slot="title" v-html="handleText(item,searchText)" @click="handleList(item)"></div>
       </van-cell>
@@ -123,7 +123,6 @@ export default {
           formData.append("stock_code", q.stock_code);
           formData.append("stock_name", q.shortname);
           const res =  await searchAdd(formData)
-          console.log(res.data.result)
           // this.$router.push({name: "transaction",params: {q}}); 
           this.$router.push({path: '/transaction',query: {q: q}});
         // } 

@@ -23,6 +23,13 @@ Vue.component('app-tabbar', AppTabbar)
 
 Vue.use(Vant)
 
+// 封装一个全局的定时器----⬇
+Vue.prototype.$sleep = time => {
+  return new Promise((resolve, reject) => {
+    window.setTimeout(resolve, time)
+  })
+}
+
 Vue.config.productionTip = false
 
 new Vue({

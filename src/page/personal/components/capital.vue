@@ -149,32 +149,6 @@
             </div>
           </van-col>
         </van-row>
-        <!-- <van-row class="shares-list">
-          <van-col span="6">
-            <div>
-              <p>四季教育</p>
-              <p>FEDU</p>
-            </div>
-          </van-col>
-          <van-col span="6">
-            <div>
-              <p>1</p>
-              <p>1.74</p>
-            </div>
-          </van-col>
-          <van-col span="6">
-            <div>
-              <p>1.74</p>
-              <p>0</p>
-            </div>
-          </van-col>
-          <van-col span="6">
-            <div>
-              <p>+1.74</p>
-              <p>0.00%</p>
-            </div>
-          </van-col>
-        </van-row> -->
       </van-list>
     </div>
     <!-- 底部导航 -->
@@ -225,9 +199,13 @@ export default {
       try {
         const formData = new FormData()
         const res = await accountGetAccount(formData);
-        this.account = res.data.result
+        if(!res.data.status) {
+          this.$toast("没有登录请登录");
+        } else {
+          this.account = res.data.result
+        }
       } catch (error) {
-        this.$toast("获取失败");
+        this.$toast("获取账户信息失败");
       }
     },
     /**
