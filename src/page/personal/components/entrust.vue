@@ -11,42 +11,48 @@
       <van-row>
         <van-col span="12">今日查询</van-col>
         <van-col span="12">
-          <div @click="showes = true">
+          <!-- <div @click="showes = true"> -->
+          <div v-show="show2" @click="handleShow2">
             <span>历史查询</span>
             <van-icon name="arrow" />
           </div>
-          <!-- <div>
+          <div v-show="show3" @click="handleShow3" >
             <span>历史查询</span>
             <van-icon name="arrow-down" />
-          </div> -->
+          </div>
         </van-col>
       </van-row>
     </div>
-    <div class="delivery-content">
-      <van-list>
-        <div class="delivery-list" v-for="item in list" :key="item.id">
-          <div class="delivery-title">
-            <p>{{ item.stock_name }}</p>
-            <p class="delivery-small">{{ item.stock_code }}</p>
-          </div>
-          <div class="delivery-photo">
-            <div class="delivery-buy">
-              <img src="@/assets/bill.png" />
-              <p>{{item.bargain_price + '元'}}</p>
+    <!-- 列表内容展示 -->
+    <div class="entrust-content">
+      <div class="entrust-content-title">
+        <van-row>
+          <van-col span="4">证劵名称</van-col>
+          <van-col span="10">委托价格/时间</van-col>
+          <van-col span="6">委托数量/成交</van-col>
+          <van-col span="4" class="van-row-right">状态</van-col>
+        </van-row>
+      </div>
+      <div class="entrust-list">
+        <van-row>
+          <van-col span="4">
+              <p>贵州茅台</p>
+              <p class="entrust-small">102931</p>
+          </van-col>
+          <van-col span="10">
+            <div>
+              <img src="@/assets/sell.png" alt="">
+              <p>102931</p>
             </div>
-            <p class="delivery-small">
-              {{ item.date }}
-              <span>{{ item.time }}</span>
-            </p>
-          </div>
-          <div class="delivery-centered">
-            <p class="delivery-volume">{{ item.bargain_quantity }}</p>
-          </div>
-          <div class="delivery-quota">
-            <p>{{ item.bargain_amount }}</p>
-          </div>
-        </div>
-      </van-list>
+            <p class="entrust-small">2017-10-05 10:22</p>
+          </van-col>
+          <van-col span="6">
+            <p>1,600</p>
+            <p class="entrust-small">1,600</p>
+          </van-col>
+          <van-col span="4" class="van-row-right">已成</van-col>
+        </van-row>
+      </div>
     </div>
     <!-- 展示历史查询遮罩 -->
     <div>
@@ -102,12 +108,14 @@
 </template>
 
 <script>
-import { deliveryOrderGetList } from "@/api/stock";
+// import { deliveryOrderGetList } from "@/api/stock";
 
 export default {
   name: "Delivery",
   data() {
     return {
+      show2:true,
+      show3:false,
       showes: false,
       show: false, //开始时间弹窗
       show1: false, //结束时间弹窗
@@ -132,6 +140,19 @@ export default {
   },
 
   methods: {
+    /**
+     * 历史查询点击事件
+     */
+    handleShow2() {
+      this.show2 = false
+      this.showes = true
+      this.show3 = true
+    },
+    handleShow3() {
+      this.show3 = false
+      this.showes = false
+      this.show2 = true
+    },
     /**
      * 自定义时间选择器
      */
@@ -302,10 +323,6 @@ export default {
   color: #fff;
   background-color: #20212a;
 }
-
-
-
-
 .entrust-header {
   font-size: 16px;
   height: 50px;
@@ -319,78 +336,81 @@ export default {
   }
   .van-col--12:nth-child(2) {
     .van-icon {
-      font-size: 16px;
+      font-size: 12px;
       position: absolute;
       height: 50px;
       line-height: 50px;
+      margin-left: 5px;
     }
   }
-  
 }
-
-
-
-.delivery-content {
-  position: fixed;
-  background: rgba(23, 24, 34, 1);
-  height: 100%;
-  width: 100%;
-  .delivery-list {
-    height: 75px;
-    font-size: 14px;
-    color: rgba(255, 255, 255, 1);
-    border-bottom: 1px dotted #2e2e2e;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: nowrap;
-    padding: 0 15px;
-    div {
-      flex: 1;
+// 列表内容样式
+.entrust-content {
+  font-family:PingFangSC-Regular,PingFang SC;
+  .entrust-content-title {
+    .van-row {
+      color:rgba(124,124,130,1);
+      font-size: 13px;
+      height: 48px;
+      line-height: 48px;
+      border-bottom: 1px dashed #14151C;
+      .van-col--10 {
+        padding-left: 10px;
+        text-align: center;
+      }
+      .van-row-right {
+        text-align: right;
+      }
+    }
+  }
+  .entrust-list {
+    color:rgba(255,255,255,1);
+    .van-row {
+      font-size: 14px;
+      height: 75px;
+      border-bottom: 1px dashed #14151C;
+      .entrust-small {
+        font-size: 12px
+      }
       p {
         height: 37.5px;
         line-height: 37.5px;
       }
-    }
-    .delivery-title {
-      p {
-        width: 72px;
-      }
-    }
-    .delivery-photo {
-      margin-left: -15px;
-      img {
-        width: 22px;
-        height: 22px;
-      }
-      .delivery-buy {
-        width: 99px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
+      .van-col--10 {
+        div {
+          display: flex;
+          padding-left: 23px;
+          align-items: center;
+          img {
+            width: 22px;
+            height: 22px;
+          }
+          p {
+            padding-left: 27px;
+          }
+        }
         p {
-          text-align: right;
+          text-align: center;
         }
       }
-      p {
-        width: 115px;
+      .van-row-right {
+        height: 75px;
+        line-height: 75px;
+        text-align: right;
       }
-    }
-    .delivery-small {
-      font-size: 12px;
-    }
-    .delivery-centered {
-      text-align: center;
-    }
-    .delivery-quota {
-      text-align: right;
+      .van-col--6 {
+        text-align: right;
+      }
     }
   }
 }
+// 点击历史查询遮罩样式
+/deep/.van-overlay{
+  margin-top: 100px;
+}
 .van-popup--top {
-  margin-top: 46px;
+  margin-top: 100px;
   .time-header {
-    width: 84px;
     height: 20px;
     font-size: 14px;
     font-family: PingFangSC-Regular, PingFang SC;
@@ -400,9 +420,6 @@ export default {
     padding-left: 15px;
     padding-top: 15px;
     padding-bottom: 15px;
-  }
-  /deep/.van-overlay {
-    margin-top: 46px;
   }
   /deep/.van-field__control {
     text-align: center;
