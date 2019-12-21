@@ -111,7 +111,7 @@
 // import { deliveryOrderGetList } from "@/api/stock";
 
 export default {
-  name: "Delivery",
+  name: "Entrust",
   data() {
     return {
       show2:true,
