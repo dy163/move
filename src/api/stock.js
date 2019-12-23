@@ -153,3 +153,25 @@ export const entrustToday = formData => {
     data: formData
   })
 }
+
+/**
+ * 41.获取历史成交列表
+*/
+export const bargainHistory = formData => {
+  return request({
+    method: 'POST',
+    url: '/bargain/history',
+    data: formData
+  })
+}
+
+/**
+ * 42.获取历史成交列表
+*/
+export const bargainToday = formData => {
+  return request({
+    method: 'POST',
+    url: '/bargain/today',
+    data: formData
+  })
+}

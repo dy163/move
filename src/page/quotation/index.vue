@@ -53,6 +53,8 @@
 
 <script>
 import { getList } from "@/api/stock";
+// import { throttle } from "lodash";  //  **************
+
 export default {
   name: "QuotationIndex",
   data() {
@@ -60,9 +62,16 @@ export default {
       isLoading: false,
       loading: false,
       finished: false,
-      stock: []
+      stock: [],
+      // time:null   //   **********
     };
   },
+  // computed: {
+  //   sex:throttle( function () {
+  //     console.log(123132132)
+  //     this.loadStock();
+  //   },1000)
+  // },
   /**
    * 提前加载
    */

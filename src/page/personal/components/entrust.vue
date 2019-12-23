@@ -146,9 +146,9 @@ export default {
   computed: {},
 
   created() {
+    this.$toast.setDefaultOptions({ duration: 800 });   // vant 消息提示展示时间
     this.handleDelivery(); // 默认加载今天数据
   },
-
   methods: {
     /**
      * 历史查询点击事件
@@ -227,6 +227,12 @@ export default {
         const formData = new FormData();
         const res = await entrustToday(formData);
         this.list = res.data.result;
+        // 判断展示登录状态
+        if(!res.data.status) {
+          this.$toast("请登录后查看");
+        } else {
+          this.$toast("获取今日成交列表成功");
+        }
       } catch (error) {
         this.$toast("失败了");
       }
@@ -248,7 +254,12 @@ export default {
           formData.append("max", max);
           const res = await entrustHistory(formData);
           this.list = res.data.result;
-          this.$toast("获取自定义列表成功");
+          // 判断展示登录状态
+          if(!res.data.status) {
+            this.$toast("请登录后查看");
+          } else {
+            this.$toast("获取自定义列表成功");
+          }
         }
       } catch (error) {
         this.$toast("获取失败");
