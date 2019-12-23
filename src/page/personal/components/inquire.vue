@@ -29,17 +29,17 @@
           </p>
           <div class="inquire-list">
             <van-row type="flex" justify="space-between">
-              <van-col span="6">委托方向</van-col>
+              <van-col span="6">买卖方向</van-col>
               <van-col span="6">{{ item.sell? item.sell:item.buy }}</van-col>
               <van-col span="6">成交状态</van-col>
               <van-col span="6">已成</van-col>
             </van-row>
-            <van-row>
-              <van-col span="6">委托价格</van-col>
+            <!-- <van-row>
+              <van-col span="6">买卖价格</van-col>
               <van-col span="6">{{ item.entrust }}</van-col>
               <van-col span="6">委托数量</van-col>
               <van-col span="6">{{ item.entrustAmount }}</van-col>
-            </van-row>
+            </van-row> -->
             <van-row>
               <van-col span="6">成交金额</van-col>
               <van-col span="6">{{ item.money }}</van-col>
@@ -60,7 +60,7 @@
     </div>
     <!-- 展示历史查询遮罩 -->
     <div>
-      <van-popup v-model="showes" position="top">
+      <van-popup v-model="showes" position="top" @click-overlay='close' @click='close'>
         <p class="time-header">自定义时间：</p>
         <div>
           <van-row>
@@ -181,6 +181,11 @@ export default {
           this.finished = true;
         }
       }, 500);
+    },
+    close() {
+      this.show3 = false
+      this.showes = false
+      this.show2 = true
     },
     /**
      * 历史查询点击事件

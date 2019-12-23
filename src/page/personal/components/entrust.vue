@@ -9,9 +9,8 @@
     <!-- 头部 -->
     <div class="entrust-header">
       <van-row>
-        <van-col span="12">今日查询</van-col>
+        <van-col span="12" @click="handleDelivery">今日查询</van-col>
         <van-col span="12">
-          <!-- <div @click="showes = true"> -->
           <div v-show="show2" @click="handleShow2">
             <span>历史查询</span>
             <van-icon name="arrow" />
@@ -29,34 +28,41 @@
         <van-row>
           <van-col span="4">证劵名称</van-col>
           <van-col span="10">委托价格/时间</van-col>
-          <van-col span="6">委托数量/成交</van-col>
-          <van-col span="4" class="van-row-right">状态</van-col>
+          <van-col span="7">委托数量/成交</van-col>
+          <van-col span="3" class="van-row-right">状态</van-col>
         </van-row>
       </div>
       <div class="entrust-list">
-        <van-row>
-          <van-col span="4">
-              <p>贵州茅台</p>
-              <p class="entrust-small">102931</p>
-          </van-col>
-          <van-col span="10">
-            <div>
-              <img src="@/assets/sell.png" alt="">
-              <p>102931</p>
-            </div>
-            <p class="entrust-small">2017-10-05 10:22</p>
-          </van-col>
-          <van-col span="6">
-            <p>1,600</p>
-            <p class="entrust-small">1,600</p>
-          </van-col>
-          <van-col span="4" class="van-row-right">已成</van-col>
-        </van-row>
+        <van-list>
+          <van-row v-for="item in list" :key="item.id">
+            <van-col span="4">
+                <p>{{ item.stock_name }}</p>
+                <p class="entrust-small">{{ item.stock_code }}</p>
+            </van-col>
+            <van-col span="10">
+              <div>
+                <!-- <p :style="{color:item.buy_or_sell === '卖出'? 'green' : (item.buy_or_sell === '买入'? 'red': 'green')}"> 
+                <p :style="{color:item.buy_or_sell === '卖出'? 'green' : 'red'}"> 
+                  {{ item.buy_or_sell === '卖出'? '卖出':(item.buy_or_sell === '买入'? '买入' : '卖出')}}
+                  {{ item.buy_or_sell === '卖出'? '卖出':'买入'}}
+                </p> -->
+                <img :src="item.buy_or_sell === '卖出'? Sell : Bill" >
+                <p>{{ item.entrust_price }}</p>
+              </div>
+              <p class="entrust-small">{{ item.time }}</p>
+            </van-col>
+            <van-col span="7">
+              <p>{{ item.entrust_quantity }}</p>
+              <p class="entrust-small">{{ item.bargain_quantity }}</p>
+            </van-col>
+            <van-col span="3" class="van-row-right">{{ item.status }}</van-col>
+          </van-row>
+        </van-list>
       </div>
     </div>
     <!-- 展示历史查询遮罩 -->
     <div>
-      <van-popup v-model="showes" position="top">
+      <van-popup v-model="showes" position="top" @click-overlay='close' @click='close'>
         <p class="time-header">自定义时间：</p>
         <div>
           <van-row>
@@ -106,14 +112,18 @@
     </div>
   </div>
 </template>
-
+ 
 <script>
-// import { deliveryOrderGetList } from "@/api/stock";
+import { entrustHistory, entrustToday } from "@/api/stock";
+import Sell from "@/assets/sell.png"  // 卖
+import Bill from "@/assets/bill.png"  // 买
 
 export default {
   name: "Entrust",
   data() {
     return {
+      Sell,  // 卖图片
+      Bill,  // 买图片
       show2:true,
       show3:false,
       showes: false,
@@ -136,7 +146,7 @@ export default {
   computed: {},
 
   created() {
-    // this.handleDelivery(); // 默认加载今天数据
+    this.handleDelivery(); // 默认加载今天数据
   },
 
   methods: {
@@ -149,6 +159,11 @@ export default {
       this.show3 = true
     },
     handleShow3() {
+      this.show3 = false
+      this.showes = false
+      this.show2 = true
+    },
+    close() {
       this.show3 = false
       this.showes = false
       this.show2 = true
@@ -210,7 +225,7 @@ export default {
     async handleDelivery() {
       try {
         const formData = new FormData();
-        const res = await deliveryOrderGetList(formData);
+        const res = await entrustToday(formData);
         this.list = res.data.result;
       } catch (error) {
         this.$toast("失败了");
@@ -231,7 +246,7 @@ export default {
           formData.append("time_range", 6);
           formData.append("min", min);
           formData.append("max", max);
-          const res = await deliveryOrderGetList(formData);
+          const res = await entrustHistory(formData);
           this.list = res.data.result;
           this.$toast("获取自定义列表成功");
         }
@@ -247,24 +262,34 @@ export default {
       try {
         const formData = new FormData();
         formData.append("time_range", 1);
-        const res = await deliveryOrderGetList(formData);
+        const res = await entrustHistory(formData);
         this.list = res.data.result;
-        this.$toast("获取周列表成功");
+        // 判断展示登录状态
+        if(!res.data.status) {
+          this.$toast("请登录后查看");
+        } else {
+          this.$toast("获取周列表成功");
+        }
       } catch (error) {
         this.$toast("获取失败");
       }
     },
     /**
-     * 月点击
+     * 一月点击
      */
     async handleColseJanuary() {
       this.showes = false;
       try {
         const formData = new FormData();
         formData.append("time_range", 2);
-        const res = await deliveryOrderGetList(formData);
+        const res = await entrustHistory(formData);
         this.list = res.data.result;
-        this.$toast("获取一月列表成功");
+        // 判断展示登录状态
+        if(!res.data.status) {
+          this.$toast("请登录后查看");
+        } else {
+          this.$toast("获取一月列表成功");
+        }
       } catch (error) {
         this.$toast("获取失败");
       }
@@ -277,9 +302,14 @@ export default {
       try {
         const formData = new FormData();
         formData.append("time_range", 3);
-        const res = await deliveryOrderGetList(formData);
+        const res = await entrustHistory(formData);
         this.list = res.data.result;
-        this.$toast("获取三月列表成功");
+        // 判断展示登录状态
+        if(!res.data.status) {
+          this.$toast("请登录后查看");
+        } else {
+          this.$toast("获取三月列表成功");
+        }
       } catch (error) {
         this.$toast("获取失败");
       }
@@ -292,9 +322,14 @@ export default {
       try {
         const formData = new FormData();
         formData.append("time_range", 4);
-        const res = await deliveryOrderGetList(formData);
+        const res = await entrustHistory(formData);
         this.list = res.data.result;
-        this.$toast("获取半年列表成功");
+        // 判断展示登录状态
+        if(!res.data.status) {
+          this.$toast("请登录后查看");
+        } else {
+          this.$toast("获取半年列表成功");
+        }
       } catch (error) {
         this.$toast("获取失败");
       }
@@ -307,9 +342,14 @@ export default {
       try {
         const formData = new FormData();
         formData.append("time_range", 5);
-        const res = await deliveryOrderGetList(formData);
+        const res = await entrustHistory(formData);
         this.list = res.data.result;
-        this.$toast("获取一年列表成功");
+        // 判断展示登录状态
+        if(!res.data.status) {
+          this.$toast("请登录后查看");
+        } else {
+          this.$toast("获取一年列表成功");
+        }
       } catch (error) {
         this.$toast("获取失败");
       }
@@ -379,18 +419,20 @@ export default {
       .van-col--10 {
         div {
           display: flex;
-          padding-left: 23px;
+          padding-left: 20px;
           align-items: center;
+          justify-content: space-between;
           img {
             width: 22px;
             height: 22px;
           }
           p {
-            padding-left: 27px;
+            padding-right: 27px;
           }
         }
         p {
-          text-align: center;
+          text-align: right;
+          padding-right: 25px;
         }
       }
       .van-row-right {
@@ -398,8 +440,9 @@ export default {
         line-height: 75px;
         text-align: right;
       }
-      .van-col--6 {
+      .van-col--7 {
         text-align: right;
+        padding-right: 20px;
       }
     }
   }
