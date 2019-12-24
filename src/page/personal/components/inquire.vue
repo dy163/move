@@ -401,7 +401,7 @@ export default {
     .van-row {
       font-size: 13px;
       color: rgba(124, 124, 130, 1);
-      padding-bottom: 8px;
+      padding-bottom: 10px;
       .van-col {
         text-align: left;
       }
