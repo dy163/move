@@ -1,55 +1,28 @@
 <template>
-  <div class="chart">
-    <van-tabs v-model="timer" background="#20212A" line-height="0" title-active-color="#2F98FF">
-      <van-tab title="分时">
-        <Branch />
-      </van-tab>
-      <van-tab title="日K">
-        <Daily />
-      </van-tab>
-      <van-tab title="周K">
-        <Week />
-      </van-tab>
-      <van-tab title="月K">
-        <Month />
-      </van-tab>
-    </van-tabs>
+  <div>
+    <div id="chart" ref="branch"></div>
   </div>
 </template>
 
 <script>
-import echarts from 'echarts'
-
-import Branch from './branch'
-import Daily from './daily'
-import Week from './week'
-import Month from './month'
+import echarts from "echarts";
 
 export default {
-  name: "Chart",
-  components: {
-    Branch,
-    Daily,
-    Week,
-    Month
-  },
-  props: {},
+  name: 'Branch',
   data() {
     return {
-      timer: 0
+      data1: [],
+      data2: [],
+      data3: []
     };
   },
-  // mounted() {
-  //   this.$nextTick(() => {
-  //     this.handlekine()
-
-  //   });
-  // },
+  mounted() {
+    this.$nextTick(() => {
+      this.handlekine()
+    });
+  },
   methods: {
     handlekine() {
-      var bar_dv = this.$refs.bar_v;
-      var myChart = echarts.init(bar_dv)
-
       const mdata = {
         data: [
           // 时间   当前价  均价   交易量
@@ -299,7 +272,9 @@ export default {
         yestclose: 33.01
       }
 
-      // var mChart = echarts.init(document.getElementById('myChart'))
+      const branch = this.$refs.branch;
+      const myChart = echarts.init(branch)
+
       var bgColor = '#1f212d' // 背景
       var upColor = '#F9293E' // 涨颜色
       var downColor = '#00aa3b' // 跌颜色
@@ -743,19 +718,16 @@ export default {
       }
       myChart.setOption(initMOption(mdata, 'hs'))
     }
-
   }
 };
 </script>
-<style lang='less' scoped>
-.chart {
-  .van-tab__pane {
-    height: 220px;
-  }
-}
-#chart {
-  height: 220px;
-  width: 375px;
-}
 
+
+
+<style lang='less' scoped>
+#chart {
+  width: 375px;
+  height: 220px;
+  // background-color: #fff;
+}
 </style>

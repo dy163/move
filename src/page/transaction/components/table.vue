@@ -135,7 +135,11 @@ export default {
         const formData = new FormData();
         formData.append("stock_code", this.showList.stock_code);
         const res = await getList(formData)
-        this.list = res.data.result[0]
+        if (res.data.result[0] === undefined) {
+          return
+        } else {
+          this.list = res.data.result[0]
+        }
       } catch (error) {
         this.$toast('行情列表详情失败')
       }

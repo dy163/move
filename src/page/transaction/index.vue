@@ -4,6 +4,8 @@
     <Table/>
     <!-- 图表分析展示 -->
       <Chart/>
+    <!-- 价格波动图表 -->
+    <Volatility />
     <!-- 新闻资讯类***** -->
       <News/>
     <!-- 买入卖出底部展示 -->
@@ -12,31 +14,33 @@
 </template>
 
 <script>
-import  News from "./components/news";
-import  Business from "./components/business";
-import  Chart from "./components/chart";
-import  Table from "./components/table";
+import News from './components/news'
+import Business from './components/business'
+import Chart from './components/chart'
+import Table from './components/table'
+import Volatility from './components/volatility'
 
 export default {
-  name: "Transaction",
+  name: 'Transaction',
   components: {
     News,
     Business,
     Chart,
-    Table
+    Table,
+    Volatility
   },
-  data() {
+  data () {
     return {
-    };
+    }
   },
-  created() {
+  created () {
 
   },
 
   methods: {
 
   }
-};
+}
 </script>
 
 <style lang="less" scoped>
