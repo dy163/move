@@ -8,50 +8,7 @@
     >
       <div class="purchase-content">
         <div class="purchase-latest">
-          <p>最新价格</p>
           <img src="@/assets/img/close.png" @click="handleClickCancel" />
-        </div>
-        <div>
-          <van-row>
-            <van-col span="4">卖5</van-col>
-            <van-col span="4">14.27</van-col>
-            <van-col span="4">1850000</van-col>
-            <van-col span="4">买5</van-col>
-            <van-col span="4">14.27</van-col>
-            <van-col span="4">1085000</van-col>
-          </van-row>
-          <van-row>
-            <van-col span="4">卖4</van-col>
-            <van-col span="4">14.27</van-col>
-            <van-col span="4">18500</van-col>
-            <van-col span="4">买4</van-col>
-            <van-col span="4">14.27</van-col>
-            <van-col span="4">10850</van-col>
-          </van-row>
-          <van-row>
-            <van-col span="4">卖3</van-col>
-            <van-col span="4">14.27</van-col>
-            <van-col span="4">18500</van-col>
-            <van-col span="4">买3</van-col>
-            <van-col span="4">14.27</van-col>
-            <van-col span="4">10850</van-col>
-          </van-row>
-          <van-row>
-            <van-col span="4">卖2</van-col>
-            <van-col span="4">14.27</van-col>
-            <van-col span="4">18500</van-col>
-            <van-col span="4">买2</van-col>
-            <van-col span="4">14.27</van-col>
-            <van-col span="4">10850</van-col>
-          </van-row>
-          <van-row>
-            <van-col span="4">卖1</van-col>
-            <van-col span="4">14.27</van-col>
-            <van-col span="4">18500</van-col>
-            <van-col span="4">买1</van-col>
-            <van-col span="4">14.27</van-col>
-            <van-col span="4">10850</van-col>
-          </van-row>
         </div>
         <form>
           <!-- 自定义输入 -->
@@ -140,58 +97,58 @@
 
 <script>
 export default {
-  name: "Purchase",
+  name: 'Purchase',
   props: {
     value: {
       type: Boolean,
       default: false
     }
   },
-  data() {
+  data () {
     return {
-      radio: "",
+      radio: '',
       shows: false,
       showes: false,
       amount: 0,
       price: 0.015
-    };
+    }
   },
   methods: {
-    handleClickCancel() {
-      this.$emit("input", false);
+    handleClickCancel () {
+      this.$emit('input', false)
     },
     // 价格的加减
-    priceReduceClick() {
+    priceReduceClick () {
       if (this.price === 0) {
       } else {
-        let temp = this.price * 1000;
-        temp--;
-        let price = temp / 1000;
-        this.price = price;
+        let temp = this.price * 1000
+        temp--
+        let price = temp / 1000
+        this.price = price
       }
     },
-    pricePlusClick() {
-      let temp = this.price * 1000;
-      temp++;
-      let price = temp / 1000;
-      this.price = price;
+    pricePlusClick () {
+      let temp = this.price * 1000
+      temp++
+      let price = temp / 1000
+      this.price = price
     },
     // 数量的加减
-    amountReduceClick() {
+    amountReduceClick () {
       if (this.amount === 0) {
       } else {
-        this.amount--;
+        this.amount--
       }
     },
-    amountPlusClick() {
-      this.amount++;
+    amountPlusClick () {
+      this.amount++
     },
-    handleClickOrder() {
+    handleClickOrder () {
       //   this.$toast('请填写正确得卖出数量')
-      this.shows = true;
+      this.shows = true
     }
   }
-};
+}
 </script>
 
 <style lang='less' scoped>
@@ -200,43 +157,16 @@ export default {
   font-family: PingFangSC-Regular, PingFang SC;
   color: rgba(163, 163, 167, 1);
   .purchase-content {
-    height: 443px;
+    height: 320px;
     background: rgba(54, 55, 64, 1);
     .purchase-latest {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 10px 15px 0 15px;
-      p {
-        font-size: 14px;
-      }
+      height: 36px;
+      padding: 0 15px;
+      text-align: right;
+
       img {
         width: 18px;
         height: 16px;
-      }
-    }
-    div:nth-child(2) {
-      font-size: 12px;
-      padding: 8px 15px 2px;
-      .van-row {
-        padding: 0;
-        padding-bottom: 8px;
-        .van-col--4 {
-          padding: 0;
-        }
-        .van-col--4:nth-child(2) {
-          color: #d14e4e;
-        }
-        .van-col--4:nth-child(4) {
-          text-align: center;
-        }
-        .van-col--4:nth-child(5) {
-          text-align: center;
-          color: #23b47b;
-        }
-        .van-col--4:nth-child(6) {
-          text-align: right;
-        }
       }
     }
     form {
@@ -299,7 +229,7 @@ export default {
       .purchase-rate {
         display: flex;
         align-items: center;
-        padding-top: 15px;
+        padding-top: 10px;
         font-size: 12px;
         color: rgba(114, 115, 121, 1);
         p:nth-child(1) {
@@ -329,7 +259,7 @@ export default {
         font-family: PingFangSC-Regular, PingFangSC;
         color: rgba(163, 163, 167, 1);
         font-size: 14px;
-        padding-top: 15px;
+        padding-top: 10px;
         p:nth-child(1) {
           padding-right: 4px;
         }
