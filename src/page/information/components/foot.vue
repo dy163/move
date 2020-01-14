@@ -16,7 +16,8 @@
         </div>
         <!-- <div class="img"> -->
           <!-- <img src="@/assets/img/blank-picture.png" alt /> -->
-          <img :src="'http://192.168.3.79:8080' + item.img" />
+          <!-- <img :src="'http://192.168.3.79:8080' + item.img" /> -->
+          <img :src="'http://bourse.yidonghuayuan.com' + item.img" />
         <!-- </div> -->
       </div>
     </van-list>

@@ -3,8 +3,8 @@ import axios from 'axios'
 
 // 定义一个request 代表axios
 const request = axios.create({
-  // baseURL: 'http://192.168.3.79:8080'
-  baseURL: 'http://39.98.95.225:8087' // 线上
+  // baseURL: 'http://192.168.3.79:8080'  //  本地
+  baseURL: '/api'     // 线上
 })
 
 // Add a request interceptor（请求拦截器）

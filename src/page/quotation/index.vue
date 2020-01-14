@@ -6,22 +6,21 @@
       </div>
     </van-nav-bar>
     <div class="quotation-content">
-      <div class="quotation-content-title">
-        <p>
-          全部
-          <img src="@/assets/img/triangle.png" alt />
-        </p>
-        <p>
-          价格
-          <img src="@/assets/img/sort.png" alt />
-        </p>
-        <p>
-          涨跌幅
-          <img src="@/assets/img/sort.png" alt />
-        </p>
-      </div>
-      <div class="nil"></div>
-      <van-pull-refresh v-model="isLoading" @refresh="onRefresh">      
+      <p>全部<span></span></p>
+      <p>
+        价格
+        <!-- <div>
+          <p></p>
+          <p></p>
+        </div> -->
+        <img src="@/assets/img/sort.png" alt />
+      </p>
+      <p>
+        涨跌幅
+        <img src="@/assets/img/sort.png" alt />
+      </p>
+    </div>
+      <van-pull-refresh v-model="isLoading" @refresh="onRefresh">    
         <van-list>
           <div
             class="quotation-content-top"
@@ -32,7 +31,6 @@
             <div>
               <p>{{ item.stock_name }}</p>
               <p>
-                <!-- <span class="quotation-color">{{ item.marker }}</span> -->
                 <span>{{ item.stock_code }}</span>
               </p>
             </div>
@@ -45,7 +43,7 @@
           </div>
         </van-list>
       </van-pull-refresh>
-    </div>
+
     <!-- 底部导航 -->
     <app-tabbar />
   </div>
@@ -53,8 +51,6 @@
 
 <script>
 import { getList } from "@/api/stock";
-// import { throttle } from "lodash";  //  **************
-
 export default {
   name: "QuotationIndex",
   data() {
@@ -62,22 +58,19 @@ export default {
       isLoading: false,
       loading: false,
       finished: false,
-      stock: [],
-      // time:null   //   **********
+      stock: []
     };
   },
-  // computed: {
-  //   sex:throttle( function () {
-  //     console.log(123132132)
-  //     this.loadStock();
-  //   },1000)
-  // },
   /**
    * 提前加载
    */
   // 
   mounted() {
-    this.loadStock();
+    // window.setInterval(() => {
+    //     setTimeout(()=> {
+          this.loadStock();
+    //     }, 0)
+    // }, 3000)
   },
   /**
    * 方法
@@ -144,90 +137,100 @@ export default {
     vertical-align: middle;
   }
 }
-.nil {
-  height: 85px;
-}
 .quotation-content {
   padding: 0 15px;
-  .quotation-content-title {
-    position: fixed;
-    width: 350px;
-    left: 12px;
-    background-color: #20212a;
-    z-index: 1000;
-    display: flex;
-    margin-top: 46px;
-    justify-content: space-between;
-    height: 20px;
-    font-size: 14px;
-    font-family: PingFangSC;
-    font-weight: 400;
-    color: rgba(255, 255, 255, 1);
-    line-height: 20px;
-    padding: 13px 0;
-    line-height: 20px;
-    padding-top: 13px;
+  position: static;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  margin-top: 46px;
+  font-size: 14px;
+  font-family: PingFangSC;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 1);
+    p {
+      flex: 1;
+    }
+    p:nth-child(1) {
+      span {
+        display: inline-block;
+        margin-left: 3px;
+        margin-bottom: 2px;
+        width: 0;  
+        height: 0;  
+        border-top: 3px solid transparent;  
+        border-left: 6px solid rgba(255, 255, 255, 1);  
+        border-bottom: 3px solid transparent; 
+      }
+    }
     p:nth-child(2) {
-      margin-left: 18px;
+      text-align: center;
+      // div {
+      //   p:nth-child(1) {
+      //     width: 0;
+      //     height: 0;
+      //     border: 4px solid transparent;
+      //     border-bottom-color: rgba(255, 255, 255, 1);
+      //     cursor: pointer;
+      //   }
+      //   p:nth-child(2) {
+      //     width: 0;
+      //     height: 0;
+      //     border: 4px solid transparent;
+      //     border-top-color: rgba(255, 255, 255, 1);
+      //     margin-top: 2px;
+      //     cursor: pointer;
+      //   }
+      // }
+    }
+    p:nth-child(3) {
+      text-align: right;
+    }
+  
+}
+.quotation-content-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 15px;
+  div:nth-child(1) {
+    p:nth-child(1) {
+      width: 64px;
+      height: 22px;
+      font-size: 16px;
+      font-family: PingFangSC-Medium, PingFangSC;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 1);
+      line-height: 22px;
+    }
+    p:nth-child(2) {
+      height: 17px;
+      font-size: 12px;
+      font-family: PingFangSC-Medium, PingFangSC;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 1);
+      line-height: 17px;
+      display: flex;
+      align-items: center;
+      padding-top: 4px;
     }
   }
-  .quotation-content-top {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 0;
-    div:nth-child(1) {
-      p:nth-child(1) {
-        width: 64px;
-        height: 22px;
-        font-size: 16px;
-        font-family: PingFangSC-Medium, PingFangSC;
-        font-weight: 500;
-        color: rgba(255, 255, 255, 1);
-        line-height: 22px;
-      }
-      p:nth-child(2) {
-        height: 17px;
-        font-size: 12px;
-        font-family: PingFangSC-Medium, PingFangSC;
-        font-weight: 500;
-        color: rgba(255, 255, 255, 1);
-        line-height: 17px;
-        display: flex;
-        align-items: center;
-        padding-top: 4px;
-        .quotation-color {
-          background: rgba(251, 77, 79, 1);
-          border-radius: 2px;
-          font-size: 12px;
-          -webkit-transform: scale(0.6);
-          font-family: PingFangSC-Regular, PingFangSC;
-          font-weight: 400;
-          color: rgba(255, 255, 255, 1);
-          margin-left: -7px;
-          display: inline-block;
-          width: 20px;
-          text-align: center;
-        }
-      }
-    }
-    div:nth-child(2) {
-      height: 21px;
-      font-size: 18px;
-      font-family: DINAlternate-Bold, DINAlternate;
-      font-weight: bold;
-      color: rgba(255, 255, 255, 1);
-      line-height: 21px;
-      margin-left: -16px;
-    }
-    div:nth-child(3) {
-      height: 25px;
-      font-size: 14px;
-      font-family: DINAlternate-Bold, DINAlternate;
-      font-weight: bold;
-      color: rgba(53, 192, 137, 1);
-      line-height: 16px;
-    }
+  div:nth-child(2) {
+    height: 21px;
+    font-size: 18px;
+    font-family: DINAlternate-Bold, DINAlternate;
+    font-weight: bold;
+    color: rgba(255, 255, 255, 1);
+    line-height: 21px;
+    margin-left: -16px;
+  }
+  div:nth-child(3) {
+    height: 25px;
+    font-size: 14px;
+    font-family: DINAlternate-Bold, DINAlternate;
+    font-weight: bold;
+    color: rgba(53, 192, 137, 1);
+    line-height: 16px;
   }
 }
 .quotation-content-foot {

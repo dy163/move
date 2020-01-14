@@ -17,7 +17,8 @@
                 :key="index">
                     <div class="information-hot-news-all">
                         <div class="information-hot-news-img">
-                        <img :src="'http://192.168.3.79:8080' + item.img" />
+                        <!-- <img :src="'http://192.168.3.79:8080' + item.img" /> -->
+                        <img :src="'http://bourse.yidonghuayuan.com' + item.img" />
                         </div>
                         <div class="information-hot-news-title">
                             <p>{{ item.title }}</p>

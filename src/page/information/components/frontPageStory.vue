@@ -6,7 +6,8 @@
         <van-swipe :autoplay="4000">
           <van-swipe-item v-for="(image, index) in images" :key="index">
             <p class="image-lunbo">{{ image.title }}</p>
-            <img :src="'http://192.168.3.79:8080' + image.img" />
+            <!-- <img :src="'http://192.168.3.79:8080' + image.img" /> -->
+            <img :src="'http://bourse.yidonghuayuan.com' + image.img" />
           </van-swipe-item>
         </van-swipe>
       </div>
@@ -49,7 +50,8 @@
               </div>
             </div>
             <!-- <div class="img"> -->
-              <img :src="'http://192.168.3.79:8080' + item.img" />
+              <!-- <img :src="'http://192.168.3.79:8080' + item.img" /> -->
+              <img :src="'http://bourse.yidonghuayuan.com' + item.img" />
             <!-- </div> -->
           </div>
         </van-list>

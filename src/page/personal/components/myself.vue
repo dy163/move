@@ -63,7 +63,8 @@
 
 <script>
 import { uploadImg, updateHeaderImg, updateIntro } from "@/api/user";
-const http = "http://192.168.3.79:8080"
+// const http = "http://192.168.3.79:8080"
+const http = "http://bourse.yidonghuayuan.com"
 
 export default {
   name: "Myself",

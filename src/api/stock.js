@@ -146,10 +146,10 @@ export const entrustHistory = formData => {
 /**
  * 40.获取今日委托查询列表
 */
-export const entrustToday = formData => {
+export const entrustTodayGetList = formData => {
   return request({
     method: 'POST',
-    url: '/entrust/today',
+    url: '/entrust/todaygetList',
     data: formData
   })
 }
