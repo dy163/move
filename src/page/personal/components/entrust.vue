@@ -114,7 +114,7 @@
 </template>
  
 <script>
-import { entrustHistory, entrustToday } from "@/api/stock";
+import { entrustHistory, entrustTodayGetList } from "@/api/stock";
 import Sell from "@/assets/sell.png"  // 卖
 import Bill from "@/assets/bill.png"  // 买
 
@@ -225,7 +225,7 @@ export default {
     async handleDelivery() {
       try {
         const formData = new FormData();
-        const res = await entrustToday(formData);
+        const res = await entrustTodayGetList(formData);
         this.list = res.data.result;
         // 判断展示登录状态
         if(!res.data.status) {

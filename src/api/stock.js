@@ -149,7 +149,7 @@ export const entrustHistory = formData => {
 export const entrustTodayGetList = formData => {
   return request({
     method: 'POST',
-    url: '/entrust/todaygetList',
+    url: '/entrust/today',
     data: formData
   })
 }

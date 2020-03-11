@@ -21,7 +21,7 @@
           </div>
           <!-- 图片 -->
           <!-- <div class="img"> -->
-            <img :src="'http://192.168.3.79:8080' + item.img"/>
+            <!-- <img :src="'http://192.168.3.79:8080' + item.img"/> -->
             <img :src="'http://bourse.yidonghuayuan.com' + item.img" />
           <!-- </div> -->
         </div>
