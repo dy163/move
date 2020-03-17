@@ -4,43 +4,43 @@
     <div class="volatility-content">
       <van-row>
         <van-col span="4">卖5</van-col>
-        <van-col span="4">{{ sellFive.price }}</van-col>
-        <van-col span="4">{{ sellFive.quantity }}</van-col>
+        <van-col span="4">{{ sellFive === null? '' : sellFive.price }}</van-col>
+        <van-col span="4">{{ sellFive === null? '' : sellFive.quantity }}</van-col>
         <van-col span="4">买5</van-col>
-        <van-col span="4">{{ bailFive.price }}</van-col>
-        <van-col span="4">{{ bailFive.quantity }}</van-col>
+        <van-col span="4">{{ bailFive === null? '' : bailFive.price }}</van-col>
+        <van-col span="4">{{ bailFive === null? '' : bailFive.quantity }}</van-col>
       </van-row>
       <van-row>
         <van-col span="4">卖4</van-col>
-        <van-col span="4">{{ sellFour.price }}</van-col>
-        <van-col span="4">{{ sellFour.quantity }}</van-col>
+        <van-col span="4">{{ sellFour === null? '' : sellFour.price }}</van-col>
+        <van-col span="4">{{ sellFour === null? '' : sellFour.quantity }}</van-col>
         <van-col span="4">买4</van-col>
-        <van-col span="4">{{ bailFour.price }}</van-col>
-        <van-col span="4">{{ bailFour.quantity }}</van-col>
+        <van-col span="4">{{ bailFour === null? '' : bailFour.price }}</van-col>
+        <van-col span="4">{{ bailFour === null? '' : bailFour.quantity }}</van-col>
       </van-row>
       <van-row>
         <van-col span="4">卖3</van-col>
-        <van-col span="4">{{ sellThree.price }}</van-col>
-        <van-col span="4">{{ sellThree.quantity }}</van-col>
+        <van-col span="4">{{ sellThree === null? '' : sellThree.price }}</van-col>
+        <van-col span="4">{{ sellThree === null? '' : sellThree.quantity }}</van-col>
         <van-col span="4">买3</van-col>
-        <van-col span="4">{{ bailThree.price }}</van-col>
-        <van-col span="4">{{ bailThree.quantity }}</van-col>
+        <van-col span="4">{{ bailThree === null? '' : bailThree.price }}</van-col>
+        <van-col span="4">{{ bailThree === null? '' : bailThree.quantity }}</van-col>
       </van-row>
       <van-row>
         <van-col span="4">卖2</van-col>
-        <van-col span="4">{{ sellTwo.price }}</van-col>
-        <van-col span="4">{{ sellTwo.quantity }}</van-col>
+        <van-col span="4">{{ sellTwo === null? '' : sellTwo.price }}</van-col>
+        <van-col span="4">{{ sellTwo === null? '' : sellTwo.quantity }}</van-col>
         <van-col span="4">买2</van-col>
-        <van-col span="4">{{ bailTwo.price }}</van-col>
-        <van-col span="4">{{ bailTwo.quantity }}</van-col>
+        <van-col span="4">{{ bailTwo === null? '' : bailTwo.price }}</van-col>
+        <van-col span="4">{{ bailTwo === null? '' : bailTwo.quantity }}</van-col>
       </van-row>
       <van-row>
         <van-col span="4">卖1</van-col>
-        <van-col span="4">{{ sellOne.price }}</van-col>
-        <van-col span="4">{{ sellOne.quantity }}</van-col>
+        <van-col span="4">{{ sellOne === null? '' : sellOne.price }}</van-col>
+        <van-col span="4">{{ sellOne === null? '' : sellOne.quantity }}</van-col>
         <van-col span="4">买1</van-col>
-        <van-col span="4">{{ bailOne.price }}</van-col>
-        <van-col span="4">{{ bailOne.quantity }}</van-col>
+        <van-col span="4">{{ bailOne === null? '' : bailOne.price }}</van-col>
+        <van-col span="4">{{ bailOne === null? '' :bailOne.quantity }}</van-col>
       </van-row>
     </div>
   </div>
@@ -67,7 +67,11 @@ export default {
     }
   },
   created() {
-    this.handlegetPriceList()
+    // window.setInterval(() => {
+    //     setTimeout(()=> {
+          this.handlegetPriceList()
+    //     }, 0)
+    // }, 3000)
   },
   methods: {
     async handlegetPriceList (q) {
@@ -76,11 +80,6 @@ export default {
         const formData = new FormData();
         formData.append("stock_code", this.list.stock_code);
         const res = await getPriceList(formData)
-        // res.data.result.forEach((element, value) => {
-        //   console.log(element)
-        //   console.log(value)
-        // });
-        // this.priceList = res.data.result
         this.sellFive = res.data.result[0]
         this.sellFour = res.data.result[1]
         this.sellThree = res.data.result[2]
