@@ -83,7 +83,7 @@
       </div>
     </van-popup>
 
-    <!-- 确定买入的遮罩层展示 -->
+    <!-- 确定卖出的遮罩层展示 -->
     <div class="purchase-cue">
       <van-popup v-model="shows" :close-on-click-overlay="false">
         <div>
@@ -96,6 +96,8 @@
 </template>
 
 <script>
+import { entrustSell } from "@/api/stock";
+
 export default {
   name: 'Purchase',
   props: {
@@ -106,16 +108,18 @@ export default {
   },
   data () {
     return {
-      radio: '',
-      shows: false,
-      showes: false,
-      amount: 0,
-      price: 0.015
+      radio: '2',   // 单选框定义
+      shows: false,  // 确定卖出的遮罩层
+      amount: 0,  // 数量
+      price: 0,    // 价格
+      recordSell: []  // 路由导航存放数据（id）
     }
   },
   methods: {
     handleClickCancel () {
       this.$emit('input', false)
+      this.amount = 0
+      this.price = 0
     },
     // 价格的加减
     priceReduceClick () {
@@ -143,9 +147,30 @@ export default {
     amountPlusClick () {
       this.amount++
     },
-    handleClickOrder () {
-      //   this.$toast('请填写正确得卖出数量')
-      this.shows = true
+    async handleClickOrder (q) {
+      try {
+        this.recordSell = this.$route.query.q
+        const query =  Object.assign({
+          stock_code: this.recordSell.stock_code,
+          stock_name: this.recordSell.stock_name,
+          entrust_quantity: this.amount,
+          entrust_price: this.price
+        },query)
+        const res = await entrustSell(query)
+        if(res.data.status) {
+          this.$toast("委托卖出成功")
+          this.$emit('input', false)
+          this.amount = 0
+          this.price = 0
+        } else {
+          const data = this.amount * this.price
+          if(data < 100) {        //  这个位置需要一个判断
+            this.shows = true     // 控制弹窗的按钮
+          }
+        }
+      } catch (error) {
+        this.$toast("委托卖出失败");
+      }
     }
   }
 }

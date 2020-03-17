@@ -10,13 +10,14 @@
       <van-pull-refresh v-model="isLoading" @refresh="onRefresh">
         <van-list 
           v-model="loading" 
-          :finished="finished" 
+          :finished="upFinished" 
           finished-text="没有更多了" 
-          @load="onLoad" :offset="100"
+          @load="onLoad" 
+          :offset="offset"
         >
           <div
             class="hotspot-foot"
-            v-for="(item,index) in focus"
+            v-for="(item,index) in newFocus"
             :key="index"
             @click="handleNewMore(item)"
           >
@@ -53,58 +54,53 @@ export default {
   props: {},
   data() {
     return {
-      finished: false, // 列表加载
       loading: false, // 列表加载
       isLoading: false, // 下拉刷新控制
+      upFinished:false,//上拉加载完毕
+      offset: 10,//滚动条与底部距离小于 offset 时触发load事件
       pageNum: 1, // 页数
-      pageSize: 10, // 每页条数
-      focus: []
+      pageSize: 7, // 每页条数
+      focus: [],
+      newFocus: []
     };
   },
-  created() {
-    // this.handleGetList();   // 去掉
-  },
+  created() {},
   methods: {
-    /**
-     * 列表懒加载
-     */
+    // 列表懒加载
     onLoad() {
-      console.log('onload')
-      // this.$sleep(800)s
+      // 加载状态结束
       setTimeout(() => {
-        for (let i = 0; i.length < 5; i++) {
-          this.focus.push(this.focus.length + 1);
-        }
-        this.handleGetList()
-        // 加载状态结束
-        this.loading = false;
-        console.log(this.focus.length)
-        // 数据全部加载完成
-        if (this.focus.length <= 10) {
-          this.finished = true;
-        }
-      }, 500);
+      this.loading = false;
+      this.handleGetList()
+      this.loading = true;
+      }, 1000)
     },
     /**
      * 下拉刷新
      */
     onRefresh() {
       setTimeout(() => {
-        this.$toast("刷新成功");
-        this.isLoading = false;
-        this.handleGetList();
-      }, 500);
+        this.$toast("刷新成功")
+        this.isLoading = false
+        this.handleGetList()
+      }, 500)
     },
     /**
      * 数据列表加载接口函数
      */
     async handleGetList() {
       try {
-        const formData = new FormData();
-        formData.append("page", this.pageNum);
-        formData.append("number", this.pageSize);
-        const res = await newsGetList(formData);
-        this.focus = res.data.result;
+        const formData = new FormData()
+        formData.append("page", this.pageNum)
+        formData.append("number", this.pageSize)
+        const res = await newsGetList(formData)
+        this.focus = res.data.result
+        this.loading = false
+        this.newFocus = this.newFocus.concat(this.focus)
+        formData.append("page", this.pageNum++) 
+        if (this.focus.length < this.pageSize) {
+          this.upFinished = true;
+        }
       } catch (error) {
         this.$toast("获取跟多热点列表失败");
       }

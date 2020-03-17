@@ -24,7 +24,12 @@ request.interceptors.request.use(
 // Add a response interceptor(响应拦截器)
 request.interceptors.response.use(function (response) {
   // Do something with response data
-  return response
+  if(response.data.result === 401) {
+    window.localStorage.removeItem('sessionid')
+    this.$router.push('/')
+  } else {
+    return response
+  }
 }, function (error) {
   // Do something with response error
   return Promise.reject(error)

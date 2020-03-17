@@ -2,8 +2,14 @@
   <div class="notice">
     <!-- 下拉刷新 -->
     <van-pull-refresh v-model="isLoading" @refresh="onRefresh">
-      <van-list>
-        <div v-for="(item, index) in Optiona" :key="index" class="notice-content" @click="handleNotice(item)">
+      <van-list 
+      v-model="loading"
+      :finished="upFinished"
+      finished-text="没有更多了"
+      @load="onLoad"
+      :offset="offset"
+      >
+        <div v-for="(item, index) in newOptiona" :key="index" class="notice-content" @click="handleNotice(item)">
           <p class="notice-range">
             {{ item.stock_name }}
             <span>{{ item.stock_code }}</span>&nbsp;&nbsp;
@@ -23,16 +29,29 @@ export default {
   name: "Notice",
   data() {
     return {
-      isLoading: false,
-      page:'',        // 页数
-      number: '',     // 每页条数
-      Optiona: []
-    };
+      loading: false, // 列表加载
+      isLoading: false, // 下拉刷新控制
+      offset: 10, //滚动条与底部距离小于 offset 时触发load事件
+      upFinished:false,//上拉加载完毕
+      pageNum: 1, // 页数
+      pageSize:  8, // 每页条数
+      optiona: [],
+      newOptiona: []
+    }
   },
   created() {
     this.handleNote()
   },
   methods: {
+    // 列表懒加载
+    onLoad() {
+      // 加载状态结束
+      setTimeout(() => {
+      this.loading = false
+      this.handleNote()
+      this.loading = true
+      }, 1000)
+    },
     /**
      * 下拉刷新
      */
@@ -46,12 +65,18 @@ export default {
     async handleNote() {
       try {
         const formData = new FormData();
-        formData.append("page", this.page);
-        formData.append("number", this.number);
+        formData.append("page", this.pageNum);
+        formData.append("number", this.pageSize);
         const res = await noteGetList(formData);
-        this.Optiona = res.data.result
+        this.optiona = res.data.result
+        this.loading = false;
+        this.newOptiona = this.newOptiona.concat(this.optiona)
+        formData.append("page", this.pageNum++) 
+        if (this.optiona.length < this.pageSize) {
+          this.upFinished = true;
+        }
       } catch (error) {
-        
+        this.$toast("获取公告列表失败")
       }
     },
     handleNotice(q) {

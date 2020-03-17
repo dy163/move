@@ -1,7 +1,10 @@
 <template>
   <div>
     <!-- 表头列表详情展示 -->
-    <Table/>
+    <keep-alive>
+      <Table/>
+    </keep-alive>
+    <!-- <Table/> -->
     <!-- 图表分析展示 -->
       <Chart/>
     <!-- 价格波动图表 -->

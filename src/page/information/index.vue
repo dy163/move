@@ -41,7 +41,7 @@
 
 <script>
 import FrontPageStory from "./components/frontPageStory.vue"; // 要闻
-import Hot from "./components/hot.vue"; // 要闻热点
+import Hot from "./components/hot.vue"; // 热点事件
 import Foot from "./components/foot.vue"; // 要闻推送
 import Free from "./components/free.vue"; // 自选
 import Notice from "./components/notice.vue"; // 公告

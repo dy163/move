@@ -41,11 +41,6 @@
             </van-col>
             <van-col span="10">
               <div>
-                <!-- <p :style="{color:item.buy_or_sell === '卖出'? 'green' : (item.buy_or_sell === '买入'? 'red': 'green')}"> 
-                <p :style="{color:item.buy_or_sell === '卖出'? 'green' : 'red'}"> 
-                  {{ item.buy_or_sell === '卖出'? '卖出':(item.buy_or_sell === '买入'? '买入' : '卖出')}}
-                  {{ item.buy_or_sell === '卖出'? '卖出':'买入'}}
-                </p> -->
                 <img :src="item.buy_or_sell === '卖出'? Sell : Bill" >
                 <p>{{ item.entrust_price }}</p>
               </div>
@@ -140,14 +135,9 @@ export default {
       list: []
     };
   },
-  /**
-   * 计算属性
-   */
-  computed: {},
-
   created() {
     this.$toast.setDefaultOptions({ duration: 800 });   // vant 消息提示展示时间
-    this.handleDelivery(); // 默认加载今天数据
+    // this.handleDelivery(); // 默认加载今天数据
   },
   methods: {
     /**
@@ -228,8 +218,9 @@ export default {
         const res = await entrustTodayGetList(formData);
         this.list = res.data.result;
         // 判断展示登录状态
-        if(!res.data.status) {
+        if(!res.data.login) {
           this.$toast("请登录后查看");
+          return
         } else {
           this.$toast("获取今日成交列表成功");
         }

@@ -175,3 +175,47 @@ export const bargainToday = formData => {
     data: formData
   })
 }
+
+/**
+ * 45.获取委托价格列表(表单)
+*/
+export const getPriceList = params => {
+  return request({
+    method: 'POST',
+    url: '/entrust/getPriceList',
+    data: params
+  })
+}
+
+/**
+ * 46.买入委托接口（json）
+*/
+export const entrustBail = query => {
+  return request({
+    method: 'POST',
+    url: '/entrust/buy',
+    data: query
+  })
+}
+
+/**
+ * 47.卖出委托接口（json）
+*/
+export const entrustSell = query => {
+  return request({
+    method: 'POST',
+    url: '/entrust/sell',
+    data: query
+  })
+}
+
+/**
+ * 48.卖出委托接口（表单）
+*/
+export const entrustRevoke = query => {
+  return request({
+    method: 'POST',
+    url: '/entrust/revoke',
+    data: query
+  })
+}

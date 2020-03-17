@@ -64,10 +64,8 @@
             <p>
               <img src="@/assets/img/mark.png" />
             </p>
-            <van-radio-group v-model="radio">
+            <van-radio-group v-model="radio" direction="horizontal">
               <van-radio name="1">允许</van-radio>
-            </van-radio-group>
-            <van-radio-group v-model="radio">
               <van-radio name="2">不允许</van-radio>
             </van-radio-group>
           </div>
@@ -96,6 +94,8 @@
 </template>
 
 <script>
+import { entrustBail } from "@/api/stock";
+
 export default {
   name: 'Purchase',
   props: {
@@ -106,16 +106,18 @@ export default {
   },
   data () {
     return {
-      radio: '',
-      shows: false,
-      showes: false,
-      amount: 0,
-      price: 0.015
+      radio: '2',  // 盘前盘后交易控制单选框
+      shows: false,   // 确定买入遮罩层的展示
+      amount: 0,  // 数量
+      price: 0,   // 价格
+      record: []
     }
   },
   methods: {
     handleClickCancel () {
       this.$emit('input', false)
+      this.amount = 0
+      this.price = 0
     },
     // 价格的加减
     priceReduceClick () {
@@ -143,9 +145,32 @@ export default {
     amountPlusClick () {
       this.amount++
     },
-    handleClickOrder () {
-      //   this.$toast('请填写正确得卖出数量')
-      this.shows = true
+    // 点击委托买入
+    async handleClickOrder (q) {
+      // this.shows = true         //  警示弹框的步骤
+      try {
+        this.record = this.$route.query.q
+        const query =  Object.assign({
+          stock_code: this.record.stock_code,
+          stock_name: this.record.stock_name,
+          entrust_quantity: this.amount,
+          entrust_price: this.price
+        },query)
+        const res = await entrustBail(query)
+        if(res.data.status) {
+          this.$toast("委托买入成功")
+          this.$emit('input', false)
+          this.amount = 0
+          this.price = 0
+        } else {
+          const data = this.amount * this.price
+          if(data < 100) {        //  这个位置需要一个判断
+            this.shows = true
+          }
+        }
+      } catch (error) {
+        this.$toast("委托买入失败");
+      }
     }
   }
 }
@@ -279,6 +304,9 @@ export default {
             font-size: 12px;
             padding-right: 15px;
           }
+        }
+        .van-radio-group {
+          display: flex;
         }
       }
     }
