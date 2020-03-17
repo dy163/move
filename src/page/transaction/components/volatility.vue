@@ -13,9 +13,7 @@
       <van-row>
         <van-col span="4">卖4</van-col>
         <van-col span="4">{{ sellFour.price }}</van-col>
-        <!-- <van-col span="4">{{  }}</van-col> -->
         <van-col span="4">{{ sellFour.quantity }}</van-col>
-        <!-- <van-col span="4">{{  }}</van-col> -->
         <van-col span="4">买4</van-col>
         <van-col span="4">{{ bailFour.price }}</van-col>
         <van-col span="4">{{ bailFour.quantity }}</van-col>
