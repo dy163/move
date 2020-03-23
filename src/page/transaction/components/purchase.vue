@@ -149,7 +149,7 @@ export default {
     async handleClickOrder (q) {
       // this.shows = true         //  警示弹框的步骤
       try {
-        this.record = this.$route.query.q
+        this.record =JSON.parse(this.$route.query.q)
         const query =  Object.assign({
           stock_code: this.record.stock_code,
           stock_name: this.record.stock_name,

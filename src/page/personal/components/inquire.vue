@@ -1,10 +1,10 @@
 <template>
   <div class="inquire">
-    <van-nav-bar title="成交查询" @click-left="$router.back()">
+    <van-nav-bar title="成交查询" @click-left="$router.back()" fixed>
       <van-icon name="arrow-left" slot="left" />
     </van-nav-bar>
     <!-- 展示时间遮罩 -->
-    <div class="entrust-header">
+    <div class="entrust-header" fixed>
       <van-row>
         <van-col span="12" @click="handleToday">今日查询</van-col>
         <van-col span="12">
@@ -20,9 +20,14 @@
       </van-row>      
     </div>
     <!-- 内容 -->
-    <div class="inquire-content">
-      <van-list>
-        <div v-for="item in list" :key="item.id">
+    <!-- <div class="inquire-content">
+      <van-list
+      v-model="loading"
+      :finished="upFinished" 
+      finished-text="没有更多了" 
+      @load="onLoad"
+      >
+        <div v-for="(item,index) in list" :key="index">
           <p>
             {{ item.stock_name }}
             <span>{{ item.stock_code }}</span>
@@ -30,16 +35,10 @@
           <div class="inquire-list">
             <van-row type="flex" justify="space-between">
               <van-col span="6">买卖方向</van-col>
-              <van-col span="6">{{ item.buy_or_sell }}</van-col>
+              <van-col span="6" :style="{color:item.buy_or_sell === '买入'? 'green' : 'red'}">{{ item.buy_or_sell }}</van-col>
               <van-col span="6">成交状态</van-col>
               <van-col span="6">已成</van-col>
             </van-row>
-            <!-- <van-row>
-              <van-col span="6">买卖价格</van-col>
-              <van-col span="6">{{ item.entrust }}</van-col>
-              <van-col span="6">委托数量</van-col>
-              <van-col span="6">{{ item.entrustAmount }}</van-col>
-            </van-row> -->
             <van-row>
               <van-col span="6">成交金额</van-col>
               <van-col span="6">{{ item.amount }}</van-col>
@@ -55,9 +54,22 @@
           </div>
         </div>
       </van-list>
-      <!-- 默认得图片 -->
       <img src="@/assets/img/hollow.png" v-show="false" />
-    </div>
+    </div> -->
+    <!-- 一天 -->
+    <InquireDay v-if="showDay"/>
+    <!-- 一周 -->
+    <InquireWeek v-if="showWeek"/>
+    <!-- 一月 -->
+    <Inquiremonth v-if="showMonth"/>
+    <!-- 三月 -->
+    <InquireThreeMonths v-if="showThree"/>
+    <!-- 半年 -->
+    <InquireHalfYear v-if="showHalfYear"/>
+    <!-- 一年 -->
+    <InquireYear v-if="showYear"/>
+    <!-- 自定义 -->
+    <InquireCustom v-if="showCustom"/>
     <!-- 展示历史查询遮罩 -->
     <div>
       <van-popup v-model="showes" position="top" @click-overlay='close' @click='close'>
@@ -112,10 +124,25 @@
 </template>
 
 <script>
-import { bargainHistory, bargainToday } from "@/api/stock";
+import InquireDay from "./inquire-day";
+import InquireWeek from "./inquire-week";
+import Inquiremonth from "./inquire-month";
+import InquireThreeMonths from "./inquire-three-months";
+import InquireHalfYear from "./inquire-half-year";
+import InquireYear from "./inquire-year";
+import InquireCustom from "./inquire-custom";
 
 export default {
   name: "Inquire",
+  components: {
+    InquireDay,
+    InquireWeek,
+    Inquiremonth,
+    InquireThreeMonths,
+    InquireHalfYear,
+    InquireYear,
+    InquireCustom
+  },
   data() {
     return {
       show2:true,
@@ -131,27 +158,28 @@ export default {
       starttime1: "", //开始时间时间戳
       endtime: "", //结束时间
       endtime1: "", //结束时间时间戳
-      list: []
+      list: [],
+      loading: false, // 列表加载
+      upFinished:false,//上拉加载完毕
+      showDay: true,
+      showWeek: false,
+      showMonth: false,
+      showThree: false,
+      showHalfYear: false,
+      showYear: false,
+      showCustom: false
     };
   },
   created(){
     this.$toast.setDefaultOptions({ duration: 800 });   // vant 消息提示展示时间
-    this.handleToday()
   },
   methods: {
     onLoad() {
       // 异步更新数据
-      setTimeout(() => {
-        for (let i = 0; i < 5; i++) {
-          this.list.push(this.list.length + 1);
-        }
-        // 加载状态结束
-        this.loading = false;
-        // 数据全部加载完成
-        if (this.list.length >= 5) {
-          this.finished = true;
-        }
-      }, 500);
+      this.loading = false;
+      this.handleToday();
+      // this.loading = true;
+      this.upFinished = true;
     },
     close() {
       this.show3 = false
@@ -226,151 +254,141 @@ export default {
     /**
      * 自定义时间确定按钮
      */
-    async handleConfirm() {
-      try {
-        if (!this.starttime && !this.endtime) {
-          this.$toast("请输入自定义时间");
-        } else {
-          this.showes = false; // 控制遮罩层展示
-          const min = this.starttime.split("-").join("");
-          const max = this.endtime.split("-").join("");
-          const formData = new FormData();
-          formData.append("time_range", 6);
-          formData.append("min", min);
-          formData.append("max", max);
-          const res = await bargainHistory(formData);
-          this.list = res.data.result;
-          // 判断展示登录状态
-          if(!res.data.status) {
-            this.$toast("请登录后查看");
-          } else {
-            this.$toast("获取自定义列表成功");
-          }
-        }
-      } catch (error) {
-        this.$toast("获取失败");
-      }
+    handleConfirm() {
+      this.showDay = false;
+      this.showWeek = false;
+      this.showMonth = false;
+      this.showThree = false;
+      this.showHalfYear = false;
+      this.showYear = false;
+      this.showCustom = true;
+      this.showes = false;
+      window.localStorage.setItem('inquireStarttime', this.starttime)
+      window.localStorage.setItem('inquireEndtime', this.endtime)
+      this.starttime = ''
+      this.endtime = ''
     },
     /**
      * 今日成交列表查询
      */
-    async handleToday() {
+    handleToday() {
+      this.showDay = true;
+      this.showWeek = false;
+      this.showMonth = false;
+      this.showThree = false;
+      this.showHalfYear = false;
+      this.showYear = false;
+      this.showCustom = false;
+
       this.show3 = false
       this.showes = false
       this.show2 = true
-      try {
-        const formData = new FormData();
-        const res = await bargainToday(formData);
-        this.list = res.data.result;
-        // 判断展示登录状态
-        if(!res.data.status) {
-          this.$toast("请登录后查看");
-        } else {
-          this.$toast("获取今日成交列表成功");
-        }
-      } catch (error) {
-        
-      }
     },
-    /**
-     * 一周点击
-     */
-    async handleColseWeek() {
+    // 一周加载
+    handleColseWeek() {
+      this.showDay = false;
+      this.showWeek = true;
+      this.showMonth = false;
+      this.showThree = false;
+      this.showHalfYear = false;
+      this.showYear = false;
+      this.showCustom = false;
       this.showes = false;
-      try {
-        const formData = new FormData();
-        formData.append("time_range", 1);
-        const res = await bargainHistory(formData);
-        this.list = res.data.result;
-        // 判断展示登录状态
-        if(!res.data.status) {
-          this.$toast("请登录后查看");
-        } else {
-          this.$toast("获取周列表成功");
-        }
-      } catch (error) {
-        this.$toast("获取失败");
-      }
     },
-    /**
-     * 一月点击
-     */
-    async handleColseJanuary() {
+    // 一月加载
+    handleColseJanuary() {
+      this.showDay = false;
+      this.showWeek = false;
+      this.showMonth = true;
+      this.showThree = false;
+      this.showHalfYear = false;
+      this.showYear = false;
+      this.showCustom = false;
       this.showes = false;
-      try {
-        const formData = new FormData();
-        formData.append("time_range", 2);
-        const res = await bargainHistory(formData);
-        this.list = res.data.result;
-        // 判断展示登录状态
-        if(!res.data.status) {
-          this.$toast("请登录后查看");
-        } else {
-          this.$toast("获取一月列表成功");
-        }
-      } catch (error) {
-        this.$toast("获取失败");
-      }
     },
-    /**
-     * 三月点击
-     */
-    async handleColseMarch() {
+    // 三月加载
+    handleColseMarch() {
+      this.showDay = false;
+      this.showWeek = false;
+      this.showMonth = false;
+      this.showThree = true;
+      this.showHalfYear = false;
+      this.showYear = false;
+      this.showCustom = false;
       this.showes = false;
-      try {
-        const formData = new FormData();
-        formData.append("time_range", 3);
-        const res = await bargainHistory(formData);
-        this.list = res.data.result;
-        // 判断展示登录状态
-        if(!res.data.status) {
-          this.$toast("请登录后查看");
-        } else {
-          this.$toast("获取三月列表成功");
-        }
-      } catch (error) {
-        this.$toast("获取失败");
-      }
+      // try {
+      //   const formData = new FormData();
+      //   formData.append("time_range", 3);
+      //   const res = await bargainHistory(formData);
+      //   // 判断展示登录状态
+      //   if(res.data.result === null) {
+      //     this.$toast("三月成交历史为空");
+      //   } else if(res.data.login === false)  {
+      //     window.localStorage.removeItem('sessionid')
+      //     this.$toast("用户未登录，请重新登录");
+      //   } else {
+      //     this.$toast("获取三月成交历史列表成功");
+      //     this.list = res.data.result.list;
+      //   }
+      // } catch (error) {
+      //   this.$toast("获取三月成交历史列表失败");
+      // }
     },
-    /**
-     * 半年点击
-     */
-    async handleColseJune() {
+    // 半年加载
+    handleColseJune() {
+      this.showDay = false;
+      this.showWeek = false;
+      this.showMonth = false;
+      this.showThree = false;
+      this.showHalfYear = true;
+      this.showYear = false;
+      this.showCustom = false;
       this.showes = false;
-      try {
-        const formData = new FormData();
-        formData.append("time_range", 4);
-        const res = await bargainHistory(formData);
-        this.list = res.data.result;
-        // 判断展示登录状态
-        if(!res.data.status) {
-          this.$toast("请登录后查看");
-        } else {
-          this.$toast("获取半年列表成功");
-        }
-      } catch (error) {
-        this.$toast("获取失败");
-      }
+      // try {
+      //   const formData = new FormData();
+      //   formData.append("time_range", 4);
+      //   const res = await bargainHistory(formData);
+      //   // 判断展示登录状态
+      //   if(res.data.result === null) {
+      //     this.$toast("半年成交历史为空");
+      //   } else if(res.data.login === false)  {
+      //     window.localStorage.removeItem('sessionid')
+      //     this.$toast("用户未登录，请重新登录");
+      //   } else {
+      //     this.$toast("获取半年成交历史列表成功");
+      //     this.list = res.data.result.list;
+      //   }
+      // } catch (error) {
+      //   this.$toast("获取半年成交历史列表失败");
+      // }
     },
-    /**
-     * 一年点击
-     */
-    async handleColseYear() {
+    // 一年加载
+    handleColseYear() {
+      this.showDay = false;
+      this.showWeek = false;
+      this.showMonth = false;
+      this.showThree = false;
+      this.showHalfYear = false;
+      this.showYear = true;
+      this.showCustom = false;
       this.showes = false;
-      try {
-        const formData = new FormData();
-        formData.append("time_range", 5);
-        const res = await bargainHistory(formData);
-        this.list = res.data.result;
-        // 判断展示登录状态
-        if(!res.data.status) {
-          this.$toast("请登录后查看");
-        } else {
-          this.$toast("获取一年列表成功");
-        }
-      } catch (error) {
-        this.$toast("获取失败");
-      }
+      // try {
+      //   const formData = new FormData();
+      //   formData.append("time_range", 5);
+      //   const res = await bargainHistory(formData);
+      //   // 判断展示登录状态
+      //   if(res.data.result === null) {
+      //     this.$toast("一年成交历史列表为空");
+      //   } else if(res.data.login === false)  {
+      //     window.localStorage.removeItem('sessionid')
+      //     this.$toast("用户未登录，请重新登录");
+      //   } else {
+      //     this.$toast("获取一年成交列表成功");
+      //     this.list = res.data.result.list;
+      //   }
+      // } catch (error) {
+      //   this.$toast("获取一年成交列表失败");
+      // }
     }
   }
 };
@@ -380,7 +398,7 @@ export default {
 .inquire-content {
   text-align: center;
   font-family: PingFangSC-Regular, PingFang SC;
-  position: fixed;
+  // position: fixed;
   background: rgba(23, 24, 34, 1);
   width: 100%;
   height: 100%;
@@ -423,10 +441,13 @@ export default {
   }
 }
 .entrust-header {
+  // position: fixed;
+  margin-top: 46px;
   font-size: 16px;
   height: 50px;
   line-height: 50px;
   color: #fff;
+  // background-color: #fff;
   .van-col--12 {
     text-align: center;
   }

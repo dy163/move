@@ -149,7 +149,7 @@ export default {
     },
     async handleClickOrder (q) {
       try {
-        this.recordSell = this.$route.query.q
+        this.recordSell = JSON.parse(this.$route.query.q)
         const query =  Object.assign({
           stock_code: this.recordSell.stock_code,
           stock_name: this.recordSell.stock_name,

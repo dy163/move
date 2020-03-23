@@ -12,7 +12,6 @@ export default {
   name: "ches",
   data() {
     return {
-      showList: [],
       weeklydata: [] //  周k数据
     };
   },
@@ -25,9 +24,8 @@ export default {
   methods: {
     async handleKlineWeek(q) {
       try {
-        this.showList = this.$route.query.q; // 获取动态参数
         const formData = new FormData();
-        formData.append("stock_code", this.showList.stock_code);
+        formData.append("stock_code", JSON.parse(this.$route.query.q).stock_code);
         const res = await klineWeek(formData);
         const time = []; // 遍历时间
         const open = []; // 遍历开盘数据

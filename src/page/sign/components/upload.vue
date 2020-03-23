@@ -77,7 +77,6 @@
 
 <script>
 import { uploadImg, register } from "@/api/user";
-// const http = "http://192.168.3.79:8080"
 const http = "http://bourse.yidonghuayuan.com"
 export default {
   name: "Upload",
@@ -101,12 +100,15 @@ export default {
     async face(file) {
       try {
         const res = await uploadImg(file);
-        this.faceImg = http + res.data.result;
-        this.show = true;
-        window.localStorage.setItem("ID_card_front", res.data.result);
+        if(!res.data.status) {
+          this.$toast("上传正面照片失败");
+        } else {
+          this.faceImg = http + res.data.result.slice('7');
+          this.show = true;
+          window.localStorage.setItem("ID_card_front", res.data.result.slice('7'));
+        }
       } catch (error) {
-        this.$toast("操作失败");
-        console.log(error);
+        this.$toast("上传操作失败");
       }
     },
 
@@ -114,12 +116,15 @@ export default {
     async backlighting(file) {
       try {
         const res = await uploadImg(file);
-        this.backlightingImg = http + res.data.result;
-        this.side = true;
-        window.localStorage.setItem("ID_card_reverse", res.data.result);
+        if(!res.data.status) {
+          this.$toast("上传背面照片失败");
+        } else {
+          this.backlightingImg = http + res.data.result.slice('7');
+          this.side = true;
+          window.localStorage.setItem("ID_card_reverse", res.data.result.slice('7'));
+        }
       } catch (error) {
-        this.$toast("操作失败");
-        console.log(error);
+        this.$toast("上传操作失败");
       }
     },
 
@@ -127,13 +132,19 @@ export default {
     async hold(file) {
       try {
         const res = await uploadImg(file);
-        this.holdImg = http + res.data.result;
-        this.self = true;
-        window.localStorage.setItem("ID_card_and_myself", res.data.result);
+        if(!res.data.status) {
+          this.$toast("上传背面照片失败");
+        } else {
+          this.holdImg = http + res.data.result.slice('7');
+          this.self = true;
+          window.localStorage.setItem("ID_card_and_myself", res.data.result.slice('7'));
+        }
         if (this.show !== true) {
           this.$toast("请上传身份证正面");
         } else if (this.side !== true) {
           this.$toast("请上传身份证背面");
+        } else if(this.self !== true){
+          this.$toast("请上传身份证手持照片");
         } else {
           window.setInterval(() => {
             this.$router.push({
@@ -143,8 +154,7 @@ export default {
           }, 2000);
         }
       } catch (error) {
-        this.$toast("操作失败");
-        console.log(error);
+        this.$toast("上传身份证失败");
       }
     }
   }

@@ -5,6 +5,7 @@
       right-text="历史查询"
       @click-left="$router.back()"
       @click-right="showes = true"
+      fixed
     >
       <van-icon name="arrow-left" slot="left" />
     </van-nav-bar>
@@ -15,14 +16,21 @@
         <P>发生金额</P>
         <P>剩余金额</P>
       </div>
-      <van-list>
-        <van-row v-for="item in list" :key="item.id">
-          <van-col span="6">{{ item.date }}</van-col>
-          <van-col span="6">{{ item.service_type }}</van-col>
-          <van-col span="6">{{ item.flow_money }}</van-col>
-          <van-col span="6">{{ item.usable_assets }}</van-col>
-        </van-row>
-      </van-list>
+      <van-pull-refresh v-model="isLoading" @refresh="onRefresh">
+        <van-list
+          v-model="loading"
+          :finished="upFinished" 
+          finished-text="没有更多了" 
+          @load="onLoad"
+        >
+          <van-row v-for="(item,index) in list" :key="index">
+            <van-col span="6">{{ item.date }}</van-col>
+            <van-col span="6" :style="{ color: item.service_type === '证券买入' ? 'red' : 'green'}">{{ item.service_type }}</van-col>
+            <van-col span="6" :style="{ color: item.flow_money < 0 ? 'red' : 'green'}">{{ item.flow_money }}</van-col>
+            <van-col span="6">{{ item.usable_assets }}</van-col>
+          </van-row>
+        </van-list>
+      </van-pull-refresh>
     </div>
     <!-- 展示历史查询遮罩 -->
     <div>
@@ -95,7 +103,10 @@ export default {
       starttime1: "", //开始时间时间戳
       endtime: "", //结束时间
       endtime1: "", //结束时间时间戳
-      list: []
+      list: [],
+      isLoading: false, // 下拉刷新控制
+      loading: false, // 列表加载
+      upFinished:false //上拉加载完毕
     };
   },
   /**
@@ -103,11 +114,24 @@ export default {
    */
   computed: {},
 
-  created() {
-    this.handleFundFlow(); // 默认加载今天数据
-  },
+  created() {},
 
   methods: {
+    // 列表加载
+    onLoad() {
+      // 异步更新数据
+      this.loading = false;
+      this.handleFundFlow();  // 今天数据
+      // this.loading = true;
+      this.upFinished = true;
+    },
+    // 下拉刷新加载今天的流水
+    onRefresh () {
+      setTimeout(() => {
+        this.handleFundFlow();
+        this.isLoading = false;
+      }, 1500);
+    },
     /**
      * 自定义时间选择器
      */
@@ -166,9 +190,18 @@ export default {
       try {
         const formData = new FormData();
         const res = await fundFlowGetList(formData);
-        this.list = res.data.result;
+       // 判断展示登录状态
+        if(res.data.result === null) {
+          this.$toast("今日流水为空");
+        } else if(res.data.login === false)  {
+          window.localStorage.removeItem('sessionid')
+          this.$toast("用户未登录，请重新登录");
+        } else {
+          this.$toast("获取今日流水列表成功");
+          this.list = res.data.result;
+        }
       } catch (error) {
-        this.$toast("获取今天数据失败");
+        this.$toast("获取今天流水数据失败");
       }
     },
     /**
@@ -187,11 +220,19 @@ export default {
           formData.append("min", min);
           formData.append("max", max);
           const res = await fundFlowGetList(formData);
-          this.list = res.data.result;
-          this.$toast("获取自定义列表成功");
+          // 判断展示登录状态
+          if(res.data.result === null) {
+            this.$toast("自定义流水为空");
+          } else if(res.data.login === false)  {
+            window.localStorage.removeItem('sessionid')
+            this.$toast("用户未登录，请重新登录");
+          } else {
+            this.$toast("获取自定义流水列表成功");
+            this.list = res.data.result;
+          }
         }
       } catch (error) {
-        this.$toast("获取失败");
+        this.$toast("获取自定义流水列表失败");
       }
     },
     /**
@@ -203,10 +244,18 @@ export default {
         const formData = new FormData();
         formData.append("time_range", 1);
         const res = await fundFlowGetList(formData);
-        this.list = res.data.result;
-        this.$toast("获取周列表成功");
+        // 判断展示登录状态
+        if(res.data.result === null) {
+          this.$toast("周流水列表为空");
+        } else if(res.data.login === false)  {
+          window.localStorage.removeItem('sessionid')
+          this.$toast("用户未登录，请重新登录");
+        } else {
+          this.$toast("获取周流水列表成功");
+          this.list = res.data.result;
+        }
       } catch (error) {
-        this.$toast("获取失败");
+        this.$toast("获取周流水列表失败");
       }
     },
     /**
@@ -218,10 +267,18 @@ export default {
         const formData = new FormData();
         formData.append("time_range", 2);
         const res = await fundFlowGetList(formData);
-        this.list = res.data.result;
-        this.$toast("获取一月列表成功");
+        // 判断展示登录状态
+        if(res.data.result === null) {
+          this.$toast("月流水为空");
+        } else if(res.data.login === false)  {
+          window.localStorage.removeItem('sessionid')
+          this.$toast("用户未登录，请重新登录");
+        } else {
+          this.$toast("获取月流水列表成功");
+          this.list = res.data.result;
+        }
       } catch (error) {
-        this.$toast("获取失败");
+        this.$toast("获取月流水列表失败");
       }
     },
     /**
@@ -233,10 +290,18 @@ export default {
         const formData = new FormData();
         formData.append("time_range", 3);
         const res = await fundFlowGetList(formData);
-        this.list = res.data.result;
-        this.$toast("获取三月列表成功");
+       // 判断展示登录状态
+        if(res.data.result === null) {
+          this.$toast("三月流水为空");
+        } else if(res.data.login === false)  {
+          window.localStorage.removeItem('sessionid')
+          this.$toast("用户未登录，请重新登录");
+        } else {
+          this.$toast("获取三月流水列表成功");
+          this.list = res.data.result;
+        }
       } catch (error) {
-        this.$toast("获取失败");
+        this.$toast("获取三月流水列表失败");
       }
     },
     /**
@@ -248,10 +313,18 @@ export default {
         const formData = new FormData();
         formData.append("time_range", 4);
         const res = await fundFlowGetList(formData);
-        this.list = res.data.result;
-        this.$toast("获取半年列表成功");
+        // 判断展示登录状态
+        if(res.data.result === null) {
+          this.$toast("半年流水为空");
+        } else if(res.data.login === false)  {
+          window.localStorage.removeItem('sessionid')
+          this.$toast("用户未登录，请重新登录");
+        } else {
+          this.$toast("获取半年流水列表成功");
+          this.list = res.data.result;
+        }
       } catch (error) {
-        this.$toast("获取失败");
+        this.$toast("获取半年流水列表成功失败");
       }
     },
     /**
@@ -263,10 +336,18 @@ export default {
         const formData = new FormData();
         formData.append("time_range", 5);
         const res = await fundFlowGetList(formData);
-        this.list = res.data.result;
-        this.$toast("获取一年列表成功");
+        // 判断展示登录状态
+        if(res.data.result === null) {
+          this.$toast("一年流水为空");
+        } else if(res.data.login === false)  {
+          window.localStorage.removeItem('sessionid')
+          this.$toast("用户未登录，请重新登录");
+        } else {
+          this.$toast("获取一年流水列表成功");
+          this.list = res.data.result;
+        }
       } catch (error) {
-        this.$toast("获取失败");
+        this.$toast("获取一年流水列表成功失败");
       }
     }
   }
@@ -279,6 +360,7 @@ export default {
   background-color: #20212a;
 }
 .flowing-content {
+  margin-top: 46px;
   padding: 0 15px;
   font-family: PingFangSC-Regular, PingFang SC;
   height: 100%;
@@ -314,6 +396,7 @@ export default {
     }
     .van-col--6:nth-child(4) {
       text-align: right;
+      color: green;
     }
   }
 }

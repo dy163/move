@@ -52,7 +52,6 @@ export default {
   name: "Volatility",
   data() {
     return {
-      list: [],
       priceList: [],    // 暂时没有用
       sellFive: [],
       sellFour: [],
@@ -76,9 +75,8 @@ export default {
   methods: {
     async handlegetPriceList (q) {
       try {
-        this.list = this.$route.query.q
         const formData = new FormData();
-        formData.append("stock_code", this.list.stock_code);
+        formData.append("stock_code", JSON.parse(this.$route.query.q).stock_code);
         const res = await getPriceList(formData)
         this.sellFive = res.data.result[0]
         this.sellFour = res.data.result[1]

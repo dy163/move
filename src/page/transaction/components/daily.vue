@@ -12,7 +12,6 @@ export default {
   name: "Daily",
   data() {
     return {
-      showList: [],
       dailydata: [] //  日k数据
     };
   },
@@ -25,9 +24,8 @@ export default {
   methods: {
     async handlekineDaily(q) {
       try {
-        this.showList = this.$route.query.q;
         const formData = new FormData();
-        formData.append("stock_code", this.showList.stock_code);
+        formData.append("stock_code", JSON.parse(this.$route.query.q).stock_code);
         const res = await klineDay(formData);
         const time = []; // 遍历时间
         const open = []; // 遍历开盘数据

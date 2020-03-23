@@ -1,6 +1,6 @@
 <template>
   <div class="order-list">
-    <van-nav-bar title="订单列表" @click-left="$router.back()">
+    <van-nav-bar title="订单列表" @click-left="$router.back()" fixed>
       <van-icon name="arrow-left" slot="left" />
     </van-nav-bar>
     <div class="order-list">
@@ -54,7 +54,7 @@
           </div>
         </van-tab>
         <van-tab title="已成交">
-          <van-list v-model="loading" :finished="finished" finished-text="没有更多了" @load="onLoad">
+          <van-list v-model="loadingBargain" :finished="finishedBargain" finished-text="没有更多了" @load="onLoadBargain">
             <div class="order-list-wait" v-for="(item, index) in bargain" :key="index">
               <div class="order-list-wait-top">
                 <div>
@@ -83,15 +83,15 @@
                   <p>已成数</p>
                   <p>{{ item.bargain_quantity }}</p>
                 </div>
-                <!-- <div>
-                    <p>撤单</p>
-                </div>-->
+                <div>
+                    <p>已成交</p>
+                </div>
               </div>
             </div>
           </van-list>
         </van-tab>
         <van-tab title="已撤单">
-          <van-list v-model="loading" :finished="finished" finished-text="没有更多了" @load="onLoad">
+          <van-list v-model="loadingCancel" :finished="finishedCancel" finished-text="没有更多了" @load="onLoadCancel">
             <div class="order-list-wait" v-for="(item, index) in cancel" :key="index">
               <div class="order-list-wait-top">
                 <div>
@@ -120,6 +120,9 @@
                   <p>已成数</p>
                   <p>{{ item.bargain_quantity }}</p>
                 </div>
+                <div>
+                    <p>已撤单</p>
+                </div>
               </div>
             </div>
           </van-list>
@@ -138,61 +141,172 @@ export default {
       show: false,
       loading: false,
       finished: false,
+      loadingBargain: false,
+      finishedBargain: false,
+      loadingCancel: false,
+      finishedCancel: false,
       active: 0,
-      wait: [], // 等待
-      bargain: [], // 成交
-      cancel: [] // 撤销
+      pageNum: 1,     // 第几页码
+      pageSize: 8,    // 每页条数
+      wait: [],       // 等待
+      waitEmpty: [],
+      bargain: [],    // 成交
+      bargainEmpty: [],
+      bargainNum: 1,
+      bargainSize: 8,
+      cancel: [],     // 撤销
+      cancelEmpty: [],
+      cancelNum: 1,
+      cancelSize: 8
     };
   },
   created() {
-    //   this.handleEntrustTodayGetList()
+    this.$toast.setDefaultOptions({ duration: 800 }); // 控制消息提示展示时间
   },
   methods: {
-    //  数据懒加载
+    //  带成交数据滚动加载
     onLoad() {
-      this.handleEntrustTodayGetList();
-      this.loading = false; // 加载状态结束
+      setTimeout(() => {
+        this.loading = false; 
+        this.handleEntrustGetList();
+        this.loading = true; 
+      }, 1000)
     },
-    // 获取今日未成交委托数据
-    async handleEntrustTodayGetList() {
+    // 成交数据滚动加载
+    onLoadBargain () {
+      setTimeout(() => {
+        this.loadingBargain = false; 
+        this.handleEntrustBargain();
+        this.loadingBargain = true; 
+      }, 1000)
+    },
+    // 撤单数据滚动加载
+    onLoadCancel () {
+      setTimeout(() => {
+        this.loadingCancel = false; 
+        this.handleEntrustCancel();
+        this.finishedCancel = true; 
+      }, 1000)
+    },
+    // 获取未成交委托数据
+    async handleEntrustGetList () {
       try {
         const formData = new FormData();
+        formData.append("pageNum", this.pageNum);
+        formData.append("pageSize", this.pageSize);
         const res = await entrustTodayGetList(formData);
-        this.wait = res.data.result.filter(function(q) {
-          return q.status === "部成";
-        });
-        const result1 = res.data.result.filter(function(q) {
-          return q.status === "已报";
-        });
-        this.wait.push(...result1);
-        // 成交数据
-        this.bargain = res.data.result.filter(function(q) {
-          return q.status === "已成";
-        });
-        // 撤销数据
-        this.cancel = res.data.result.filter(function(q) {
-          return q.status === "已撤";
-        });
-        this.finished = true; // 数据加载完毕结束的提示
+        // 判断展示登录状态
+        if(res.data.result === null) {
+          this.$toast("待成交列表为空");
+          this.loading = false;
+          this.finished = true;
+        } else if(res.data.login === false)  {
+          window.localStorage.removeItem('sessionid')
+          this.$toast("用户未登录，请重新登录");
+          this.loading = false;
+          this.finished = true;
+        } else {
+          const result = res.data.result.list.filter(function(q) {
+            return q.status === "部成";
+          });
+          const result1 = res.data.result.list.filter(function(q) {
+            return q.status === "已报";
+          });
+          this.waitEmpty = this.waitEmpty.concat(result, result1)
+          this.loading = false;
+          this.wait.push(...this.waitEmpty);
+          formData.append("pageNum", this.pageNum++);
+          if (this.waitEmpty.length <= this.pageSize) {
+            this.finished = true;
+          }
+        }
       } catch (error) {
-        this.$toast("获取未成交失败");
+        this.$toast("获取未成交列表失败");
+      }
+    },
+    // 获取成交数据
+    async handleEntrustBargain () {
+      try {
+        const formData = new FormData();
+        formData.append("pageNum", this.bargainNum);
+        formData.append("pageSize", this.bargainSize);
+        const res = await entrustTodayGetList(formData);
+        // 判断展示登录状态
+        if(res.data.result === null) {
+          this.$toast("成交列表为空");
+          this.loadingBargain = false;
+          this.finishedBargain = true;
+        } else if(res.data.login === false)  {
+          window.localStorage.removeItem('sessionid')
+          this.$toast("用户未登录，请重新登录");
+          this.loadingBargain = false;
+          this.finishedBargain = true;
+        } else {
+          // 成交数据
+          this.bargainEmpty = res.data.result.list.filter(function(q) {
+            return q.status === "已成";
+          });
+          this.loadingBargain = false;
+          this.bargain.push(...this.bargainEmpty);
+          formData.append("pageNum", this.bargainNum++);
+          if (this.bargainEmpty.length <= this.bargainSize) {
+            this.finishedBargain = true;
+          }
+        }
+      } catch (error) {
+        this.$toast("获取成交列表失败");
+      }
+    },
+    // 获取撤销数据
+    async handleEntrustCancel () {
+      try {
+        const formData = new FormData();
+        formData.append("pageNum", this.cancelNum);
+        formData.append("pageSize", this.cancelSize);
+        const res = await entrustTodayGetList(formData);
+        // 判断展示登录状态
+        if(res.data.result === null) {
+          this.$toast("撤单列表为空");
+          this.loadingCancel = false;
+          this.finishedCancel = true;
+        } else if(res.data.login === false)  {
+          window.localStorage.removeItem('sessionid')
+          this.$toast("用户未登录，请重新登录");
+          this.loadingCancel = false;
+          this.finishedCancel = true;
+        } else {
+          // 撤销数据
+          this.cancelEmpty = res.data.result.list.filter(function(q) {
+            return q.status === "已撤";
+          });
+          this.loadingCancel = false;
+          this.cancel.push(...this.cancelEmpty);
+          formData.append("pageNum", this.cancelNum++);
+          if (this.cancelEmpty.length <= this.cancelSize) {
+            this.finishedCancel = true;
+          }
+        }
+      } catch (error) {
+        this.$toast("获取撤单列表失败");
       }
     },
     // 撤单
-    async handleCancel(q) {
-      try {
-        const formData = new FormData();
-        formData.append("id", q.id);
-        const res = await entrustRevoke(formData);
-        if (!res.data.status) {
-          return;
-        } else {
-          this.$toast("撤销成功");
-          this.handleEntrustTodayGetList();
-        }
-      } catch (error) {
-        this.$toast("撤销操作失败");
-      }
+    handleCancel(q) {
+        this.$dialog.confirm({
+          title: '确定撤销?'
+        }).then(async () => {
+          try {
+            const formData = new FormData();
+            formData.append("id", q.id);
+            await entrustRevoke(formData);
+            window.location.reload(); 
+          } catch (error) {
+            this.$toast("撤销操作失败");
+          }
+        }).catch(() => {
+          // on cancel
+        });
+
     }
   }
 };
@@ -200,6 +314,7 @@ export default {
 
 <style lang="less" scoped>
 .order-list {
+  margin-top: 46px;
   .order-list-fixed {
     padding-top: 8px;
     display: flex;

@@ -121,7 +121,7 @@
         :finished="finished"
         finished-text="没有更多了"
         @load="onLoad"
-      > -->
+      >-->
       <van-list>
         <van-row class="shares-list" v-for="item in shares" :key="item.id">
           <van-col span="6">
@@ -138,14 +138,18 @@
           </van-col>
           <van-col span="6">
             <div>
-              <p>{{ item.market_price }}</p>
+              <p
+                :style="{ color: item.market_price > item.cost_price? 'green' : 'red' }"
+              >{{ item.market_price }}</p>
               <p>{{ item.cost_price }}</p>
             </div>
           </van-col>
           <van-col span="6">
             <div>
               <p>{{ item.gain_or_loss }}</p>
-              <p>{{ item.gain_or_loss_rate }}</p>
+              <p
+                :style="{ color: item.gain_or_loss_rate > 0? 'green' : 'red' }"
+              >{{ item.gain_or_loss_rate }}</p>
             </div>
           </van-col>
         </van-row>
@@ -163,7 +167,7 @@ export default {
   name: "Capital",
   data() {
     return {
-      shares:[],      //  持仓股票数据存放中心
+      shares: [], //  持仓股票数据存放中心
       account: [],
       marker: "",
       play: false,
@@ -173,8 +177,9 @@ export default {
     };
   },
   created() {
+    this.$toast.setDefaultOptions({ duration: 800 }); // 控制消息提示展示时间
     this.handleGetAccount();
-    this.handleShares()
+    this.handleShares();
   },
   methods: {
     /**
@@ -197,12 +202,16 @@ export default {
      */
     async handleGetAccount() {
       try {
-        const formData = new FormData()
+        const formData = new FormData();
         const res = await accountGetAccount(formData);
-        if(!res.data.status) {
-          this.$toast("没有登录请登录");
+        if (res.data.result === null) {
+          this.$toast("账户信息为空");
+        } else if (res.data.login === false) {
+          window.localStorage.removeItem("sessionid");
+          this.$toast("用户未登录，请重新登录");
+          this.$router.push("/login");
         } else {
-          this.account = res.data.result
+          this.account = res.data.result;
         }
       } catch (error) {
         this.$toast("获取账户信息失败");
@@ -211,11 +220,18 @@ export default {
     /**
      * 获取持仓数据
      */
-    async handleShares () {
+    async handleShares() {
       try {
-        const formData = new FormData()
-        const res = await myBuyStockGetList(formData)
-        this.shares = res.data.result
+        const formData = new FormData();
+        const res = await myBuyStockGetList(formData);
+        if (res.data.result === null) {
+          this.$toast("持仓数据为空");
+        } else if (res.data.login === false) {
+          window.localStorage.removeItem("sessionid");
+          this.$toast("用户未登录，请重新登录");
+        } else {
+          this.shares = res.data.result;
+        }
       } catch (error) {
         this.$toast("获取持仓数据失败");
       }
@@ -441,18 +457,18 @@ export default {
   font-size: 12px;
   font-family: PingFangSC;
   .van-row {
-    color:rgba(114,115,121,1);
+    color: rgba(114, 115, 121, 1);
     height: 38px;
     line-height: 38px;
     .van-col--6 {
-      text-align: center
+      text-align: center;
     }
   }
   .shares-list {
     height: 56px;
     line-height: 56px;
-    color:rgba(255,255,255,1);
-    border-bottom: 1px solid #14151C;
+    color: rgba(255, 255, 255, 1);
+    border-bottom: 1px solid #14151c;
     box-sizing: border-box;
     div {
       padding: 5.5px 0;

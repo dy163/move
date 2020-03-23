@@ -5,6 +5,7 @@
       right-text="历史查询"
       @click-left="$router.back()"
       @click-right="showes = true"
+      fixed
     >
       <van-icon name="arrow-left" slot="left" />
     </van-nav-bar>
@@ -17,30 +18,38 @@
           <van-col span="5" class="header-style">成交额</van-col>
         </van-row>
       </div>
-      <van-list>
-        <div class="delivery-list" v-for="item in list" :key="item.id">
-          <div class="delivery-title">
-            <p>{{ item.stock_name }}</p>
-            <p class="delivery-small">{{ item.stock_code }}</p>
-          </div>
-          <div class="delivery-photo">
-            <div class="delivery-buy">
-              <img src="@/assets/bill.png" />
-              <p>{{item.bargain_price + '元'}}</p>
+      <van-pull-refresh v-model="isLoading" @refresh="onRefresh">
+        <van-list
+          v-model="loading"
+          :finished="upFinished" 
+          finished-text="没有更多了" 
+          @load="onLoad"
+        >
+          <div class="delivery-list" v-for="item in list" :key="item.id">
+            <div class="delivery-title">
+              <p>{{ item.stock_name }}</p>
+              <p class="delivery-small">{{ item.stock_code }}</p>
             </div>
-            <p class="delivery-small">
-              {{ item.date }}
-              <span>{{ item.time }}</span>
-            </p>
+            <div class="delivery-photo">
+              <div class="delivery-buy">
+                <!-- <img src="@/assets/bill.png" /> -->
+                <img :src="item.occur_amount < 0 ? Sell : Bill" >
+                <p>{{item.bargain_price + '元'}}</p>
+              </div>
+              <p class="delivery-small">
+                {{ item.date }}
+                <span>{{ item.time }}</span>
+              </p>
+            </div>
+            <div class="delivery-centered">
+              <p class="delivery-volume">{{ item.bargain_quantity }}</p>
+            </div>
+            <div class="delivery-quota">
+              <p>{{ item.bargain_amount }}</p>
+            </div>
           </div>
-          <div class="delivery-centered">
-            <p class="delivery-volume">{{ item.bargain_quantity }}</p>
-          </div>
-          <div class="delivery-quota">
-            <p>{{ item.bargain_amount }}</p>
-          </div>
-        </div>
-      </van-list>
+        </van-list>
+      </van-pull-refresh>
     </div>
     <!-- 展示历史查询遮罩 -->
     <div>
@@ -97,11 +106,15 @@
 
 <script>
 import { deliveryOrderGetList } from "@/api/stock";
+import Sell from "@/assets/sell.png"  // 卖
+import Bill from "@/assets/bill.png"  // 买
 
 export default {
   name: "Delivery",
   data() {
     return {
+      Sell,  // 卖图片
+      Bill,  // 买图片
       showes: false,
       show: false, //开始时间弹窗
       show1: false, //结束时间弹窗
@@ -113,7 +126,10 @@ export default {
       starttime1: "", //开始时间时间戳
       endtime: "", //结束时间
       endtime1: "", //结束时间时间戳
-      list: []
+      list: [],
+      isLoading: false, // 下拉刷新控制
+      loading: false, // 列表加载
+      upFinished:false,//上拉加载完毕
     };
   },
   /**
@@ -121,11 +137,23 @@ export default {
    */
   computed: {},
 
-  created() {
-    this.handleDelivery(); // 默认加载今天数据
-  },
+  created() {},
 
   methods: {
+    onLoad() {
+      // 异步更新数据
+      this.loading = false;
+      this.handleDelivery();
+      // this.loading = true;
+      this.upFinished = true;
+    },
+    // 下拉刷新加载今天的流水
+    onRefresh () {
+      setTimeout(() => {
+        this.handleDelivery();
+        this.isLoading = false;
+      }, 1500);
+    },
     /**
      * 自定义时间选择器
      */
@@ -184,9 +212,18 @@ export default {
       try {
         const formData = new FormData();
         const res = await deliveryOrderGetList(formData);
-        this.list = res.data.result;
+        // 判断展示登录状态
+        if(res.data.result === null) {
+          this.$toast("今日交割为空");
+        } else if(res.data.login === false)  {
+          window.localStorage.removeItem('sessionid')
+          this.$toast("用户未登录，请重新登录");
+        } else {
+          this.$toast("获取今日交割列表成功");
+          this.list = res.data.result;
+        }
       } catch (error) {
-        this.$toast("失败了");
+        this.$toast("获取今日交割列表失败");
       }
     },
     /**
@@ -205,11 +242,19 @@ export default {
           formData.append("min", min);
           formData.append("max", max);
           const res = await deliveryOrderGetList(formData);
-          this.list = res.data.result;
-          this.$toast("获取自定义列表成功");
+          // 判断展示登录状态
+          if(res.data.result === null) {
+            this.$toast("自定义交割为空");
+          } else if(res.data.login === false)  {
+            window.localStorage.removeItem('sessionid')
+            this.$toast("用户未登录，请重新登录");
+          } else {
+            this.$toast("获取自定义交割列表成功");
+            this.list = res.data.result;
+          }
         }
       } catch (error) {
-        this.$toast("获取失败");
+        this.$toast("获取自定义交割列表失败");
       }
     },
     /**
@@ -221,10 +266,18 @@ export default {
         const formData = new FormData();
         formData.append("time_range", 1);
         const res = await deliveryOrderGetList(formData);
-        this.list = res.data.result;
-        this.$toast("获取周列表成功");
+        // 判断展示登录状态
+        if(res.data.result === null) {
+          this.$toast("周交割为空");
+        } else if(res.data.login === false)  {
+          window.localStorage.removeItem('sessionid')
+          this.$toast("用户未登录，请重新登录");
+        } else {
+          this.$toast("获取周交割列表成功");
+          this.list = res.data.result;
+        }
       } catch (error) {
-        this.$toast("获取失败");
+        this.$toast("获取周交割列表失败");
       }
     },
     /**
@@ -236,10 +289,18 @@ export default {
         const formData = new FormData();
         formData.append("time_range", 2);
         const res = await deliveryOrderGetList(formData);
-        this.list = res.data.result;
-        this.$toast("获取一月列表成功");
+        // 判断展示登录状态
+        if(res.data.result === null) {
+          this.$toast("月交割为空");
+        } else if(res.data.login === false)  {
+          window.localStorage.removeItem('sessionid')
+          this.$toast("用户未登录，请重新登录");
+        } else {
+          this.$toast("获取月交割列表成功");
+          this.list = res.data.result;
+        }
       } catch (error) {
-        this.$toast("获取失败");
+        this.$toast("获取月交割列表失败");
       }
     },
     /**
@@ -251,10 +312,18 @@ export default {
         const formData = new FormData();
         formData.append("time_range", 3);
         const res = await deliveryOrderGetList(formData);
-        this.list = res.data.result;
-        this.$toast("获取三月列表成功");
+        // 判断展示登录状态
+        if(res.data.result === null) {
+          this.$toast("三月交割为空");
+        } else if(res.data.login === false)  {
+          window.localStorage.removeItem('sessionid')
+          this.$toast("用户未登录，请重新登录");
+        } else {
+          this.$toast("获取三月交割列表成功");
+          this.list = res.data.result;
+        }
       } catch (error) {
-        this.$toast("获取失败");
+        this.$toast("获取三月交割列表失败");
       }
     },
     /**
@@ -266,10 +335,18 @@ export default {
         const formData = new FormData();
         formData.append("time_range", 4);
         const res = await deliveryOrderGetList(formData);
-        this.list = res.data.result;
-        this.$toast("获取半年列表成功");
+        // 判断展示登录状态
+        if(res.data.result === null) {
+          this.$toast("半年交割为空");
+        } else if(res.data.login === false)  {
+          window.localStorage.removeItem('sessionid')
+          this.$toast("用户未登录，请重新登录");
+        } else {
+          this.$toast("获取半年交割列表成功");
+          this.list = res.data.result;
+        }
       } catch (error) {
-        this.$toast("获取失败");
+        this.$toast("获取半年交割列表失败");
       }
     },
     /**
@@ -281,10 +358,18 @@ export default {
         const formData = new FormData();
         formData.append("time_range", 5);
         const res = await deliveryOrderGetList(formData);
-        this.list = res.data.result;
-        this.$toast("获取一年列表成功");
+        // 判断展示登录状态
+        if(res.data.result === null) {
+          this.$toast("一年交割为空");
+        } else if(res.data.login === false)  {
+          window.localStorage.removeItem('sessionid')
+          this.$toast("用户未登录，请重新登录");
+        } else {
+          this.$toast("获取一年交割列表成功");
+          this.list = res.data.result;
+        }
       } catch (error) {
-        this.$toast("获取失败");
+        this.$toast("获取一年交割列表失败");
       }
     }
   }
@@ -297,7 +382,6 @@ export default {
   background-color: #20212a;
 }
 .delivery-content {
-  position: fixed;
   background: rgba(23, 24, 34, 1);
   height: 100%;
   width: 100%;
@@ -305,6 +389,7 @@ export default {
     height: 50px;
     line-height: 50px;
     margin: 0 15px;
+    margin-top: 46px;
     font-size: 13px;
     color: rgba(124, 124, 130, 1);
     border-bottom: 1px solid #2e2e2e;

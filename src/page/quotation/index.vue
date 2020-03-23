@@ -99,19 +99,9 @@ export default {
      */
     onLoad() {
       setTimeout(() => {
-        for (let i = 0; i < 5; i++) {
-          this.list.push(this.list.length + 1);
-        }
-        /**
-         * 加载状态结束
-         */
         this.loading = false;
-        /**
-         * 数据全部加载完成
-         */
-        if (this.list.length >= 5) {
-          this.finished = true;
-        }
+        this.finished = true;
+        
       }, 500);
     },
     /**
@@ -130,7 +120,7 @@ export default {
      * 列表点击展示详情
      */
     handleTranscation(q) {
-      this.$router.push({path: '/transaction',query: {q: q}});
+      this.$router.push({path: '/transaction',query: {q: JSON.stringify(q)}});
     }
   }
 };

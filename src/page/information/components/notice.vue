@@ -40,7 +40,7 @@ export default {
     }
   },
   created() {
-    this.handleNote()
+    // this.handleNote()
   },
   methods: {
     // 列表懒加载
@@ -65,13 +65,13 @@ export default {
     async handleNote() {
       try {
         const formData = new FormData();
-        formData.append("page", this.pageNum);
-        formData.append("number", this.pageSize);
+        formData.append("pageNum", this.pageNum);
+        formData.append("pageSize", this.pageSize);
         const res = await noteGetList(formData);
-        this.optiona = res.data.result
+        this.optiona = res.data.result.list
         this.loading = false;
         this.newOptiona = this.newOptiona.concat(this.optiona)
-        formData.append("page", this.pageNum++) 
+        formData.append("pageNum", this.pageNum++) 
         if (this.optiona.length < this.pageSize) {
           this.upFinished = true;
         }

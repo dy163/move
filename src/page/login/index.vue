@@ -86,15 +86,15 @@ export default {
           // 返回得token值存储到本地
           window.localStorage.setItem("sessionid", token.sessionid);
           const data = await getUserInfo()
-          this.$store.commit('setClickCard', data.data.result.ID_card_number)
-          this.$store.commit('setClickEdu', data.data.result.edu_bg)
+          // this.$store.commit('setClickCard', data.data.result.ID_card_number)
+          // this.$store.commit('setClickEdu', data.data.result.edu_bg)
           this.$store.commit('setClickImg', data.data.result.header_img)
-          this.$store.commit('setClickIntro', data.data.result.intro)
-          this.$store.commit('setClickTime', data.data.result.last_login_time)
-          this.$store.commit('setClickNumber', data.data.result.login_number)
+          // this.$store.commit('setClickIntro', data.data.result.intro)
+          // this.$store.commit('setClickTime', data.data.result.last_login_time)
+          // this.$store.commit('setClickNumber', data.data.result.login_number)
           this.$store.commit('setClickPhone', data.data.result.phone)
-          this.$store.commit('setClickPosition', data.data.result.position)
-          this.$store.commit('setClickReg', data.data.result.reg_time)
+          // this.$store.commit('setClickPosition', data.data.result.position)
+          // this.$store.commit('setClickReg', data.data.result.reg_time)
           this.$store.commit('setClickUsercode', data.data.result.usercode)
           this.$store.commit('setClickUsername', data.data.result.username)
           if (!res.data.status) {

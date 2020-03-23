@@ -177,6 +177,7 @@ const router = new Router({
       name: 'transaction',
       // path: '/transaction/:q',
       path: '/transaction',
+      meta: {keepAlive: true},
       component: () => import('@/page/transaction')
     },
 
