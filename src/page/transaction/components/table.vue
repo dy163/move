@@ -4,7 +4,7 @@
       <van-icon name="arrow-left" size="16" />
       <div>
         <p>{{ list.stock_name }}</p>
-        <p>交易中{{list.date}}</p>
+        <p>交易中{{date}}</p>
       </div>
       <div></div>
     </div>
@@ -17,9 +17,6 @@
         <p>+73.950</p>
         <p>{{list.rise_or_fall_rate}}</p>
       </div>
-      <!-- <div class="table-img">
-          <img src="@/assets/img/pointing.png" alt />
-      </div>-->
     </div>
     <!-- 指数动态信息 -->
     <div class="table-list">
@@ -91,12 +88,6 @@
       </form>
     </div>
     <!-- 交易软件当前时间显示 -->
-    <div class="table-date" v-if="show">
-      <p>
-        财政年结日
-        <span>2018-06-30</span>
-      </p>
-    </div>
     <div class="up-icon">
       <van-icon name="arrow-down" color="#7F819B" v-if="shows" @click="show=true,shows=false" />
       <van-icon name="arrow-up" color="#7F819B" @click="show=false,shows=true" v-if="show" />
@@ -112,6 +103,7 @@ export default {
   data() {
     return {
       list: [],         // 行情
+      date: '',
       show: true,
       shows: false
     };
@@ -120,11 +112,10 @@ export default {
     this.handleGetShow();
   },
   methods: {
-    /**
-     * 行情列表详情
-     */
+    // 行情列表详情
     handleGetShow(q) {
       this.list = JSON.parse(this.$route.query.q)
+      this.date = this.list.date.slice(0,4) + '-' + this.list.date.slice(4,6) + '-' + this.list.date.slice(6,8)
     }
   }
 };
@@ -163,7 +154,6 @@ export default {
 }
 .table-number {
   display: flex;
-  // justify-content: space-around;
   justify-content: center;
   align-items: center;
   color: rgba(53, 192, 137, 1);
@@ -184,10 +174,6 @@ export default {
     font-family: DINAlternate-Bold, DINAlternate;
     font-weight: bold;
   }
-  // .table-img {
-  //   margin-top: -20px;
-  //   margin-right: -18px;
-  // }
 }
 .table-list {
   padding: 8px 15px;
@@ -209,28 +195,14 @@ export default {
     }
   }
 }
-.table-date {
-  padding: 0 10px;
-  border-top: 1px solid #14151c;
-  box-sizing: border-box;
-  p:nth-child(1) {
-    padding-top: 8px;
-    font-size: 12px;
-    font-family: PingFangSC;
-    font-weight: 400;
-    color: rgba(127, 129, 155, 1);
-    span {
-      color: #fff;
-    }
-  }
-}
 .up-icon {
   display: flex;
   justify-content: center;
-  border-bottom: 2px solid #14151c;
-  padding-bottom: 5px;
+  border-bottom: 1px solid #14151c;
+  box-sizing: border-box;
+  padding-bottom: 3px;
   .van-icon {
-    font-size: 16px;
+    font-size: 12px;
   }
 }
 </style>

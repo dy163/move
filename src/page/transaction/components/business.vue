@@ -90,7 +90,7 @@ export default {
   background: rgba(32, 33, 42, 1);
   div:nth-child(1) {
     width: 117px;
-    background: rgba(245, 69, 69, 1);
+    background: rgb(248, 25, 25);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -109,7 +109,7 @@ export default {
   }
   div:nth-child(2) {
     width: 117px;
-    background: rgba(51, 192, 137, 1);
+    background: rgba(47, 152, 255, 1);
     display: flex;
     align-items: center;
     justify-content: center;

@@ -15,24 +15,16 @@
           <div class="purchase-fluctuate">
             <div>
               <p>限价</p>
-              <p>
-                <img src="@/assets/img/reduce.png" @click="priceReduceClick" />
-                <input type="text" v-model="price" />
-                <img src="@/assets/img/plus.png" @click="pricePlusClick" />
-              </p>
+              <van-stepper v-model="price" min="0.00" step="0.01" :decimal-length="2" />
             </div>
-            <p class="purchase-show">最小价格变化0.001</p>
+            <p class="purchase-show">最小价格变化0.01</p>
           </div>
           <div class="purchase-fluctuate">
             <div>
               <p>数量</p>
-              <p>
-                <img src="@/assets/img/reduce.png" alt @click="amountReduceClick" />
-                <input type="text" v-model="amount" />
-                <img src="@/assets/img/plus.png" alt @click="amountPlusClick" />
-              </p>
+              <van-stepper v-model="amount" default-value='0' min="100" step="100" integer />
             </div>
-            <p class="purchase-show">最少交易数量1</p>
+            <p class="purchase-show">最少交易数量100</p>
           </div>
           <!-- 简单操作 -->
           <div class="purchase-book">
@@ -44,32 +36,32 @@
           <!-- 现金可买 -->
           <div class="purchase-cash">
             <p>
-              现金可买
+              参考可卖
               <span>0</span>
             </p>
           </div>
+          <!-- 涨停展示 -->
+          <div class="purchase-up-down">
+            <van-row>
+              <van-col span="4">涨停</van-col>
+              <van-col span="8">31</van-col>
+              <van-col span="4">跌停</van-col>
+              <van-col span="8">1231</van-col>
+            </van-row>
+          </div>
           <!-- 费率展示 -->
           <div class="purchase-rate">
-            <p>手续费</p>
-            <p>
-              <img src="@/assets/img/mark.png" alt />
-            </p>
-            <p>约¥0.00</p>
-            <p>订单金额</p>
-            <p>¥0.00</p>
-          </div>
-          <!-- 控制交易 -->
-          <div class="purchase-check">
-            <p>盘前盘后交易</p>
-            <p>
-              <img src="@/assets/img/mark.png" />
-            </p>
-            <van-radio-group v-model="radio">
-              <van-radio name="1">允许</van-radio>
-            </van-radio-group>
-            <van-radio-group v-model="radio">
-              <van-radio name="2">不允许</van-radio>
-            </van-radio-group>
+            <van-row>
+              <van-col span="3">手续费</van-col>
+              <van-col span="2">
+                <div>
+                  <img src="@/assets/img/mark.png" alt />
+                </div>
+              </van-col>
+              <van-col span="7"><span>约¥</span><span>0.00</span></van-col>
+              <van-col span="4">订单金额</van-col>
+              <van-col span="6"><span>¥</span><span>0.00</span></van-col>
+            </van-row>
           </div>
         </form>
       </div>
@@ -108,9 +100,10 @@ export default {
   },
   data () {
     return {
+      num: '',
       radio: '2',   // 单选框定义
       shows: false,  // 确定卖出的遮罩层
-      amount: 0,  // 数量
+      amount: 100,  // 数量
       price: 0,    // 价格
       recordSell: []  // 路由导航存放数据（id）
     }
@@ -121,53 +114,34 @@ export default {
       this.amount = 0
       this.price = 0
     },
-    // 价格的加减
-    priceReduceClick () {
-      if (this.price === 0) {
-      } else {
-        let temp = this.price * 1000
-        temp--
-        let price = temp / 1000
-        this.price = price
-      }
-    },
-    pricePlusClick () {
-      let temp = this.price * 1000
-      temp++
-      let price = temp / 1000
-      this.price = price
-    },
-    // 数量的加减
-    amountReduceClick () {
-      if (this.amount === 0) {
-      } else {
-        this.amount--
-      }
-    },
-    amountPlusClick () {
-      this.amount++
-    },
     async handleClickOrder (q) {
       try {
-        this.recordSell = JSON.parse(this.$route.query.q)
-        const query =  Object.assign({
-          stock_code: this.recordSell.stock_code,
-          stock_name: this.recordSell.stock_name,
-          entrust_quantity: this.amount,
-          entrust_price: this.price
-        },query)
-        const res = await entrustSell(query)
-        if(res.data.status) {
-          this.$toast("委托卖出成功")
-          this.$emit('input', false)
-          this.amount = 0
-          this.price = 0
+        const recordSell = JSON.parse(this.$route.query.q)
+        if(this.price > recordSell.current_price * 1.1) {
+          this.$toast("委托价格超出范围，请重新输入价格")
         } else {
-          const data = this.amount * this.price
-          if(data < 100) {        //  这个位置需要一个判断
-            this.shows = true     // 控制弹窗的按钮
+          const query =  Object.assign({
+            stock_code: recordSell.stock_code,
+            stock_name: recordSell.stock_name,
+            entrust_quantity: this.amount,
+            entrust_price: this.price
+          },query)
+          const res = await entrustSell(query)
+          if(res.data.status) {
+            this.$toast("委托卖出成功")
+            this.$emit('input', false)
+            this.amount = 0
+            this.price = 0
+          } else if(res.data.result === 401 ) {
+            this.$toast("请重新登录")
           }
         }
+        //   else {
+        //   const data = this.amount * this.price
+        //   if(data < 100) {        //  这个位置需要一个判断
+        //     this.shows = true     // 控制弹窗的按钮
+        //   }
+        // }
       } catch (error) {
         this.$toast("委托卖出失败");
       }
@@ -194,28 +168,34 @@ export default {
       }
     }
     form {
-      padding: 0 16px;
+      padding: 0 15px;
       border-top: 1px solid #000;
+      box-sizing: border-box;
       .purchase-fluctuate {
         font-size: 14px;
-        padding: 15px 0;
+        padding-top: 15px;
         div {
           display: flex;
           justify-content: space-between;
           align-items: center;
-          p:nth-child(2) {
-            display: flex;
-            align-items: center;
-            input {
-              height: 25px;
+          /deep/.van-stepper {
+            .van-stepper__minus {
+              color: rgba(47, 152, 255, 1);
+              background: rgba(54, 55, 64, 1);
+              border: 1px solid rgba(47, 152, 255, 1);
+            }
+            .van-stepper__plus {
+              color: rgba(47, 152, 255, 1);
+              background: rgba(54, 55, 64, 1);
+              border: 1px solid rgba(47, 152, 255, 1);
+            }
+            .van-stepper__input { 
+              margin: 0 8px;
               width: 163px;
-              border: 0px;
-              text-align: center;
-              border-bottom: 1px solid #14151c;
-              background: none;
-              outline: none;
-              color: rgba(255, 255, 255, 1);
-              margin: 0 5px;
+              border-radius: 2px;
+              color: #fff;
+              background: rgba(54, 55, 64, 1);
+              border-bottom: 1px solid rgb(12, 11, 11);
             }
           }
         }
@@ -224,12 +204,13 @@ export default {
           font-size: 12px;
           color: rgba(114, 115, 121, 1);
           padding-right: 62px;
-          padding-top: 5px;
+          padding-top: 6px;
         }
       }
       .purchase-book {
         display: flex;
         justify-content: space-around;
+        padding-top: 15px;
         .van-button {
           border: 1px solid #000;
           width: 75px;
@@ -244,65 +225,40 @@ export default {
       }
       .purchase-cash {
         font-size: 12px;
-        color: rgba(114, 115, 121, 1);
         padding-top: 15px;
         span {
           padding-left: 12px;
         }
       }
-      .purchase-rate {
-        display: flex;
-        align-items: center;
-        padding-top: 10px;
+      .purchase-up-down {
         font-size: 12px;
-        color: rgba(114, 115, 121, 1);
-        p:nth-child(1) {
-          padding-right: 4px;
+        padding-top: 15px;
+        .van-row {
+          .van-col:nth-child(2) {
+            color: rgba(245, 69, 69, 1);
+          }
+          .van-col:nth-child(4) {
+            color: rgba(51, 192, 137, 1);
+          }
         }
-        img {
-          width: 12px;
-          height: 12px;
-          display: flex;
-          align-items: center;
-          padding-right: 5px;
-        }
-        p:nth-child(3) {
-          color: rgba(163, 163, 167, 1);
-          padding-right: 20px;
-        }
-        p:nth-child(4) {
-          padding-right: 8px;
-        }
-        p:nth-child(5) {
-          color: rgba(47, 152, 255, 1);
-        }
+        
       }
-      .purchase-check {
-        display: flex;
-        align-items: center;
-        font-family: PingFangSC-Regular, PingFangSC;
-        color: rgba(163, 163, 167, 1);
-        font-size: 14px;
-        padding-top: 10px;
-        p:nth-child(1) {
-          padding-right: 4px;
-        }
-        img {
-          display: flex;
-          align-items: center;
-          width: 14px;
-          height: 14px;
-          padding-right: 30px;
-        }
-        .van-radio {
-          /deep/.van-radio__icon {
-            font-size: 12px;
-          }
-          /deep/.van-radio__label {
-            color: #fff;
-            font-size: 12px;
-            padding-right: 15px;
-          }
+      .purchase-rate {
+        padding-top: 15px;
+        font-size: 12px;
+        /deep/.van-row {
+          .van-col--2 {
+            text-align: center;
+            div{
+              height: 12px;
+              line-height: 12px;
+              img {
+                width: 12px;
+                height: 12px;
+                vertical-align: middle;
+              }
+            }
+          } 
         }
       }
     }
