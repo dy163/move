@@ -219,3 +219,25 @@ export const entrustRevoke = query => {
     data: query
   })
 }
+
+/**
+ * 49.买入信息接口
+*/
+export const entrustGetBuyInfo = query => {
+  return request({
+    method: 'POST',
+    url: '/entrust/getBuyInfo',
+    data: query
+  })
+}
+
+/**
+ * 50.卖出信息接口
+*/
+export const entrustGetSellInfo = query => {
+  return request({
+    method: 'POST',
+    url: '/entrust/getSellInfo',
+    data: query
+  })
+}
