@@ -10,11 +10,11 @@
       <!-- <p>全部</p> -->
       <p>
         价格
-        <!-- <img src="@/assets/img/sort.png" alt /> -->
+        <img src="@/assets/img/sort.png" alt />
       </p>
       <p>
         涨跌幅
-        <!-- <img src="@/assets/img/sort.png" alt /> -->
+        <img src="@/assets/img/sort.png" alt />
       </p>
     </div>
       <van-pull-refresh v-model="isLoading" @refresh="onRefresh">    
@@ -77,7 +77,8 @@ export default {
     async handleSort () {
       try {
         const formData = new FormData()
-        formData.append("orderCondition", orderStatus)
+        formData.append('orderCondition', 'stock_code')
+        formData.append("orderStatus", 'desc')
         const res = await getList(formData)
         this.stock = res.data.result
       } catch (error) {
@@ -164,23 +165,6 @@ export default {
     }
     p:nth-child(2) {
       text-align: center;
-      // div {
-      //   p:nth-child(1) {
-      //     width: 0;
-      //     height: 0;
-      //     border: 4px solid transparent;
-      //     border-bottom-color: rgba(255, 255, 255, 1);
-      //     cursor: pointer;
-      //   }
-      //   p:nth-child(2) {
-      //     width: 0;
-      //     height: 0;
-      //     border: 4px solid transparent;
-      //     border-top-color: rgba(255, 255, 255, 1);
-      //     margin-top: 2px;
-      //     cursor: pointer;
-      //   }
-      // }
     }
     p:nth-child(3) {
       text-align: right;
