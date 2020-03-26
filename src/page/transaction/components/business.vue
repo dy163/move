@@ -12,8 +12,8 @@
       <img src="@/assets/img/cancel.png" @click="$router.push('/order-list')" />
       <p>撤单</p>
     </div>
-    <div class="busimess-follow">
-      <img src="@/assets/img/concern.png" @click="handleConcern" />
+    <div class="busimess-follow" @click="handleConcern">
+      <img src="@/assets/img/concern.png"/>
       <p>自选</p>
     </div>
     <!-- 卖出子组件 -->
@@ -25,9 +25,10 @@
 
 <script>
 import { mySelectStockAdd } from "@/api/stock";
-
 import HomeSell from "./sell";
 import HomePurchase from "./purchase";
+import FreeConcern from "@/assets/img/free-concern.png"; // 自选
+import Concern from "@/assets/img/concern.png"; // 未选
 
 export default {
   name: "Besiness",
@@ -43,14 +44,13 @@ export default {
   },
   data() {
     return {
-      list: [],
+      FreeConcern,
+      Concern,
       isShow: false,
       isPurchase: false
     };
   },
   methods: {
-    handlePurchase() {},
-    handlePrice() {},
     /**
      * 添加自选
      */
@@ -60,13 +60,14 @@ export default {
         if (!tokenHeader) {
           this.$router.push("/login");
         } else {
-          this.list = this.$route.query.q;
-          const stock_code = this.list.stock_code;
+          const stock_code =JSON.parse(this.$route.query.q).stock_code;
           const formData = new FormData();
           formData.append("stock_code", stock_code);
           const res = await mySelectStockAdd(formData);
           if(res.data.status) {
             this.$toast("添加自选成功");
+          } else if(res.data.login !== null) {
+            this.$toast("无法添加，用户未登录");
           } else {
             this.$toast("股票已在自选中，请不要重复添加");
           }

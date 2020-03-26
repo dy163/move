@@ -121,6 +121,7 @@ export default {
      */
     handleTranscation(q) {
       this.$router.push({path: '/transaction',query: {q: JSON.stringify(q)}});
+        // this.$router.push({name: 'transaction', params: {q: JSON.stringify(q)}})
     }
   }
 };

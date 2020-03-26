@@ -113,6 +113,11 @@ export default {
       actualAmount: ''    // 实际金额
     }
   },
+  // computed: {
+  //   shouPrice () {
+
+  //   }
+  // },
   created() {
     this.handleUpDown();
     this.handleGetSellInfo()
@@ -148,20 +153,44 @@ export default {
     // 数量步进器
     onChangeAmount (value) {
       this.amount = value;
-      const data = (this.price * this.amount * this.sellInfo.rate).toFixed(2)
-      this.serviceFee = data <= 5? '5' : data
+      const data = Number((this.price * this.amount * this.sellInfo.rate).toFixed(2)) 
+      if(Number.isNaN(data)) {
+        this.serviceFee = 0
+      } else if(data <= 5) {
+        this.serviceFee = 5
+      } else {
+        this.serviceFee = data
+      }
       this.orderAmount = (this.price * this.amount).toFixed(2)
-      const actual = Number(this.orderAmount) - Number(this.serviceFee) 
-      this.actualAmount = actual <= 0? '0' : actual
+      if(Number.isNaN(data)) {
+        this.actualAmount = 0
+      } else if(data <= 5) {
+        const actual = Number(this.orderAmount) - 5 
+        this.actualAmount = actual <= 0? '0' : '5'
+      } else {
+        this.actualAmount =Number(this.orderAmount) - Number(this.serviceFee) 
+      }
     },
     // 价格步进
     onChangePrice (value) {
       this.price = value;
-      const data = (this.price * this.amount * this.sellInfo.rate).toFixed(2)
-      this.serviceFee = data <= 5? '5' : data
+      const data = Number((this.price * this.amount * this.sellInfo.rate).toFixed(2))
+      if(Number.isNaN(data)) {
+        this.serviceFee = 0
+      } else if(data <= 5) {
+        this.serviceFee = 5
+      } else {
+        this.serviceFee = data
+      }
       this.orderAmount = (this.price * this.amount).toFixed(2)
-      const actual = Number(this.orderAmount) - Number(this.serviceFee) 
-      this.actualAmount = actual <= 0? '0' : actual
+      if(Number.isNaN(data)) {
+        this.actualAmount = 0
+      } else if(data <= 5) {
+        const actual = Number(this.orderAmount) - 5 
+        this.actualAmount = actual <= 0? '0' : '5'
+      } else {
+        this.actualAmount =Number(this.orderAmount) - Number(this.serviceFee) 
+      }
     },
     // 卖出信息展示
     async handleGetSellInfo (q) {

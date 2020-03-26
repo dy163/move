@@ -1,13 +1,11 @@
 <template>
   <div class="table" >
-    <div class="table-header" @click="$router.back()">
-      <van-icon name="arrow-left" size="16" />
-      <div>
+    <van-nav-bar left-arrow @click-left="$router.back()" :border="false" fixed>
+      <template #title>
         <p>{{ list.stock_name }}</p>
         <p>交易中{{date}}</p>
-      </div>
-      <div></div>
-    </div>
+      </template>
+    </van-nav-bar>
     <div class="table-number">
       <div class="table-number-mark">
         <p>{{ list.current_price }}</p>
@@ -123,32 +121,18 @@ export default {
 
 
 <style lang='less' scoped>
-.table-header {
-  height: 44px;
-  padding: 3px 15px;
-  font-family: PingFangSC-Medium, PingFangSC;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: nowrap;
-  .van-icon {
-    color: #fff;
-  }
-  div {
+.van-nav-bar {
+  .van-nav-bar__title {
+    height: 46px;
     p:nth-child(1) {
-      height: 22px;
+      height: 27px;
+      line-height: 27px;
       font-size: 16px;
-      font-weight: 500;
-      color: rgba(255, 255, 255, 1);
-      line-height: 22px;
-      text-align: center;
     }
     p:nth-child(2) {
-      height: 17px;
+      height: 16px;
+      line-height: 16px;
       font-size: 12px;
-      color: rgba(127, 129, 155, 1);
-      line-height: 17px;
-      padding-top: 2px;
     }
   }
 }
@@ -160,7 +144,7 @@ export default {
   border-bottom: 2px solid #14151c;
   padding: 0 15px;
   padding-bottom: 8px;
-
+  margin-top: 46px;
   .table-number-mark {
     font-size: 40px;
     font-family: DINAlternate-Bold, DINAlternate;

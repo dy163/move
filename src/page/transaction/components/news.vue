@@ -48,11 +48,17 @@
         </div>
       </van-tab>
       <van-tab title="公告">
-        <van-list>
-          <div class="news-content" slot="default" v-for="(item,index) in notice" :key="index">
+        <van-list
+          v-model="loading"
+          :finished="upFinished"
+          finished-text="没有更多了"
+          @load="onLoad"
+          :offset="offset"
+        >
+          <div class="news-content" slot="default" v-for="(item,index) in notice" :key="index" @click="handleNotice(item)">
             <p class="news-top">{{ item.title }}</p>
             <p class="news-right">
-              <span>{{ item.timer }}</span>
+              <span>{{ item.time }}</span>
             </p>
           </div>
         </van-list>
@@ -63,19 +69,20 @@
 
 <script>
 import echarts from 'echarts'
+import { noteGetList } from "@/api/information";
 
 export default {
   name: 'news',
   data () {
     return {
       tidings: 0,
-      notice: [
-        { title: '贵州茅台关于会计政策变更的公告', timer: '2019-07-17' },
-        { title: '贵州茅台第二届监事会2019年度第三次会议决议的…',timer: '2019-07-17' },
-        { title: '贵州茅台关于会计政策变更的公告', timer: '2019-07-17' },
-        { title: '贵州茅台关于会计政策变更的公告', timer: '2019-07-17' },
-        { title: '贵州茅台关于会计政策变更的公告', timer: '2019-07-17' }
-      ]
+      notice: [],
+      noticeList: [],
+      loading: false, // 列表加载
+      offset: 300, //滚动条与底部距离小于 offset 时触发load事件
+      upFinished:false,//上拉加载完毕
+      pageNum: 1, // 页数
+      pageSize:  5, // 每页条数
     }
   },
   mounted() {
@@ -84,6 +91,43 @@ export default {
     });
   },
   methods: {
+    // 上拉加载
+    onLoad () {
+      setTimeout(() => {
+        this.loading = false;
+        this.handleNote();
+        this.loading = true;
+      }, 1000);
+    },
+    // 获取公告单独公告列表
+    async handleNote (q) {
+      try {
+        const params = JSON.parse(this.$route.query.q)
+        const data = new FormData()
+        data.append('stock_code', params.stock_code)
+        data.append('pageNum', this.pageNum)
+        data.append('pageSize', this.pageSize)
+        const res = await noteGetList(data)
+        if (res.data.result === null) {
+          this.loading = false;
+          this.upFinished = true;
+        } else {
+          this.noticeList = res.data.result.list
+          this.loading = false;
+          this.notice = this.notice.concat(this.noticeList);
+          data.append("pageNum", this.pageNum++);
+          if (this.noticeList.length < this.pageSize) {
+            this.upFinished = true;
+          }
+        }
+      } catch (error) {
+        
+      }
+    },
+    handleNotice(q) {
+      this.$router.push({path: '/details',query: {q: q}});
+    },
+    // echarts图表
     handleclick () {
       var bar_dv = this.$refs.bar_v;
       let myChart = echarts.init(bar_dv)

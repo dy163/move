@@ -148,12 +148,18 @@ export default {
     // 数量步进器
     onChangeAmount (value) {
       this.amount = value;
-      const data = (this.price * this.amount * this.buyInfo.rate).toFixed(2)
-      this.serviceFee = data <= 5? '5' : data
+      const data = Number((this.price * this.amount * this.buyInfo.rate).toFixed(2))
+      if(Number.isNaN(data)) {
+        this.serviceFee = 0
+      } else if(data <= 5) {
+        this.serviceFee = 5
+      } else {
+        this.serviceFee = data
+      }
       this.orderAmount = (this.price * this.amount).toFixed(2)
-      // const actual = this.orderAmount + this.serviceFee
-      // this.actualAmount = actual <= 0? '0' : actual
-      if(data <= 5) {
+      if(Number.isNaN(data)) {
+        this.actualAmount = 0
+      } else if(data <= 5) {
         this.actualAmount =Number(this.orderAmount)  + 5
       } else {
         this.actualAmount =Number(this.orderAmount) + Number(this.serviceFee) 
@@ -162,10 +168,18 @@ export default {
     // 价格步进
     onChangePrice (value) {
       this.price = value;
-      const data = (this.price * this.amount * this.buyInfo.rate).toFixed(2)
-      this.serviceFee = data <= 5? '5' : data
+      const data = Number((this.price * this.amount * this.buyInfo.rate).toFixed(2)) 
+      if(Number.isNaN(data)) {
+        this.serviceFee = 0
+      } else if(data <= 5) {
+        this.serviceFee = 5
+      } else {
+        this.serviceFee = data
+      }
       this.orderAmount = (this.price * this.amount).toFixed(2)
-      if(data <= 5) {
+      if(Number.isNaN(data)) {
+        this.actualAmount = 0
+      } else if(data <= 5) {
         this.actualAmount =Number(this.orderAmount)  + 5
       } else {
         this.actualAmount =Number(this.orderAmount) + Number(this.serviceFee) 

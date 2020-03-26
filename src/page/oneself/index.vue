@@ -72,7 +72,6 @@ export default {
   },
   // 提前加载
   created() {
-    this.$toast.setDefaultOptions({ duration: 800 }); // 控制消息提示展示时间
     this.loadStock();
   },
 
