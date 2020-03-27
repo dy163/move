@@ -66,20 +66,20 @@ export default {
     }
   },
   created() {
-    // this.timer = window.setInterval(() => {
-    //     setTimeout(()=> {
+    this.timer = window.setInterval(() => {
+        setTimeout(()=> {
           this.handlegetPriceList()
-    //       this.$nextTick(() => {
-    //         this.handlegetPriceList()
-    //       });
-    //     }, 0)
-    // }, 3000)
+          // this.$nextTick(() => {
+          //   this.handlegetPriceList()
+          // });
+        }, 0)
+    }, 3000)
   },
-  // beforeDestroy() {
-  //     if(this.timer) { //如果定时器还在运行 或者直接关闭，不用判断
-  //         clearInterval(this.timer); //关闭
-  //     }
-  // },
+  beforeDestroy() {
+    if(this.timer) { //如果定时器还在运行 或者直接关闭，不用判断
+        clearInterval(this.timer); //关闭
+    }
+  },
   methods: {
     async handlegetPriceList (q) {
       try {

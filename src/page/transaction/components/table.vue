@@ -8,12 +8,12 @@
     </van-nav-bar>
     <div class="table-number">
       <div class="table-number-mark">
-        <p>{{ list.current_price }}</p>
+        <p>{{ stock.current_price }}</p>
         <!-- <p>{{ 123456789123 }}</p> -->
       </div>
       <div class="table-number-gain">
         <p>+73.950</p>
-        <p>{{list.rise_or_fall_rate}}</p>
+        <p>{{ stock.rise_or_fall_rate }}</p>
       </div>
     </div>
     <!-- 指数动态信息 -->
@@ -21,19 +21,19 @@
       <form>
         <van-row>
           <van-col span="4">今开</van-col>
-          <van-col span="4">{{ list.open }}</van-col>
+          <van-col span="4">{{ stock.open }}</van-col>
           <van-col span="4">最高</van-col>
-          <van-col span="4">{{ list.high }}</van-col>
+          <van-col span="4">{{ stock.high }}</van-col>
           <van-col span="4">换手</van-col>
-          <van-col span="4">{{ list.turnover_rate }}</van-col>
+          <van-col span="4">{{ stock.turnover_rate }}</van-col>
         </van-row>
         <van-row>
           <van-col span="4">昨收</van-col>
-          <van-col span="4">{{ list.pre_close }}</van-col>
+          <van-col span="4">{{ stock.pre_close }}</van-col>
           <van-col span="4">最低</van-col>
-          <van-col span="4">{{ list.low }}</van-col>
+          <van-col span="4">{{ stock.low }}</van-col>
           <van-col span="4">振幅</van-col>
-          <van-col span="4">{{ list.amplitude }}</van-col>
+          <van-col span="4">{{ stock.amplitude }}</van-col>
         </van-row>
         <van-row v-show="show">
           <van-col span="4">涨停</van-col>
@@ -41,7 +41,7 @@
           <van-col span="4">量比</van-col>
           <van-col span="4">{{ }}</van-col>
           <van-col span="3">成交量</van-col>
-          <van-col span="5">{{ list.volumn }}</van-col>
+          <van-col span="5">{{ stock.volumn }}</van-col>
         </van-row>
         <van-row v-show="show">
           <van-col span="4">跌停</van-col>
@@ -49,21 +49,21 @@
           <van-col span="4">均价</van-col>
           <van-col span="4">{{ }}</van-col>
           <van-col span="3">成交额</van-col>
-          <van-col span="5">{{ list.amount }}</van-col>
+          <van-col span="5">{{ stock.amount }}</van-col>
         </van-row>
         <van-row v-show="show">
           <van-col span="4">外盘</van-col>
           <van-col span="4">{{ }}</van-col>
           <van-col span="3">总股本</van-col>
-          <van-col span="5">{{ list.all_capital }}</van-col>
+          <van-col span="5">{{ stock.all_capital }}</van-col>
           <van-col span="3">总市值</van-col>
-          <van-col span="5">{{ list.all_value }}</van-col>
+          <van-col span="5">{{ stock.all_value }}</van-col>
         </van-row>
         <van-row v-show="show">
           <van-col span="4">内盘</van-col>
           <van-col span="4">{{ }}</van-col>
           <van-col span="3">流通股</van-col>
-          <van-col span="5">{{ list.cir_capital }}</van-col>
+          <van-col span="5">{{ stock.cir_capital }}</van-col>
           <van-col span="4">净资</van-col>
           <van-col span="4">{{ }}</van-col>
         </van-row>
@@ -71,7 +71,7 @@
           <van-col span="4">市净率</van-col>
           <van-col span="4">{{ }}</van-col>
           <van-col span="3">流通值</van-col>
-          <van-col span="5">{{ list.cir_value }}</van-col>
+          <van-col span="5">{{ stock.cir_value }}</van-col>
           <van-col span="4">市盈率</van-col>
           <van-col span="4">{{ }}</van-col>
         </van-row>
@@ -94,6 +94,7 @@
 </template>
 
 <script>
+import { getList } from "@/api/stock";
 
 export default {
   name: "Table",
@@ -101,18 +102,39 @@ export default {
   data() {
     return {
       list: [],         // 行情
+      stock:[],
       date: '',
       show: true,
       shows: false
     };
   },
   created() {
-    this.handleGetShow();
+    this.timer = window.setInterval(() => {
+        setTimeout(()=> {
+          this.handleGetShow();
+          // this.$nextTick(() => {
+          //   this.handleGetShow();
+          // });
+        }, 0)
+    }, 1000)
+  },
+  beforeDestroy() {
+    if(this.timer) { //如果定时器还在运行 或者直接关闭，不用判断
+        clearInterval(this.timer); //关闭
+    }
   },
   methods: {
     // 行情列表详情
-    handleGetShow(q) {
+    async handleGetShow(q) {
       this.list = JSON.parse(this.$route.query.q)
+      try {
+        const formData = new FormData()
+        formData.append('id', this.list.id)
+        const res = await getList(formData)
+        this.stock = res.data.result[0]
+      } catch (error) {
+        this.$toast("获取股票列表失败")
+      }
       this.date = this.list.date.slice(0,4) + '-' + this.list.date.slice(4,6) + '-' + this.list.date.slice(6,8)
     }
   }

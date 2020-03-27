@@ -21,7 +21,7 @@ export default {
       active: '',
       tabbars: [
         {
-          name: 'quotation',
+          name: '/',
           title: '行情',
           normal: require('./img/quotation.png'),
           active: require('./img/quotation-ac.png')
@@ -39,7 +39,7 @@ export default {
           active: require('./img/optional-ac.png')
         },
         {
-          name: '/',
+          name: 'capital',
           title: '资产',
           normal: require('./img/assets.png'),
           active: require('./img/assets-ac.png')

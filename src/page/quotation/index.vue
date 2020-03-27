@@ -6,16 +6,21 @@
       </div>
     </van-nav-bar>
     <div class="quotation-content">
-      <p @click="handleSort">全部<span></span></p>
-      <!-- <p>全部</p> -->
-      <p>
-        价格
-        <img src="@/assets/img/sort.png" alt />
-      </p>
-      <p>
-        涨跌幅
-        <img src="@/assets/img/sort.png" alt />
-      </p>
+      <van-row>
+        <van-col span="6" @click="handleAllSort">全部</van-col>
+        <van-col span="6" @click="handlePriceSort">
+          价格
+          <img src="@/assets/img/sort.png" alt />
+        </van-col>
+        <van-col span="6" @click="handleUpDownSort">
+          涨跌价
+          <img src="@/assets/img/sort.png" alt />
+        </van-col>
+        <van-col span="6" @click="handleUpDownRangeSort">
+          涨跌幅
+          <img src="@/assets/img/sort.png" alt />
+        </van-col>
+      </van-row>
     </div>
       <van-pull-refresh v-model="isLoading" @refresh="onRefresh">    
         <van-list>
@@ -25,22 +30,24 @@
             :key="index"
             @click="handleTranscation(item)"
           >
-            <div>
-              <p>{{ item.stock_name }}</p>
-              <p>
-                <span>{{ item.stock_code }}</span>
-              </p>
-            </div>
-            <div>
-              <p>{{ item.current_price }}</p>
-            </div>
-            <div>
-              <p>{{ item.rise_or_fall_rate }}</p>
-            </div>
+            <van-row>
+              <van-col span="6">
+                <p>{{ item.stock_name }}</p>
+                <p>{{ item.stock_code }}</p>
+              </van-col>
+              <van-col span="6" :style="{color: item.open === item.current_price? 'white': (item.open < item.current_price ? 'red' : 'green')}">
+                {{ item.current_price }}
+              </van-col>
+              <van-col span="6" :style="{color: item.open === item.current_price? 'white': (item.open < item.current_price ? 'red' : 'green')}">
+                {{ item.rise_or_fall }}
+              </van-col>
+              <van-col span="6" :style="{color: item.open === item.current_price? 'white': (item.open < item.current_price ? 'red' : 'green')}">
+                {{ item.rise_or_fall_rate }}
+              </van-col>
+            </van-row>
           </div>
         </van-list>
       </van-pull-refresh>
-
     <!-- 底部导航 -->
     <app-tabbar />
   </div>
@@ -48,6 +55,7 @@
 
 <script>
 import { getList } from "@/api/stock";
+
 export default {
   name: "QuotationIndex",
   data() {
@@ -55,7 +63,8 @@ export default {
       isLoading: false,
       loading: false,
       finished: false,
-      stock: []
+      stock: [],
+      riseRate:''
     };
   },
   /**
@@ -73,11 +82,47 @@ export default {
    * 方法
    */
   methods: {
-    // 排序********************
-    async handleSort () {
+    // 点击全部进行排序
+    async handleAllSort () {
       try {
         const formData = new FormData()
         formData.append('orderCondition', 'stock_code')
+        formData.append("orderStatus", 'desc')
+        const res = await getList(formData)
+        this.stock = res.data.result
+      } catch (error) {
+        this.$toast("排序操作失败")
+      }
+    },
+    // 点击价格排序
+    async handlePriceSort () {
+      try {
+        const formData = new FormData()
+        formData.append('orderCondition', 'current_price')
+        formData.append("orderStatus", 'desc')
+        const res = await getList(formData)
+        this.stock = res.data.result
+      } catch (error) {
+        this.$toast("排序操作失败")
+      }
+    },
+    // 点击涨跌排序
+    async handleUpDownSort () {
+      try {
+        const formData = new FormData()
+        formData.append('orderCondition', 'rise_or_fall')
+        formData.append("orderStatus", 'desc')
+        const res = await getList(formData)
+        this.stock = res.data.result
+      } catch (error) {
+        this.$toast("排序操作失败")
+      }
+    },
+    // 点击涨跌幅排序
+    async handleUpDownRangeSort () {
+      try {
+        const formData = new FormData()
+        formData.append('orderCondition', 'rise_or_fall_rate')
         formData.append("orderStatus", 'desc')
         const res = await getList(formData)
         this.stock = res.data.result
@@ -141,79 +186,52 @@ export default {
   padding: 0 15px;
   position: static;
   height: 48px;
-  display: flex;
-  align-items: center;
+  line-height: 48px;
   margin-top: 46px;
   font-size: 14px;
   font-family: PingFangSC;
   font-weight: 400;
-  color: rgba(255, 255, 255, 1);
-    p {
-      flex: 1;
-    }
-    p:nth-child(1) {
-      span {
-        display: inline-block;
-        margin-left: 3px;
-        margin-bottom: 2px;
-        width: 0;  
-        height: 0;  
-        border-top: 3px solid transparent;  
-        border-left: 6px solid rgba(255, 255, 255, 1);  
-        border-bottom: 3px solid transparent; 
-      }
-    }
-    p:nth-child(2) {
+  color: rgba(126, 130, 156, 1);
+  .van-row {
+    .van-col:nth-child(2) {
       text-align: center;
     }
-    p:nth-child(3) {
+    .van-col:nth-child(3) {
+      text-align: center;
+    }
+    .van-col:nth-child(4) {
       text-align: right;
     }
-  
+  }
 }
 .quotation-content-top {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 15px;
-  div:nth-child(1) {
-    p:nth-child(1) {
-      width: 64px;
-      height: 22px;
-      font-size: 16px;
-      font-family: PingFangSC-Medium, PingFangSC;
-      font-weight: 500;
-      color: rgba(255, 255, 255, 1);
-      line-height: 22px;
+  font-size: 16px;
+  color: rgba(255, 255, 255, 1);
+  padding: 0 15px;
+  height: 55px;
+  line-height: 55px;
+  border-top: 1px solid #14151C;
+  .van-row {
+    .van-col:nth-child(1) {
+      p:nth-child(1) {
+        height: 30px;
+        line-height: 30px;
+      }
+      p:nth-child(2) {
+        height: 17px;
+        line-height: 18px;
+        font-size: 12px;
+      }
     }
-    p:nth-child(2) {
-      height: 17px;
-      font-size: 12px;
-      font-family: PingFangSC-Medium, PingFangSC;
-      font-weight: 500;
-      color: rgba(255, 255, 255, 1);
-      line-height: 17px;
-      display: flex;
-      align-items: center;
-      padding-top: 4px;
+    .van-col:nth-child(2) {
+      text-align: center;
     }
-  }
-  div:nth-child(2) {
-    height: 21px;
-    font-size: 18px;
-    font-family: DINAlternate-Bold, DINAlternate;
-    font-weight: bold;
-    color: rgba(255, 255, 255, 1);
-    line-height: 21px;
-    margin-left: -16px;
-  }
-  div:nth-child(3) {
-    height: 25px;
-    font-size: 14px;
-    font-family: DINAlternate-Bold, DINAlternate;
-    font-weight: bold;
-    color: rgba(53, 192, 137, 1);
-    line-height: 16px;
+    .van-col:nth-child(3) {
+      text-align: center;
+    }
+    .van-col:nth-child(4) {
+      text-align: right;
+    }
   }
 }
 .quotation-content-foot {

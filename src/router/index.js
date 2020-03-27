@@ -19,7 +19,7 @@ const router = new Router({
 
     // 开户选择(默认首页展示)
     {
-      path: '/',
+      path: '/account',
       name: 'account',
       component: () => import('@/page/account')
     },
@@ -183,21 +183,21 @@ const router = new Router({
     // 行情（quotation）
     {
       name: 'quotation',
-      path: '/quotation',
+      path: '/',
       component: () => import('@/page/quotation')
     }
   ]
 })
 
-router.beforeEach((to, from, next) => {
-  // to and from are both route objects. must call `next`.
-  if (to.name === 'account') {
-    if (window.localStorage.getItem('sessionid')) {
-      router.replace('/capital')
-    }
-  }
-  next()
-})
+// router.beforeEach((to, from, next) => {
+//   // to and from are both route objects. must call `next`.
+//   if (to.name === 'capital') {
+//     if (window.localStorage.getItem('sessionid')) {
+//       router.replace('/login')
+//     }
+//   } 
+//   next()
+// })
 
 export default router
 

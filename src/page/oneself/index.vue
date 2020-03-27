@@ -1,5 +1,4 @@
 <template>
-  <!-- <div class="oneself" :value="value" @input="$emit('input', $event)"> -->
   <div class="oneself">
     <van-nav-bar title="股票" left-text="持仓" fixed @click-left="onClickLeft">
       <div slot="right">
@@ -7,51 +6,55 @@
       </div>
     </van-nav-bar>
     <div class="oneself-content">
-      <div class="oneself-content-title">
-        <p>
-          全部
-          <img src="@/assets/img/triangle.png" />
-        </p>
-        <p>
+      <van-row>
+        <van-col span="6">全部</van-col>
+        <van-col span="6">
           价格
-          <img src="@/assets/img/sort.png" />
-        </p>
-        <p>
+          <img src="@/assets/img/sort.png" alt />
+        </van-col>
+        <van-col span="6">
+          涨跌价
+          <img src="@/assets/img/sort.png" alt />
+        </van-col>
+        <van-col span="6">
           涨跌幅
-          <img src="@/assets/img/sort.png" />
-        </p>
-      </div>
-      <div class="nil"></div>
-      <!-- 下拉刷新 -->
-      <van-pull-refresh v-model="isLoading" @refresh="onRefresh">
-        <van-list :finished="finished" finished-text="没有更多了">
-          <!-- <van-swipe-cell v-for="(item, index) in stock" :key="index" :on-close="onClose"> -->
-          <van-swipe-cell v-for="(item, index) in stock" :key="index">
-            <div class="oneself-content-top" @click="handleTranscation(item)">
-              <div>
-                <p>{{ item.stock_name }}</p>
-                <p>
-                  <span>{{ item.stock_code }}</span>
-                </p>
-              </div>
-              <div>
-                <p>{{ item.current_price }}</p>
-              </div>
-              <div>
-                <p>{{ item.rise_or_fall_rate }}</p>
-              </div>
-            </div>
-            <template slot="right">
-              <van-button square type="danger" text="删除" @click="handleDelete(item)" />
-              <!-- <van-button square type="danger" text="删除"/> -->
-            </template>
-          </van-swipe-cell>
-        </van-list>
-      </van-pull-refresh>
+          <img src="@/assets/img/sort.png" alt />
+        </van-col>
+      </van-row>
     </div>
-    <div class="oneself-content-foot" @click="$router.push('/quotation')">
+    <!-- 下拉刷新 -->
+    <van-pull-refresh v-model="isLoading" @refresh="onRefresh">
+      <van-list :finished="finished" finished-text="没有更多了">
+        <van-swipe-cell v-for="(item, index) in stock" :key="index">
+          <div
+            class="oneself-content-top"
+            @click="handleTranscation(item)"
+          >
+            <van-row>
+              <van-col span="6">
+                <p>{{ item.stock_name }}</p>
+                <p>{{ item.stock_code }}</p>
+              </van-col>
+              <van-col span="6" :style="{color: item.open === item.current_price? 'white': (item.open > item.current_price ? 'red' : 'green')}">
+                {{ item.current_price }}
+              </van-col>
+              <van-col span="6" :style="{color: item.open === item.current_price? 'white': (item.open > item.current_price ? 'red' : 'green')}">
+                {{ item.rise_or_fall }}
+              </van-col>
+              <van-col span="6" :style="{color: item.open === item.current_price? 'white': (item.open > item.current_price ? 'red' : 'green')}">
+                {{ item.rise_or_fall_rate }}
+              </van-col>
+            </van-row>
+          </div>
+          <template slot="right">
+            <van-button square type="danger" text="删除" @click="handleDelete(item)" />
+          </template>
+        </van-swipe-cell>
+      </van-list>
+    </van-pull-refresh>
+    <div class="oneself-content-foot">
       <img src="@/assets/img/plus-small.png" alt />
-      <span>添加自选股</span>
+      <span @click="$router.push('/quotation')">添加自选股</span>
     </div>
     <!-- 底部导航 -->
     <app-tabbar />
@@ -161,89 +164,55 @@ export default {
     background-color: #20212a;
   }
 }
-.nil {
-  height: 85px;
-}
 .oneself-content {
   padding: 0 15px;
-  .oneself-content-title {
-    position: fixed;
-    width: 350px;
-    left: 12px;
-    background-color: #20212a;
-    z-index: 1000;
-    display: flex;
-    margin-top: 46px;
-    justify-content: space-between;
-    height: 20px;
-    font-size: 14px;
-    font-family: PingFangSC;
-    font-weight: 400;
-    color: rgba(255, 255, 255, 1);
-    line-height: 20px;
-    padding: 13px 0;
-    line-height: 20px;
-    padding-top: 13px;
-    p:nth-child(2) {
-      margin-left: 18px;
+  position: static;
+  height: 48px;
+  line-height: 48px;
+  margin-top: 46px;
+  font-size: 14px;
+  font-family: PingFangSC;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 1);
+  .van-row {
+    .van-col:nth-child(2) {
+      text-align: center;
+    }
+    .van-col:nth-child(3) {
+      text-align: center;
+    }
+    .van-col:nth-child(4) {
+      text-align: right;
     }
   }
-  .oneself-content-top {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 0;
-    div:nth-child(1) {
+}
+.oneself-content-top {
+  font-size: 16px;
+  color: rgba(255, 255, 255, 1);
+  padding: 0 15px;
+  height: 55px;
+  line-height: 55px;
+  border-top: 1px solid #14151C;
+  .van-row {
+    .van-col:nth-child(1) {
       p:nth-child(1) {
-        width: 64px;
-        height: 22px;
-        font-size: 16px;
-        font-family: PingFangSC-Medium, PingFangSC;
-        font-weight: 500;
-        color: rgba(255, 255, 255, 1);
-        line-height: 22px;
+        height: 30px;
+        line-height: 30px;
       }
       p:nth-child(2) {
         height: 17px;
+        line-height: 18px;
         font-size: 12px;
-        font-family: PingFangSC-Medium, PingFangSC;
-        font-weight: 500;
-        color: rgba(255, 255, 255, 1);
-        line-height: 17px;
-        display: flex;
-        align-items: center;
-        padding-top: 4px;
-        .oneself-color {
-          background: rgba(251, 77, 79, 1);
-          border-radius: 2px;
-          font-size: 12px;
-          -webkit-transform: scale(0.6);
-          font-family: PingFangSC-Regular, PingFangSC;
-          font-weight: 400;
-          color: rgba(255, 255, 255, 1);
-          margin-left: -7px;
-          display: inline-block;
-          width: 20px;
-          text-align: center;
-        }
       }
     }
-    div:nth-child(2) {
-      height: 21px;
-      font-size: 18px;
-      font-family: DINAlternate-Bold, DINAlternate;
-      font-weight: bold;
-      color: rgba(255, 255, 255, 1);
-      line-height: 21px;
-      margin-left: -16px;
+    .van-col:nth-child(2) {
+      text-align: center;
     }
-    div:nth-child(3) {
-      height: 25px;
-      font-size: 14px;
-      font-family: DINAlternate-Bold, DINAlternate;
-      font-weight: bold;
-      color: rgba(53, 192, 137, 1);
-      line-height: 16px;
+    .van-col:nth-child(3) {
+      text-align: center;
+    }
+    .van-col:nth-child(4) {
+      text-align: right;
     }
   }
 }

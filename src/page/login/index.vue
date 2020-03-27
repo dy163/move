@@ -1,7 +1,7 @@
 <template>
   <div class="login">
     <!-- 头部 -->
-    <van-nav-bar @click-left="$router.back()">
+    <van-nav-bar @click-left="$router.go(-1)">
       <van-icon name="arrow-left" slot="left" />
     </van-nav-bar>
     <form>
@@ -49,9 +49,8 @@ export default {
   data() {
     return {
       userInfo:{},
-      // account: "18636235298",
-      account: "000000000001",
-      password: "123456"
+      account: "",
+      password: ""
     };
   },
   created() {
