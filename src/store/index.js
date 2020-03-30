@@ -8,7 +8,7 @@ export default new Vuex.Store({
     // ID_card_number: window.localStorage.getItem('ID_card_number'),
     // edu_bg: window.localStorage.getItem('edu_bg'),
     header_img: window.localStorage.getItem('header_img'),
-    // intro: window.localStorage.getItem('intro'),
+    intro: window.localStorage.getItem('intro'),
     // last_login_time: window.localStorage.getItem('last_login_time'),
     // login_number: window.localStorage.getItem('login_number'),
     phone: window.localStorage.getItem('phone'),
@@ -30,10 +30,10 @@ export default new Vuex.Store({
       state.header_img = header_img
       window.localStorage.setItem('header_img', state.header_img)
     },
-    // setClickIntro(state,intro) {
-    //   state.intro = intro
-    //   window.localStorage.setItem('intro', state.intro)
-    // },
+    setClickIntro(state,intro) {
+      state.intro = intro
+      window.localStorage.setItem('intro', state.intro)
+    },
     // setClickTime(state,last_login_time) {
     //   state.last_login_time = last_login_time
     //   window.localStorage.setItem('last_login_time', state.last_login_time)

@@ -87,7 +87,7 @@ export default {
           // this.$store.commit('setClickCard', data.data.result.ID_card_number)
           // this.$store.commit('setClickEdu', data.data.result.edu_bg)
           this.$store.commit('setClickImg', data.data.result.header_img)
-          // this.$store.commit('setClickIntro', data.data.result.intro)
+          this.$store.commit('setClickIntro', data.data.result.intro)
           // this.$store.commit('setClickTime', data.data.result.last_login_time)
           // this.$store.commit('setClickNumber', data.data.result.login_number)
           this.$store.commit('setClickPhone', data.data.result.phone)

@@ -1,46 +1,46 @@
 <template>
   <div class="personal">
-    <van-nav-bar title="我 的" @click-right="$router.push('/install')">
+    <van-nav-bar title="我 的" @click-right="handleRouterRight">
       <van-icon name="setting-o" slot="right" color="#fff" size="18px" />
     </van-nav-bar>
     <!-- 个人简介 -->
     <div class="personal-name">
-        <img :src="headerPortrait" />
-      <div @click="$router.push('/letter')">
-        <p>{{ name }}</p>
+        <img :src="headerPortrait" @click="handleRouterImg"/>
+      <div>
+        <p>{{ userName }}</p>
         <p>{{ brief }}</p>
       </div>
       <van-icon 
       name="arrow" 
       color="#707177" 
-      @click="$router.push('/letter')" />
+      @click="handleRouterLetter" />
     </div>
     <!-- 盒子 -->
     <div class="personal-box">
       <!-- 资金账户 -->
       <div>
         <img src="@/assets/img/account.png"/>
-        <router-link to="/capital">资金账户</router-link>
+        <p @click="handleRouterCapital">资金账户</p>
       </div>
       <!-- 成交查询 -->
       <div>
         <img src="@/assets/img/deal.png"/>
-        <router-link to="/inquire">成交查询</router-link>
+        <p @click="handleRouterInquire">成交查询</p>
       </div>
       <!-- 委托查询 -->
       <div>
         <img src="@/assets/img/entrust.png"/>
-        <router-link to="/entrust">委托查询</router-link>
+        <p @click="handleRouterEntrust">委托查询</p>
       </div>
       <!-- 交割单查询 -->
       <div>
         <img src="@/assets/img/delivery.png"/>
-        <router-link to="/delivery">交割单查询</router-link>
+        <p @click="handleRouterDelivery">交割单查询</p>
       </div>
       <!-- 流水查询 -->
       <div>
         <img src="@/assets/img/flowing-water.png"/>
-        <router-link to="/flowing-water">流水查询</router-link>
+        <p @click="handleRouterFlowingWater">流水查询</p>
       </div>
     </div>
     <!-- 底部导航 -->
@@ -56,24 +56,104 @@ export default {
   name: "PersonalIndex",
   data() {
     return {
-      name: '',
+      userName: '',
       headerPortrait: '',
       Header,
-      brief: '暂无个人简介'
+      brief: '暂无个人简介',
+      lodingText: '未登录',
+      sessionid: ''
     };
   },
   created() {
-    const herderImg = window.localStorage.getItem('header_img')
-    if(herderImg) {
-      this.headerPortrait = http + herderImg
-    } else {
-      this.headerPortrait = this.Header
-    }
-    this.name = window.localStorage.getItem('username')
-    this.brief = localStorage.getItem('intro')
+    this.handleDetails()
+    this.sessionid = window.localStorage.getItem('sessionid')
   },
   methods: {
-    
+    // 用户信息的跟新
+    handleDetails () {
+      const herderImg = window.localStorage.getItem('header_img')
+      const headerName = window.localStorage.getItem('username')
+      const headerIntro = window.localStorage.getItem('intro')
+      if(herderImg) {
+        this.headerPortrait = http + herderImg
+      } else {
+        this.headerPortrait = this.Header
+      }
+      if(headerName) {
+        this.userName = headerName
+      } else {
+        this.userName = this.lodingText
+      }
+      if(headerIntro) {
+        this.brief = headerIntro
+      } else {
+        this.brief = '没有个人简介'
+      }
+    },
+    // 图片的跳转登录页
+    handleRouterImg () {
+      if(this.sessionid) {
+        return
+      } else {
+        this.$router.push('/login')
+      }
+    },
+    // 点击图标跳转
+    handleRouterLetter () {
+      if(this.sessionid) {
+        this.$router.push('/letter')
+      } else {
+        return
+      }
+    },
+    // 点击设置跳转权限
+    handleRouterRight () {
+      if(this.sessionid) {
+        this.$router.push('/install')
+      } else {
+        return
+      }
+    },
+    // 资金
+    handleRouterCapital () {
+      if(this.sessionid) {
+        this.$router.push('/capital')
+      } else {
+        this.$router.push('/login')
+      }
+    },
+    // 成交
+    handleRouterInquire () {
+      if(this.sessionid) {
+        this.$router.push('/inquire')
+      } else {
+        this.$router.push('/login')
+      }
+    },
+    // 委托
+    handleRouterEntrust () {
+      if(this.sessionid) {
+        this.$router.push('/entrust')
+      } else {
+        this.$router.push('/login')
+      }
+    },
+    // 交割
+    handleRouterDelivery () {
+      if(this.sessionid) {
+        this.$router.push('/delivery')
+      } else {
+        this.$router.push('/login')
+      }
+    },
+    // 流水
+    handleRouterFlowingWater () {
+      if(this.sessionid) {
+        this.$router.push('/flowing-water')
+      } else {
+        this.$router.push('/login')
+      }
+    }
   }
 };
 </script>
@@ -131,12 +211,13 @@ export default {
     font-size: 14px;
     font-family: PingFangSC;
     font-weight: 500;
+    color: #fff;
     img {
       padding-right: 15px;
     }
-    a {
-      color: #fff;
-    }
+    // a {
+    //   color: #fff;
+    // }
   }
 }
 .van-hairline--top-bottom {

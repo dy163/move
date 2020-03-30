@@ -193,10 +193,15 @@ const router = new Router({
 //   // to and from are both route objects. must call `next`.
 //   if (to.name === 'capital') {
 //     if (window.localStorage.getItem('sessionid')) {
-//       router.replace('/login')
+//       // router.replace('/capital')
+//       next({path:'/capital'})
+//     } else {
+//       // this.$router.push('/login')
+//       next({path:'/login'})
 //     }
-//   } 
-//   next()
+//   } else {
+//     next()
+//   }
 // })
 
 export default router

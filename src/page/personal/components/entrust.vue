@@ -31,34 +31,6 @@
       </div>
       <!-- 每日查询 -->
       <EntrustDay v-if="showDay" />
-      <!-- <div class="entrust-list">
-        <van-list
-          v-model="loading" 
-          :finished="upFinished" 
-          finished-text="没有更多了" 
-          @load="onLoadDay" 
-          :offset="10"
-        >
-          <van-row v-for="item in listDay" :key="item.id">
-            <van-col span="4">
-                <p>{{ item.stock_name }}</p>
-                <p class="entrust-small">{{ item.stock_code }}</p>
-            </van-col>
-            <van-col span="10">
-              <div>
-                <img :src="item.buy_or_sell === '卖出'? Sell : Bill" >
-                <p>{{ item.entrust_price }}</p>
-              </div>
-              <p class="entrust-small">{{ item.time }}</p>
-            </van-col>
-            <van-col span="7">
-              <p>{{ item.entrust_quantity }}</p>
-              <p class="entrust-small">{{ item.bargain_quantity }}</p>
-            </van-col>
-            <van-col span="3" class="van-row-right">{{ item.status }}</van-col>
-          </van-row>
-        </van-list>
-      </div>-->
       <!-- 一周委托 -->
       <EntrustWeek v-if="showWeek" />
       <!-- 一月委托 -->
@@ -124,7 +96,7 @@
     </div>
   </div>
 </template>
- 
+
 <script>
 import Sell from "@/assets/sell.png"; // 卖
 import Bill from "@/assets/bill.png"; // 买

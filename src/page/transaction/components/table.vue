@@ -111,10 +111,10 @@ export default {
   created() {
     this.timer = window.setInterval(() => {
         setTimeout(()=> {
-          this.handleGetShow();
-          // this.$nextTick(() => {
-          //   this.handleGetShow();
-          // });
+          // this.handleGetShow();
+          this.$nextTick(() => {
+            this.handleGetShow();
+          });
         }, 0)
     }, 1000)
   },
