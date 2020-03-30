@@ -6,7 +6,6 @@
     <!-- 个人简介 -->
     <div class="personal-name">
         <img :src="headerPortrait" />
-        <!-- <img src="@/assets/img/portrait.png" alt=""> -->
       <div @click="$router.push('/letter')">
         <p>{{ name }}</p>
         <p>{{ brief }}</p>
@@ -50,8 +49,7 @@
 </template>
 
 <script>
-
-// const http = "http://192.168.3.79:8080"
+import Header from "@/assets/img/herder.png"; 
 const http = "http://bourse.yidonghuayuan.com"
 
 export default {
@@ -59,12 +57,18 @@ export default {
   data() {
     return {
       name: '',
-      headerPortrait: require('@/assets/img/portrait.png'),
+      headerPortrait: '',
+      Header,
       brief: '暂无个人简介'
     };
   },
   created() {
-    this.headerPortrait =http + window.localStorage.getItem('header_img')
+    const herderImg = window.localStorage.getItem('header_img')
+    if(herderImg) {
+      this.headerPortrait = http + herderImg
+    } else {
+      this.headerPortrait = this.Header
+    }
     this.name = window.localStorage.getItem('username')
     this.brief = localStorage.getItem('intro')
   },

@@ -31,7 +31,7 @@
       </div>
     </div>
     <div class="login-btn-box">
-      <van-button class="login-btn" to="/login" round>立即开户</van-button>
+      <van-button class="login-btn" to="/sign/register" round>立即开户</van-button>
     </div>
   </div>
 </template>

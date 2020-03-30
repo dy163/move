@@ -36,8 +36,7 @@
         <router-link to="/sign/resetting" class="color-white">忘记密码</router-link>
       </div>
       <div class="register-fouter">
-        <!-- <router-link to="/sign/register" class="color-sapphire">没有账号？立即注册</router-link> -->
-        <router-link to="/" class="color-sapphire">没有账号？立即注册</router-link>
+        <router-link to="/account" class="color-sapphire">没有账号？立即注册</router-link>
       </div>
     </form>
   </div>
@@ -49,8 +48,8 @@ export default {
   data() {
     return {
       userInfo:{},
-      account: "",
-      password: ""
+      account: "000000000001",
+      password: "123456"
     };
   },
   created() {

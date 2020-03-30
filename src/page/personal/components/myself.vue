@@ -15,8 +15,6 @@
           result-type="text"
         >
         <img :src="headerPortrait" />
-        <!-- <img src="@/assets/img/portrait.png" alt=""> -->
-        <!-- <img src="@/assets/小哥.jpg" alt /> -->
         </van-uploader>
         <van-icon name="arrow" />
       </div>
@@ -63,7 +61,7 @@
 
 <script>
 import { uploadImg, updateHeaderImg, updateIntro } from "@/api/user";
-// const http = "http://192.168.3.79:8080"
+import Header from "@/assets/img/herder.png"; 
 const http = "http://bourse.yidonghuayuan.com"
 
 export default {
@@ -72,6 +70,7 @@ export default {
     return {
       show: false,
       name:'',
+      Header,
       headerPortrait: '',
       txtVal: 0,
       desc:"",
@@ -80,9 +79,13 @@ export default {
   },
   // 提前加载
   created() {
+    const herderImg = window.localStorage.getItem('header_img')
+    if(herderImg) {
+      this.headerPortrait = http + herderImg
+    } else {
+      this.headerPortrait = this.Header
+    }
     this.name = window.localStorage.getItem('username')
-    const portrait = window.localStorage.getItem('header_img')
-    this.headerPortrait = http + portrait;
     this.brief = localStorage.getItem('intro')
   },
 

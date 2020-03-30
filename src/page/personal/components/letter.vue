@@ -11,8 +11,6 @@
         </div>
         <div class="letter-content">
           <img :src="headerPortrait" />
-          <!-- <img src="@/assets/img/portrait.png" alt=""> -->
-          <!-- <img src="@/assets/小哥.jpg" alt=""> -->
           <p>{{ name }}</p>
         </div>
         <div class="letter-dynamic">
@@ -23,7 +21,7 @@
 </template>
 
 <script>
-// const http = "http://192.168.3.79:8080"
+import Header from "@/assets/img/herder.png"; 
 const http = "http://bourse.yidonghuayuan.com"
 
 export default {
@@ -31,11 +29,17 @@ export default {
   data () {
     return {
       name: '',
+      Header,
       headerPortrait: ''
     }
   },
   created() {
-    this.headerPortrait =http + window.localStorage.getItem('header_img')
+    const herderImg = window.localStorage.getItem('header_img')
+    if(herderImg) {
+      this.headerPortrait = http + herderImg
+    } else {
+      this.headerPortrait = this.Header
+    }
     this.name = window.localStorage.getItem('username')
   },
 }
