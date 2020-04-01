@@ -142,6 +142,7 @@ export default {
         const res = await mySelectStockGetList(formData);
         if (res.data.result === 401) {
           this.$toast("请登录获取自选数据");
+          window.localStorage.clear();
         } else {
           this.stock = res.data.result;
         }

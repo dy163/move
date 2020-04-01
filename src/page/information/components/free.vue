@@ -60,7 +60,12 @@ export default {
       try {
         const formData = new FormData();
         const res = await noteGetMySelect(formData);
-        this.pushList = res.data.result
+        if(res.data.login === null) {
+          window.localStorage.clear()
+        } else {
+          this.pushList = res.data.result
+        }
+        
       } catch (error) {
         this.$toast('加载自选列表失败')
       }
