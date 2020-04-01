@@ -95,6 +95,7 @@ export default {
       if(this.sessionid) {
         return
       } else {
+        window.localStorage.clear()
         this.$router.push('/login')
       }
     },
@@ -103,7 +104,8 @@ export default {
       if(this.sessionid) {
         this.$router.push('/letter')
       } else {
-        return
+        window.localStorage.clear()
+        this.$router.push('/login')
       }
     },
     // 点击设置跳转权限
@@ -111,7 +113,8 @@ export default {
       if(this.sessionid) {
         this.$router.push('/install')
       } else {
-        return
+        window.localStorage.clear()
+        this.$router.push('/login')
       }
     },
     // 资金
@@ -119,6 +122,7 @@ export default {
       if(this.sessionid) {
         this.$router.push('/capital')
       } else {
+        window.localStorage.clear()
         this.$router.push('/login')
       }
     },
@@ -127,6 +131,7 @@ export default {
       if(this.sessionid) {
         this.$router.push('/inquire')
       } else {
+        window.localStorage.clear()
         this.$router.push('/login')
       }
     },
@@ -135,6 +140,7 @@ export default {
       if(this.sessionid) {
         this.$router.push('/entrust')
       } else {
+        window.localStorage.clear()
         this.$router.push('/login')
       }
     },
@@ -143,6 +149,7 @@ export default {
       if(this.sessionid) {
         this.$router.push('/delivery')
       } else {
+        window.localStorage.clear()
         this.$router.push('/login')
       }
     },
@@ -151,6 +158,7 @@ export default {
       if(this.sessionid) {
         this.$router.push('/flowing-water')
       } else {
+        window.localStorage.clear()
         this.$router.push('/login')
       }
     }

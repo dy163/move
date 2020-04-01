@@ -45,7 +45,7 @@ export default {
             const formData = new FormData();
             formData.append("stock_code", this.list.stock_code);
             const res = await noteGetMore(formData);
-            this.freemore = res.data.result
+            this.freemore = res.data.result.list
         } catch (error) {
             this.$toast('加载自选更多列表失败')
         }

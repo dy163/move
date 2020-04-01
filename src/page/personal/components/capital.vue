@@ -205,7 +205,7 @@ export default {
         const formData = new FormData();
         const res = await accountGetAccount(formData);
         if (res.data.result === 401) {
-          return
+          window.localStorage.clear()
         } else {
           this.account = res.data.result;
         }
@@ -221,7 +221,7 @@ export default {
         const formData = new FormData();
         const res = await myBuyStockGetList(formData);
         if (res.data.result === 401) {
-          return
+          window.localStorage.clear()
         } else {
           this.shares = res.data.result;
         }

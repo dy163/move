@@ -198,7 +198,12 @@ export default {
         const formData = new FormData()
         formData.append('stock_code', JSON.parse(this.$route.query.q).stock_code)
         const res = await entrustGetSellInfo(formData)
-        this.sellInfo = res.data.result
+        if(res.data.result === 401) {
+          window.localStorage.clear()
+        } else {
+          this.sellInfo = res.data.result
+        }
+        
       } catch (error) {
         this.$toast("获取买入信息失败")
       }

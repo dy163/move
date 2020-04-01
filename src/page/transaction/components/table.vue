@@ -129,7 +129,7 @@ export default {
       this.list = JSON.parse(this.$route.query.q)
       try {
         const formData = new FormData()
-        formData.append('id', this.list.id)
+        formData.append('stock_code', this.list.stock_code)
         const res = await getList(formData)
         this.stock = res.data.result[0]
       } catch (error) {
