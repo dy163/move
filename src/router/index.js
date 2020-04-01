@@ -196,6 +196,7 @@ router.beforeEach((to, from, next) => {
     if (window.localStorage.getItem('sessionid')) {
       next()
     } else {
+      window.localStorage.clear()
       if(to.path === '/login'){
         next();
       } else {
