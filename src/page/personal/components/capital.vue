@@ -204,12 +204,8 @@ export default {
       try {
         const formData = new FormData();
         const res = await accountGetAccount(formData);
-        if (res.data.result === null) {
-          this.$toast("账户信息为空");
-        } else if (res.data.login === false) {
-          window.localStorage.removeItem("sessionid");
-          this.$toast("用户未登录，请重新登录");
-          this.$router.push("/login");
+        if (res.data.result === 401) {
+          return
         } else {
           this.account = res.data.result;
         }
@@ -224,11 +220,8 @@ export default {
       try {
         const formData = new FormData();
         const res = await myBuyStockGetList(formData);
-        if (res.data.result === null) {
-          this.$toast("持仓数据为空");
-        } else if (res.data.login === false) {
-          window.localStorage.removeItem("sessionid");
-          this.$toast("用户未登录，请重新登录");
+        if (res.data.result === 401) {
+          return
         } else {
           this.shares = res.data.result;
         }

@@ -39,22 +39,29 @@ export default {
   },
   methods: {
     // 退出登录
-    async handleClickExit() {
-      try {
-        const res = await exit();
-        if (res.data.status) {
-          window.localStorage.clear();
-          window.sessionStorage.clear();
-          this.$toast("退出成功");
-          window.setInterval(() => {
-            this.$router.push("/login");
-          }, 1500);
-        } else {
-          return;
-        }
-      } catch (error) {
-        console.log(error);
-      }
+    handleClickExit() {
+      this.$dialog
+        .confirm({
+          title: "确定退出吗？"
+        })
+        .then(async () => {
+          try {
+            // on confirm
+            const res = await exit();
+            if (res.data.status) {
+              window.localStorage.clear();
+              this.$toast("退出成功");
+              window.setInterval(() => {
+                this.$router.push("/login");
+              }, 1500);
+            } 
+          } catch (error) {
+            this.$toast("退出失败");
+          }
+        })
+        .catch(() => {
+          // on cancel
+        });
     }
   }
 };

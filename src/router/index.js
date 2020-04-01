@@ -97,6 +97,7 @@ const router = new Router({
     {
       name: 'capital',
       path: '/capital',
+      meta: {require:true},
       component: () => import('@/page/personal/components/capital')
     },
     // 入金
@@ -189,20 +190,23 @@ const router = new Router({
   ]
 })
 
-// router.beforeEach((to, from, next) => {
-//   // to and from are both route objects. must call `next`.
-//   if (to.name === 'capital') {
-//     if (window.localStorage.getItem('sessionid')) {
-//       // router.replace('/capital')
-//       next({path:'/capital'})
-//     } else {
-//       // this.$router.push('/login')
-//       next({path:'/login'})
-//     }
-//   } else {
-//     next()
-//   }
-// })
+router.beforeEach((to, from, next) => {
+  // to and from are both route objects. must call `next`.
+  if (to.meta.require) {
+    if (window.localStorage.getItem('sessionid')) {
+      next()
+    } else {
+      if(to.path === '/login'){
+        next();
+      } else {
+        next({
+          path:'/login'
+        })
+      }
+    }
+  } 
+  next()
+})
 
 export default router
 

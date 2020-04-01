@@ -26,24 +26,24 @@
     <van-pull-refresh v-model="isLoading" @refresh="onRefresh">
       <van-list :finished="finished" finished-text="没有更多了">
         <van-swipe-cell v-for="(item, index) in stock" :key="index">
-          <div
-            class="oneself-content-top"
-            @click="handleTranscation(item)"
-          >
+          <div class="oneself-content-top" @click="handleTranscation(item)">
             <van-row>
               <van-col span="6">
                 <p>{{ item.stock_name }}</p>
                 <p>{{ item.stock_code }}</p>
               </van-col>
-              <van-col span="6" :style="{color: item.open === item.current_price? 'white': (item.open > item.current_price ? 'red' : 'green')}">
-                {{ item.current_price }}
-              </van-col>
-              <van-col span="6" :style="{color: item.open === item.current_price? 'white': (item.open > item.current_price ? 'red' : 'green')}">
-                {{ item.rise_or_fall }}
-              </van-col>
-              <van-col span="6" :style="{color: item.open === item.current_price? 'white': (item.open > item.current_price ? 'red' : 'green')}">
-                {{ item.rise_or_fall_rate }}
-              </van-col>
+              <van-col
+                span="6"
+                :style="{color: item.open === item.current_price? 'white': (item.open > item.current_price ? 'red' : 'green')}"
+              >{{ item.current_price }}</van-col>
+              <van-col
+                span="6"
+                :style="{color: item.open === item.current_price? 'white': (item.open > item.current_price ? 'red' : 'green')}"
+              >{{ item.rise_or_fall }}</van-col>
+              <van-col
+                span="6"
+                :style="{color: item.open === item.current_price? 'white': (item.open > item.current_price ? 'red' : 'green')}"
+              >{{ item.rise_or_fall_rate }}</van-col>
             </van-row>
           </div>
           <template slot="right">
@@ -104,12 +104,15 @@ export default {
      * 展示详情
      */
     handleTranscation(q) {
-      this.$router.push({ path: "/transaction", query: { q: JSON.stringify(q) } });
+      this.$router.push({
+        path: "/transaction",
+        query: { q: JSON.stringify(q) }
+      });
     },
     /**
      * 删除自选股
      */
-    async handleDelete(q) {
+    handleDelete(q) {
       this.$dialog
         .confirm({
           title: "确定删除吗？"
@@ -123,7 +126,7 @@ export default {
             // 重新获取数据
             this.loadStock();
           } catch (error) {
-            this.$toast("清空失败");
+            this.$toast("删除失败");
           }
         })
         .catch(() => {
@@ -137,9 +140,10 @@ export default {
       try {
         const formData = new FormData();
         const res = await mySelectStockGetList(formData);
-        this.stock = res.data.result;
-        if (!res.data.status) {
+        if (res.data.result === 401) {
           this.$toast("请登录获取自选数据");
+        } else {
+          this.stock = res.data.result;
         }
       } catch (error) {
         this.$toast("失败操作");
@@ -192,7 +196,7 @@ export default {
   padding: 0 15px;
   height: 55px;
   line-height: 55px;
-  border-top: 1px solid #14151C;
+  border-top: 1px solid #14151c;
   .van-row {
     .van-col:nth-child(1) {
       p:nth-child(1) {

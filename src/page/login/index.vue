@@ -1,7 +1,7 @@
 <template>
   <div class="login">
     <!-- 头部 -->
-    <van-nav-bar @click-left="$router.go(-1)">
+    <van-nav-bar @click-left="$router.back()">
       <van-icon name="arrow-left" slot="left" />
     </van-nav-bar>
     <form>
