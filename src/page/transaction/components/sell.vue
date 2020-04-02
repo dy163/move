@@ -8,7 +8,7 @@
     >
       <div class="purchase-content">
         <div class="purchase-latest">
-          <img src="@/assets/img/close.png" @click="handleClickCancel" />
+          <van-icon name="cross" @click="handleClickCancel"/>
         </div>
         <form>
           <!-- 自定义输入 -->
@@ -54,9 +54,7 @@
             <van-row>
               <van-col span="3">手续费</van-col>
               <van-col span="2">
-                <div>
-                  <img src="@/assets/img/mark.png" alt />
-                </div>
+                <van-icon name="warning-o" />
               </van-col>
               <van-col span="7"><span>约¥</span><span>{{ serviceFee }}</span></van-col>
               <van-col span="4">订单金额</van-col>
@@ -99,12 +97,9 @@ export default {
   },
   data () {
     return {
-      num: '',
-      radio: '2',   // 单选框定义
       shows: false,  // 确定卖出的遮罩层
       amount: 100,  // 数量
       price: 0,    // 价格
-      recordSell: [],  // 路由导航存放数据
       sellInfo:[],   // 存放参数
       limitUp: '',
       limitDown: '',
@@ -113,11 +108,6 @@ export default {
       actualAmount: ''    // 实际金额
     }
   },
-  // computed: {
-  //   shouPrice () {
-
-  //   }
-  // },
   created() {
     this.handleUpDown();
     this.handleGetSellInfo()
@@ -251,12 +241,9 @@ export default {
     background: rgba(54, 55, 64, 1);
     .purchase-latest {
       height: 36px;
+      line-height: 36px;
       padding: 0 15px;
       text-align: right;
-      img {
-        width: 18px;
-        height: 16px;
-      }
     }
     form {
       padding: 0 15px;
@@ -338,17 +325,10 @@ export default {
         padding-top: 15px;
         font-size: 12px;
         /deep/.van-row {
+          height: 13px;
+          line-height: 13px;
           .van-col--2 {
             text-align: center;
-            div{
-              height: 12px;
-              line-height: 12px;
-              img {
-                width: 12px;
-                height: 12px;
-                vertical-align: middle;
-              }
-            }
           } 
         }
       }

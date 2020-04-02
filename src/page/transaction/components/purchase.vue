@@ -8,7 +8,7 @@
     >
       <div class="purchase-content">
         <div class="purchase-latest">
-          <img src="@/assets/img/close.png" @click="handleClickCancel" />
+          <van-icon name="cross" @click="handleClickCancel"/>
         </div>
         <form>
           <!-- 自定义输入 -->
@@ -53,9 +53,7 @@
             <van-row>
               <van-col span="3">手续费</van-col>
               <van-col span="2">
-                <div>
-                  <img src="@/assets/img/mark.png" alt />
-                </div>
+                <van-icon name="warning-o" />
               </van-col>
               <van-col span="7"><span>约¥</span><span>{{ serviceFee }}</span></van-col>
               <van-col span="4">订单金额</van-col>
@@ -98,18 +96,15 @@ export default {
   },
   data () {
     return {
-      radio: '2',  // 盘前盘后交易控制单选框
       shows: false,   // 确定买入遮罩层的展示
-      amount: 0,  // 数量
+      amount: 100,  // 数量
       price: 0,   // 价格
-      // record: []
       buyInfo:[],   // 存放参数
       limitUp: '',
       limitDown: '',
       serviceFee: '',   // 手续费
       orderAmount: '',    // 订单金额
       actualAmount: '',    // 实际金额
-      // orderMonay: ''
     }
   },
   created() {
@@ -244,10 +239,7 @@ export default {
       height: 36px;
       padding: 0 15px;
       text-align: right;
-      img {
-        width: 18px;
-        height: 16px;
-      }
+      line-height: 36px;
     }
     form {
       padding: 0 16px;
@@ -328,17 +320,10 @@ export default {
         padding-top: 15px;
         font-size: 12px;
         /deep/.van-row {
+          height: 13px;
+          line-height: 13px;
           .van-col--2 {
             text-align: center;
-            div{
-              height: 12px;
-              line-height: 12px;
-              img {
-                width: 12px;
-                height: 12px;
-                vertical-align: middle;
-              }
-            }
           } 
         }
       }
