@@ -6,6 +6,7 @@ import store from './store'
 import Vant from 'vant'
 import 'vant/lib/index.css'
 import '@/styles/index.css'
+import { Lazyload } from 'vant';
 
 // 第三方包设置字体大小
 import 'amfe-flexible'
@@ -22,6 +23,8 @@ VueRouter.prototype.push = function push (location) {
 Vue.component('app-tabbar', AppTabbar)
 
 Vue.use(Vant)
+
+Vue.use(Lazyload);
 
 // 封装一个全局的定时器----⬇
 Vue.prototype.$sleep = time => {

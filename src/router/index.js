@@ -19,7 +19,7 @@ const router = new Router({
 
     // 开户选择(默认首页展示)
     {
-      path: '/account',
+      path: '/',
       name: 'account',
       component: () => import('@/page/account')
     },
@@ -184,7 +184,7 @@ const router = new Router({
     // 行情（quotation）
     {
       name: 'quotation',
-      path: '/',
+      path: '/quotation',
       component: () => import('@/page/quotation')
     }
   ]

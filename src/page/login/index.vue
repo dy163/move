@@ -36,7 +36,7 @@
         <router-link to="/sign/resetting" class="color-white">忘记密码</router-link>
       </div>
       <div class="register-fouter">
-        <router-link to="/account" class="color-sapphire">没有账号？立即注册</router-link>
+        <router-link to="/sign/account" class="color-sapphire">没有账号？立即注册</router-link>
       </div>
     </form>
   </div>

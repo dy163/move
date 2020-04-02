@@ -28,6 +28,8 @@
     <BankCardAdd v-if="this.$route.params.type === 'bank-card-add'" />
     <!-- 我的银行卡添加页面bank-card -->
     <BankCard v-if="this.$route.params.type === 'bank-card'" />
+    <!-- 注册页面 -->
+    <Account v-if="this.$route.params.type === 'account'"/>
   </div>
 </template>
 
@@ -46,6 +48,7 @@ import YieldCard from "./components/yield-card";
 import BankCardInformation from "./components/bank-card-information";
 import BankCardAdd from "./components/bank-card-add";
 import BankCard from "./components/bank-card";
+import Account from "./components/account";
 
 export default {
   name: "sign",
@@ -63,9 +66,11 @@ export default {
     YieldCard,
     BankCardInformation,
     BankCardAdd,
-    BankCard
+    BankCard,
+    Account
   }
 };
 </script>
+
 <style lang='less' scoped>
 </style>
