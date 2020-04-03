@@ -86,24 +86,16 @@ export default {
     }
   },
   created() {
-    this.timer = window.setInterval(() => {
+    this.timer = window.setTimeout(() => {
       this.showes = false
       this.show = true
-    }, 800)
-    this.time = setTimeout(()=> {
+    }, 1000)
+    this.time = window.setTimeout(()=> {
       this.$router.push('/quotation')
-    }, 5000)
-  },
-  beforeDestroy() {
-    if(this.timer) { 
-        clearInterval(this.timer); 
-    } 
-    if(this.time) {
-      clearInterval(this.time);
-    }
+    }, 7500)
   },
   methods: {
-    
+
   },
 }
 
